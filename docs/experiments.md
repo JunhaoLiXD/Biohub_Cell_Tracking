@@ -31,7 +31,8 @@ MSE) does not directly reflect tracking quality.
 
 ## v0 — Classical baseline (peak detection + NN linking)
 
-**Notebooks:** `src/v0_baseline.ipynb` (dev), `src/v0_submit.ipynb` (submission).
+**Notebooks:** `src/v0_baseline.ipynb` (dev). Submission is now the model-agnostic
+`src/submit.ipynb` (UNet detector; supersedes the old classical `v0_submit.ipynb`).
 
 **Method.** Per-frame 3D peak detection on a Gaussian-smoothed, percentile-normalized volume;
 consecutive frames linked by optimal (Hungarian) assignment on physically-scaled centroid
@@ -53,7 +54,7 @@ distance with a gate. No division handling.
 
 | run | config | local edge-Jaccard | LB | notes |
 |-----|--------|--------------------|----|-------|
-| sweep | thr=0.08, gate=8 | **0.748** (micro, 10 train samples) | _pending_ | FP=0 on all samples; loss is all FN |
+| sweep | thr=0.08, gate=8 | **0.748** (micro, 10 train samples) | **0.669** | FP=0 on all samples; loss is all FN |
 
 **Observations.**
 - FP = 0 everywhere → NN linking never makes wrong links; `J ≈ edge recall`.
@@ -61,6 +62,12 @@ distance with a gate. No division handling.
   caps edge recall ≈ node-match² ≈ 84%); (2) linking loses ~9–10% (both endpoints detected but
   linked to the wrong neighbor / identity switch in dense fields).
 - Implication: even a perfect detector caps ~0.85 with current NN linking → linking matters.
+- **LB vs local**: leaderboard **0.669** sits ~0.08 below local micro edge-Jaccard 0.748. The gap
+  is the part local scoring can't see: the *adjusted* score's density penalty on over-prediction
+  (`T_pred` ≫ `T_true`) plus the missing division term (we predict none → 0 of the 0.1 weight), and
+  a possible train/test distribution shift. **This 0.669 is the anchor v1 must beat.** Calibration
+  takeaway: expect the LB to read ~0.08 under local; over-detection likely costs the most, so watch
+  `HM_THR` on v1.
 
 ---
 
@@ -97,15 +104,29 @@ is not taught to suppress unlabeled real cells. Anisotropic downsampling (xy fir
 | infer | min_distance (voxels) | 3 |
 | link  | gate (µm) | 8.0 |
 
-**Status.** Pipeline validated by a smoke test (1 epoch × 30 steps ran end-to-end after fixing a
-float32/AMP dtype issue in inference). Full 30-epoch training underway. ~5–6 min/epoch observed
-(→ ~3 h for 30 epochs). Checkpoint/resume + time-budget safe-exit enabled.
+**Status.** Full 30-epoch training **complete** (`models/v1_UNet_best.pt`, `results/v1_history.csv`).
+Ran ~120 s/epoch → ~1 h total (faster than the earlier 5–6 min/epoch estimate). Checkpoint/resume +
+time-budget safe-exit enabled.
 
-**Results.** _pending full training + submission._
+**Results.** Detector **beats classical**: local micro edge-Jaccard **0.808 > ~0.75**. (Eval via the
+notebook's `EVAL_ONLY` flag with `models/v1_UNet_best.pt`.)
 
-| run | epochs | local edge-Jaccard | matched/n_gt | LB | notes |
-|-----|--------|--------------------|--------------|----|-------|
-| _tbd_ | | | | | |
+| run | epochs | val masked-MSE (best) | local edge-Jaccard | matched/n_gt | LB | notes |
+|-----|--------|-----------------------|--------------------|--------------|----|-------|
+| full | 30 | **0.000663** (epoch 29) | **0.808** (5 val, all `6bba_`) | 3658/3911 ≈ 93.5% | _pending_ | TP=3046 FP=6 FN=716 |
+
+**Observations.**
+- **+0.06 over classical** and detection recall up (≈93.5% vs ~91.5%). **FP≈0** (6/3052) → NN linking
+  still perfectly precise, loss is all FN — same character as v0.
+- Bottleneck split now: detection ~12.5% (node-match² ≈ 0.875 ceiling) > linking ~6.6% (0.875→0.808).
+  Detection still the larger loss but the two are comparable → NN's ~0.85 ceiling is close → **Phase 2
+  (better linking) is the next lever**.
+- **Caveats**: only 5 val samples and **all one specimen** (`44b6_` unseen) → rerun `EVAL_N_VAL=20`
+  for a firmer, specimen-balanced number. Heavy **over-detection** (pred up to ~48k nodes/sample) is
+  free for local base-Jaccard but the LB *adjusted* score penalises high `T_pred` → watch the LB, may
+  need a higher `HM_THR`.
+- Training was **not fully converged** (val still trending down, no overfit, early-stop never fired) →
+  more epochs (+ LR decay) could still help detection.
 
 ---
 

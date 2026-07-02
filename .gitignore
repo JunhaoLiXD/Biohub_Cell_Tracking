@@ -19,6 +19,7 @@ wheels/
 submission.csv
 history.csv
 history.json
+results/               # local training-history / result artifacts (e.g. v1_history.csv)
 *-output.ipynb          # heavy notebook run-dumps (debug artifacts)
 outputs/
 runs/

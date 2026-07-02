@@ -24,8 +24,8 @@ src/
   util_inspect_data.ipynb     inspect the raw data (image/graph structure, sparsity stats)
   util_download_wheels.ipynb  build an offline dependency bundle for no-internet submission
   v0_baseline.ipynb           v0 — classical baseline (dev: detect + link + local scoring)
-  v0_submit.ipynb             v0 — submission notebook
   v1_unet_train.ipynb         v1 — learned detector: training + evaluation + resume
+  submit.ipynb                submission notebook (offline): UNet detector + NN linking -> submission.csv
 docs/
   experiments.md              experiment log: config, hyper-parameters, results per version
 ```
@@ -47,9 +47,11 @@ later model ensembling/fusion straightforward.
 
 - [x] **Data inspection** — confirmed volume/graph formats, physical scale, label sparsity.
 - [x] **v0 — classical baseline** — peak detection + optimal nearest-neighbor linking.
-      Establishes an end-to-end pipeline, a local scorer, and a leaderboard anchor.
-- [~] **v1 — learned detector (UNet)** — 3D heatmap-regression detector trained on the sparse
-      labels; reuses the v0 linking + scoring. Pipeline validated; full training underway.
+      End-to-end pipeline + local scorer + **leaderboard anchor: 0.669** (local micro edge-Jaccard
+      ~0.75; the ~0.08 gap reflects the leaderboard's density penalty + no division term).
+- [x] **v1 — learned detector (UNet)** — 3D heatmap-regression detector trained on the sparse
+      labels (30 epochs); reuses the v0 linking + scoring. **Local val edge-Jaccard 0.808 > classical
+      ~0.75.** Leaderboard submission pending.
 - [ ] **Linking improvements** — stronger association to reduce identity switches.
 - [ ] **Division / lineage refinement**.
 
