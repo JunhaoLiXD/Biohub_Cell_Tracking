@@ -1,0 +1,47 @@
+# ===== Data (lives on Kaggle, never commit) =====
+*.zarr/
+*.geff/
+data/
+train/
+test/
+*.tif
+*.tiff
+
+# ===== Model weights / checkpoints / large artifacts =====
+*.pt
+*.pth
+*.ckpt
+*.onnx
+wheels/
+*.whl
+
+# ===== Generated outputs =====
+submission.csv
+history.csv
+history.json
+*-output.ipynb          # heavy notebook run-dumps (debug artifacts)
+outputs/
+runs/
+logs/
+
+# ===== Jupyter =====
+.ipynb_checkpoints/
+*/.ipynb_checkpoints/
+
+# ===== Python =====
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.ipynb_checkpoints
+
+# ===== OS / IDE =====
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# ===== Local tooling (not for the repo) =====
+.claude/
