@@ -43,5 +43,6 @@ Thumbs.db
 .vscode/
 .idea/
 
-# ===== Local tooling (not for the repo) =====
+# ===== Local tooling / private docs (not for the repo) =====
 .claude/
+CLAUDE.md
