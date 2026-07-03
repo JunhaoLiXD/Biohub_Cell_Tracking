@@ -19,8 +19,10 @@ wheels/
 submission.csv
 history.csv
 history.json
-results/               # local training-history / result artifacts (e.g. v1_history.csv)
-*-output.ipynb          # heavy notebook run-dumps (debug artifacts)
+# local training-history / result artifacts (e.g. v1_history.csv)
+results/
+# heavy notebook run-dumps (debug artifacts)
+*-output.ipynb
 outputs/
 runs/
 logs/
@@ -47,3 +49,6 @@ Thumbs.db
 # ===== Local tooling / private docs (not for the repo) =====
 .claude/
 CLAUDE.md
+
+# ===== Reference material (other people's notebooks/papers, not ours to redistribute) =====
+references/

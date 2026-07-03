@@ -113,11 +113,17 @@ notebook's `EVAL_ONLY` flag with `models/v1_UNet_best.pt`.)
 
 | run | epochs | val masked-MSE (best) | local edge-Jaccard | matched/n_gt | LB | notes |
 |-----|--------|-----------------------|--------------------|--------------|----|-------|
-| full | 30 | **0.000663** (epoch 29) | **0.808** (5 val, all `6bba_`) | 3658/3911 ≈ 93.5% | _pending_ | TP=3046 FP=6 FN=716 |
+| full | 30 | **0.000663** (epoch 29) | **0.808** (5 val, all `6bba_`) | 3658/3911 ≈ 93.5% | **0.768** | HM_THR=0.3, gate=8; TP=3046 FP=6 FN=716 |
 
 **Observations.**
 - **+0.06 over classical** and detection recall up (≈93.5% vs ~91.5%). **FP≈0** (6/3052) → NN linking
   still perfectly precise, loss is all FN — same character as v0.
+- **LB 0.768 (submission "Version 2", HM_THR=0.3): +0.099 over the v0 anchor 0.669** — the detector's
+  local gain carried through to the leaderboard. The **local→LB gap narrowed from ~0.08 (v0) to ~0.04**,
+  even though the division term is *still* unaddressed (0 of the 0.1 weight). Implication: the *adjusted*
+  density penalty is **milder than feared** — heavy over-detection (pred up to ~48k nodes) cost little —
+  and much of v0's 0.08 gap was likely the classical detector generalizing poorly to the unseen `44b6_`
+  specimen. The UNet generalizes better. **Takeaway: don't rush `HM_THR` up; over-detection is cheap.**
 - Bottleneck split now: detection ~12.5% (node-match² ≈ 0.875 ceiling) > linking ~6.6% (0.875→0.808).
   Detection still the larger loss but the two are comparable → NN's ~0.85 ceiling is close → **Phase 2
   (better linking) is the next lever**.
@@ -127,6 +133,57 @@ notebook's `EVAL_ONLY` flag with `models/v1_UNet_best.pt`.)
   need a higher `HM_THR`.
 - Training was **not fully converged** (val still trending down, no overfit, early-stop never fired) →
   more epochs (+ LR decay) could still help detection.
+
+---
+
+## v2 — Fusion: v1 detector + rule-based linking & post-processing
+
+**Notebooks:** `src/v2_fusion_eval.ipynb` (local A/B eval). The winning stack is folded into
+`src/submit.ipynb` (replacing the plain NN linker).
+
+**Method.** Detection is **byte-identical to v1** (full-res U-Net heatmap → `peak_local_max`,
+`HM_THR=0.3`, `min_distance=3`), so linking is the only variable. The v0/v1 nearest-neighbour linker is
+replaced by a public rule-based stack:
+- **`refine_centroids`** — intensity-weighted centre-of-mass sub-voxel refinement.
+- **`link_twopass`** — two-pass Hungarian with constant-velocity prediction: pass 1 a tight 6 µm raw gate
+  (kills "partner-stealing" matches), pass 2 a loose 8 µm gate on the leftovers (recovers fast cells).
+- **`close_gaps`** — bridge a single-frame detection gap by interpolating a node (all GT edges are dt=1,
+  so one recovered node yields two matchable edges).
+- **`prune_isolated`** + **`filter_short_tracks(min_len=4)`** — drop unlinked / short-fragment noise.
+
+**Hyper-parameters** (only linking/post-proc changed from v1):
+
+| group | param | value |
+|-------|-------|-------|
+| link | tight gate (µm) | 6.0 |
+| link | loose gate (µm) | 8.0 |
+| link | velocity blend | 0.5 |
+| post | close_gaps / max_gap / gap_dist (µm) | on / 1 / 6.0 |
+| post | filter_short_tracks min_len | 4 |
+| post | prune_isolated | on |
+| detect | refine window (z,y,x) | (1, 3, 3) |
+
+**Results.** Same detector, same 5 val samples (all `6bba_`) as v1's 0.808:
+
+| run | linking | local edge-Jaccard | TP | FP | FN | notes |
+|-----|---------|--------------------|----|----|----|-------|
+| v1  | plain NN Hungarian | 0.808 | 3046 | 6 | 716 | baseline |
+| v2  | two-pass motion + gaps + filter | **0.859** | 3238 | 7 | 524 | **+0.051** |
+
+**Observations.**
+- **Pure recall gain.** FN dropped 716→524 (= TP +192) with **FP still ≈0** — the stronger linker
+  recovers edges the NN missed/gated without introducing wrong links. `close_gaps`'s interpolated nodes
+  also lifted node-match (they match GT cells missed in a single frame).
+- Remaining loss is now mostly **detection** (unmatched GT nodes on the weakest samples, J≈0.80) rather
+  than linking → next lever is detection recall (denser peaks + physical NMS).
+- **Predicted LB** ≈ local − 0.04 ≈ **~0.82** (per the v1 calibration); submission pending.
+- **Caveat**: still only 5 samples, all one specimen (`44b6_` unseen) — raise `EVAL_N_VAL` to 20 for a
+  firmer number, and treat the real LB as the calibration source of truth.
+
+**Reference baselines studied** (`references/`, local only): a classical **DoG detector → same two-pass
+linking (LB 0.835)** and a **U-Net-on-pooled-grid detector with physical (µm) NMS (LB 0.843)**. Both
+confirm over-detection is cheap and converge on the two-pass motion linker adopted here; physical NMS is
+the technique to borrow next.
 
 ---
 

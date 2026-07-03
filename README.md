@@ -25,7 +25,8 @@ src/
   util_download_wheels.ipynb  build an offline dependency bundle for no-internet submission
   v0_baseline.ipynb           v0 — classical baseline (dev: detect + link + local scoring)
   v1_unet_train.ipynb         v1 — learned detector: training + evaluation + resume
-  submit.ipynb                submission notebook (offline): UNet detector + NN linking -> submission.csv
+  v2_fusion_eval.ipynb        v2 — local eval: v1 detector + stronger (two-pass motion) linking
+  submit.ipynb                submission notebook (offline): UNet detector + two-pass motion linking -> submission.csv
 docs/
   experiments.md              experiment log: config, hyper-parameters, results per version
 ```
@@ -51,8 +52,14 @@ later model ensembling/fusion straightforward.
       ~0.75; the ~0.08 gap reflects the leaderboard's density penalty + no division term).
 - [x] **v1 — learned detector (UNet)** — 3D heatmap-regression detector trained on the sparse
       labels (30 epochs); reuses the v0 linking + scoring. **Local val edge-Jaccard 0.808 > classical
-      ~0.75.** Leaderboard submission pending.
-- [ ] **Linking improvements** — stronger association to reduce identity switches.
+      ~0.75; leaderboard 0.768 (+0.099 over the v0 anchor 0.669).** The local→LB gap also narrowed
+      from ~0.08 (v0) to ~0.04, i.e. the detector generalizes better than expected to the unseen specimen.
+- [x] **v2 — stronger linking** — same v1 detector, but nearest-neighbour linking replaced by a
+      two-pass motion-aware association + single-frame gap-closing + short-track filtering.
+      **Local val edge-Jaccard 0.859 > 0.808** — a pure recall gain (recovered links the NN missed,
+      still no false links). Folded into the submission notebook; leaderboard submission pending.
+- [ ] **Detection recall** — denser detection + physical (µm-space) non-max suppression to recover
+      the cells still missed by the detector.
 - [ ] **Division / lineage refinement**.
 
 See [`docs/experiments.md`](docs/experiments.md) for per-experiment configuration and results.
