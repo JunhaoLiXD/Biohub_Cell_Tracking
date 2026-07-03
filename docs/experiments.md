@@ -187,6 +187,51 @@ the technique to borrow next.
 
 ---
 
+## v2.5 — High-recall detection + physical NMS
+
+**Notebooks:** `src/v2_5_highrecall_eval.ipynb` (local A/B eval). The preset is folded into
+`src/submit.ipynb` (which now supersedes the v2 linking-only version).
+
+**Method.** Same v1 detector + v2 linking, but the **detection front-end is pushed for recall** and
+de-duplicated in physical space (borrowed from the LB 0.843 reference):
+- lower `HM_THR` (0.3 → **0.15**) and `min_distance` (3 → **1**) → many more candidate peaks;
+- **physical NMS** — greedy non-max suppression in micrometre space (`cKDTree`, radius `NMS_UM`),
+  isotropic in real units, unlike the anisotropic voxel `min_distance` (z is 4× coarser than xy);
+- linking relaxed slightly (loose gate 8 → **10** µm) and `filter_short_tracks` gentler (4 → **2**).
+
+**Hyper-parameters** (changed from v2):
+
+| group | param | v2 | v2.5 |
+|-------|-------|----|------|
+| detect | HM_THR | 0.3 | **0.15** |
+| detect | min_distance (voxels) | 3 | **1** |
+| detect | physical NMS radius (µm) | — | **3.0** |
+| link | loose gate (µm) | 8.0 | **10.0** |
+| post | filter_short_tracks min_len | 4 | **2** |
+
+**Results** (same detector weights, same 5 val samples):
+
+| run | detection | local edge-Jaccard | TP | FP | FN | detection recall |
+|-----|-----------|--------------------|----|----|----|------------------|
+| v2   | HM_THR 0.3, no NMS | 0.859 | 3238 | 7 | 524 | ~94% |
+| v2.5 | HM_THR 0.15 + physical NMS | **0.8657** | 3262 | 6 | 500 | **96.9%** (3789/3911) |
+
+**Observations.**
+- **Detection recall lifted ~94% → 96.9%** (biggest gains on the weakest samples, e.g. `e5e44988`
+  matched 574→636, J 0.809→0.836), with **FP still ≈0** and runtime unchanged (~52 s/sample; physical
+  NMS keeps peak counts in check). The high-recall preset is a safe net gain (+0.0067).
+- **But edge-Jaccard barely moved (+0.0067) despite +3% recall** → the extra detections did **not** all
+  convert to correct edges. **Bottleneck has flipped: linking now dominates.** Rough decomposition
+  (FP≈0, GT edges ≈ TP+FN = 3762): detection-miss edge loss ≈ 1 − 0.969² ≈ **6.1%**, total edge loss
+  500/3762 ≈ **13.3%** → pure **linking loss ≈ 7.2% > detection ≈ 6.1%**.
+- Implication: detection is near-saturated for this NN-style linker; the next real lever is **Phase 2
+  better linking** (learned association / global ILP), not more detection tuning.
+- Over-detection is higher than v2 (pred up to ~59k nodes/sample) → watch the LB *adjusted* density
+  penalty on submission (dial `HM_THR` up or `NMS_UM` larger if it bites).
+- **Caveat**: still only 5 `6bba_` samples — raise `EVAL_N_VAL` to 20 to confirm on `44b6_`.
+
+---
+
 ## How to log a new experiment
 
 Copy a version block, bump the version (`vN`), and record: notebook, method summary, the full

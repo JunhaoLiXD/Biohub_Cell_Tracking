@@ -26,7 +26,8 @@ src/
   v0_baseline.ipynb           v0 — classical baseline (dev: detect + link + local scoring)
   v1_unet_train.ipynb         v1 — learned detector: training + evaluation + resume
   v2_fusion_eval.ipynb        v2 — local eval: v1 detector + stronger (two-pass motion) linking
-  submit.ipynb                submission notebook (offline): UNet detector + two-pass motion linking -> submission.csv
+  v2_5_highrecall_eval.ipynb  v2.5 — local eval: high-recall detection + physical (µm) NMS
+  submit.ipynb                submission notebook (offline): UNet detector + physical-NMS detection + two-pass motion linking -> submission.csv
 docs/
   experiments.md              experiment log: config, hyper-parameters, results per version
 ```
@@ -57,9 +58,13 @@ later model ensembling/fusion straightforward.
 - [x] **v2 — stronger linking** — same v1 detector, but nearest-neighbour linking replaced by a
       two-pass motion-aware association + single-frame gap-closing + short-track filtering.
       **Local val edge-Jaccard 0.859 > 0.808** — a pure recall gain (recovered links the NN missed,
-      still no false links). Folded into the submission notebook; leaderboard submission pending.
-- [ ] **Detection recall** — denser detection + physical (µm-space) non-max suppression to recover
-      the cells still missed by the detector.
+      still no false links).
+- [x] **v2.5 — high-recall detection** — denser detection (lower threshold) + physical (µm-space)
+      non-max suppression + slightly relaxed linking. **Local val edge-Jaccard 0.866 > 0.859**;
+      detection recall lifted to ~97%. Now folded into the submission notebook; leaderboard submission
+      pending. Diagnosis: with detection near-saturated, linking is now the dominant remaining loss.
+- [ ] **Better linking (Phase 2)** — learned or globally-optimal association to convert the ~97%
+      detection into more correct temporal edges.
 - [ ] **Division / lineage refinement**.
 
 See [`docs/experiments.md`](docs/experiments.md) for per-experiment configuration and results.
