@@ -27,7 +27,8 @@ src/
   v1_unet_train.ipynb         v1 — learned detector: training + evaluation + resume
   v2_fusion_eval.ipynb        v2 — local eval: v1 detector + stronger (two-pass motion) linking
   v2_5_highrecall_eval.ipynb  v2.5 — local eval: high-recall detection + physical (µm) NMS
-  submit.ipynb                submission notebook (offline): UNet detector + physical-NMS detection + two-pass motion linking -> submission.csv
+  v3_divisions_eval.ipynb     v3 — local eval: post-hoc division detection (earn the 0.1 division term)
+  submit.ipynb                submission notebook (offline): UNet detector + physical-NMS detection + two-pass motion linking + post-hoc divisions -> submission.csv
 docs/
   experiments.md              experiment log: config, hyper-parameters, results per version
 ```
@@ -57,15 +58,29 @@ later model ensembling/fusion straightforward.
       from ~0.08 (v0) to ~0.04, i.e. the detector generalizes better than expected to the unseen specimen.
 - [x] **v2 — stronger linking** — same v1 detector, but nearest-neighbour linking replaced by a
       two-pass motion-aware association + single-frame gap-closing + short-track filtering.
-      **Local val edge-Jaccard 0.859 > 0.808** — a pure recall gain (recovered links the NN missed,
-      still no false links).
-- [x] **v2.5 — high-recall detection** — denser detection (lower threshold) + physical (µm-space)
-      non-max suppression + slightly relaxed linking. **Local val edge-Jaccard 0.866 > 0.859**;
-      detection recall lifted to ~97%. Now folded into the submission notebook; leaderboard submission
-      pending. Diagnosis: with detection near-saturated, linking is now the dominant remaining loss.
+      **Local val edge-Jaccard 0.859 > 0.808; leaderboard 0.827 (+0.059 over v1)** — a pure recall gain
+      (recovered links the NN missed, still no false links) that generalized cleanly to the hidden set.
+      **Current leaderboard best.**
+- [x] **v2.5 — high-recall detection (leaderboard regression)** — denser detection (lower threshold) +
+      physical (µm-space) non-max suppression + *relaxed* linking. **Local val edge-Jaccard rose to 0.866,
+      but the leaderboard DROPPED to 0.776 — below v2's 0.827.** Key lesson: the local metric is blind to
+      false-positive links on the densely-labeled hidden test set and to the leaderboard's over-prediction
+      penalty, so relaxing the linker looked free locally while costing real precision on the leaderboard.
+- [x] **v2.5b — isolate the cause** — keep v2.5's high-recall detection, but revert *only* the linking
+      back to v2's leaderboard-proven precision (the single variable). **Local edge-Jaccard 0.8588 ≈ v2's
+      0.859**; leaderboard submission pending to decide whether the regression was the relaxed linking or
+      the detection density.
+- [x] **v3 — post-hoc division detection** — the two-pass Hungarian linker is strictly 1-to-1, so it can
+      never emit a division (a node with 2 children) and the `0.1 · division_jaccard` term was always 0.
+      v3 adds a rule-based step *after* linking that attaches a second daughter to a mother when a
+      persistent, opposite-side detection sits nearby. **Result: edge-score-safe but division-score-worthless.**
+      Local edge-Jaccard is unchanged (0.8588 → 0.8633, no new false links — the added edges land on
+      unmatched detections), but division-Jaccard is only **~0.002** (≈400 false divisions per true one):
+      the high-recall detection floods dense regions with spurious tracks, so "a nearby opposite-side track"
+      is not a distinctive signal for a real division. Conclusion: divisions need a global/learned tracker,
+      not post-hoc geometry.
 - [ ] **Better linking (Phase 2)** — learned or globally-optimal association to convert the ~97%
-      detection into more correct temporal edges.
-- [ ] **Division / lineage refinement**.
+      detection into more correct temporal edges; this is also the principled route to the division term.
 
 See [`docs/experiments.md`](docs/experiments.md) for per-experiment configuration and results.
 

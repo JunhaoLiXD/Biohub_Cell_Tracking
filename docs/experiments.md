@@ -165,20 +165,20 @@ replaced by a public rule-based stack:
 
 **Results.** Same detector, same 5 val samples (all `6bba_`) as v1's 0.808:
 
-| run | linking | local edge-Jaccard | TP | FP | FN | notes |
-|-----|---------|--------------------|----|----|----|-------|
-| v1  | plain NN Hungarian | 0.808 | 3046 | 6 | 716 | baseline |
-| v2  | two-pass motion + gaps + filter | **0.859** | 3238 | 7 | 524 | **+0.051** |
+| run | linking | local edge-Jaccard | TP | FP | FN | LB | notes |
+|-----|---------|--------------------|----|----|----|----|-------|
+| v1  | plain NN Hungarian | 0.808 | 3046 | 6 | 716 | 0.768 | baseline |
+| v2  | two-pass motion + gaps + filter | **0.859** | 3238 | 7 | 524 | **0.827** | **+0.051 local, +0.059 LB** |
 
 **Observations.**
 - **Pure recall gain.** FN dropped 716→524 (= TP +192) with **FP still ≈0** — the stronger linker
   recovers edges the NN missed/gated without introducing wrong links. `close_gaps`'s interpolated nodes
   also lifted node-match (they match GT cells missed in a single frame).
+- **LB 0.827 (submission "Version 3"): +0.059 over v1's 0.768**, the biggest single-version LB jump so
+  far, and the local→LB gap **narrowed further to −0.032** (v1 was −0.04). The linking upgrade generalized
+  beautifully to the hidden set — including the unseen `44b6_` specimen. **This is the current LB best.**
 - Remaining loss is now mostly **detection** (unmatched GT nodes on the weakest samples, J≈0.80) rather
-  than linking → next lever is detection recall (denser peaks + physical NMS).
-- **Predicted LB** ≈ local − 0.04 ≈ **~0.82** (per the v1 calibration); submission pending.
-- **Caveat**: still only 5 samples, all one specimen (`44b6_` unseen) — raise `EVAL_N_VAL` to 20 for a
-  firmer number, and treat the real LB as the calibration source of truth.
+  than linking → next lever tried was detection recall (denser peaks + physical NMS) in v2.5.
 
 **Reference baselines studied** (`references/`, local only): a classical **DoG detector → same two-pass
 linking (LB 0.835)** and a **U-Net-on-pooled-grid detector with physical (µm) NMS (LB 0.843)**. Both
@@ -211,24 +211,134 @@ de-duplicated in physical space (borrowed from the LB 0.843 reference):
 
 **Results** (same detector weights, same 5 val samples):
 
-| run | detection | local edge-Jaccard | TP | FP | FN | detection recall |
-|-----|-----------|--------------------|----|----|----|------------------|
-| v2   | HM_THR 0.3, no NMS | 0.859 | 3238 | 7 | 524 | ~94% |
-| v2.5 | HM_THR 0.15 + physical NMS | **0.8657** | 3262 | 6 | 500 | **96.9%** (3789/3911) |
+| run | detection | local edge-Jaccard | TP | FP | FN | detection recall | LB |
+|-----|-----------|--------------------|----|----|----|------------------|----|
+| v2   | HM_THR 0.3, no NMS | 0.859 | 3238 | 7 | 524 | ~94% | **0.827** |
+| v2.5 | HM_THR 0.15 + physical NMS + relaxed linking | **0.8657** | 3262 | 6 | 500 | **96.9%** (3789/3911) | **0.776 ⬇** |
 
 **Observations.**
-- **Detection recall lifted ~94% → 96.9%** (biggest gains on the weakest samples, e.g. `e5e44988`
-  matched 574→636, J 0.809→0.836), with **FP still ≈0** and runtime unchanged (~52 s/sample; physical
-  NMS keeps peak counts in check). The high-recall preset is a safe net gain (+0.0067).
-- **But edge-Jaccard barely moved (+0.0067) despite +3% recall** → the extra detections did **not** all
-  convert to correct edges. **Bottleneck has flipped: linking now dominates.** Rough decomposition
-  (FP≈0, GT edges ≈ TP+FN = 3762): detection-miss edge loss ≈ 1 − 0.969² ≈ **6.1%**, total edge loss
-  500/3762 ≈ **13.3%** → pure **linking loss ≈ 7.2% > detection ≈ 6.1%**.
-- Implication: detection is near-saturated for this NN-style linker; the next real lever is **Phase 2
-  better linking** (learned association / global ILP), not more detection tuning.
-- Over-detection is higher than v2 (pred up to ~59k nodes/sample) → watch the LB *adjusted* density
-  penalty on submission (dial `HM_THR` up or `NMS_UM` larger if it bites).
-- **Caveat**: still only 5 `6bba_` samples — raise `EVAL_N_VAL` to 20 to confirm on `44b6_`.
+- **Detection recall lifted ~94% → 96.9%** locally (biggest gains on the weakest samples, e.g. `e5e44988`
+  matched 574→636, J 0.809→0.836), with **local FP still ≈0** and runtime unchanged (~52 s/sample).
+- **⚠️ LB REGRESSION: 0.776 (submission "Version 4"), BELOW v2's 0.827** despite local edge-J *rising*
+  0.859 → 0.866. The local→LB gap blew out to **−0.090** (v2 was −0.032). **This is the key lesson of the
+  project so far:** the local metric is **blind to two things the LB charges for** — (1) **FP edges on the
+  dense hidden GT** (local GT is sparse, so wrong links between unmatched predictions are not counted as
+  FP; local FP was 6 for *both* v2.5 and its fix, i.e. local FP can't distinguish them), and (2) the
+  **adjusted density penalty** on over-prediction (v2.5 predicts up to ~59k nodes/sample). v2.5 bundled
+  **five** changes (HM_THR↓, min_dist↓, NMS, loose gate 8→10, filter_short 4→2), so the regression was
+  un-attributable → follow-up isolates the cause (see v2.5b).
+- **Corrected calibration**: "over-detection is cheap / LB ≈ local − 0.04" (from v1) **does NOT extrapolate**
+  to the v2.5 aggressiveness. Detection-side tuning is now **negative ROI** unless proven otherwise on the LB.
+- **Never bundle knobs across a submission again** — Kaggle submissions are the only ground truth for the
+  FP/density effects local eval hides, so each must change one attributable variable.
+
+---
+
+## v2.5b — High-recall detection (v2.5) + v2 LB-proven linking (single-variable revert)
+
+**Notebooks:** `src/v2_5_highrecall_eval.ipynb` (config reverted). Folded into `src/submit.ipynb`.
+
+**Method.** Diagnostic follow-up to the v2.5 regression: **freeze v2.5's high-recall detection front-end**
+(HM_THR=0.15, min_distance=1, physical NMS 3.0 µm) and **restore v2's LB-proven linking precision**
+(loose gate 10 → **8**, `filter_short_tracks` 2 → **4**). The linking-precision module is the **only**
+variable vs the 0.776 run, so the LB result attributes the regression to linking-vs-detection.
+
+**Hyper-parameters** (changed from v2.5, = revert to v2 values):
+
+| group | param | v2.5 | v2.5b |
+|-------|-------|------|-------|
+| link | loose gate (µm) | 10.0 | **8.0** |
+| post | filter_short_tracks min_len | 2 | **4** |
+
+**Results** (same detector weights, same 5 `6bba_` val samples):
+
+| run | linking | local edge-Jaccard | TP | FP | FN |
+|-----|---------|--------------------|----|----|----|
+| v2     | HM_THR 0.3 + v2 linking | 0.859 | 3238 | 7 | 524 |
+| v2.5   | HM_THR 0.15 + relaxed linking | 0.8657 | 3262 | 6 | 500 |
+| v2.5b  | HM_THR 0.15 + v2 linking | **0.8588** | 3236 | 6 | 526 |
+
+**Observations.**
+- **Locally a tie with v2** (0.8588 ≈ 0.859): restoring v2's linking gave back v2's precision profile
+  (FN 500→526, i.e. dropped the 26 extra edges v2.5 gained by relaxing linking — exactly the edges that
+  came with LB-hurting FPs on the hidden set). Local FP unchanged at 6 (again: local can't see the real FP).
+- Because v2.5b **ties v2 locally**, the two configs differ on the LB **only** via effects local eval is
+  blind to: the density penalty (this predicts up to ~58k nodes/sample vs v2's far fewer) and any
+  high-recall gain on the **unseen dense `44b6_` specimen** (absent from this all-`6bba_` val). So the LB
+  is the only way to decide — worth one submission.
+- **Decision rule for the LB result:** ≥0.827 → relaxed linking was the v2.5 culprit, high-recall detection
+  is LB-safe (keep it, move to Phase 2 linking). ~0.776–0.82 → detection density is the cost, lock in v2
+  (HM_THR=0.3, no NMS). >v2 clearly → high-recall detection genuinely helps on `44b6_`.
+- **LB: pending** (submission description prepared).
+
+---
+
+## v3 — Post-hoc division detection (earn the 0.1 · division_jaccard term)
+
+**Notebooks:** `src/v3_divisions_eval.ipynb` (local eval). Folded into `src/submit.ipynb` (`DIV_ENABLE`).
+
+**Motivation.** `link_twopass` uses the Hungarian algorithm, which is strictly **1-to-1** → every node has
+out-degree ≤ 1 → the graph can *never* contain a division (out-degree ≥ 2) → **`division_jaccard = 0` by
+construction** for every submission so far. v3 adds divisions back *after* linking without touching the
+LB-proven detection/linking (frozen v2.5b).
+
+**Ground-truth divisions** (measured across all 199 train samples, new cell in `util_inspect_data.ipynb`):
+**151 division events, only 0.117 % of edges**, and **84 % are in the `6bba` specimen** (125 vs 26 for
+`44b6`). Geometry: mother→daughter displacement median 5.75 µm, p90 9.07, max 13.5; split angle median
+138°, p10 88°. So the ceiling on the 0.1 term is small, and the gates below are set from these stats.
+
+**Method (`detect_divisions`).** For each mother `M(t)` that already has exactly one daughter `D1(t+1)`,
+scan the **orphan births** at `t+1` (nodes with no incoming edge) and add an edge `M→D2` when D2 passes
+four gates: distance `‖D2−M‖ ≤ DIV_RADIUS_UM`, opposite-side symmetry (angle between `(D1−M)` and `(D2−M)`
+`≥ MIN_ANGLE_DEG`), daughter persistence (D2 heads a chain `≥ MIN_DAUGHTER_LEN`), and mother persistence
+(`≥ MIN_MOTHER_LEN`). One division per mother; nearest qualifying D2 wins. Adds edges only, never nodes.
+
+**Hyper-parameters** (gates from the GT geometry above):
+
+| group | param | value |
+|-------|-------|-------|
+| div | DIV_RADIUS_UM (µm) | 10.0 (≈ p90 of mother→daughter disp; intentionally > 8 µm motion gate) |
+| div | MIN_ANGLE_DEG | 75 (GT p10 = 88° → keeps margin, rejects same-side) |
+| div | MIN_DAUGHTER_LEN | 3 (persistence filter; effective floor is 4 via `filter_short_tracks`) |
+| div | MIN_MOTHER_LEN | 3 |
+
+**Eval design.** *Loop A* — edge-J OFF vs ON on the same last-5 `6bba_` val as v2 (safety check). *Loop B* —
+division-J on the 8 **division-richest** train samples (where GT divisions actually exist; ±1 frame tol,
+7 µm gate).
+
+**Results.**
+
+| loop | metric | OFF (v2.5b) | ON (+divisions) |
+|------|--------|-------------|-----------------|
+| A (last-5 val) | edge-Jaccard | 0.8588 (FP=6) | **0.8633 (FP=6)** |
+| B (8 richest)  | division-Jaccard | 0.0 | **0.0024** (TP=13, FP=5293, FN=18) |
+| B (8 richest)  | edge-Jaccard | 0.8953 | 0.8978 (edge-FP 14→17) |
+
+- Divisions predicted: **5306** across the 8 richest samples to catch **13** real ones; Loop A added 2902
+  across 5 val samples for 6 true. Division-J = 0.0024 → score contribution **0.1 · 0.0024 = +0.0002 ≈ 0**.
+- Division **recall** is also only ~42 % (13 / 31 GT), so it is a precision *and* recall failure.
+
+**Observations.**
+- **Edge-score-SAFE (confirmed).** edge-J is unchanged→slightly up and edge-FP barely moves, because the
+  added `M→D2` edges land on **over-detected orphans** (unmatched to GT) → not charged as edge FP. The small
+  edge-J rise is real division edges that happened to match GT division edges. So divisions cannot hurt the
+  0.827 main score.
+- **Division-score-WORTHLESS.** The ~400:1 false-positive rate kills the term. **Root cause:** the
+  high-recall detection (HM_THR 0.15) fills every dense region with persistent orphan tracks, so "an
+  established mother with a nearby opposite-side persistent orphan" is **ubiquitous noise**, not a
+  distinctive division signature. The very over-detection that makes edge recall cheap makes division
+  precision impossible with geometry alone — the two goals conflict.
+- **Gate tightening cannot close the gap.** Reaching a useful div-J (~0.2) would need a ~150× FP cut while
+  holding recall; real-division geometry (disp 5.75 µm, angle 138°) overlaps the noise too heavily. The
+  principled fix is a **global/learned tracker** (motile with a division cost, or Trackastra) that solves
+  the lineage jointly — i.e. Phase 2 linking is also the route to the division term.
+- **`filter_short_tracks(4)` runs before `detect_divisions`**, so an orphan daughter chain must actually
+  survive ≥ 4 nodes; `MIN_DAUGHTER_LEN=3` is therefore partly dominated (consistent between v3 and submit).
+
+**Submission.** `src/submit.ipynb` now runs **v2.5b detection + v2 linking + v3 divisions** (`DIV_ENABLE=True`).
+Because divisions are locally ≈ neutral, this submission **doubles as the pending v2.5b high-recall-detection
+test**: LB ≥ 0.827 → high-recall detection is LB-safe (keep it); LB ~0.776 → detection density is the cost
+(lock in v2, HM_THR=0.3). **LB: pending.** (Set `DIV_ENABLE=False` for the pure v2.5b/v2 graph.)
 
 ---
 
