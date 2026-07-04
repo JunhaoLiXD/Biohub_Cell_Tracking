@@ -24,11 +24,12 @@ src/
   util_inspect_data.ipynb     inspect the raw data (image/graph structure, sparsity stats)
   util_download_wheels.ipynb  build an offline dependency bundle for no-internet submission
   v0_baseline.ipynb           v0 — classical baseline (dev: detect + link + local scoring)
-  v1_unet_train.ipynb         v1 — learned detector: training + evaluation + resume
+  v1_unet_train.ipynb         v1 — learned detector: training (cosine LR, to convergence) + eval + resume
   v2_fusion_eval.ipynb        v2 — local eval: v1 detector + stronger (two-pass motion) linking
   v2_5_highrecall_eval.ipynb  v2.5 — local eval: high-recall detection + physical (µm) NMS
   v3_divisions_eval.ipynb     v3 — local eval: post-hoc division detection (earn the 0.1 division term)
-  submit.ipynb                submission notebook (offline): UNet detector + two-pass motion linking + post-hoc divisions -> submission.csv
+  v4_isotropic_train.ipynb    v4 — detector on an isotropic (XY-pooled) 64³ grid: training + eval
+  submit.ipynb                submission notebook (offline): UNet detector + two-pass motion linking -> submission.csv
 docs/
   experiments.md              experiment log: config, hyper-parameters, results per version
 ```
@@ -89,6 +90,16 @@ later model ensembling/fusion straightforward.
       (they land on unlabeled detections) — become real false links on the *densely*-labeled hidden test set.
       **Rule-based divisions are closed: net negative on the leaderboard, so submissions ship with divisions
       off and v2 (0.827) remains best.**
+- [~] **Detector quality (in progress)** — with detection *density* and rule-based *divisions* both closed as
+      leaderboard-negative, the remaining detector lever is *quality*: better localization and generalization to
+      the unseen specimen. This is motivated by a public reference detector that scores higher using the **same**
+      linking as ours, i.e. a better-trained/architected detector has real headroom. Two single-variable
+      experiments are running: **(a)** training the existing detector to convergence (longer schedule + cosine
+      learning-rate decay; the first run stopped early on a flat rate with the validation curve still
+      improving), and **(b) v4** — a detector on an **isotropic grid** (pool the fine XY axes so the voxel is
+      equal on all three axes, giving the network symmetric 3D context; the depth axis is 4× coarser and the
+      hardest to localize). Both keep the leaderboard-best post-processing unchanged so any gain is attributable
+      to the detector alone. *Local eval + leaderboard: pending.*
 - [ ] **Better linking (Phase 2)** — learned or globally-optimal association to convert the ~97%
       detection into more correct temporal edges; this is also the principled route to the division term.
 

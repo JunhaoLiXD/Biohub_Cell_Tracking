@@ -410,6 +410,81 @@ divisions as free upside on top.
 
 ---
 
+## Strategy note — detector QUALITY is the next lever (not recall)
+
+After v2.5b (detection density LB-negative) and v3/Version 7 (rule-based divisions LB-negative), the two
+"obvious" detector knobs are both closed. But the studied reference **U-Net (LB 0.843) uses the SAME two-pass
+linking we do** and still beats our 0.827 by **+0.016** — proof that a *better detector* (not more detections)
+has real leaderboard headroom. The productive target is therefore **localization precision + generalization to
+the unseen `44b6_` specimen**, NOT recall (already ~97%, and pushing it LB-regressed). Two detector experiments
+follow from this: **v1b** (train the existing arch to convergence) and **v4** (adopt the reference's isotropic
+grid). Both are evaluated as single-variable changes.
+
+---
+
+## v1b — Converged v1 detector (60-epoch cosine continuation)
+
+**Notebook:** `src/v1_unet_train.ipynb` (same file, updated in place).
+
+**Motivation.** The original v1 stopped at 30 epochs on a **flat LR** with val loss still trending down —
+**never converged** (early-stop never fired, val ≤ train throughout). This run trains to convergence.
+
+**Method / changes vs v1** (everything else identical — single variable = training schedule):
+
+| group | param | v1 | v1b |
+|-------|-------|----|-----|
+| train | EPOCHS | 30 | **60** |
+| optim | LR schedule | flat 2e-4 | **cosine 2e-4 → 4e-6** (eta_min = 2% of base, over the 60-ep horizon) |
+| train | early-stop patience | 6 | **8** (room for the decay tail) |
+| resume | scheduler state | — | **stored in ckpt**; old flat-lr ckpt is fast-forwarded to mid-cosine (~1e-4) |
+| resume | warm-start (best-weights only) | — | **added**: fresh opt, continue from cosine midpoint (gentle lr), seed `best` from the warm model so it never ends worse |
+
+**Deployment.** This is the detector behind the planned **submission "Version 8"** = converged weights + the
+**unchanged v2 pipeline** (HM_THR 0.3 / min_dist 3 / NMS off + two-pass linking loose8/filter4, divisions OFF).
+Single attributable variable vs Version 3 (0.827): only the detector weights changed.
+
+**Results.** Training complete (user). **Local eval + LB (Version 8): _pending_.** Read: LB ≥ 0.827 → detector
+quality has headroom (keep pushing detector arch); ≈ 0.827 → detector quality-saturated → Phase 2 linking.
+
+---
+
+## v4 — Isotropic pooled-grid detector
+
+**Notebook:** `src/v4_isotropic_train.ipynb` (self-contained; reuses v1's training machinery).
+
+**Method.** Adopt the reference LB-0.843 detector's representation: **max-pool XY by 4** so the network sees an
+**isotropic 64³ grid** (voxel 1.625 µm on all three axes — z untouched, xy 0.40625×4 = 1.625). Symmetric strides
+`(2,2,2)×4` (64→32→16→8→4). Trains on **whole 64³ volumes** (no cropping). At inference: peaks found on the 64³
+grid → mapped back to ORIGINAL coords (xy ×4) → **refined by intensity-weighted CoM on the full-res volume** to
+recover sub-pool xy precision. Linking + scoring run in ORIGINAL µm space, so the eval edge-Jaccard is directly
+comparable to **v1's 0.808** (same NN linker) — the delta is purely the isotropic geometry.
+
+**Single-variable (chosen).** vs v1: base16, InstanceNorm, sigma-in-µm, cosine LR all **unchanged**; ONLY the
+grid geometry + symmetric strides change. (Reference config base24/BatchNorm deferred to later single steps.)
+Pooling = **max** (chosen; preserves bright centroids vs mean/area).
+
+**Hyper-parameters** (changed from v1):
+
+| group | param | v1 (full-res) | v4 (isotropic) |
+|-------|-------|---------------|----------------|
+| grid | XY pooling | none (full-res) | **max-pool ×4 → 64³** |
+| model | strides | ((1,2,2),(1,2,2),(2,2,2),(2,2,2)) | **((2,2,2)×4)** symmetric |
+| target | SIGMA (voxels) | (1,3,3) anisotropic | **(1,1,1) isotropic** (~1.625 µm) |
+| train | patch / batch | (64,128,128) / 2 | **whole 64³ / 8** |
+| infer | min_distance | 3 (full-res voxels) | **1 (pooled voxel = 1.625 µm)** |
+| infer | refine window | (1,3,3) | **(1,5,5)** on full-res (recovers xy after ×4 map) |
+
+**Hypothesis.** Isotropic z-context (z is 4× coarser and the hardest axis to localize) should lift the weakest
+samples — dense fields and especially the unseen **`44b6_`** specimen (absent from the all-`6bba_` first-5 val,
+so eval with `EVAL_N_VAL=20`). Params ≈ 5.82 M (≈ v1's 5.8 M → same capacity, confirming single-variable).
+
+**Results.** Built + locally smoke-tested (pool shape, 64³ forward, coord round-trip). **User training; eval (vs
+0.808) + LB: _pending._** If eval > 0.808 → wire the pool front-end + symmetric strides into `submit.ipynb` and
+LB-test (re-calibrate `HM_THR`/`MIN_DIST_POOLED` — the pooled grid changes peak density, and density is what bit
+v2.5). If ≈ 0.808 → isotropic geometry didn't help → detector saturated → Phase 2 linking.
+
+---
+
 ## How to log a new experiment
 
 Copy a version block, bump the version (`vN`), and record: notebook, method summary, the full
