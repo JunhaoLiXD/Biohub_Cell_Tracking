@@ -443,8 +443,22 @@ grid). Both are evaluated as single-variable changes.
 **unchanged v2 pipeline** (HM_THR 0.3 / min_dist 3 / NMS off + two-pass linking loose8/filter4, divisions OFF).
 Single attributable variable vs Version 3 (0.827): only the detector weights changed.
 
-**Results.** Training complete (user). **Local eval + LB (Version 8): _pending_.** Read: LB ≥ 0.827 → detector
-quality has headroom (keep pushing detector arch); ≈ 0.827 → detector quality-saturated → Phase 2 linking.
+**Results.** Training complete (user). **LB (submission "Version 8"): 0.844** — the converged detector + the
+unchanged v2 pipeline. **+0.017 over v2's 0.827** from *nothing but better-trained weights* (single attributable
+variable), and it **matches/edges the reference UNet's LB 0.843** using our *same* v2 linking.
+
+| run | detector | pipeline | LB | vs v2 |
+|-----|----------|----------|----|-------|
+| v2 (Version 3) | v1 30-epoch flat-LR | v2 detect + v2 linking | 0.827 | — |
+| v1b (Version 8) | **v1 60-epoch cosine (converged)** | same v2 detect + v2 linking | **0.844** | **+0.017** |
+
+- **Verdict: detector QUALITY is a real, open lever** — the read was "LB ≥ 0.827 → keep pushing the detector",
+  and 0.844 clears it decisively. Density (v2.5b) and rule-based divisions (Version 7) are both closed, but the
+  *detector itself* still has headroom: convergence alone bought +0.017, and matching the reference 0.843 with
+  our own linking means their remaining edge over us is detector, not tracking. **Next single-variable detector
+  steps are now justified**: v4 isotropic grid (below), then base24 / BatchNorm.
+- The gain also confirms the original v1 was genuinely under-trained (flat LR, val still descending at 30 ep) —
+  cosine LR to 60 epochs was the fix, not more data or architecture.
 
 ---
 
@@ -478,10 +492,27 @@ Pooling = **max** (chosen; preserves bright centroids vs mean/area).
 samples — dense fields and especially the unseen **`44b6_`** specimen (absent from the all-`6bba_` first-5 val,
 so eval with `EVAL_N_VAL=20`). Params ≈ 5.82 M (≈ v1's 5.8 M → same capacity, confirming single-variable).
 
-**Results.** Built + locally smoke-tested (pool shape, 64³ forward, coord round-trip). **User training; eval (vs
-0.808) + LB: _pending._** If eval > 0.808 → wire the pool front-end + symmetric strides into `submit.ipynb` and
-LB-test (re-calibrate `HM_THR`/`MIN_DIST_POOLED` — the pooled grid changes peak density, and density is what bit
-v2.5). If ≈ 0.808 → isotropic geometry didn't help → detector saturated → Phase 2 linking.
+**Results.** Built + locally smoke-tested (pool shape, 64³ forward, coord round-trip). **User training complete.**
+
+**Wired into `submit.ipynb`** (a `DETECTOR = 'v1' | 'v4'` toggle): setting `'v4'` auto-switches to symmetric
+STRIDES + the pool/detect front-end (`POOL_XY=4`, `MIN_DISTANCE=1` pooled voxels, `REFINE_WIN=(1,5,5)`) and
+feeds the **identical v2 linking + divisions OFF**, so a v4 submission is a **clean single-variable detector
+swap vs Version 8's 0.844**. HM_THR held at 0.3 for the first A/B (do NOT also move density — that would
+re-bundle the v2.5 mistake). Weights auto-find is DETECTOR-aware and keyed on the exact filename first, so both
+weight datasets can be attached at once without grabbing the wrong `.pt`.
+
+**Weights / datasets.** v1 = `v1_UNet_best.pt` (Kaggle dataset `biohub-v1-unet-base16-heatmap`); v4 =
+`v4_UNet_iso_best.pt` (`biohub-v4-unet-base16-iso-heatmap`). `submit.ipynb` is **currently set to `DETECTOR='v4'`**
+for the pending A/B run.
+
+**Next (pending):**
+1. *Local read first* — run the v4 notebook's eval cell (ideally `EVAL_N_VAL=20` so both specimens, incl. the
+   `44b6_` v4 is meant to help, are scored) and compare to **v1's NN 0.808**. `> 0.808` = a better detector →
+   worth the LB slot; `≈ 0.808` = isotropic geometry didn't help.
+2. *LB* — submit `DETECTOR='v4'` + the `unet_iso_*.pt` weights and compare to **0.844** (Version 8). Note the
+   printed node counts: the pooled grid changes peak density, so if they diverge a lot from v1's, an HM_THR
+   re-calibration (as its own submission) may be needed. If v4 ≥ 0.844 → isotropic detector wins, keep pushing
+   (base24 / BatchNorm); if < 0.844 → v1 full-res stays the base, try the other detector-quality knobs on it.
 
 ---
 
