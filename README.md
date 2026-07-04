@@ -28,7 +28,7 @@ src/
   v2_fusion_eval.ipynb        v2 — local eval: v1 detector + stronger (two-pass motion) linking
   v2_5_highrecall_eval.ipynb  v2.5 — local eval: high-recall detection + physical (µm) NMS
   v3_divisions_eval.ipynb     v3 — local eval: post-hoc division detection (earn the 0.1 division term)
-  submit.ipynb                submission notebook (offline): UNet detector + physical-NMS detection + two-pass motion linking + post-hoc divisions -> submission.csv
+  submit.ipynb                submission notebook (offline): UNet detector + two-pass motion linking + post-hoc divisions -> submission.csv
 docs/
   experiments.md              experiment log: config, hyper-parameters, results per version
 ```
@@ -68,8 +68,12 @@ later model ensembling/fusion straightforward.
       penalty, so relaxing the linker looked free locally while costing real precision on the leaderboard.
 - [x] **v2.5b — isolate the cause** — keep v2.5's high-recall detection, but revert *only* the linking
       back to v2's leaderboard-proven precision (the single variable). **Local edge-Jaccard 0.8588 ≈ v2's
-      0.859**; leaderboard submission pending to decide whether the regression was the relaxed linking or
-      the detection density.
+      0.859**, so it ties v2 locally — meaning any leaderboard difference is purely what local scoring can't
+      see. **Leaderboard 0.786** (between v2.5's 0.776 and v2's 0.827). Because the linking is identical to
+      v2, the entire **0.041 gap below v2 is the high-recall detection's density** — over-prediction penalty
+      plus false links on the dense hidden test set. **Verdict: the high-recall detection is a net negative
+      on the leaderboard; detection is saturated for this metric, so the code is locked back to v2's
+      detector (higher threshold, no NMS).**
 - [x] **v3 — post-hoc division detection** — the two-pass Hungarian linker is strictly 1-to-1, so it can
       never emit a division (a node with 2 children) and the `0.1 · division_jaccard` term was always 0.
       v3 adds a rule-based step *after* linking that attaches a second daughter to a mother when a
@@ -78,7 +82,13 @@ later model ensembling/fusion straightforward.
       unmatched detections), but division-Jaccard is only **~0.002** (≈400 false divisions per true one):
       the high-recall detection floods dense regions with spurious tracks, so "a nearby opposite-side track"
       is not a distinctive signal for a real division. Conclusion: divisions need a global/learned tracker,
-      not post-hoc geometry.
+      not post-hoc geometry. **Follow-up (v2+v3 fusion): the division step was moved onto the leaderboard-best
+      v2 detector** (sparser detections → fewer spurious tracks) to test whether a cleaner field makes the
+      geometric division signal usable. **Result: leaderboard 0.822 — below v2's 0.827.** The division-score
+      bonus is negligible, and the extra division edges — which look free against the sparse *local* labels
+      (they land on unlabeled detections) — become real false links on the *densely*-labeled hidden test set.
+      **Rule-based divisions are closed: net negative on the leaderboard, so submissions ship with divisions
+      off and v2 (0.827) remains best.**
 - [ ] **Better linking (Phase 2)** — learned or globally-optimal association to convert the ~97%
       detection into more correct temporal edges; this is also the principled route to the division term.
 

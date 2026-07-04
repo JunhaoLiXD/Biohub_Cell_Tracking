@@ -269,7 +269,26 @@ variable vs the 0.776 run, so the LB result attributes the regression to linking
 - **Decision rule for the LB result:** ≥0.827 → relaxed linking was the v2.5 culprit, high-recall detection
   is LB-safe (keep it, move to Phase 2 linking). ~0.776–0.82 → detection density is the cost, lock in v2
   (HM_THR=0.3, no NMS). >v2 clearly → high-recall detection genuinely helps on `44b6_`.
-- **LB: pending** (submission description prepared).
+
+**LB result (submission "Version 5"): 0.786** — lands squarely in the "detection density is the cost" band.
+
+| run | detection | linking | local edge-J | LB |
+|-----|-----------|---------|--------------|----|
+| v2    | HM_THR 0.3, no NMS | v2 | 0.859 | **0.827** |
+| v2.5  | HM_THR 0.15 + NMS | relaxed | 0.8657 | 0.776 |
+| v2.5b | HM_THR 0.15 + NMS | v2 | 0.8588 | **0.786** |
+
+- **Clean single-variable isolation (the payoff of the revert).** v2 and v2.5b **tie locally** (0.859 vs
+  0.8588) with **identical linking**, so the entire **−0.041 LB gap (0.827 → 0.786) is attributable to the
+  high-recall detection density alone** — the adjusted over-prediction penalty + false links on the dense
+  hidden GT, both invisible to local eval. Separately, v2.5b (0.786) vs v2.5 (0.776) shares the detection and
+  differs only in linking → **restoring v2 linking bought +0.010**. So the original v2 → v2.5 drop of 0.051
+  decomposes as **≈ −0.041 detection density (the dominant ~80%) + −0.010 relaxed linking**. Both knobs hurt;
+  detection density is ~4× the cost.
+- **Verdict: high-recall detection (HM_THR 0.15 + min_distance 1 + physical NMS) is LB-NEGATIVE.** Detection is
+  **saturated** for this metric — more recall buys nothing the LB rewards and costs the density penalty.
+  **Locked the code back to v2 detection** (HM_THR 0.3, min_distance 3, NMS off) in both `submit.ipynb` and
+  `v3_divisions_eval.ipynb`. The only remaining lever is Phase 2 (learned/global linking).
 
 ---
 
@@ -335,10 +354,59 @@ division-J on the 8 **division-richest** train samples (where GT divisions actua
 - **`filter_short_tracks(4)` runs before `detect_divisions`**, so an orphan daughter chain must actually
   survive ≥ 4 nodes; `MIN_DAUGHTER_LEN=3` is therefore partly dominated (consistent between v3 and submit).
 
-**Submission.** `src/submit.ipynb` now runs **v2.5b detection + v2 linking + v3 divisions** (`DIV_ENABLE=True`).
-Because divisions are locally ≈ neutral, this submission **doubles as the pending v2.5b high-recall-detection
-test**: LB ≥ 0.827 → high-recall detection is LB-safe (keep it); LB ~0.776 → detection density is the cost
-(lock in v2, HM_THR=0.3). **LB: pending.** (Set `DIV_ENABLE=False` for the pure v2.5b/v2 graph.)
+**Note on the base.** The results above ran `detect_divisions` on the **v2.5b high-recall detection**. Once the
+v2.5b LB (0.786) proved that detection density is a net negative, the division step was moved onto the LB-best
+v2 detection — see the fusion below.
+
+---
+
+## v3 on v2 base — "fuse v2 + v3" (divisions on the leaderboard-best detector)
+
+**Notebooks:** `src/v3_divisions_eval.ipynb` (config reverted to v2 detection) + `src/submit.ipynb`
+(`DIV_ENABLE=True`).
+
+**Method.** Identical `detect_divisions` (same gates: radius 10 µm, angle ≥ 75°, daughter ≥ 3, mother ≥ 3),
+but the **detection front-end reverted from v2.5b to v2**: `HM_THR` 0.15 → **0.3**, `min_distance` 1 → **3**,
+physical **NMS off** (`NMS_UM = 0`). Linking stays v2 (loose 8 / filter 4). Single attributable change vs v2:
+the division rider on the LB-best base.
+
+**Hyper-parameters** (changed from the v2.5b-base v3):
+
+| group | param | v2.5b base | v2 base |
+|-------|-------|------------|---------|
+| detect | HM_THR | 0.15 | **0.3** |
+| detect | min_distance (voxels) | 1 | **3** |
+| detect | physical NMS radius (µm) | 3.0 | **0 (off)** |
+
+**Hypothesis.** v2's sparser peaks leave **far fewer persistent orphans** than v2.5b's high-recall flood, so
+the "established mother + nearby opposite-side persistent orphan" pattern should be **less ubiquitous → a
+cleaner division signature**. Division-J may rise above the ~0.0024 seen on v2.5b detection. The division
+edges still land on unmatched orphans, so the step stays **edge-safe** (expected edge-J ≥ v2's 0.827) with
+divisions as free upside on top.
+
+**Results.**
+
+| run | base | divisions | LB | vs v2 |
+|-----|------|-----------|----|-------|
+| v2 (Version 3) | HM_THR 0.3 + v2 linking | OFF (1-to-1 linker) | **0.827** | — |
+| v2+v3 (Version 7) | same v2 detection + linking | **ON** (`DIV_ENABLE`) | **0.822** | **−0.005 ⬇** |
+
+**Observations.**
+- **Divisions ON is net LB-NEGATIVE even on v2's sparser detection** (−0.005). This closes the rule-based
+  division line: it was already worthless on v2.5b high-recall detection (div-J ≈ 0.0024), and on the LB-best
+  v2 base it doesn't just fail to help — it *costs* a little.
+- **Why it drops rather than merely ties.** The division term's contribution is negligible
+  (`0.1 · division_jaccard ≈ +0.0002`), so it can't offset anything. Meanwhile the added `M→D2` edges are only
+  **"edge-safe" against the sparse *local* GT**, where they land on unmatched orphans (not charged as FP). On
+  the **dense hidden GT** those same orphan targets are frequently real, matched GT nodes that simply have no
+  division edge → `M→D2` then joins two matched nodes not connected in GT = a genuine **edge-FP**. The result:
+  tiny division bonus − small dense-GT edge-FP cost ≈ −0.005.
+- **This is the exact v2.5 blind-spot again** (local rose, LB fell): local eval cannot see FP edges on the dense
+  hidden GT, so a step that looks free locally can still cost real edge precision on the leaderboard. See the
+  v2.5 / v2.5b sections.
+- **Verdict / action.** Rule-based post-hoc divisions are **fully closed** — LB-negative on both detection bases.
+  Ship submissions with **`DIV_ENABLE=False`**; the leaderboard best remains **v2 (Version 3, 0.827)**. Divisions
+  are only worth pursuing as a byproduct of Phase 2 global/learned tracking (motile division cost / Trackastra).
 
 ---
 
