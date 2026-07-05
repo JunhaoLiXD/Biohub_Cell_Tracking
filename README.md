@@ -103,6 +103,15 @@ later model ensembling/fusion straightforward.
       notebook as a one-flag detector swap that keeps the same post-processing (so any change is attributable to
       the detector alone). *Local eval + leaderboard comparison to 0.844: pending.* Next architectural steps
       (wider base channels, batch-norm) follow if the isotropic grid helps.
+- [~] **Detector quality — wider residual net (v5, in progress)** — a wider, residual, better-normalized
+      detector (base channels 16→24, batch-norm, residual blocks, plus augmentation that actually reaches the
+      model) on the leaderboard-best full-resolution geometry. **Runs 1 and 2 both failed to converge**: the
+      training loss collapses to a floor after the first epoch and never descends, with best validation ~2.5×
+      worse than the converged v1. Run 1 used batch-norm; run 2 swapped *only* the normalization to instance-norm
+      (everything else held) and stalled identically — so **batch-norm at batch size 2 is ruled out**; the stall
+      is normalization-independent. The train and validation curves track each other (underfitting, not
+      overfitting), which points at the newly-added photometric augmentation raising the loss floor. Run 3 holds
+      the net fixed and *disables* that augmentation to confirm. *Retrain + comparison to 0.844: pending.*
 - [ ] **Better linking (Phase 2)** — learned or globally-optimal association to convert the ~97%
       detection into more correct temporal edges; this is also the principled route to the division term.
 

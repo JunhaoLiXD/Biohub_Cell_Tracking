@@ -505,14 +505,106 @@ weight datasets can be attached at once without grabbing the wrong `.pt`.
 `v4_UNet_iso_best.pt` (`biohub-v4-unet-base16-iso-heatmap`). `submit.ipynb` is **currently set to `DETECTOR='v4'`**
 for the pending A/B run.
 
-**Next (pending):**
-1. *Local read first* — run the v4 notebook's eval cell (ideally `EVAL_N_VAL=20` so both specimens, incl. the
-   `44b6_` v4 is meant to help, are scored) and compare to **v1's NN 0.808**. `> 0.808` = a better detector →
-   worth the LB slot; `≈ 0.808` = isotropic geometry didn't help.
-2. *LB* — submit `DETECTOR='v4'` + the `unet_iso_*.pt` weights and compare to **0.844** (Version 8). Note the
-   printed node counts: the pooled grid changes peak density, so if they diverge a lot from v1's, an HM_THR
-   re-calibration (as its own submission) may be needed. If v4 ≥ 0.844 → isotropic detector wins, keep pushing
-   (base24 / BatchNorm); if < 0.844 → v1 full-res stays the base, try the other detector-quality knobs on it.
+**Results.** **LB (submission "Version 9"): 0.838** — v4 isotropic detector + the unchanged v2 pipeline, a
+clean single-variable detector swap vs Version 8's **0.844**. So isotropic is **−0.006 vs the converged v1
+full-res detector**: LB-NEGATIVE, below the decision gate (≥ 0.844).
+
+| version | detector | pipeline | LB | vs Version 8 |
+|---|---|---|---|---|
+| v1b (Version 8) | v1 60-epoch cosine, full-res anisotropic | v2 detect + v2 linking | **0.844** | — |
+| v4 (Version 9) | **isotropic 64³ pooled grid (XY max-pool ×4)** | same v2 detect + v2 linking | 0.838 | **−0.006** |
+
+**Verdict: v1 full-res stays the base; isotropic geometry is a (mild) LB loss.** Because everything downstream
+was identical, the −0.006 is purely the detector geometry. Most likely cause: **XY max-pool ×4 discards native
+0.40625 µm localization precision** at the peak-detection stage (peaks are found on the coarse 64³ grid, then
+refined on full-res — but merges/misses in dense XY regions can't be recovered by post-hoc refinement). The
+isotropic z-context hypothesis (help the dense / `44b6_` samples) did not pay off enough to offset that XY loss.
+The "keep pushing arch (base24 / BatchNorm)" path was gated on v4 winning, so it is **not** auto-justified by
+this result — but base24 / BatchNorm can still be tried on the **v1 full-res** geometry as separate single-variable
+experiments. HM_THR was held at 0.3 (density unchanged), so the gap is not a density-calibration artifact.
+
+---
+
+## v5 — ResUNet detector (base24 + BatchNorm + residual + effective 3D aug)
+
+**Notebook:** `src/v5_resunet_train.ipynb` (self-contained; a copy of v1's machinery — identical cosine LR,
+checkpoint/resume, eval, and downstream linking. ONLY the detector internals change).
+
+**Motivation.** Density (v2.5b), rule-based divisions (Version 7), and isotropic geometry (v4, LB 0.838) are all
+closed. The one detector axis still untested is raw **quality/capacity**: a wider, residual, better-normalized net
+with augmentation that actually reaches the model. Built on the **LB-best v1 full-res anisotropic** geometry, not
+the isotropic grid that just lost.
+
+**Method (single notebook; each change is a flag for ablation).** Four bundled changes vs v1:
+
+| knob | v1 | v5 default | note |
+|---|---|---|---|
+| `BASE` (width) | 16 (5.81M params) | **24 (13.25M)** | `32` = 23.56M available; `chs = base·2^i` |
+| `NORM` | InstanceNorm3d | **BatchNorm3d** | ⚠️ BATCH=2 is small for BN → `'group'`/`'instance'` fallbacks |
+| `RESIDUAL` | none | **True** | `ConvBlock = act(convs(x) + proj(x))`; False+instance == v1 |
+| augmentation | flips + xy-swap + `v*=U(0.9,1.1)` | flips + **90° rot** + gamma/contrast/bright/noise | see below |
+
+The intensity fix matters: v1 multiplied the raw volume by `U(0.9,1.1)` and *then* percentile-normalized — the
+scale **cancels**, so v1 effectively trained with geometric augmentation only. v5 applies gamma / contrast /
+brightness / additive-noise **after** the [0,1] normalization (so they persist), plus in-plane 90° rotations. This
+targets **generalization to the unseen `44b6_` specimen** (our val is all `6bba_`, so raise `EVAL_N_VAL` toward 20
+to actually observe it). Weights live in their own files (`v5_UNet_res_best.pt` / `unet_res_latest.pt`); v1/v4
+weights are NOT loadable (conv shapes differ) → trains from scratch.
+
+**Smoke test (local, CPU).** All four flag combinations forward correctly at full heatmap resolution; param counts
+confirmed (BASE16/instance/no-residual = 5.81M = v1; BASE24/batch/residual = 13.25M; BASE32 = 23.56M).
+
+**Results — run 1 (BASE24 + BatchNorm + Residual + aug): FAILED TO CONVERGE.** Trained on Kaggle
+(`results/v5_history.csv`). The run **stalled almost immediately** and **early-stopped at epoch 17** (patience 8;
+best val was epoch 9):
+
+| run | detector | best val MSE | epochs | vs v1 |
+|-----|----------|--------------|--------|-------|
+| v1 (converged) | base16, InstanceNorm | **0.000663** (epoch 29, still trending down) | 30 → 60 | — |
+| v5 run 1 | base24, **BatchNorm**, residual, aug | **0.001669** (epoch 9) | early-stop @17 | **~2.5× worse** |
+
+- **Train loss went flat after epoch 1 and never descended.** v5 train dropped 0.0193 → 0.00168 in the first epoch,
+  then sat at ~0.0016–0.0017 for the remaining 16 epochs (0.00162 at epoch 17). v1 by contrast falls smoothly and
+  monotonically (0.0898 → 0.00089). This is **stall/underfitting, not slow convergence** — the net learns almost
+  nothing after epoch 1.
+- **v5's plateau ≈ v1's epoch-9 state.** v5 best val 0.001669 ≈ v1's epoch-9 val (0.001749). So 18 epochs of v5 only
+  reached where v1 was at epoch 9, then stopped improving; early-stop (best @9, no gain for 8 epochs) correctly
+  fired at 17. The resulting detector is far worse than v1b (0.844) → **no local eval / LB slot warranted**.
+- **Prime suspect: `NORM='batch'` at `BATCH=2`.** The "train loss flat from epoch 1" signature points at the batch
+  statistics (batch=2 is too small for BatchNorm3d — running stats are noisy and cap the regression; flagged in the
+  config comment). Residual + BN interaction is a secondary suspect. Because run 1 bundled **four** knobs
+  (base24 / batch / residual / aug), the cause is not yet attributable — same "never bundle" discipline as v2.5.
+
+**Results — run 2 (ablation: `NORM='instance'`, BASE24 + Residual + aug held): ALSO STALLED → BN hypothesis
+DISPROVED.** Changed **only** the norm (`'batch' → 'instance'`), so this run isolates BatchNorm-vs-InstanceNorm as
+the single variable vs run 1 (`results/v5_instance_history.csv`, 25 epochs, stopped by patience at epoch 24).
+
+| run | detector | best val MSE | epochs | vs v1 |
+|-----|----------|--------------|--------|-------|
+| v5 run 1 | base24, BatchNorm, residual, aug | 0.001669 (epoch 9) | early-stop @17 | ~2.5× worse |
+| v5 run 2 | base24, **InstanceNorm**, residual, aug | **0.001624** (epoch 16) | patience @24 | **~2.5× worse (same stall)** |
+
+- **Instance-norm behaves identically to batch-norm** — train loss again collapses to ~0.0017 in the first epoch
+  (0.0238 → 0.00174) and then sits at ~0.0016 with train ≈ val (no gap) for the rest of the run; best val 0.001624
+  vs run 1's 0.001669 is within noise. Both are ~2.5× v1's converged 0.000663.
+- **Verdict: `NORM='batch'` at `BATCH=2` was NOT the culprit** — swapping to InstanceNorm did not lift the plateau.
+  The stall is norm-independent, so the cause is a **shared factor** in the remaining bundle. The `train ≈ val`,
+  flat-from-epoch-1 signature (underfit / over-regularization, not overfit) points at the **augmentation**: v5 adds
+  strong post-normalization photometric aug (gamma 0.7–1.5 / contrast / brightness / noise σ=0.03, each p=0.5 every
+  step) that v1 never had, which raises the loss floor and blocks sharpening the peak predictions. `RESIDUAL` is the
+  secondary suspect (capacity `BASE24` should only help the fit, so it is unlikely to be the cause).
+
+**Run 3 (queued): isolate augmentation.** Hold `NORM='instance'` / `RESIDUAL=True` / `BASE=24` and **disable the
+photometric aug** (`AUG_GAMMA=(1,1)`, `AUG_CONTRAST=(1,1)`, `AUG_BRIGHT=0`, `AUG_NOISE_STD=0` — geometric flips /
+90° rot kept). Single variable vs run 2. Read: train loss breaks below the ~0.0016 floor and descends toward v1's
+0.000663 → augmentation was the killer; still stalls → aug cleared, next flip `RESIDUAL=False`. ⚠️ train **from
+scratch** each run (norm/layer buffers differ; do not resume run-1/run-2 checkpoints). Save history as
+`v5_noaug_history.csv`.
+
+**Expectation to temper.** The reference UNet (base24 + BatchNorm) scored **0.843 ≈ our base16's 0.844** — i.e.
+raw width + BN alone did NOT beat us. So the likely payoff here, if any, is the **residual + effective augmentation
++ 44b6_ generalization**, not the channel count. If a converged v5 still doesn't clear 0.844, the detector is
+plateaued and the next real lever is Phase 2 learned linking (Trackastra).
 
 ---
 
