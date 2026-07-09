@@ -120,7 +120,15 @@ later model ensembling/fusion straightforward.
       blocks** and the wider base channels — and since extra width should only help fitting, the **residual skip is
       the prime suspect**. The next run disables the residual (holding width and everything else) to confirm; if
       that also stalls, the width is the last suspect and the experiment reverts to the v1 configuration.
-      *Retrain + comparison to 0.844: pending.*
+      **Run 4 (residual removed) converged cleanly** — the training loss fell all the way down instead of
+      stalling, confirming the **residual connection was the cause**. With the residual gone the detector is
+      simply a *wider* version of the best detector, and it reaches a **better validation loss than that detector**
+      at matched training length (a clean width-only comparison). It is now wired into the submission notebook as a
+      one-flag detector swap. *Leaderboard comparison to the current best (0.844): pending* — validation loss is
+      only a proxy, so the leaderboard is the real test of whether the extra width helps.
+- [~] **Divisions / lineage (Phase 3)** — only reachable through a tracker that models cell splits jointly; a
+      byproduct of the Phase-2 learned tracker rather than a separate step (rule-based division detection was shown
+      to hurt the leaderboard and is closed).
 - [~] **Better linking (Phase 2, now active) — learned association via Trackastra** — with the detector
       plateauing, the next lever is replacing the rule-based linker with a learned one. The whole public field
       is stuck around the same score using the *same* rule-based linker we do, so the headroom is in linking.
@@ -128,9 +136,17 @@ later model ensembling/fusion straightforward.
       loads and runs with the network fully blocked (the competition reruns with no internet), and its greedy
       linker needs no heavyweight solver. A probe of the available pretrained models found one (`ctc`) that
       **accepts 3D input**, so a **zero-shot** trial on our data is possible without training from scratch.
-      `v6_trackastra_eval.ipynb` is built to A/B this learned linker against the rule-based one on identical
-      detections (edge accuracy + division detection). *Run + comparison pending;* if zero-shot underperforms,
-      the fallback is to fine-tune the model on our 199 labelled pairs (which also natively yields divisions).
+      A/B'd this learned linker against the rule-based one on identical detections. **Zero-shot result: a wash-to-loss.**
+      The first run marginally edged the rule-based linker overall but *lost on the densest samples* and emitted a flood
+      of false divisions; the follow-up (built-in no-division mode + guaranteed mask regions) came out **slightly below**
+      the rule-based linker. Conclusion: the pretrained model, used as-is, does **not** beat our tuned rule-based linker,
+      so **zero-shot is closed**. The one remaining option for the learned tracker is **fine-tuning it on our 199
+      labelled pairs** (to close the imagery domain gap and learn our own motion/division statistics).
+- [~] **Fine-tuning the learned tracker (in progress)** — `v6_trackastra_train.ipynb` converts our data into the
+      standard tracking-benchmark format (synthesizing per-cell masks + a lineage file from our centroid+link labels)
+      and continues training the pretrained model from its released weights. Getting the data conversion and training
+      config right needed a couple of iterations (sparse frames with no cells had to be trimmed to continuous runs).
+      *Training + comparison to the rule-based linker: pending.*
 
 See [`docs/experiments.md`](docs/experiments.md) for per-experiment configuration and results.
 

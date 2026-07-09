@@ -621,17 +621,31 @@ trained from scratch (`results/v5_noaug_history.csv`, early-stop @ epoch 27).
   — the residual skip likely makes the trivial all-background/near-identity mapping an easy attractor under the
   sparse, imbalanced target (hypothesis, not a confirmed bug; no defect found in the block code).
 
-**Run 4 (next): isolate the residual skip.** Set `RESIDUAL=False` and hold `NORM='instance'` / `BASE=24` /
-aug OFF — single variable vs run 3, and this config differs from v1 **only by width (base24)**. Read: train loss
-breaks below the ~0.0016 floor toward v1's 0.000663 → **`RESIDUAL` was the killer** (and base24 is fine — then
-re-enable aug for the `44b6_` generalization test that is v5's only real upside); still stalls → base24 is the
-last suspect, revert to base16 (== v1) and the whole v5 bundle is a dead end. ⚠️ train **from scratch** each run
-(layer buffers differ; do not resume run-1/2/3 checkpoints). Save history as `v5_nores_history.csv`.
+**Results — run 4 (`RESIDUAL=False`, `NORM='instance'`, `BASE=24`, aug OFF): CONVERGED → RESIDUAL WAS THE KILLER.**
+Single variable vs run 3 (residual off), and this config differs from v1 **only by width (base24)**. Trained from
+scratch (`results/v5_base24_nores_history.csv`, early-stop @46).
 
-**Expectation to temper.** The reference UNet (base24 + BatchNorm) scored **0.843 ≈ our base16's 0.844** — i.e.
-raw width + BN alone did NOT beat us. So the likely payoff here, if any, is the **residual + effective augmentation
-+ 44b6_ generalization**, not the channel count. If a converged v5 still doesn't clear 0.844, the detector is
-plateaued and the next real lever is Phase 2 learned linking (Trackastra).
+| run | detector | best val MSE | vs v1 |
+|-----|----------|--------------|-------|
+| v1 (40-ep) | base16, InstanceNorm, no-residual | 0.000635 (epoch 32) — `v1_history_40epochs.csv` | — |
+| v5 runs 1-3 | base24 + residual (various norm/aug) | ~0.0016 (stalled) | ~2.5× worse |
+| **v5 run 4** | **base24, InstanceNorm, no-residual** | **0.000597 (epoch 38)** | **~6% LOWER (beats v1)** |
+
+- **Removing the residual fixed the stall completely** — train fell smoothly 0.12 → 0.0007 (vs the flat ~0.0016 of
+  runs 1-3). **`RESIDUAL` was the cause**, confirmed. With it gone, "v5" is just a **wider v1** (base24 InstanceNorm
+  no-residual anisotropic; BASE is the only difference from v1).
+- **It BEATS v1 on validation: 0.000597 < v1's 40-epoch 0.000635** — a clean base24-vs-base16 comparison (~6% lower
+  val MSE). ⚠️ **val MSE is a proxy** ("training loss does not directly reflect tracking quality") → the leaderboard
+  is the real judge.
+- **Renamed for clarity: model `v5_base24_nores_best.pt`, history `v5_base24_nores_history.csv`** ("res"/"nores" was
+  misleading — this model has NO residual; "base24" is its defining trait vs v1).
+- **Wired into `submit.ipynb`** as `DETECTOR='v5_base24_nores'` (BASE=24, same anisotropic full-res front-end as v1).
+  Note: v5's training ConvBlock names its layers `conv1/n1/conv2/n2`, whereas submit's ConvBlock is an `nn.Sequential`
+  (`net.0/net.1/net.3/net.4`) — **byte-identical computation, different parameter names** → submit applies a
+  `remap_v5_keys()` at load (verified locally: remapped key set == submit's, strict load OK, 13.06 M params).
+- **Leaderboard: submission pending** (single-variable detector swap vs Version 8's 0.844). Read: **LB ≥ 0.844 →
+  base24 wins, width is a live lever (try base32 / more epochs); < 0.844 → the val-MSE gain didn't transfer, v1
+  stays base.** Temper: the reference base24+BN only tied us at 0.843, so width alone may not move the LB.
 
 ---
 
@@ -704,7 +718,85 @@ anisotropy / physical scale is not passed to Trackastra (it sees voxel coords wi
 approximate mother-match (no ±1-frame tolerance); and the trackastra output-graph node attributes are assumed
 (`time` / `label`, with fallbacks + a printed `sample tra nodes:` for confirmation).
 
-**Results.** *(pending — user to run.)*
+**Results — run 1 (`mode='greedy'`, pseudo-mask balls MASK_R=(1,2,2)): MARGINAL TIE + division flood.**
+Plumbing verified sound (100 % of trackastra nodes mapped back to our detections; node attrs are `time`/`label`;
+masks present in all 100 frames).
+
+| linker | micro edge-Jaccard (5 val) | TP | FP | FN |
+|--------|----------------------------|----|----|----|
+| v2 two-pass (baseline) | 0.8594 | 2976 | 1 | 486 |
+| Trackastra `ctc` greedy (zero-shot) | **0.8621** | 2989 | 5 | 473 |
+
+- **Edge-J: ctc +0.0027 over v2** — within noise on 5 samples. Per-sample, **ctc wins the 3 sparse samples but
+  loses the 2 densest** (`fc5f39dc` preds 16849: 0.878→0.823; `fc83837d`: 0.752→0.733). The dense loss is **pseudo-
+  mask collision**: ~1–1.6 % of detections lose their region (e.g. 16849 predicted − 16641 trackastra nodes = 208
+  dropped) so they never become graph nodes.
+- **Division-J = 0.0004 — worthless flood** (TP 1, FP **2431**, FN 3): ctc greedy massively over-splits
+  (145–1063 out-degree-≥2 nodes per sample vs 0–2 in GT) on our over-detected fields — the **same root cause as v3's
+  rule-based divisions**, and an **LB landmine** (the 2nd-child edges look free on the sparse local GT but become
+  edge-FPs on the dense hidden GT — the v2.5/v3 blind spot).
+- **Verdict:** zero-shot `ctc` ≈ v2 on edge-J; the two hoped-for upsides (better dense-field linking, free divisions)
+  did NOT materialize zero-shot — dense fields regressed, divisions flooded.
+
+**Two fixes tried:** (1) **`mode='greedy_nodiv'`** — Trackastra's built-in no-division mode → strict 1:1 tracking
+(kills the division flood + LB landmine, edge comparison directly parallel to v2); (2) **forced-center pseudo-masks**
+— two-pass `make_masks` that forces each detection's centre voxel to its own label so no detection is lost to
+collision. (**Anisotropy is NOT fixable via the API** — the `track()` source signature has no scale/spacing/
+anisotropy parameter; the data showed collision, not anisotropy, was the dominant dense-loss cause anyway.)
+
+**Results — run 2 (greedy_nodiv + forced-center masks): the fixes made it WORSE.**
+
+| linker | micro edge-Jaccard (5 val) | TP | FP | FN |
+|--------|----------------------------|----|----|----|
+| v2 two-pass (baseline) | 0.8594 | 2976 | 1 | 486 |
+| ctc run 1 (greedy, div flood) | 0.8621 | 2989 | 5 | 473 |
+| **ctc run 2 (greedy_nodiv + forced-center)** | **0.8508** | 2949 | 4 | 513 |
+
+- **`greedy_nodiv` cost edge-J:** strict 1:1 dropped TP 2989→2949 (−40) — so ~40 of run-1's "division-flood" edges
+  were actually *correct* links; forbidding divisions removes them and reshuffles the greedy assignment for the worse.
+- **The forced-center masks BACKFIRED:** tracked-node count went *down* ~1–1.5 % per sample (e.g. fc5f39dc 16641 →
+  16395) instead of up — the fix was counterproductive (a bug in my two-pass logic), the opposite of the intended
+  collision recovery.
+- **Verdict — zero-shot `ctc` is CLOSED (a loss, not a win).** The only config that "beat" v2 (run 1, +0.0027) relied
+  on a division flood that is an LB landmine; the clean 1:1 config LOSES to v2 (0.8508 < 0.8594). Even a *correct*
+  collision fix wouldn't close the ~6 % dense-sample gap (fc5f39dc 0.814 vs 0.878). So zero-shot Trackastra does not
+  beat our rule-based v2 linker; the remaining Trackastra path is **fine-tuning** (below).
+
+---
+
+## v6-train — Fine-tuning Trackastra `ctc` on our 199 pairs (in progress)
+
+**Notebook:** `src/v6_trackastra_train.ipynb` (renamed from `v6_trackastra_eval.ipynb`; the eval logic is reused as
+a final A/B cell that loads the fine-tuned model). **Why.** Zero-shot `ctc` only matches/loses to v2; fine-tuning is
+the one remaining Trackastra lever — it can close the domain gap (CTC-imagery → zebrafish 3D fluorescence) and learn
+our own motion/division statistics + anisotropy, none of which zero-shot could.
+
+**Method.** Trackastra trains from a pretrained model via `scripts/train.py --model <ctc-folder>` (the `-m/--model`
+flag = "load this model and continue training"). Data must be in **Cell-Tracking-Challenge (CTC) format**: per-sample
+`<id>/01/tXXX.tif` image volumes + `<id>/01_GT/TRA/man_trackXXX.tif` masks (uint16, label = a track ID consistent
+across frames) + `man_track.txt` (`L B E P` = label, begin, end, parent). Our GT is centroids-only, so we synthesize
+the TRA masks (small balls at each GT centroid, labeled by the track derived from the GT lineage; divisions →
+daughter tracks with the mother recorded as parent). The notebook: install `trackastra` + train deps + clone the repo
+(for `scripts/train.py`) → download `ctc` and print its config → convert a SUBSET of our pairs to CTC → fine-tune →
+re-run the v6 A/B with the fine-tuned model. Everything heavy runs in a subprocess (post-install numpy consistent).
+
+**`ctc` config (read from the model):** `coord_dim: 3` (native 3D ✓), `d_model: 512`, 6 encoder + 6 decoder layers,
+**`window: 4`**, `features: wrfeat`, `causal_norm: quiet_softmax`; trained with `delta_cutoff: 1`, `div_upweight: 3`,
+`max_tokens: 1024`. The fine-tune command passes ALL of these so the pretrained weights load cleanly.
+
+**Debugging log (this notebook needed iteration, as expected — cannot be tested locally):**
+- **`WINDOW` had to = 4** to match the ctc config (a mismatch fails the pretrained load).
+- **Empty-frame crash:** our GT is sparse, so many frames have zero cells → empty masks → CTCData's `matching`
+  (`regionprops(empty)` → `np.stack([])`) crashed. **Fix:** the converter now trims each sample to its **longest
+  contiguous run of non-empty frames** (remapped to 0-based) and skips samples whose best run is `< MIN_RUN=8`; the
+  actual train/val split is written to `_split.json` and read by the train cell.
+- Conversion is healthy: on a 6-train (`44b6_`) + 2-val (`6bba_`) subset, all 8 kept, runs 40–100 frames, tracks ≪
+  nodes, divisions present.
+
+**Note on the subset:** the first quick run trains on `44b6_` and evaluates on `6bba_` (a cross-specimen split, and
+only a handful of samples) — fine to prove the pipeline trains, but a real result needs a mixed-specimen, larger set.
+
+**Results.** *(pending — user is running the fine-tune.)*
 
 ---
 
