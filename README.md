@@ -29,9 +29,13 @@ src/
   v2_5_highrecall_eval.ipynb  v2.5 — local eval: high-recall detection + physical (µm) NMS
   v3_divisions_eval.ipynb     v3 — local eval: post-hoc division detection (earn the 0.1 division term)
   v4_isotropic_train.ipynb    v4 — detector on an isotropic (XY-pooled) 64³ grid: training + eval
+  v5_resunet_train.ipynb      v5 — wider/residual/augmented detector (capacity/quality ablation; flags)
+  v6_trackastra_eval.ipynb    v6 — Phase 2: learned linking (Trackastra `ctc`) vs the rule-based linker
+  util_trackastra_offline_test.ipynb  utility: validate offline packaging of the Trackastra dependency
   submit.ipynb                submission notebook (offline): UNet detector + two-pass motion linking -> submission.csv
 docs/
   experiments.md              experiment log: config, hyper-parameters, results per version
+  external_ideas.md           survey of public/competitor approaches to steal from (Phase 2 backlog)
 ```
 
 Notebooks are **self-contained** and run standalone on Kaggle (single upload each). They are
@@ -105,15 +109,28 @@ later model ensembling/fusion straightforward.
       (wider base channels, batch-norm) follow if the isotropic grid helps.
 - [~] **Detector quality — wider residual net (v5, in progress)** — a wider, residual, better-normalized
       detector (base channels 16→24, batch-norm, residual blocks, plus augmentation that actually reaches the
-      model) on the leaderboard-best full-resolution geometry. **Runs 1 and 2 both failed to converge**: the
+      model) on the leaderboard-best full-resolution geometry. **Runs 1, 2 and 3 all failed to converge**: the
       training loss collapses to a floor after the first epoch and never descends, with best validation ~2.5×
       worse than the converged v1. Run 1 used batch-norm; run 2 swapped *only* the normalization to instance-norm
-      (everything else held) and stalled identically — so **batch-norm at batch size 2 is ruled out**; the stall
-      is normalization-independent. The train and validation curves track each other (underfitting, not
-      overfitting), which points at the newly-added photometric augmentation raising the loss floor. Run 3 holds
-      the net fixed and *disables* that augmentation to confirm. *Retrain + comparison to 0.844: pending.*
-- [ ] **Better linking (Phase 2)** — learned or globally-optimal association to convert the ~97%
-      detection into more correct temporal edges; this is also the principled route to the division term.
+      and stalled identically (**batch-norm at batch size 2 ruled out**); run 3 then *disabled* the photometric
+      augmentation (everything else held) and stalled again (**the augmentation is ruled out too**). Decisively,
+      run 3's evaluation produced **zero detections on every validation sample** — the predicted heatmap never
+      crosses the peak threshold, i.e. the network has collapsed to an all-background output and the loss floor is
+      that trivial solution. That narrows the cause to the only two remaining differences from v1 — the **residual
+      blocks** and the wider base channels — and since extra width should only help fitting, the **residual skip is
+      the prime suspect**. The next run disables the residual (holding width and everything else) to confirm; if
+      that also stalls, the width is the last suspect and the experiment reverts to the v1 configuration.
+      *Retrain + comparison to 0.844: pending.*
+- [~] **Better linking (Phase 2, now active) — learned association via Trackastra** — with the detector
+      plateauing, the next lever is replacing the rule-based linker with a learned one. The whole public field
+      is stuck around the same score using the *same* rule-based linker we do, so the headroom is in linking.
+      **Offline-packaging feasibility confirmed:** the Trackastra dependency installs and its pretrained model
+      loads and runs with the network fully blocked (the competition reruns with no internet), and its greedy
+      linker needs no heavyweight solver. A probe of the available pretrained models found one (`ctc`) that
+      **accepts 3D input**, so a **zero-shot** trial on our data is possible without training from scratch.
+      `v6_trackastra_eval.ipynb` is built to A/B this learned linker against the rule-based one on identical
+      detections (edge accuracy + division detection). *Run + comparison pending;* if zero-shot underperforms,
+      the fallback is to fine-tune the model on our 199 labelled pairs (which also natively yields divisions).
 
 See [`docs/experiments.md`](docs/experiments.md) for per-experiment configuration and results.
 

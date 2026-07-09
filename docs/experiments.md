@@ -594,17 +594,117 @@ the single variable vs run 1 (`results/v5_instance_history.csv`, 25 epochs, stop
   step) that v1 never had, which raises the loss floor and blocks sharpening the peak predictions. `RESIDUAL` is the
   secondary suspect (capacity `BASE24` should only help the fit, so it is unlikely to be the cause).
 
-**Run 3 (queued): isolate augmentation.** Hold `NORM='instance'` / `RESIDUAL=True` / `BASE=24` and **disable the
-photometric aug** (`AUG_GAMMA=(1,1)`, `AUG_CONTRAST=(1,1)`, `AUG_BRIGHT=0`, `AUG_NOISE_STD=0` — geometric flips /
-90° rot kept). Single variable vs run 2. Read: train loss breaks below the ~0.0016 floor and descends toward v1's
-0.000663 → augmentation was the killer; still stalls → aug cleared, next flip `RESIDUAL=False`. ⚠️ train **from
-scratch** each run (norm/layer buffers differ; do not resume run-1/run-2 checkpoints). Save history as
-`v5_noaug_history.csv`.
+**Results — run 3 (isolate augmentation: photometric aug OFF, `NORM='instance'` + `RESIDUAL=True` + `BASE=24`
+held): ALSO STALLED → AUGMENTATION DISPROVED.** Single variable vs run 2 = disabled the photometric aug
+(`AUG_GAMMA=(1,1)`, `AUG_CONTRAST=(1,1)`, `AUG_BRIGHT=0`, `AUG_NOISE_STD=0`; geometric flips / 90° rot kept),
+trained from scratch (`results/v5_noaug_history.csv`, early-stop @ epoch 27).
+
+| run | detector | best val MSE | epochs | vs v1 |
+|-----|----------|--------------|--------|-------|
+| v5 run 1 | base24, BatchNorm, residual, aug | 0.001669 (epoch 9) | early-stop @17 | ~2.5× worse |
+| v5 run 2 | base24, InstanceNorm, residual, aug | 0.001624 (epoch 16) | patience @24 | ~2.5× worse |
+| v5 run 3 | base24, InstanceNorm, residual, **aug OFF** | **0.001643 (epoch 19)** | early-stop @27 | **~2.5× worse (same stall)** |
+
+- **Turning the augmentation off did NOT lift the plateau** — train loss again collapses in epoch 0→1
+  (0.0362 → 0.0017) and then sits at ~0.0016–0.0017 with train ≈ val for the rest of the run; best val
+  0.001643 is within noise of runs 1 (0.001669) and 2 (0.001624), all ~2.5× v1's converged 0.000663.
+  **Verdict: the augmentation is NOT the culprit either** — same as BatchNorm was disproved in run 2.
+- **⚠️ New, decisive evidence — the detector is DEAD, not merely worse.** The eval cell produced **`pred=0`
+  for all 5 val samples → edge-Jaccard 0.000** (TP=0, FP=0, FN=3762): the heatmap **never exceeds the 0.3 peak
+  threshold anywhere**. The network has collapsed to a degenerate **all-background** output, and the ~0.0016
+  loss floor IS that trivial solution's loss (the target heatmap is ~99% zero, so predicting ~0 everywhere
+  scores a low masked-MSE and `POS_WEIGHT=10` on the tiny positive region doesn't pull it out). v1 escapes this
+  floor (reaches 0.000663 by actually predicting peaks); every v5 run gets stuck in it.
+- **Elimination is now down to two knobs.** Cleared: BatchNorm (run 2), norm-type dependence (run 2), and
+  augmentation (run 3). The only remaining differences from v1 are **`RESIDUAL=True`** and **`BASE=24`**. Since
+  `BASE=24` only adds capacity (should *help* the fit, not cause collapse), **`RESIDUAL` is the prime suspect**
+  — the residual skip likely makes the trivial all-background/near-identity mapping an easy attractor under the
+  sparse, imbalanced target (hypothesis, not a confirmed bug; no defect found in the block code).
+
+**Run 4 (next): isolate the residual skip.** Set `RESIDUAL=False` and hold `NORM='instance'` / `BASE=24` /
+aug OFF — single variable vs run 3, and this config differs from v1 **only by width (base24)**. Read: train loss
+breaks below the ~0.0016 floor toward v1's 0.000663 → **`RESIDUAL` was the killer** (and base24 is fine — then
+re-enable aug for the `44b6_` generalization test that is v5's only real upside); still stalls → base24 is the
+last suspect, revert to base16 (== v1) and the whole v5 bundle is a dead end. ⚠️ train **from scratch** each run
+(layer buffers differ; do not resume run-1/2/3 checkpoints). Save history as `v5_nores_history.csv`.
 
 **Expectation to temper.** The reference UNet (base24 + BatchNorm) scored **0.843 ≈ our base16's 0.844** — i.e.
 raw width + BN alone did NOT beat us. So the likely payoff here, if any, is the **residual + effective augmentation
 + 44b6_ generalization**, not the channel count. If a converged v5 still doesn't clear 0.844, the detector is
 plateaued and the next real lever is Phase 2 learned linking (Trackastra).
+
+---
+
+## Phase 2 — learned linking (Trackastra): offline-packaging gate + model probe
+
+**Notebook:** `src/util_trackastra_offline_test.ipynb` (utility). **Why now.** The detector has plateaued
+(v1b 0.844; v4 and v5 did not beat it) and detection density / rule-based divisions are both closed as
+LB-negative. The metric is edge-Jaccard-weighted, linking is now the larger loss (~7% vs detection ~6%), and
+the whole public field sits around the same score using the *same* two-pass rule-based linker we use — so the
+open headroom is **learned linking**. The competition host is Royer Lab (authors of ultrack / tracksdata,
+Trackastra-adjacent), which further signals a global/learned tracker is the intended route. Idea survey:
+`docs/external_ideas.md`. **Trackastra** was chosen first: it links *detections* (which we already have),
+models divisions natively, and looked easiest to package for the internet-OFF rerun.
+
+**Kill-criterion: can Trackastra run under internet OFF?** A two-phase notebook (`PHASE='download'` internet ON →
+build a `trackastra-offline` Kaggle dataset of wheels + the pretrained model; `PHASE='offline_test'` internet OFF →
+install from wheels + load the model + track a synthetic movie with all network sockets hard-blocked).
+
+**Result — GATE PASSED.** All three feasibility questions are YES:
+
+| question | result |
+|---|---|
+| Install offline (`pip --no-index` from wheels)? | **Yes** (returncode 0; wheels ~261 MB) |
+| Load a pretrained model with the network blocked? | **Yes** (bundle from platformdirs `~/.local/share/trackastra/models`, load offline) |
+| `mode='greedy'` without an ILP solver? | **Yes** (no motile/ilpy needed) |
+
+**Environment facts / bugs fixed** (each a real finding): Kaggle base is **numpy 2.0.2 / scipy 1.16.3**,
+**trackastra 0.5.3**. (1) `pip install trackastra` upgrades numpy 2.0.2→2.4.6 *inside the running kernel*, causing
+a numpy python/C ABI skew (`_blas_supports_fpe` AttributeError) on import → **fix: run all Trackastra work in a
+fresh subprocess** (a clean interpreter loads the upgraded numpy consistently). (2) Offline install
+`ResolutionImpossible` when pinning `numpy==2.0.2` because `imagecodecs>=2.1` (the only wheel available) needs a
+newer numpy → **fix: don't pin numpy offline** (the subprocess isolates the upgrade). (3) Model bundling was
+initially empty (wrong cache dir) → **fix: copy from the platformdirs `user_data_dir`**.
+
+**Pretrained-model probe** (Phase-1 cell). `_MODELS` has exactly **three** models
+(weigertlab/trackastra-models): `ctc`, `general_2d`, `general_2d_w_SAM2_features`. A 2D-vs-3D acceptance test:
+
+| model | 2D | 3D |
+|---|---|---|
+| `general_2d` | ✅ | ❌ ("Expected 2D data, got 3D data") |
+| **`ctc`** | ✅ | **✅** |
+
+**So there IS a usable 3D model — `ctc`.** Zero-shot 3D is therefore *on the table* (no from-scratch training
+required to get a first signal). Caveat: `ctc` is trained on Cell-Tracking-Challenge data (not zebrafish
+fluorescence) → a domain gap the real-data A/B must settle.
+
+---
+
+## v6 — Trackastra `ctc` zero-shot linking (local eval, built, run pending)
+
+**Notebook:** `src/v6_trackastra_eval.ipynb` (local A/B). **Method.** Detection is **identical to v2** (v1
+detector, `HM_THR=0.3`, `min_distance=3`, CoM refine) on the last-5 `6bba` val samples, so the **only variable is
+the linker**. For each sample: v1 detector → per-frame centroids → **pseudo-masks** (small anisotropic balls
+around each detection, painted paint-if-empty) → `Trackastra.from_pretrained('ctc').track(imgs, masks,
+mode='greedy')` → map the resulting edges back to our detection nodes → score **edge-Jaccard + division-Jaccard**
+vs GT. The baseline (v2 two-pass linker) is recomputed on the same detections in the same run (≈0.859). All heavy
+work (detect + v2 + ctc + score) runs in **one fresh subprocess** launched after `pip install trackastra`, so the
+in-kernel numpy upgrade never skews.
+
+**Inputs:** competition data + `biohub-v1-unet-base16-heatmap` (`v1_UNet_best.pt`); internet ON (dev/eval — offline
+packaging is validated separately). **Read:**
+- **ctc edge-J ≥ v2 (~0.859)** → learned linking wins on identical detections *and* brings divisions for free →
+  Phase-2 winner; next = run 20 samples (both specimens) + wire into `submit.ipynb`.
+- **ctc edge-J < v2** → domain gap and/or first-pass crudeness → **fine-tune `ctc` on our 199 pairs** (we have GT
+  edges + divisions).
+
+**First-pass caveats (all fixable if the signal is promising), surfaced by the notebook's diagnostics:** pseudo-
+masks are crude balls (dense-field detections can lose a region — watch `masks-present` / `mapped N/M nodes`);
+anisotropy / physical scale is not passed to Trackastra (it sees voxel coords with z 4× coarser); division-J is an
+approximate mother-match (no ±1-frame tolerance); and the trackastra output-graph node attributes are assumed
+(`time` / `label`, with fallbacks + a printed `sample tra nodes:` for confirmation).
+
+**Results.** *(pending — user to run.)*
 
 ---
 
