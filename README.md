@@ -29,7 +29,7 @@ src/
   v2_5_highrecall_eval.ipynb  v2.5 — local eval: high-recall detection + physical (µm) NMS
   v3_divisions_eval.ipynb     v3 — local eval: post-hoc division detection (earn the 0.1 division term)
   v4_isotropic_train.ipynb    v4 — detector on an isotropic (XY-pooled) 64³ grid: training + eval
-  v5_resunet_train.ipynb      v5 — wider/residual/augmented detector (capacity/quality ablation; flags)
+  v5_base24_aug_train.ipynb   v5 — wider (base24) detector; residual ablated out; run 5 augmentation = LB 0.836 (negative)
   v6_trackastra_eval.ipynb    v6 — Phase 2: learned linking (Trackastra `ctc`) vs the rule-based linker
   util_trackastra_offline_test.ipynb  utility: validate offline packaging of the Trackastra dependency
   submit.ipynb                submission notebook (offline): UNet detector + two-pass motion linking -> submission.csv
@@ -101,13 +101,14 @@ later model ensembling/fusion straightforward.
       leaderboard-best post-processing scored **0.844 — +0.017 over v2's 0.827 from nothing but better-trained
       weights**, and it **matches a public reference detector's 0.843 that uses the same linking as ours**. This
       confirms detector quality is a real, open lever (the reference's edge was training, not tracking).
-- [~] **Detector quality — isotropic grid (v4, in progress)** — **v4**, a detector on an **isotropic grid**
-      (pool the fine XY axes so the voxel is equal on all three axes, giving the network symmetric 3D context;
-      the depth axis is 4× coarser and the hardest to localize), is trained and wired into the submission
-      notebook as a one-flag detector swap that keeps the same post-processing (so any change is attributable to
-      the detector alone). *Local eval + leaderboard comparison to 0.844: pending.* Next architectural steps
-      (wider base channels, batch-norm) follow if the isotropic grid helps.
-- [~] **Detector quality — wider residual net (v5, in progress)** — a wider, residual, better-normalized
+- [x] **Detector quality — isotropic grid (v4, closed — mildly negative)** — **v4**, a detector on an **isotropic
+      grid** (pool the fine XY axes so the voxel is equal on all three axes, giving the network symmetric 3D context;
+      the depth axis is 4× coarser and the hardest to localize), trained and wired into the submission notebook as a
+      one-flag detector swap that keeps the same post-processing (so any change is attributable to the detector
+      alone). **Leaderboard result: 0.838 — 0.006 below the 0.844 base.** The XY pooling discards native localization
+      precision at peak-detection time, which the full-resolution refinement afterward can't fully recover, so the
+      isotropic grid is mildly leaderboard-negative and full-resolution stays the base.
+- [x] **Detector quality — wider residual net (v5, closed — width neutral, augmentation negative)** — a wider, residual, better-normalized
       detector (base channels 16→24, batch-norm, residual blocks, plus augmentation that actually reaches the
       model) on the leaderboard-best full-resolution geometry. **Runs 1, 2 and 3 all failed to converge**: the
       training loss collapses to a floor after the first epoch and never descends, with best validation ~2.5×
@@ -123,13 +124,27 @@ later model ensembling/fusion straightforward.
       **Run 4 (residual removed) converged cleanly** — the training loss fell all the way down instead of
       stalling, confirming the **residual connection was the cause**. With the residual gone the detector is
       simply a *wider* version of the best detector, and it reaches a **better validation loss than that detector**
-      at matched training length (a clean width-only comparison). It is now wired into the submission notebook as a
-      one-flag detector swap. *Leaderboard comparison to the current best (0.844): pending* — validation loss is
-      only a proxy, so the leaderboard is the real test of whether the extra width helps.
+      at matched training length (a clean width-only comparison). **Leaderboard result: 0.844 — an exact tie with
+      the best detector.** The ~6% better validation loss did **not** transfer, so **the extra width is
+      leaderboard-neutral** (validation loss really is only a loose proxy) — width is not a lever, and the detector
+      line now looks **saturated around 0.844** (best detector 0.844, isotropic 0.838, wider 0.844, reference 0.843).
+      **Run 5 (done):** the one detector factor never actually tested was **augmentation** — earlier runs only
+      ruled it out as the *cause of the stall*, never checked whether it *helps*. Augmentation is the only detector
+      change with a plausible leaderboard mechanism: better generalization to the **unseen second specimen** (local
+      validation is all one specimen, so this is invisible locally and only the leaderboard can judge it). Run 5
+      turns augmentation on as a single variable on the converged run-4 configuration (notebook renamed to
+      `v5_base24_aug_train.ipynb`). **Leaderboard result: 0.836 — down 0.008 from the 0.844 base.** Augmentation
+      reached a slightly *better* validation loss yet a *worse* leaderboard (the third time a validation gain has
+      failed to transfer), so **augmentation is leaderboard-negative**: it pushes the detector toward
+      intensity-invariance, which shifts peak height/sharpness against the fixed detection threshold (implicitly
+      moving detection density, which the leaderboard charges for) and slightly blurs centroid localization, while
+      the hoped-for cross-specimen generalization never appeared because the two specimens differ structurally, not
+      photometrically. This was the last untested detector factor, so **the detector line is now confirmed saturated
+      around 0.844** and all remaining effort moves to learned linking (Phase 2).
 - [~] **Divisions / lineage (Phase 3)** — only reachable through a tracker that models cell splits jointly; a
       byproduct of the Phase-2 learned tracker rather than a separate step (rule-based division detection was shown
       to hurt the leaderboard and is closed).
-- [~] **Better linking (Phase 2, now active) — learned association via Trackastra** — with the detector
+- [x] **Better linking (Phase 2) — learned association via Trackastra (closed — did not beat the rule-based linker)** — with the detector
       plateauing, the next lever is replacing the rule-based linker with a learned one. The whole public field
       is stuck around the same score using the *same* rule-based linker we do, so the headroom is in linking.
       **Offline-packaging feasibility confirmed:** the Trackastra dependency installs and its pretrained model
@@ -142,11 +157,22 @@ later model ensembling/fusion straightforward.
       the rule-based linker. Conclusion: the pretrained model, used as-is, does **not** beat our tuned rule-based linker,
       so **zero-shot is closed**. The one remaining option for the learned tracker is **fine-tuning it on our 199
       labelled pairs** (to close the imagery domain gap and learn our own motion/division statistics).
-- [~] **Fine-tuning the learned tracker (in progress)** — `v6_trackastra_train.ipynb` converts our data into the
-      standard tracking-benchmark format (synthesizing per-cell masks + a lineage file from our centroid+link labels)
-      and continues training the pretrained model from its released weights. Getting the data conversion and training
-      config right needed a couple of iterations (sparse frames with no cells had to be trimmed to continuous runs).
-      *Training + comparison to the rule-based linker: pending.*
+- [x] **Fine-tuning the learned tracker — a loss; the learned-linking direction is closed.**
+      `v6_trackastra_train.ipynb` converts our data into the standard tracking-benchmark format (synthesizing per-cell
+      masks + a lineage file from our centroid+link labels) and continues training the pretrained model from its
+      released weights. A mixed-specimen fine-tune trained cleanly, but on identical detections the fine-tuned tracker
+      scored **below** the rule-based linker — and *below* even the zero-shot pretrained model. **Fine-tuning made it
+      worse.** The loss is entirely on the **densest movies**: the learned tracker actually beats the rule-based linker
+      on sparse movies but collapses where our detector fires most. The reason is a **train/inference mismatch** — the
+      tracker is trained on clean masks built from one label per true cell, but at inference it must link our heavily
+      **over-detected** points (tens of thousands of candidate detections where the truth has a few hundred links),
+      which it never saw in training. This exposes a **fundamental tension**: the scoring metric rewards over-detection
+      (extra detections are nearly free), which is exactly what our strategy exploits — but over-detection is *poison*
+      to a learned attention tracker, while the rule-based motion-gated linker is naturally *robust* to it (spurious
+      points simply never get linked). **All three learned-linking attempts (two zero-shot, one fine-tuned) fail to
+      beat the rule-based linker**, so the learned-tracking bet did not pay off and the rule-based linker looks near the
+      metric ceiling (the whole public field plateaus at the same score with the same rule-based linker). The best
+      leaderboard score stays **0.844**.
 
 See [`docs/experiments.md`](docs/experiments.md) for per-experiment configuration and results.
 

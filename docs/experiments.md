@@ -643,9 +643,51 @@ scratch (`results/v5_base24_nores_history.csv`, early-stop @46).
   Note: v5's training ConvBlock names its layers `conv1/n1/conv2/n2`, whereas submit's ConvBlock is an `nn.Sequential`
   (`net.0/net.1/net.3/net.4`) — **byte-identical computation, different parameter names** → submit applies a
   `remap_v5_keys()` at load (verified locally: remapped key set == submit's, strict load OK, 13.06 M params).
-- **Leaderboard: submission pending** (single-variable detector swap vs Version 8's 0.844). Read: **LB ≥ 0.844 →
-  base24 wins, width is a live lever (try base32 / more epochs); < 0.844 → the val-MSE gain didn't transfer, v1
-  stays base.** Temper: the reference base24+BN only tied us at 0.843, so width alone may not move the LB.
+- **Leaderboard (submission "Version 11"): 0.844 — EXACTLY TIES Version 8 (v1, 0.844).** Clean single-variable
+  detector swap (v2 detect + v2 linking + divisions OFF identical to Version 8; only the detector width changed).
+  **VERDICT: base24 is LB-NEUTRAL** — the ~6% lower val MSE (0.000597 vs 0.000635) did **not** transfer to the LB
+  (as feared: val MSE is a loose proxy; the reference base24+BN also only tied at 0.843). **Width is NOT a lever →
+  do not try base32.** v1 base16 stays the reference detector.
+- **Detector line now looks SATURATED at ~0.844** for this pipeline: v1 0.844, v4 0.838 (closed), v5 base24 0.844
+  (neutral), reference UNet 0.843. Detection quality has been thoroughly explored → the real remaining lever is
+  Phase 2 learned linking (v6). See run 5 below for the one untested detector factor (augmentation).
+
+---
+
+## v5 run 5 — base24 no-residual + photometric augmentation (LB-negative, CLOSED)
+
+**Notebook:** `src/v5_base24_aug_train.ipynb` (**RENAMED** from `v5_resunet_train.ipynb` — "resunet" was a misnomer,
+residual is off). **Why.** base24 alone is LB-neutral (run 4 = 0.844), but runs 1-3 only **disproved augmentation as
+the stall cause** — they never tested whether aug *helps*. Augmentation is v5's **only factor with an LB mechanism**:
+generalization to the **unseen `44b6_` specimen**. Local val is all `6bba_` and val MSE only measures fit, so a
+generalization gain is invisible to both — **only the LB can see it** (the hidden set includes `44b6_`).
+
+**Config (single variable vs the converged run 4):** `NORM='instance'`, `RESIDUAL=False`, `BASE=24` all unchanged;
+**ONLY photometric aug turned on** — `AUG_GAMMA=(0.8,1.2)`, `AUG_CONTRAST=(0.8,1.2)`, `AUG_BRIGHT=0.05`,
+`AUG_NOISE_STD=0.02` (applied AFTER percentile-norm on the [0,1] volume; geometric flips/90° rot were already on).
+Saves to **new filenames** `v5_base24_aug_best.pt` / `v5_base24_aug_latest.pt` / `v5_base24_aug_history.csv` so the
+LB-0.844 `v5_base24_nores_best.pt` (wired into submit) is not overwritten. Trains from scratch (attach only the
+competition data). **Read: LB > 0.844 → aug generalization is real, the detector has a little headroom; ≤ 0.844 →
+detector confirmed saturated for this metric, close the detector line and focus on v6.**
+
+**Results — LB-NEGATIVE, detector line CLOSED.** Training converged to a slightly *better* val MSE than the no-aug
+run (**0.000574 < run 4's 0.000597**), but the **leaderboard (submission "Version 12") = 0.836**, a clean
+single-variable **−0.008 vs the 0.844 base** (V8/V11; only aug changed). **So augmentation is LB-negative.**
+
+This is the **third time a val-MSE gain failed to transfer to the LB** (base24 width was the second) — val MSE is a
+pixel-fit score on the `6bba_` val set and is blind to the two things the LB actually charges for: the adjusted
+density penalty and FP edges on the dense hidden GT. Most likely mechanism: photometric aug (gamma/contrast/
+brightness + noise) pushes the detector toward intensity-invariance, changing the **height/sharpness of predicted
+peaks relative to the FIXED HM_THR=0.3** (never re-calibrated for the new heatmap distribution) → effective
+detection density shifts (denser marginal peaks → density penalty + dense-GT edge-FPs, or broader merged peaks →
+node-match loss in dense fields), plus slight **localization blur** from the noise/brightness jitter costing
+centroid precision inside the 7µm gate. The intended upside — `44b6_` generalization — did NOT materialize because
+the `6bba_`↔`44b6_` gap is **structural** (density/morphology), not photometric.
+
+**VERDICT: augmentation is the LAST untested detector factor and it's LB-negative → the detector line is CONFIRMED
+SATURATED at ~0.844** (v1 0.844, v4 iso 0.838, v5 base24 no-aug 0.844, v5 base24 aug 0.836, ref 0.843). Keep
+`submit.ipynb` on `DETECTOR='v5_base24_nores'` (or v1 — both 0.844); do NOT wire in the aug weights. **All remaining
+effort → Phase 2 (v6 Trackastra fine-tuning).**
 
 ---
 
@@ -764,7 +806,7 @@ anisotropy parameter; the data showed collision, not anisotropy, was the dominan
 
 ---
 
-## v6-train — Fine-tuning Trackastra `ctc` on our 199 pairs (in progress)
+## v6-train — Fine-tuning Trackastra `ctc` on our 199 pairs (DONE — a loss, Trackastra CLOSED)
 
 **Notebook:** `src/v6_trackastra_train.ipynb` (renamed from `v6_trackastra_eval.ipynb`; the eval logic is reused as
 a final A/B cell that loads the fine-tuned model). **Why.** Zero-shot `ctc` only matches/loses to v2; fine-tuning is
@@ -796,7 +838,49 @@ re-run the v6 A/B with the fine-tuned model. Everything heavy runs in a subproce
 **Note on the subset:** the first quick run trains on `44b6_` and evaluates on `6bba_` (a cross-specimen split, and
 only a handful of samples) — fine to prove the pipeline trains, but a real result needs a mixed-specimen, larger set.
 
-**Results.** *(pending — user is running the fine-tune.)*
+**Smoke run (superseded).** On the first 6-train/2-val cross-specimen subset the fine-tune ran end-to-end (`train.py`
+returncode 0), but the signal was uninformative (overfit) and the A/B eval crashed on a `Trackastra.from_folder(str)`
+vs `Path` bug — **fixed** (wrapped the arg in a `Path`; the `%%writefile` eval script must be re-run first).
+
+**Results — mixed-specimen fine-tune A/B: a LOSS, Trackastra is CLOSED.** Real run: **30 mixed-specimen train + 6 val**
+samples, `scripts/train.py --model ctc --ndim 3`, LR 1e-5, best `val_loss` **0.00281 @ epoch 8** (a healthy train —
+much better than the smoke run's 0.014). The fine-tuned model was then evaluated with the same v6 A/B (identical v2
+detections, `greedy_nodiv` strict-1:1 linker) on the last-5 `6bba_` val:
+
+| linker | micro edge-Jaccard (5 val) | TP | FP | FN | notes |
+|---|---|---|---|---|---|
+| v2 two-pass (baseline) | **0.8594** | 2976 | 1 | 486 | our rule-based linker |
+| ctc zero-shot greedy | 0.8621 | 2989 | 5 | — | run 1 — but +2431-FP division flood (LB landmine) |
+| ctc zero-shot greedy_nodiv | 0.8508 | 2949 | 4 | — | run 2 — clean 1:1 |
+| **ctc FINE-TUNED greedy_nodiv** | **0.8417** | 2919 | 6 | 543 | **−0.0177 vs v2; the WORST Trackastra result** |
+
+- **Fine-tuning made it WORSE, not better** — 0.8417 is below v2 (0.8594) *and* below both zero-shot configs (0.8621 /
+  0.8508). Domain-specific training did not close the gap; it slightly widened it. (⚠️ the print label still says "ctc
+  zero-shot" — that's a stale hardcoded string; the loaded model IS the fine-tuned one, "loaded FINE-TUNED model".)
+- **The loss is entirely in DENSE fields.** Per sample, ctc *beats* v2 on the 3 sparser movies (preds ≤ 9565:
+  fbc898dc 0.961→0.970, fc516dc6 0.886→0.902, fe670320 0.868→0.877) but *collapses* on the 2 densest (fc5f39dc
+  **preds=16849: 0.878→0.771 = −0.107**, losing 49 TP alone; fc83837d preds=10898: 0.752→0.712). The dense losses
+  swamp the sparse wins. **Same dense-field failure as zero-shot** — fine-tuning on clean masks did nothing for it.
+- **Root cause = train/inference distribution mismatch.** The fine-tune trained on SYNTHETIC TRA masks built from GT
+  centroids: clean, ~1 ball per real cell, correctly labeled by GT track. But at inference the linker sees our
+  DETECTOR's **over-detected** pseudo-masks (16849 balls where GT has ~458 edges — ~35× over-detection). The model
+  learned to associate a clean, sparse, correctly-labeled graph and is then asked to link a massively over-detected
+  graph it never saw in training → it optimized the wrong input distribution. `val_loss` (token-association loss on the
+  clean synthetic masks) is not our edge-Jaccard on over-detected fields, so a "healthy" 0.00281 didn't transfer.
+- **Fundamental tension (the real lesson).** Our metric rewards over-detection (extra detections are nearly free for
+  base jaccard) and our whole strategy is over-detect-cheaply. But Trackastra is a learned tracker that expects
+  roughly one-detection-per-cell masks; over-detection is *poison* to its attention (window 4, max_tokens 1024 →
+  identity swaps in dense fields). The rule-based two-pass motion Hungarian wins because its velocity-prediction +
+  physical-distance gating is a strong hand-crafted motion prior that's *robust* to over-detection (spurious nodes
+  simply don't get gated links). **The very thing that makes our detection cheap makes the learned linker fail.**
+- **Division-J = 0** (greedy_nodiv strict 1:1 → no splits) → no division upside either.
+
+**VERDICT: Trackastra as a linker on our detections is CLOSED across all three attempts** (zero-shot greedy 0.8621 w/
+landmine, zero-shot greedy_nodiv 0.8508, fine-tuned 0.8417) — none beats v2's 0.8594, and fine-tuning is the worst. The
+learned-linking bet (Phase 2's main lever) did not pay off. **The one principled shot left** if Trackastra is revisited:
+rebuild the fine-tune so training masks come from the DETECTOR's *actual over-detected predictions* (each predicted node
+labeled by matching to GT; unmatched = decoy), so train matches inference — but the public-field plateau at ~0.84 with
+rule-based linking suggests limited headroom. LB-best stays **v1b Version 8 = 0.844**.
 
 ---
 
