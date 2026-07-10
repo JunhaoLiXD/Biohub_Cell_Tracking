@@ -173,6 +173,16 @@ later model ensembling/fusion straightforward.
       beat the rule-based linker**, so the learned-tracking bet did not pay off and the rule-based linker looks near the
       metric ceiling (the whole public field plateaus at the same score with the same rule-based linker). The best
       leaderboard score stays **0.844**.
+- [x] **Global integer-program linking (tracksdata) — global optimisation alone is not the lever.** After confirming an
+      offline ILP solver is packageable for the internet-off rerun, we swapped only the linker: same detector, a global
+      integer program over the whole spatiotemporal graph instead of frame-to-frame matching. With a plain distance-based
+      edge cost it *tied-to-lost* against the tuned rule-based linker (local edge-Jaccard 0.8508 vs 0.8594), losing on the
+      densest videos. The rule-based linker already adds motion prediction and gap-closing that a pure-distance program
+      lacks, so the headroom is in the **edge signal**, not the optimiser.
+- [~] **Learned detector + learned edge scorer + global linker (planned, deferred).** The stronger public solutions pair a
+      *learned* temporal detector and a *learned* pairwise edge-scoring model with the global linker (with native division
+      handling), trained on the labelled pairs — replacing the "over-detect + rule-link" pipeline. This is the next planned
+      direction; design is tracked privately and implementation is deferred.
 
 See [`docs/experiments.md`](docs/experiments.md) for per-experiment configuration and results.
 

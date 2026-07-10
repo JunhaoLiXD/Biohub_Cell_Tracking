@@ -884,6 +884,26 @@ rule-based linking suggests limited headroom. LB-best stays **v1b Version 8 = 0.
 
 ---
 
+## v7 — global ILP linking (tracksdata) + next direction (learned graph)
+
+**Notebook:** `src/v7_tracksdata_ilp_eval.ipynb`. **Why.** With the detector saturated (~0.844) and rule-based/Trackastra
+linking both closed, the remaining lever is a *global* tracker. We first confirmed an offline ILP is packageable on Kaggle
+(a kill-criterion notebook: install the solver from wheels, hard-block the network, solve a synthetic tracking ILP — **PASSED**),
+then swapped **only** the linker: same detector, frame-to-frame Hungarian → a **global integer-program linker** over the whole
+spatiotemporal graph.
+
+**Result.** With a plain **distance-based** edge cost the global ILP scored **local edge-Jaccard 0.8508 vs the rule-based
+linker's 0.8594** — a tie on sparse videos, a loss on the two densest. **Takeaway: global optimisation *by itself* is not the
+lever** — our tuned two-pass linker already matches it, because it adds motion prediction and gap-closing that a pure-distance
+program lacks. The real headroom is in the **edge signal**, not the optimiser.
+
+**Next direction (planned, deferred).** The public field's stronger solutions pair a *learned* detector and a *learned*
+edge-scoring model with this global program. The plan is to move to that paradigm — a temporal detector + a learned pairwise
+edge scorer feeding the global linker, with native division handling — trained on our 199 pairs, replacing the
+"over-detect + rule-link" pipeline. Detailed design is tracked privately; implementation is deferred.
+
+---
+
 ## How to log a new experiment
 
 Copy a version block, bump the version (`vN`), and record: notebook, method summary, the full
