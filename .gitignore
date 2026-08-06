@@ -52,3 +52,7 @@ CLAUDE.md
 
 # ===== Reference material (other people's notebooks/papers, not ours to redistribute) =====
 references/
+# v8 two-seeds driver embeds the pilkwang support-pack source via runtime patches
+# (not ours to redistribute) -> keep local only, like references/ and CLAUDE.md
+src/v8_two_seeds_local_eval.ipynb
+src/v8_two_seeds*.ipynb
