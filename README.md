@@ -179,10 +179,14 @@ later model ensembling/fusion straightforward.
       edge cost it *tied-to-lost* against the tuned rule-based linker (local edge-Jaccard 0.8508 vs 0.8594), losing on the
       densest videos. The rule-based linker already adds motion prediction and gap-closing that a pure-distance program
       lacks, so the headroom is in the **edge signal**, not the optimiser.
-- [~] **Learned detector + learned edge scorer + global linker (planned, deferred).** The stronger public solutions pair a
+- [~] **Learned detector + learned edge scorer + global linker (active, private track).** The stronger public solutions pair a
       *learned* temporal detector and a *learned* pairwise edge-scoring model with the global linker (with native division
-      handling), trained on the labelled pairs — replacing the "over-detect + rule-link" pipeline. This is the next planned
-      direction; design is tracked privately and implementation is deferred.
+      handling), trained on the labelled pairs — replacing the "over-detect + rule-link" pipeline. This paradigm has since been
+      reproduced and profiled with a competition-matching local scorer; its main open weakness is the almost-unclaimed
+      **division term** of the metric. The current active sub-direction (**v9**) adds a *learned* division-recovery step, gated
+      by a no-training oracle audit that first measures the recoverable score ceiling per specimen. Because this builds on
+      external reference material that is not ours to redistribute, its architecture, code, and numbers are tracked privately;
+      this note records only that the direction is active.
 
 See [`docs/experiments.md`](docs/experiments.md) for per-experiment configuration and results.
 

@@ -904,6 +904,20 @@ edge scorer feeding the global linker, with native division handling — trained
 
 ---
 
+## v8 / v9 — learned-graph paradigm + division recovery (private track, active)
+
+The learned-detector + learned-edge-scorer + global-ILP paradigm above has since been reproduced and profiled on a held-out
+train split with a competition-matching local scorer. Its main remaining weakness is the **division term** of the metric
+(`0.1 · division_jaccard`), which is almost entirely unclaimed (local `division_jaccard ≈ 0.04`). The active work (**v9**) adds
+a *learned* division-recovery step — a discriminator over cell-appearance, motion, and learned-edge evidence, not the geometry
+that already failed in v3 — validated first by a no-training **oracle audit** that measures the recoverable
+`Δ(adjusted_edge_jaccard) + 0.1·Δ(division_jaccard)` ceiling per specimen before any model is trained. Realistic contribution
+is ~+0.02–0.03 to the score (bounded by daughter-detection recall), so it is a step toward, not by itself, the top of the
+board. Because this track builds on external reference material that is not ours to redistribute, its architecture, code, and
+numbers are tracked privately (not in this file); this note records only that the direction is active.
+
+---
+
 ## How to log a new experiment
 
 Copy a version block, bump the version (`vN`), and record: notebook, method summary, the full
