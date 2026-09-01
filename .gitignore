@@ -26,6 +26,7 @@ results/
 outputs/
 runs/
 logs/
+external_baselines/
 
 # ===== Jupyter =====
 .ipynb_checkpoints/
@@ -45,14 +46,11 @@ env/
 Thumbs.db
 .vscode/
 .idea/
+.pytest_cache/
 
-# ===== Local tooling / private docs (not for the repo) =====
-.claude/
-CLAUDE.md
+# ===== Local credentials and private workspace =====
+.kaggle/
+.private/
 
-# ===== Reference material (other people's notebooks/papers, not ours to redistribute) =====
+# ===== Third-party reference material (not ours to redistribute) =====
 references/
-# v8 two-seeds driver embeds the pilkwang support-pack source via runtime patches
-# (not ours to redistribute) -> keep local only, like references/ and CLAUDE.md
-src/v8_two_seeds_local_eval.ipynb
-src/v8_two_seeds*.ipynb
