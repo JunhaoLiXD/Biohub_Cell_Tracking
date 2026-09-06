@@ -14,9 +14,11 @@ The pipeline follows a tracking-by-detection design:
 
 The detector is trained with sparse annotations and cosine learning-rate decay. Distances are measured in microns using the competition voxel scale `(1.625, 0.40625, 0.40625)`. Geometric post-hoc division edges are disabled because they reduced the leaderboard score in controlled tests.
 
-## Result
+## Current research status
 
-The retained self-contained pipeline achieved a public leaderboard score of **0.844**. Its main gains came from detector convergence and motion-aware association while keeping detection density conservative.
+The original self-contained pipeline reached Public LB **0.844**. The current controlled research line reproduced a public learned detector/linker configuration at **0.933** and established a deterministic 16-video internal validation protocol. A motion-EMA change improved that internal score from 0.925252 to 0.927316 in two byte-identical runs, but its Public LB remained 0.933.
+
+An exact, unchanged copy of the public `analyticaobscura/biohub-lb-941` notebook has now completed under our account using the author's released pretrained weights; no new model was trained. Its source, actual epoch-2 DeepCenter checkpoint load, and submission graph passed local audits. Kaggle submission `56044403` is pending, so the advertised 0.941 is not yet counted as reproduced. If confirmed, the next gate is a controlled comparison under the same 16-video protocol before adopting or attributing any part of the multi-parameter configuration.
 
 See [selected experiments](docs/experiments.md) for the compact evidence behind the retained configuration.
 
@@ -25,6 +27,10 @@ See [selected experiments](docs/experiments.md) for the compact evidence behind 
 ```text
 src/
   submit.ipynb                 offline Kaggle inference and submission notebook
+  biohub_v01_*.ipynb           frozen train16 validation baseline
+  biohub_v02_*.ipynb           DeepCenter causal calibration milestone
+  biohub_v03_*.ipynb           candidate-oracle diagnostic milestone
+  biohub_v04_*.ipynb           reproducible motion-EMA milestone
   util_inspect_data.ipynb      dataset and tracking-graph inspection
   util_download_wheels.ipynb   offline dependency-bundle builder
 ```

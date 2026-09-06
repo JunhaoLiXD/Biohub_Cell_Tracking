@@ -13,6 +13,15 @@ Only experiments that changed the modeling conclusion are retained here. Detaile
 | Isotropic-grid detector | 0.838 | XY pooling lost localization precision |
 | Wider full-resolution detector | 0.844 | Width was neutral |
 | Wider detector with augmentation | 0.836 | Augmentation did not transfer |
+| Public learned graph pipeline, controlled reproduction | 0.933 | Reproduced baseline and established a frozen 16-video comparison protocol |
+| Motion EMA, independently reproduced | 0.933 | Internal train16 improved by 0.002064, but no Public LB change at displayed precision |
+| Exact public `analyticaobscura` 0.941 copy | Pending (`56044403`) | Uses released pretrained weights without training; source, checkpoint load, and graph integrity passed |
+
+## Current controlled evidence
+
+The frozen train16 baseline scores 0.925252 overall, with 44b6 at 0.903658 and 6bba at 0.932950. The independently reproduced motion-EMA candidate scores 0.927316 and improves both specimens, but both its parent and its leaderboard submission score 0.933. This establishes a reproducible internal effect without evidence of a leaderboard gain.
+
+The exact public-copy probe is a full configuration reproduction, not a causal ablation and not a model trained by this project. Its unchanged four-video validator scored 0.941822, but that small training-derived proxy is not comparable with train16 or Public LB. Submission 56044403 remains pending. A confirmed 0.941 would trigger a new train16 comparison that keeps public inference fixed and tests whether the complete configuration transfers across both specimens; it would not automatically become the project baseline.
 
 ## Retained configuration
 
