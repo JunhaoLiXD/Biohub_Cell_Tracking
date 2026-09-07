@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_001_public_0933",
+  "parent": "baseline_public_0912",
+  "state": "READY",
+  "hypothesis": "The exact public 0.933 kernel configuration can be reproduced under lingxd with its embedded validation proxy, complete graph audit, both models loaded, and no metric hack.",
+  "change": {
+    "component": "baseline_pipeline",
+    "from": "frozen public 0.912 two-seed logit blend",
+    "to": "public team-fusion-v6 optimal-balance configuration",
+    "variables_changed": "external_baseline_reproduction"
+  },
+  "signature": "6203ab54e0d9076ab47f4081849bfb14f7bc2890ce2c2a2b4993bac2db6082e4",
+  "config": "configs/repro_001_public_0933.yaml",
+  "snapshot_config": "experiments/repro_001_public_0933/snapshot/config.yaml",
+  "snapshot_source": "experiments/repro_001_public_0933/snapshot/source/repro_public_0933.ipynb",
+  "snapshot_manifest": "experiments/repro_001_public_0933/snapshot/manifest.json",
+  "git_commit": "bbe14667c6f02eb91e0be21fe4a36e5f20a13d31",
+  "validation_protocol": "public_0933_embedded_train4_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 1.5,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/repro_001_public_0933/review.md",
+    "completed_at": "2026-09-01T03:15:15+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\repro_001_public_0933\\snapshot\\source\\repro_public_0933.ipynb",
+      "--require-metrics-contract"
+    ],
+    "completed_at": "2026-09-01T15:23:20+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-01T03:04:31+00:00",
+  "updated_at": "2026-09-01T15:23:20+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-01T03:15:15+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-01T15:23:20+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-01T15:23:20+00:00",
+      "note": null
+    }
+  ]
+}

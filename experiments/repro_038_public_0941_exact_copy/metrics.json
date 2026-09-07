@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_038_public_0941_exact_copy",
+  "primary_metric": 0.941822306095094,
+  "runtime_seconds": 2173.67453718,
+  "reproducible": false,
+  "validation": {
+    "protocol": "public_0941_unmodified_upstream_train4_lb_probe_v1",
+    "sample_count": 4,
+    "adjusted_edge_jaccard": 0.921822306095094,
+    "division_jaccard": 0.2,
+    "warning": "Original train4 proxy; not comparable with train16 or Public LB."
+  },
+  "specimen_metrics": {
+    "44b6": {
+      "primary_metric": 0.9011214371191112,
+      "adjusted_edge_jaccard": 0.9011214371191112,
+      "division_jaccard": 0.0,
+      "samples": [
+        "44b6_12dfb391",
+        "44b6_267148e4"
+      ]
+    },
+    "6bba": {
+      "primary_metric": 0.9734785958391122,
+      "adjusted_edge_jaccard": 0.9401452625057789,
+      "division_jaccard": 0.3333333333333333,
+      "samples": [
+        "6bba_062c8d37",
+        "6bba_07e24132"
+      ]
+    }
+  },
+  "metrics": {
+    "copy_execution_passed": true,
+    "submission_audit": {
+      "datasets": [
+        "44b6_0113de3b",
+        "44b6_0b24845f",
+        "6bba_05b6850b",
+        "6bba_05db0fb1"
+      ],
+      "nodes": 119279,
+      "edges": 115009,
+      "sha256": "bf66c879298e71c5cce0326fbac5956ca567a344ae28f0d402dfc5003fba52bd"
+    },
+    "actual_deepcenter_path": "/kaggle/input/datasets/pilkwang/biohub-deepcenter-unet3d-center-prior-v1/weights/full_frame_center/best.pt",
+    "public_lb_reproduction_passed": null
+  },
+  "parsed_at": "2026-09-06T01:43:29+00:00",
+  "source": "E:\\Project\\Biohub_CellTracking\\experiments\\repro_038_public_0941_exact_copy\\native-metrics-adapter.json"
+}

@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_033_train16_node_validity_rank_policy",
+  "parent": "diag_032_train16_structural_rank_transfer_policy",
+  "state": "REJECT",
+  "hypothesis": "Node-level endpoint-validity learning from all frozen prediction nodes supplies enough cross-specimen supervision for the structural rank-transfer Family-A policy to produce positive held-out frozen-score deltas in both directions without adjusted-edge regression.",
+  "change": {
+    "component": "phase1_endpoint_validity_unit",
+    "from": "sparse eligible-candidate-pair validity classification",
+    "to": "separate source-node and target-node validity probabilities learned from every frozen prediction node",
+    "variables_changed": "endpoint_validity_learning_unit_only"
+  },
+  "signature": "9940b69d74d876ed047fa2b285d47d4a483deabae2beee726de44c7c91546daf",
+  "config": "configs/diag_033_train16_node_validity_rank_policy.yaml",
+  "snapshot_config": "experiments/diag_033_train16_node_validity_rank_policy/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_033_train16_node_validity_rank_policy/snapshot/source/phase1_node_validity_policy.ipynb",
+  "snapshot_manifest": "experiments/diag_033_train16_node_validity_rank_policy/snapshot/manifest.json",
+  "git_commit": "339ee3c9285f6f6be20a5dbc0d395c5ad31e6420",
+  "validation_protocol": "public_0933_train16_node_validity_rank_policy_v1",
+  "budget": {
+    "expected_gpu_hours": 0.0,
+    "reserved": false,
+    "consumed_gpu_hours": 0.0
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/diag_033_train16_node_validity_rank_policy/review.md",
+    "completed_at": "2026-09-03T04:41:59+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_phase1_node_validity_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\diag_033_train16_node_validity_rank_policy\\snapshot\\source\\phase1_node_validity_policy.ipynb"
+    ],
+    "completed_at": "2026-09-03T04:42:10+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-03T04:36:15+00:00",
+  "updated_at": "2026-09-03T14:07:33+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-03T04:41:59+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-03T04:42:10+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-03T04:42:10+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-03T04:42:25+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "RUNNING",
+      "at": "2026-09-03T04:43:08+00:00",
+      "note": null
+    },
+    {
+      "from": "RUNNING",
+      "to": "COLLECTING",
+      "at": "2026-09-03T14:07:32+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-03T14:07:33+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "REJECT",
+      "at": "2026-09-03T14:07:33+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-diag033-node-validity",
+    "submitted_at": "2026-09-03T04:42:25+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-03T14:07:20+00:00"
+  },
+  "evaluation": {
+    "decision": "REJECT",
+    "primary_metric": 0.0,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-03T14:07:33+00:00"
+  }
+}

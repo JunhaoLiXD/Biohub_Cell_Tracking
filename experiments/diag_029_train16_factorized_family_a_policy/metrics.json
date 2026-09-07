@@ -1,0 +1,271 @@
+{
+  "baseline_primary_metric": 0.0,
+  "experiment_id": "diag_029_train16_factorized_family_a_policy",
+  "methodology_valid": true,
+  "metrics": {
+    "action_score": "P(both endpoints matched) * P(division edge | both endpoints matched)",
+    "baseline_reproduced": true,
+    "dataset_audit": {
+      "44b6_1d530831": {
+        "action_division_positive": 0,
+        "action_eligible": 3075,
+        "action_validity_positive": 0,
+        "division_positive": 0,
+        "training_union_rows": 3330,
+        "validity_positive": 255
+      },
+      "44b6_2a2eff9f": {
+        "action_division_positive": 0,
+        "action_eligible": 2984,
+        "action_validity_positive": 1,
+        "division_positive": 2,
+        "training_union_rows": 3193,
+        "validity_positive": 210
+      },
+      "44b6_551a5dba": {
+        "action_division_positive": 0,
+        "action_eligible": 2374,
+        "action_validity_positive": 1,
+        "division_positive": 0,
+        "training_union_rows": 2642,
+        "validity_positive": 269
+      },
+      "44b6_7a302da0": {
+        "action_division_positive": 1,
+        "action_eligible": 3170,
+        "action_validity_positive": 4,
+        "division_positive": 2,
+        "training_union_rows": 3660,
+        "validity_positive": 494
+      },
+      "44b6_7e557709": {
+        "action_division_positive": 0,
+        "action_eligible": 2409,
+        "action_validity_positive": 3,
+        "division_positive": 0,
+        "training_union_rows": 3098,
+        "validity_positive": 692
+      },
+      "44b6_aaf8b0ea": {
+        "action_division_positive": 0,
+        "action_eligible": 600,
+        "action_validity_positive": 0,
+        "division_positive": 1,
+        "training_union_rows": 837,
+        "validity_positive": 237
+      },
+      "44b6_c15fded2": {
+        "action_division_positive": 0,
+        "action_eligible": 1278,
+        "action_validity_positive": 0,
+        "division_positive": 0,
+        "training_union_rows": 1373,
+        "validity_positive": 95
+      },
+      "44b6_c50204e0": {
+        "action_division_positive": 0,
+        "action_eligible": 3407,
+        "action_validity_positive": 4,
+        "division_positive": 3,
+        "training_union_rows": 3712,
+        "validity_positive": 309
+      },
+      "6bba_0c7fa718": {
+        "action_division_positive": 0,
+        "action_eligible": 1098,
+        "action_validity_positive": 5,
+        "division_positive": 0,
+        "training_union_rows": 1750,
+        "validity_positive": 657
+      },
+      "6bba_283bf9f1": {
+        "action_division_positive": 0,
+        "action_eligible": 1169,
+        "action_validity_positive": 3,
+        "division_positive": 0,
+        "training_union_rows": 2466,
+        "validity_positive": 1300
+      },
+      "6bba_337b1b3a": {
+        "action_division_positive": 1,
+        "action_eligible": 1892,
+        "action_validity_positive": 6,
+        "division_positive": 4,
+        "training_union_rows": 3223,
+        "validity_positive": 1337
+      },
+      "6bba_372c8cb8": {
+        "action_division_positive": 0,
+        "action_eligible": 118,
+        "action_validity_positive": 0,
+        "division_positive": 0,
+        "training_union_rows": 1142,
+        "validity_positive": 1024
+      },
+      "6bba_55c70843": {
+        "action_division_positive": 0,
+        "action_eligible": 3577,
+        "action_validity_positive": 2,
+        "division_positive": 0,
+        "training_union_rows": 4014,
+        "validity_positive": 439
+      },
+      "6bba_80d12824": {
+        "action_division_positive": 0,
+        "action_eligible": 325,
+        "action_validity_positive": 1,
+        "division_positive": 2,
+        "training_union_rows": 959,
+        "validity_positive": 635
+      },
+      "6bba_ef7b4f7e": {
+        "action_division_positive": 1,
+        "action_eligible": 115,
+        "action_validity_positive": 2,
+        "division_positive": 4,
+        "training_union_rows": 1314,
+        "validity_positive": 1201
+      },
+      "6bba_fe670320": {
+        "action_division_positive": 0,
+        "action_eligible": 641,
+        "action_validity_positive": 2,
+        "division_positive": 1,
+        "training_union_rows": 1310,
+        "validity_positive": 671
+      }
+    },
+    "directions": {
+      "44b6_to_6bba": {
+        "test_baseline": {
+          "adjusted_edge_jaccard": 0.9218386611502192,
+          "division_fn": 5,
+          "division_fp": 11,
+          "division_jaccard": 0.1111111111111111,
+          "division_tp": 2,
+          "edge_weight": 7478,
+          "score": 0.9329497722613302
+        },
+        "test_candidate_videos": 8,
+        "test_delta_adjusted_edge_jaccard": 0.0,
+        "test_delta_division_jaccard": 0.0,
+        "test_delta_score": 0.0,
+        "test_policy": {
+          "adjusted_edge_jaccard": 0.9218386611502192,
+          "division_fn": 5,
+          "division_fp": 11,
+          "division_jaccard": 0.1111111111111111,
+          "division_tp": 2,
+          "edge_weight": 7478,
+          "score": 0.9329497722613302,
+          "selected_actions": 1,
+          "selected_both_endpoints_matched": 0,
+          "selected_true_division_edges": 0
+        },
+        "test_specimen": "6bba",
+        "threshold": 0.7568110138292298,
+        "train_baseline": {
+          "adjusted_edge_jaccard": 0.8931320553703488,
+          "division_fn": 3,
+          "division_fp": 14,
+          "division_jaccard": 0.10526315789473684,
+          "division_tp": 2,
+          "edge_weight": 2596,
+          "score": 0.9036583711598225
+        },
+        "train_candidate_videos": 8,
+        "train_delta_score": 0.005663609907168299,
+        "train_policy": {
+          "adjusted_edge_jaccard": 0.8935325073827802,
+          "division_fn": 2,
+          "division_fp": 14,
+          "division_jaccard": 0.15789473684210525,
+          "division_tp": 3,
+          "edge_weight": 2596,
+          "score": 0.9093219810669908,
+          "selected_actions": 3,
+          "selected_both_endpoints_matched": 1,
+          "selected_true_division_edges": 1
+        },
+        "train_specimen": "44b6"
+      },
+      "6bba_to_44b6": {
+        "test_baseline": {
+          "adjusted_edge_jaccard": 0.8931320553703488,
+          "division_fn": 3,
+          "division_fp": 14,
+          "division_jaccard": 0.10526315789473684,
+          "division_tp": 2,
+          "edge_weight": 2596,
+          "score": 0.9036583711598225
+        },
+        "test_candidate_videos": 8,
+        "test_delta_adjusted_edge_jaccard": 0.0,
+        "test_delta_division_jaccard": 0.0,
+        "test_delta_score": 0.0,
+        "test_policy": {
+          "adjusted_edge_jaccard": 0.8931320553703488,
+          "division_fn": 3,
+          "division_fp": 14,
+          "division_jaccard": 0.10526315789473684,
+          "division_tp": 2,
+          "edge_weight": 2596,
+          "score": 0.9036583711598225,
+          "selected_actions": 0,
+          "selected_both_endpoints_matched": 0,
+          "selected_true_division_edges": 0
+        },
+        "test_specimen": "44b6",
+        "threshold": null,
+        "train_baseline": {
+          "adjusted_edge_jaccard": 0.9218386611502192,
+          "division_fn": 5,
+          "division_fp": 11,
+          "division_jaccard": 0.1111111111111111,
+          "division_tp": 2,
+          "edge_weight": 7478,
+          "score": 0.9329497722613302
+        },
+        "train_candidate_videos": 8,
+        "train_delta_score": 0.0,
+        "train_policy": {
+          "adjusted_edge_jaccard": 0.9218386611502192,
+          "division_fn": 5,
+          "division_fp": 11,
+          "division_jaccard": 0.1111111111111111,
+          "division_tp": 2,
+          "edge_weight": 7478,
+          "score": 0.9329497722613302,
+          "selected_actions": 0,
+          "selected_both_endpoints_matched": 0,
+          "selected_true_division_edges": 0
+        },
+        "train_specimen": "6bba"
+      }
+    },
+    "factorized_policy_gate_passed": false,
+    "gt_matching_is_not_a_model_feature": true,
+    "wall_clock_seconds": 230.80178662100013
+  },
+  "primary_metric": 0.0,
+  "reproducible": false,
+  "runtime_seconds": 0.0,
+  "schema_version": 1,
+  "specimen_metrics": {
+    "44b6": {
+      "baseline_primary_metric": 0.0,
+      "primary_metric": 0.0
+    },
+    "6bba": {
+      "baseline_primary_metric": 0.0,
+      "primary_metric": 0.0
+    }
+  },
+  "validation": {
+    "protocol": "public_0933_train16_factorized_family_a_policy_v1",
+    "seed": 314159,
+    "warning": "Train16 factorized cross-specimen action-policy gate."
+  },
+  "parsed_at": "2026-09-03T03:18:39+00:00",
+  "source": "E:\\Project\\Biohub_CellTracking\\experiments\\diag_029_train16_factorized_family_a_policy\\artifacts\\metrics.json"
+}

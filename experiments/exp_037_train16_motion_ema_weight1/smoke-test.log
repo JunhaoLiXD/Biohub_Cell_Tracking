@@ -1,0 +1,15 @@
+[2026-09-03T20:05:04+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_motion_ema_weight1_notebook.py", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_037_train16_motion_ema_weight1\\snapshot\\source\\motion_ema_weight1_train16.ipynb"]
+exit_code=0
+STDOUT
+{
+  "cells": 25,
+  "code_cells": 11,
+  "saved_error_outputs": 0,
+  "single_parameter_change": "motion_relink_velocity_weight",
+  "parent_velocity_weight": 0.5,
+  "candidate_velocity_weight": 1.0,
+  "ema_alpha_unchanged": 0.4
+}
+
+STDERR
+

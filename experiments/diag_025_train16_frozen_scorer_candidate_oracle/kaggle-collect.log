@@ -1,0 +1,8 @@
+[2026-09-03T01:13:07+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "output", "lingxd/biohub-diag025-frozen-scorer-oracle", "-p", "E:\\Project\\Biohub_CellTracking\\experiments\\diag_025_train16_frozen_scorer_candidate_oracle\\artifacts", "--page-size", "200"]
+exit_code=0
+STDOUT
+Output file downloaded to E:\Project\Biohub_CellTracking\experiments\diag_025_train16_frozen_scorer_candidate_oracle\artifacts\metrics.json
+Kernel log downloaded to E:\Project\Biohub_CellTracking\experiments\diag_025_train16_frozen_scorer_candidate_oracle\artifacts\biohub-diag025-frozen-scorer-oracle.log 
+
+STDERR
+

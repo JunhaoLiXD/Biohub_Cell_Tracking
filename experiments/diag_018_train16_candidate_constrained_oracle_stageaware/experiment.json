@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_018_train16_candidate_constrained_oracle_stageaware",
+  "parent": "diag_014_train16_preilp_edge_export",
+  "state": "REJECT",
+  "hypothesis": "Candidate-constrained oracle edits from cumulative families A, A+B, and A+B+C have positive combined-metric headroom on both specimens under the fixed 16-video validation protocol.",
+  "change": {
+    "component": "phase0_candidate_constrained_counterfactual_oracle",
+    "from": "embedded oracle with an invalid requirement that every pre-ILP candidate endpoint survive into the final graph",
+    "to": "identical oracle with stage-aware ID validation using retained endpoint time and physical-distance consistency",
+    "variables_changed": "diagnostic_guard_only"
+  },
+  "signature": "8a3210f00ab9cbc322dc9ba8c2bb853a8bd0519ca22c82863cea6afba14fbaa8",
+  "config": "configs/diag_018_train16_candidate_constrained_oracle_stageaware.yaml",
+  "snapshot_config": "experiments/diag_018_train16_candidate_constrained_oracle_stageaware/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_018_train16_candidate_constrained_oracle_stageaware/snapshot/source/phase0_candidate_oracle.ipynb",
+  "snapshot_manifest": "experiments/diag_018_train16_candidate_constrained_oracle_stageaware/snapshot/manifest.json",
+  "git_commit": "339ee3c9285f6f6be20a5dbc0d395c5ad31e6420",
+  "validation_protocol": "public_0933_train16_candidate_oracle_v1",
+  "budget": {
+    "expected_gpu_hours": 0.0,
+    "reserved": false,
+    "consumed_gpu_hours": 0.0
+  },
+  "review": {
+    "required": false,
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_phase0_oracle_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\diag_018_train16_candidate_constrained_oracle_stageaware\\snapshot\\source\\phase0_candidate_oracle.ipynb"
+    ],
+    "completed_at": "2026-09-02T15:44:02+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-02T15:44:02+00:00",
+  "updated_at": "2026-09-02T16:15:13+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-02T15:44:02+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-02T15:44:02+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-02T15:44:39+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "RUNNING",
+      "at": "2026-09-02T15:45:44+00:00",
+      "note": null
+    },
+    {
+      "from": "RUNNING",
+      "to": "COLLECTING",
+      "at": "2026-09-02T16:15:12+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-02T16:15:13+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "REJECT",
+      "at": "2026-09-02T16:15:13+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-diag018-candidate-oracle-stageaware",
+    "submitted_at": "2026-09-02T15:44:39+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-02T16:14:42+00:00"
+  },
+  "evaluation": {
+    "decision": "REJECT",
+    "primary_metric": 0.06294783353918887,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-02T16:15:13+00:00"
+  }
+}

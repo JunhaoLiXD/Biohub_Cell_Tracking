@@ -1,0 +1,98 @@
+[{"stream_name":"stderr","time":8.63133689,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.631392745,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.6314001,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.631404877,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.418353873,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.418396523,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.418402799,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.418408026,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":268.923301593,"data":"REPO = /kaggle/input/datasets/pilkwang/biohub-tracking-support-pack-50ep-v1/repo\n"}
+,{"stream_name":"stdout","time":273.11656272,"data":"Dependency check failed: {'tracksdata': \"ModuleNotFoundError: No module named 'tracksdata'\", 'geff': \"ModuleNotFoundError: No module named 'geff'\", 'geff_spec': \"ModuleNotFoundError: No module named 'geff_spec'\", 'zarr': \"ModuleNotFoundError: No module named 'zarr'\", 'pyscipopt': \"ModuleNotFoundError: No module named 'pyscipopt'\", 'ilpy': \"ModuleNotFoundError: No module named 'ilpy'\", 'donfig': \"ModuleNotFoundError: No module named 'donfig'\", 'numcodecs': \"ModuleNotFoundError: No module named 'numcodecs'\", 'imagecodecs': \"ModuleNotFoundError: No module named 'imagecodecs'\", 'rustworkx': \"ModuleNotFoundError: No module named 'rustworkx'\", 'polars': 'polars 1.35.2 unusable (old or binary missing)'}\n"}
+,{"stream_name":"stdout","time":390.958131156,"data":"Installing from offline wheels: [PosixPath('/kaggle/input/datasets/pilkwang/biohub-tracking-support-pack-50ep-v1/wheels')]\n"}
+,{"stream_name":"stdout","time":403.626980545,"data":"dy satisfied: dask in /usr/local/lib/python3.12/dist-packages (2026.3.0)\n"}
+,{"stream_name":"stdout","time":403.627031152,"data":"Processing /kaggle/input/datasets/pilkwang/biohub-tracking-support-pack-50ep-v1/wheels/imagecodecs-2026.6.26-cp312-abi3-manylinux_2_28_x86_64.whl\n"}
+,{"stream_name":"stdout","time":403.62704005,"data":"Requirement already satisfied: scikit-image\u003e=0.24 in /usr/local/lib/python3.12/dist-packages (0.25.2)\n"}
+,{"stream_name":"stdout","time":403.627046556,"data":"Requirement already satisfied: pyarrow in /usr/local/lib/python3.12/dist-packages (24.0.0)\n"}
+,{"stream_name":"stdout","time":403.627052308,"data":"Processing /kaggle/input/datasets/pilkwang/biohub-tracking-support-pack-50ep-v1/wheels/rustworkx-0.18.0-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl\n"}
+,{"stream_name":"stdout","time":403.62705836,"data":"Requirement already satisfied: sqlalchemy\u003e=2 in /usr/local/lib/python3.12/dist-packages (2.0.49)\n"}
+,{"stream_name":"stdout","time":403.627064332,"data":"Processing /kaggle/input/datasets/pilkwang/biohub-tracking-support-pack-50ep-v1/wheels/numcodecs-0.15.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl\n"}
+,{"stream_name":"stdout","time":403.627070539,"data":"Processing /kaggle/input/datasets/pilkwang/biohub-tracking-support-pack-50ep-v1/wheels/donfig-0.8.1.post1-py3-none-any.whl\n"}
+,{"stream_name":"stdout","time":403.627077068,"data":"Requirement already satisfied: google-crc32c\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (1.8.0)\n"}
+,{"stream_name":"stdout","time":403.62708322,"data":"Processing /kaggle/input/datasets/pilkwang/biohub-tracking-support-pack-50ep-v1/wheels/bidict-0.23.1-py3-none-any.whl\n"}
+,{"stream_name":"stdout","time":403.627103183,"data":"Requirement already satisfied: psygnal\u003e=0.14 in /usr/local/lib/python3.12/dist-packages (0.15.1)\n"}
+,{"stream_name":"stdout","time":403.62710689,"data":"Requirement already satisfied: rich in /usr/local/lib/python3.12/dist-packages (13.9.4)\n"}
+,{"stream_name":"stdout","time":403.627110048,"data":"Requirement already satisfied: networkx\u003e=3.2.1 in /usr/local/lib/python3.12/dist-packages (3.6.1)\n"}
+,{"stream_name":"stdout","time":403.627113343,"data":"Requirement already satisfied: pydantic\u003e=2.11 in /usr/local/lib/python3.12/dist-packages (2.12.3)\n"}
+,{"stream_name":"stdout","time":403.627116963,"data":"Requirement already satisfied: pydantic-core in /usr/local/lib/python3.12/dist-packages (2.41.4)\n"}
+,{"stream_name":"stdout","time":403.627121655,"data":"Requirement already satisfied: annotated-types in /usr/local/lib/python3.12/dist-packages (0.7.0)\n"}
+,{"stream_name":"stdout","time":403.627126657,"data":"Requirement already satisfied: typing-extensions\u003e=4.13 in /usr/local/lib/python3.12/dist-packages (4.15.0)\n"}
+,{"stream_name":"stdout","time":403.627131481,"data":"Requirement already satisfied: typing-inspection in /usr/local/lib/python3.12/dist-packages (0.4.2)\n"}
+,{"stream_name":"stdout","time":403.627137701,"data":"Requirement already satisfied: markdown-it-py in /usr/local/lib/python3.12/dist-packages (4.0.0)\n"}
+,{"stream_name":"stdout","time":403.627142307,"data":"Requirement already satisfied: pygments in /usr/local/lib/python3.12/dist-packages (2.20.0)\n"}
+,{"stream_name":"stdout","time":403.627146935,"data":"Requirement already satisfied: click in /usr/local/lib/python3.12/dist-packages (8.3.3)\n"}
+,{"stream_name":"stdout","time":403.627151543,"data":"Requirement already satisfied: cloudpickle in /usr/local/lib/python3.12/dist-packages (3.1.2)\n"}
+,{"stream_name":"stdout","time":403.627156313,"data":"Requirement already satisfied: fsspec in /usr/local/lib/python3.12/dist-packages (2025.3.0)\n"}
+,{"stream_name":"stdout","time":403.627161163,"data":"Requirement already satisfied: partd in /usr/local/lib/python3.12/dist-packages (1.4.2)\n"}
+,{"stream_name":"stdout","time":403.627165982,"data":"Requirement already satisfied: locket in /usr/local/lib/python3.12/dist-packages (1.0.0)\n"}
+,{"stream_name":"stdout","time":403.627170716,"data":"Requirement already satisfied: toolz in /usr/local/lib/python3.12/dist-packages (0.12.1)\n"}
+,{"stream_name":"stdout","time":403.627175427,"data":"Requirement already satisfied: pyyaml in /usr/local/lib/python3.12/dist-packages (6.0.3)\n"}
+,{"stream_name":"stdout","time":403.627190035,"data":"Requirement already satisfied: ndindex in /usr/local/lib/python3.12/dist-packages (1.10.1)\n"}
+,{"stream_name":"stdout","time":403.627195003,"data":"Requirement already satisfied: msgpack in /usr/local/lib/python3.12/dist-packages (1.1.2)\n"}
+,{"stream_name":"stdout","time":403.62720008,"data":"Requirement already satisfied: numexpr in /usr/local/lib/python3.12/dist-packages (2.14.1)\n"}
+,{"stream_name":"stdout","time":403.627205225,"data":"Requirement already satisfied: deprecated in /usr/local/lib/python3.12/dist-packages (1.3.1)\n"}
+,{"stream_name":"stdout","time":403.627208723,"data":"Requirement already satisfied: wrapt in /usr/local/lib/python3.12/dist-packages (2.1.2)\n"}
+,{"stream_name":"stdout","time":403.627212007,"data":"Installing collected packages: zarr, tracksdata, rustworkx, pyscipopt, polars-runtime-32, polars, numcodecs, imagecodecs, ilpy, geff-spec, geff, donfig, bidict\n"}
+,{"stream_name":"stdout","time":403.627235302,"data":"  Attempting uninstall: polars-runtime-32\n"}
+,{"stream_name":"stdout","time":403.627242702,"data":"    Found existing installation: polars-runtime-32 1.35.2\n"}
+,{"stream_name":"stdout","time":403.627252933,"data":"    Uninstalling polars-runtime-32-1.35.2:\n"}
+,{"stream_name":"stdout","time":403.62725775,"data":"      Successfully uninstalled polars-runtime-32-1.35.2\n"}
+,{"stream_name":"stdout","time":403.62726258,"data":"  Attempting uninstall: polars\n"}
+,{"stream_name":"stdout","time":403.627267267,"data":"    Found existing installation: polars 1.35.2\n"}
+,{"stream_name":"stdout","time":403.627271918,"data":"    Uninstalling polars-1.35.2:\n"}
+,{"stream_name":"stdout","time":403.62727652,"data":"      Successfully uninstalled polars-1.35.2\n"}
+,{"stream_name":"stdout","time":403.627281438,"data":"Successfully installed bidict-0.23.1 donfig-0.8.1.post1 geff-1.2.0.1.1 geff-spec-1.1.1 ilpy-0.6.0 imagecodecs-2026.6.26 numcodecs-0.15.1 polars-1.42.0 polars-runtime-32-1.42.0 pyscipopt-6.2.1 rustworkx-0.18.0 tracksdata-0.1.0rc6.dev3+g980c2d30a zarr-3.2.1\n"}
+,{"stream_name":"stdout","time":403.627288465,"data":"\n"}
+,{"stream_name":"stdout","time":410.469601091,"data":"tracksdata 0.1.0rc6.dev3+g980c2d30a | geff 1.2.0.1.1 | zarr 3.2.1 | polars 1.42.0 (binary OK)\n"}
+,{"stream_name":"stderr","time":699.114699275,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":699.114738692,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":699.114747306,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":699.114816132,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":699.114894466,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":699.114999712,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":699.115255742,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":699.115268108,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":699.115274524,"data":"Exception encountered at \"In [3]\":\n"}
+,{"stream_name":"stderr","time":699.115280778,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":699.115286847,"data":"RuntimeError                              Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":699.115293178,"data":"/tmp/ipykernel_16/2385762441.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":699.115299418,"data":"      3 from pathlib import Path\n"}
+,{"stream_name":"stderr","time":699.11530544,"data":"      4 \n"}
+,{"stream_name":"stderr","time":699.115311479,"data":"----\u003e 5 payload = run()\n"}
+,{"stream_name":"stderr","time":699.115317816,"data":"      6 print(json.dumps({\n"}
+,{"stream_name":"stderr","time":699.115323868,"data":"      7     'gate': payload['metrics']['oracle_gate_passed'],\n"}
+,{"stream_name":"stderr","time":699.115329983,"data":"\n"}
+,{"stream_name":"stderr","time":699.115334439,"data":"/tmp/ipykernel_16/4261297418.py in run(search_root, output_path)\n"}
+,{"stream_name":"stderr","time":699.115338253,"data":"    454         if not candidate_path.is_file():\n"}
+,{"stream_name":"stderr","time":699.11534204,"data":"    455             raise RuntimeError(f\"Missing candidate export for {name}: {candidate_path}\")\n"}
+,{"stream_name":"stderr","time":699.115346198,"data":"--\u003e 456         candidates, candidate_audit = _load_relevant_candidates(\n"}
+,{"stream_name":"stderr","time":699.115350345,"data":"    457             candidate_path,\n"}
+,{"stream_name":"stderr","time":699.115364468,"data":"    458             wanted,\n"}
+,{"stream_name":"stderr","time":699.115367855,"data":"\n"}
+,{"stream_name":"stderr","time":699.115370717,"data":"/tmp/ipykernel_16/4261297418.py in _load_relevant_candidates(path, wanted, final_nodes, source_nodes, scale)\n"}
+,{"stream_name":"stderr","time":699.115374128,"data":"    276                 continue\n"}
+,{"stream_name":"stderr","time":699.115377098,"data":"    277             if pair[0] not in source_nodes or pair[1] not in source_nodes:\n"}
+,{"stream_name":"stderr","time":699.11538026,"data":"--\u003e 278                 raise RuntimeError(f\"Candidate source graph is missing retained endpoint {pair}\")\n"}
+,{"stream_name":"stderr","time":699.115383605,"data":"    279             audit[\"retained_endpoint_rows\"] += 1\n"}
+,{"stream_name":"stderr","time":699.115386784,"data":"    280             source = source_nodes[pair[0]]\n"}
+,{"stream_name":"stderr","time":699.1153898,"data":"\n"}
+,{"stream_name":"stderr","time":699.11539263,"data":"RuntimeError: Candidate source graph is missing retained endpoint (54374, 55034)\n"}
+,{"stream_name":"stderr","time":699.115395757,"data":"\n"}
+,{"stream_name":"stderr","time":702.044343031,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":702.044382577,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":702.254837049,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":702.254868861,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":703.08348045,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":703.50401536,"data":"[NbConvertApp] Writing 56142 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":706.805360626,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":708.055689631,"data":"[NbConvertApp] Writing 451721 bytes to __results__.html\n"}
+]

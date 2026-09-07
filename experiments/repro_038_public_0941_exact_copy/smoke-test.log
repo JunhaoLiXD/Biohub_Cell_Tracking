@@ -1,0 +1,13 @@
+[2026-09-05T20:40:10+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_public_0941_copy.py", "E:\\Project\\Biohub_CellTracking\\experiments\\repro_038_public_0941_exact_copy\\snapshot\\source\\public_0941_exact_copy.ipynb"]
+exit_code=0
+STDOUT
+{
+  "cells": 10,
+  "code_cells": 10,
+  "saved_error_outputs": 0,
+  "notebook_sha256": "24253cae5a958b83d69e201719388031f5758080c5d01ca1a8e374f3a8225389",
+  "byte_identical_upstream": true
+}
+
+STDERR
+

@@ -1,0 +1,25 @@
+{
+  "created_at": "2026-09-05T20:32:09+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/repro_038_public_0941_exact_copy/snapshot/config.yaml",
+      "sha256": "c4ae234f129be0e33bffbe6057455931441360b9f2822b5e62658ec362a6ba75"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/repro_038_public_0941_exact_copy/snapshot/source/public_0941_exact_copy.ipynb",
+      "sha256": "24253cae5a958b83d69e201719388031f5758080c5d01ca1a8e374f3a8225389"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_038_public_0941_exact_copy/snapshot/extra_files/validate_public_0941_copy.py",
+      "sha256": "94bcf8584babfa466cce200aa21a72b0c1758c56c70d1943eed5ee05b87b03a4"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_038_public_0941_exact_copy/snapshot/extra_files/public_copy.py",
+      "sha256": "7a0ce42ab8f80bb525302cb15b67b959a4d482884fad81ef88f8d040f2463c4b"
+    }
+  ]
+}

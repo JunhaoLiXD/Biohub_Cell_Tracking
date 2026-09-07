@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_002_v9_phase1_division_action",
+  "parent": "baseline_public_0912",
+  "state": "MANUAL_REVIEW_REQUIRED",
+  "hypothesis": "A learned division-action scorer can replace geometric safe-divisions and increase the combined metric on both specimens without reducing adjusted edge Jaccard.\n",
+  "change": {
+    "component": "post_link_division_recovery",
+    "from": "geometric safe-divisions",
+    "to": "learned division-action scorer, family A first",
+    "variables_changed": 1
+  },
+  "signature": "136b0288f0525afa4723906402c6dac21a25b44e45ad528334d0c2d5d1cee119",
+  "config": "configs\\exp_002_v9_phase1_division_action.yaml",
+  "snapshot_config": "experiments\\exp_002_v9_phase1_division_action\\snapshot\\config.yaml",
+  "snapshot_source": "experiments\\exp_002_v9_phase1_division_action\\snapshot\\source\\v9_division_aware.ipynb",
+  "snapshot_manifest": "experiments\\exp_002_v9_phase1_division_action\\snapshot\\manifest.json",
+  "git_commit": "815cf5d4eac89cda206ecfeb256986eed6e16f62",
+  "validation_protocol": "v9_leave_one_specimen_out",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "status": "CHANGES_REQUESTED",
+    "verdict": "BLOCK",
+    "path": "experiments\\exp_002_v9_phase1_division_action\\review.md",
+    "completed_at": "2026-09-01T01:39:50+00:00"
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-01T01:37:10+00:00",
+  "updated_at": "2026-09-01T01:39:50+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-01T01:39:50+00:00",
+      "note": "Claude verdict: BLOCK"
+    }
+  ]
+}

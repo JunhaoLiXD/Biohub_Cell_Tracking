@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "experiment_id": "baseline_public_0912",
+  "validation_score": 0.9188,
+  "validation_protocol": "v8_train40_leaky_delta_only",
+  "validation_warning": "Frozen feature extractors saw the train videos; use deltas and per-specimen consistency only.",
+  "public_lb": 0.912,
+  "config": "configs/baseline_public_0912.yaml",
+  "source_notebook": "references/biohub-cell-tracking-two-seeds-logit-blend.ipynb",
+  "checkpoint": null,
+  "git_commit": null,
+  "status": "frozen_legacy_baseline"
+}
+

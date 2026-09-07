@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_002_public_0933_audit_contract",
+  "parent": "repro_001_public_0933",
+  "state": "REMOTE_FAILED",
+  "hypothesis": "The reviewed public 0.933 reproduction remains structurally launch-ready when stale prose is corrected, graph-audit completion is derived from runtime evidence, and the no-metric-hack statement is explicitly treated as a human source-integrity assessment.",
+  "change": {
+    "component": "reproduction_audit_contract",
+    "from": "reviewed repro_001 snapshot with stale prose and two declaration-based checks",
+    "to": "evidence-derived graph-audit gate plus explicit human-only no-metric-hack assurance",
+    "variables_changed": "audit_contract_and_documentation_only"
+  },
+  "signature": "50421ac436499eb2098c6926c7e25e158c0137e5a46115e7041fc1f0604d6bcf",
+  "config": "configs/repro_002_public_0933_audit_contract.yaml",
+  "snapshot_config": "experiments/repro_002_public_0933_audit_contract/snapshot/config.yaml",
+  "snapshot_source": "experiments/repro_002_public_0933_audit_contract/snapshot/source/repro_public_0933.ipynb",
+  "snapshot_manifest": "experiments/repro_002_public_0933_audit_contract/snapshot/manifest.json",
+  "git_commit": "bbe14667c6f02eb91e0be21fe4a36e5f20a13d31",
+  "validation_protocol": "public_0933_embedded_train4_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 1.5,
+    "reserved": true
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/repro_002_public_0933_audit_contract/review.md",
+    "completed_at": "2026-09-01T15:29:55+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\repro_002_public_0933_audit_contract\\snapshot\\source\\repro_public_0933.ipynb",
+      "--require-metrics-contract"
+    ],
+    "completed_at": "2026-09-01T15:30:07+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-01T15:24:42+00:00",
+  "updated_at": "2026-09-01T15:37:34+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-01T15:29:55+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-01T15:30:07+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-01T15:30:07+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "REMOTE_FAILED",
+      "at": "2026-09-01T15:37:34+00:00",
+      "note": "kaggle kernels push failed"
+    }
+  ]
+}

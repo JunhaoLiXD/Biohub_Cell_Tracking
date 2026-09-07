@@ -1,0 +1,11 @@
+[2026-09-01T01:36:13+00:00] smoke command: ["C:\\Users\\Ling\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe", "scripts/validate_notebook.py", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_001_v9_phase0_oracle\\snapshot\\source\\v9_division_aware.ipynb", "--require-metrics-contract"]
+exit_code=0
+STDOUT
+{
+  "cells": 14,
+  "code_cells": 11,
+  "saved_error_outputs": 0
+}
+
+STDERR
+

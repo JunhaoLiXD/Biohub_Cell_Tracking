@@ -1,0 +1,296 @@
+{
+  "baseline_primary_metric": 0.0,
+  "experiment_id": "diag_033_train16_node_validity_rank_policy",
+  "methodology_valid": true,
+  "metrics": {
+    "action_score": "P(source valid) * P(target valid) * P(division edge)",
+    "all_features_available_at_inference": true,
+    "baseline_reproduced": true,
+    "dataset_audit": {
+      "44b6_1d530831": {
+        "action_division_positive": 0,
+        "action_eligible": 3075,
+        "action_validity_positive": 0,
+        "division_positive": 0,
+        "training_union_rows": 3330,
+        "validity_positive": 255
+      },
+      "44b6_2a2eff9f": {
+        "action_division_positive": 0,
+        "action_eligible": 2984,
+        "action_validity_positive": 1,
+        "division_positive": 2,
+        "training_union_rows": 3193,
+        "validity_positive": 210
+      },
+      "44b6_551a5dba": {
+        "action_division_positive": 0,
+        "action_eligible": 2374,
+        "action_validity_positive": 1,
+        "division_positive": 0,
+        "training_union_rows": 2642,
+        "validity_positive": 269
+      },
+      "44b6_7a302da0": {
+        "action_division_positive": 1,
+        "action_eligible": 3170,
+        "action_validity_positive": 4,
+        "division_positive": 2,
+        "training_union_rows": 3660,
+        "validity_positive": 494
+      },
+      "44b6_7e557709": {
+        "action_division_positive": 0,
+        "action_eligible": 2409,
+        "action_validity_positive": 3,
+        "division_positive": 0,
+        "training_union_rows": 3098,
+        "validity_positive": 692
+      },
+      "44b6_aaf8b0ea": {
+        "action_division_positive": 0,
+        "action_eligible": 600,
+        "action_validity_positive": 0,
+        "division_positive": 1,
+        "training_union_rows": 837,
+        "validity_positive": 237
+      },
+      "44b6_c15fded2": {
+        "action_division_positive": 0,
+        "action_eligible": 1278,
+        "action_validity_positive": 0,
+        "division_positive": 0,
+        "training_union_rows": 1373,
+        "validity_positive": 95
+      },
+      "44b6_c50204e0": {
+        "action_division_positive": 0,
+        "action_eligible": 3407,
+        "action_validity_positive": 4,
+        "division_positive": 3,
+        "training_union_rows": 3712,
+        "validity_positive": 309
+      },
+      "6bba_0c7fa718": {
+        "action_division_positive": 0,
+        "action_eligible": 1098,
+        "action_validity_positive": 5,
+        "division_positive": 0,
+        "training_union_rows": 1750,
+        "validity_positive": 657
+      },
+      "6bba_283bf9f1": {
+        "action_division_positive": 0,
+        "action_eligible": 1169,
+        "action_validity_positive": 3,
+        "division_positive": 0,
+        "training_union_rows": 2466,
+        "validity_positive": 1300
+      },
+      "6bba_337b1b3a": {
+        "action_division_positive": 1,
+        "action_eligible": 1892,
+        "action_validity_positive": 6,
+        "division_positive": 4,
+        "training_union_rows": 3223,
+        "validity_positive": 1337
+      },
+      "6bba_372c8cb8": {
+        "action_division_positive": 0,
+        "action_eligible": 118,
+        "action_validity_positive": 0,
+        "division_positive": 0,
+        "training_union_rows": 1142,
+        "validity_positive": 1024
+      },
+      "6bba_55c70843": {
+        "action_division_positive": 0,
+        "action_eligible": 3577,
+        "action_validity_positive": 2,
+        "division_positive": 0,
+        "training_union_rows": 4014,
+        "validity_positive": 439
+      },
+      "6bba_80d12824": {
+        "action_division_positive": 0,
+        "action_eligible": 325,
+        "action_validity_positive": 1,
+        "division_positive": 2,
+        "training_union_rows": 959,
+        "validity_positive": 635
+      },
+      "6bba_ef7b4f7e": {
+        "action_division_positive": 1,
+        "action_eligible": 115,
+        "action_validity_positive": 2,
+        "division_positive": 4,
+        "training_union_rows": 1314,
+        "validity_positive": 1201
+      },
+      "6bba_fe670320": {
+        "action_division_positive": 0,
+        "action_eligible": 641,
+        "action_validity_positive": 2,
+        "division_positive": 1,
+        "training_union_rows": 1310,
+        "validity_positive": 671
+      }
+    },
+    "directions": {
+      "44b6_to_6bba": {
+        "node_validity_test_average_precision": 0.08558650298199658,
+        "node_validity_test_positive": 7352,
+        "node_validity_test_prevalence": 0.05630998062238153,
+        "node_validity_test_roc_auc": 0.5571165875300003,
+        "node_validity_test_rows": 130563,
+        "test_baseline": {
+          "adjusted_edge_jaccard": 0.9218386611502192,
+          "division_fn": 5,
+          "division_fp": 11,
+          "division_jaccard": 0.1111111111111111,
+          "division_tp": 2,
+          "edge_weight": 7478,
+          "score": 0.9329497722613302
+        },
+        "test_delta_adjusted_edge_jaccard": 0.0,
+        "test_delta_division_jaccard": 0.0,
+        "test_delta_score": 0.0,
+        "test_policy": {
+          "adjusted_edge_jaccard": 0.9218386611502192,
+          "division_fn": 5,
+          "division_fp": 11,
+          "division_jaccard": 0.1111111111111111,
+          "division_tp": 2,
+          "edge_weight": 7478,
+          "score": 0.9329497722613302,
+          "selected_actions": 0,
+          "selected_both_endpoints_matched": 0,
+          "selected_probability_maximum": null,
+          "selected_probability_minimum": null,
+          "selected_true_division_edges": 0
+        },
+        "test_specimen": "6bba",
+        "train_baseline": {
+          "adjusted_edge_jaccard": 0.8931320553703488,
+          "division_fn": 3,
+          "division_fp": 14,
+          "division_jaccard": 0.10526315789473684,
+          "division_tp": 2,
+          "edge_weight": 2596,
+          "score": 0.9036583711598225
+        },
+        "train_delta_score": 0.0,
+        "train_policy": {
+          "adjusted_edge_jaccard": 0.8931320553703488,
+          "division_fn": 3,
+          "division_fp": 14,
+          "division_jaccard": 0.10526315789473684,
+          "division_tp": 2,
+          "edge_weight": 2596,
+          "score": 0.9036583711598225,
+          "selected_actions": 0,
+          "selected_both_endpoints_matched": 0,
+          "selected_probability_maximum": null,
+          "selected_probability_minimum": null,
+          "selected_true_division_edges": 0
+        },
+        "train_specimen": "44b6",
+        "transferred_action_count": 0
+      },
+      "6bba_to_44b6": {
+        "node_validity_test_average_precision": 0.013013649640577631,
+        "node_validity_test_positive": 2414,
+        "node_validity_test_prevalence": 0.009618296278587936,
+        "node_validity_test_roc_auc": 0.5227617061339569,
+        "node_validity_test_rows": 250980,
+        "test_baseline": {
+          "adjusted_edge_jaccard": 0.8931320553703488,
+          "division_fn": 3,
+          "division_fp": 14,
+          "division_jaccard": 0.10526315789473684,
+          "division_tp": 2,
+          "edge_weight": 2596,
+          "score": 0.9036583711598225
+        },
+        "test_delta_adjusted_edge_jaccard": 0.0,
+        "test_delta_division_jaccard": 0.0,
+        "test_delta_score": 0.0,
+        "test_policy": {
+          "adjusted_edge_jaccard": 0.8931320553703488,
+          "division_fn": 3,
+          "division_fp": 14,
+          "division_jaccard": 0.10526315789473684,
+          "division_tp": 2,
+          "edge_weight": 2596,
+          "score": 0.9036583711598225,
+          "selected_actions": 1,
+          "selected_both_endpoints_matched": 0,
+          "selected_probability_maximum": 0.4692341508283335,
+          "selected_probability_minimum": 0.4692341508283335,
+          "selected_true_division_edges": 0
+        },
+        "test_specimen": "44b6",
+        "train_baseline": {
+          "adjusted_edge_jaccard": 0.9218386611502192,
+          "division_fn": 5,
+          "division_fp": 11,
+          "division_jaccard": 0.1111111111111111,
+          "division_tp": 2,
+          "edge_weight": 7478,
+          "score": 0.9329497722613302
+        },
+        "train_delta_score": 0.005689776025114446,
+        "train_policy": {
+          "adjusted_edge_jaccard": 0.921972881619778,
+          "division_fn": 4,
+          "division_fp": 11,
+          "division_jaccard": 0.16666666666666666,
+          "division_tp": 3,
+          "edge_weight": 7478,
+          "score": 0.9386395482864447,
+          "selected_actions": 1,
+          "selected_both_endpoints_matched": 1,
+          "selected_probability_maximum": 0.4774355798509917,
+          "selected_probability_minimum": 0.4774355798509917,
+          "selected_true_division_edges": 1
+        },
+        "train_specimen": "6bba",
+        "transferred_action_count": 1
+      }
+    },
+    "feature_contract_valid": true,
+    "gt_matching_is_not_a_model_feature": true,
+    "node_feature_names": [
+      "indegree",
+      "outdegree",
+      "component_size",
+      "component_duration",
+      "track_age",
+      "track_remaining",
+      "normalized_time"
+    ],
+    "node_validity_policy_gate_passed": false,
+    "wall_clock_seconds": 281.68947589899994
+  },
+  "primary_metric": 0.0,
+  "reproducible": false,
+  "runtime_seconds": 0.0,
+  "schema_version": 1,
+  "specimen_metrics": {
+    "44b6": {
+      "baseline_primary_metric": 0.0,
+      "primary_metric": 0.0
+    },
+    "6bba": {
+      "baseline_primary_metric": 0.0,
+      "primary_metric": 0.0
+    }
+  },
+  "validation": {
+    "protocol": "public_0933_train16_node_validity_rank_policy_v1",
+    "seed": 314159,
+    "warning": "Train16 node-validity factorized cross-specimen action-policy gate."
+  },
+  "parsed_at": "2026-09-03T14:07:33+00:00",
+  "source": "E:\\Project\\Biohub_CellTracking\\experiments\\diag_033_train16_node_validity_rank_policy\\artifacts\\metrics.json"
+}

@@ -1,0 +1,122 @@
+{
+  "baseline_primary_metric": 0.9252519785518039,
+  "experiment_id": "exp_011_train16_deepcenter_div_veto_envfix",
+  "metrics": {
+    "checks": {
+      "bidirectional_weight_exact": true,
+      "deepcenter_loaded": true,
+      "deepcenter_safe_div_veto_enabled": true,
+      "det_threshold_exact": true,
+      "division_strata_present_per_specimen": true,
+      "dual_t4_visible": true,
+      "experiment_id_injected": true,
+      "gap_close_um_exact": true,
+      "per_specimen_sample_count_exact": true,
+      "preset_exact": true,
+      "required_specimens_present": true,
+      "secondary_detection_weight_exact": true,
+      "secondary_edge_weight_exact": true,
+      "secondary_model_loaded": true,
+      "submission_exists": true,
+      "submission_graph_audit_complete": true,
+      "validation_is_finite": true,
+      "validation_sample_count_exact": true
+    },
+    "effective_configuration": {
+      "bidirectional_edge_weight": 0.15,
+      "deepcenter_safe_div_veto": true,
+      "det_threshold": 0.965,
+      "gap_close_um": 5.8,
+      "secondary_detection_weight": 0.81,
+      "secondary_edge_weight": 0.15
+    },
+    "failed_checks": [],
+    "manual_assurances": {
+      "metric_hack_assessment": {
+        "automated": false,
+        "metric_hack_used": false,
+        "status": "human_reviewed_source_integrity_declaration"
+      },
+      "note": "No-metric-hack is a human/source-integrity assessment, not an automated reproduction gate."
+    },
+    "public_lb_claim": 0.933,
+    "upstream_kernel": "evgendvorkin/biohub-0-933-lb",
+    "upstream_notebook_sha256": "635b4c8f3f900a9a9080c3072108d6537fe94ad6c7681983f9cf0ee8aa0536cb",
+    "validation_contract_passed": true
+  },
+  "primary_metric": 0.91613880231486,
+  "reproducible": false,
+  "runtime_seconds": 3808.7510518619997,
+  "schema_version": 1,
+  "specimen_metrics": {
+    "44b6": {
+      "adjusted_edge_jaccard": 0.8959243729874433,
+      "baseline_primary_metric": 0.9036583711598225,
+      "division_jaccard": 0.0,
+      "division_negative_count": 4,
+      "division_negative_samples": [
+        "44b6_c15fded2",
+        "44b6_1d530831",
+        "44b6_551a5dba",
+        "44b6_7e557709"
+      ],
+      "division_positive_count": 4,
+      "division_positive_samples": [
+        "44b6_7a302da0",
+        "44b6_2a2eff9f",
+        "44b6_c50204e0",
+        "44b6_aaf8b0ea"
+      ],
+      "primary_metric": 0.8959243729874433,
+      "samples": [
+        "44b6_c15fded2",
+        "44b6_7a302da0",
+        "44b6_1d530831",
+        "44b6_551a5dba",
+        "44b6_7e557709",
+        "44b6_2a2eff9f",
+        "44b6_c50204e0",
+        "44b6_aaf8b0ea"
+      ]
+    },
+    "6bba": {
+      "adjusted_edge_jaccard": 0.9231431860102829,
+      "baseline_primary_metric": 0.9329497722613302,
+      "division_jaccard": 0.0,
+      "division_negative_count": 4,
+      "division_negative_samples": [
+        "6bba_55c70843",
+        "6bba_372c8cb8",
+        "6bba_283bf9f1",
+        "6bba_0c7fa718"
+      ],
+      "division_positive_count": 4,
+      "division_positive_samples": [
+        "6bba_fe670320",
+        "6bba_337b1b3a",
+        "6bba_ef7b4f7e",
+        "6bba_80d12824"
+      ],
+      "primary_metric": 0.9231431860102829,
+      "samples": [
+        "6bba_fe670320",
+        "6bba_55c70843",
+        "6bba_372c8cb8",
+        "6bba_337b1b3a",
+        "6bba_ef7b4f7e",
+        "6bba_80d12824",
+        "6bba_283bf9f1",
+        "6bba_0c7fa718"
+      ]
+    }
+  },
+  "validation": {
+    "adjusted_edge_jaccard": 0.91613880231486,
+    "division_jaccard": 0.0,
+    "protocol": "public_0933_embedded_train16_stratified_proxy_v1",
+    "sample_count": 16,
+    "warning": "Stratified 16-video train-derived proxy from a public kernel. The frozen feature extractors saw training videos, so use this as an optimistic internal baseline, not as leaderboard evidence."
+  },
+  "parsed_at": "2026-09-02T00:38:46+00:00",
+  "source": "E:\\Project\\Biohub_CellTracking\\experiments\\exp_011_train16_deepcenter_div_veto_envfix\\artifacts\\metrics.json"
+}

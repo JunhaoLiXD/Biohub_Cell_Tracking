@@ -1,0 +1,14 @@
+[2026-09-02T00:49:15+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag012-deepcenter-score-calibration"]
+exit_code=0
+STDOUT
+lingxd/biohub-diag012-deepcenter-score-calibration has status "KernelWorkerStatus.RUNNING"
+
+STDERR
+
+[2026-09-02T02:00:26+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag012-deepcenter-score-calibration"]
+exit_code=0
+STDOUT
+lingxd/biohub-diag012-deepcenter-score-calibration has status "KernelWorkerStatus.COMPLETE"
+
+STDERR
+

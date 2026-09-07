@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "experiment_id": "val_007_public_0933_train16_audited",
+  "parent": "repro_005_public_0933_contract_id",
+  "state": "READY",
+  "hypothesis": "A deterministic, division-stratified 16-video validator will provide a materially more stable estimate of the reproduced team-fusion-v6 pipeline than the prior four-video proxy, while preserving the same inference outputs and configuration.",
+  "change": {
+    "component": "validation_protocol",
+    "from": "two videos per specimen selected with division-first alphabetical ordering (four total)",
+    "to": "eight videos per specimen selected by seeded SHA256 ordering with a best-effort target of four division-positive and four division-negative videos (16 total)",
+    "variables_changed": "validation_sample_selection_only"
+  },
+  "signature": "2137dda62045add4a804be58fd24e9b629be45f3b2c7c569e4114d7cc18cccb2",
+  "config": "configs/val_007_public_0933_train16_audited.yaml",
+  "snapshot_config": "experiments/val_007_public_0933_train16_audited/snapshot/config.yaml",
+  "snapshot_source": "experiments/val_007_public_0933_train16_audited/snapshot/source/repro_public_0933.ipynb",
+  "snapshot_manifest": "experiments/val_007_public_0933_train16_audited/snapshot/manifest.json",
+  "git_commit": "bbe14667c6f02eb91e0be21fe4a36e5f20a13d31",
+  "validation_protocol": "public_0933_embedded_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": true
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/val_007_public_0933_train16_audited/review.md",
+    "completed_at": "2026-09-01T19:48:25+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\val_007_public_0933_train16_audited\\snapshot\\source\\repro_public_0933.ipynb",
+      "--require-metrics-contract"
+    ],
+    "completed_at": "2026-09-01T19:48:30+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-01T19:43:34+00:00",
+  "updated_at": "2026-09-01T19:48:49+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-01T19:48:25+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-01T19:48:30+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-01T19:48:30+00:00",
+      "note": null
+    }
+  ]
+}

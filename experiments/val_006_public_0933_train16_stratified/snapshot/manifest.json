@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-01T19:37:53+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/val_006_public_0933_train16_stratified/snapshot/config.yaml",
+      "sha256": "cc83b150ee9f9a472ed5735ab6cbb8138389a474316baefc78940a1d0a3814cc"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/val_006_public_0933_train16_stratified/snapshot/source/repro_public_0933.ipynb",
+      "sha256": "8caa8e5b06255232a014b5005567d77801f88e0ab9e9a2816be58a80bbf05420"
+    }
+  ]
+}

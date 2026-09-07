@@ -1,0 +1,24 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_041_public_0941_motion_ema",
+  "required": true,
+  "scope": "This reproduction only, as explicitly requested by the user",
+  "status": "PASSED",
+  "reviewer": "Claude Code",
+  "verdict": "PASS",
+  "review_path": "experiments/repro_041_public_0941_motion_ema/post-run-review-retry-01.md",
+  "leaderboard_submission_authorized": false,
+  "prelaunch_review_must_remain_separate": true,
+  "completed_at": "2026-09-07T02:48:44+00:00",
+  "exit_code": 0,
+  "retry_history": [
+    {
+      "retry": "retry-01",
+      "authorized_by": "user",
+      "completed_at": "2026-09-07T02:48:44+00:00",
+      "verdict": "PASS",
+      "review_path": "experiments/repro_041_public_0941_motion_ema/post-run-review-retry-01.md",
+      "receipt_path": "experiments/repro_041_public_0941_motion_ema/post-run-review-retry-01.json"
+    }
+  ]
+}

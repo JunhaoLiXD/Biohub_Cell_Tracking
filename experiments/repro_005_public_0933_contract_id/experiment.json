@@ -1,0 +1,106 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_005_public_0933_contract_id",
+  "parent": "repro_004_public_0933_t4x2",
+  "state": "KEEP",
+  "hypothesis": "Deterministically injecting the active experiment ID into the staged notebook will preserve the successful T4 x2 reproduction metrics while allowing the controller to validate and register the metrics contract.",
+  "change": {
+    "component": "metrics_contract_identity",
+    "from": "final metrics contract hardcoded to repro_001_public_0933",
+    "to": "one controller-owned experiment-ID placeholder replaced exactly once during Kaggle staging",
+    "variables_changed": "metrics_contract_experiment_id_only"
+  },
+  "signature": "cecdbcb55625599ea5a4f4dc4c587fb5f3199f2fa05d836bb5325bc5a213b341",
+  "config": "configs/repro_005_public_0933_contract_id.yaml",
+  "snapshot_config": "experiments/repro_005_public_0933_contract_id/snapshot/config.yaml",
+  "snapshot_source": "experiments/repro_005_public_0933_contract_id/snapshot/source/repro_public_0933.ipynb",
+  "snapshot_manifest": "experiments/repro_005_public_0933_contract_id/snapshot/manifest.json",
+  "git_commit": "bbe14667c6f02eb91e0be21fe4a36e5f20a13d31",
+  "validation_protocol": "public_0933_embedded_train4_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 1.5,
+    "reserved": false,
+    "consumed_gpu_hours": 0.5224571990630557
+  },
+  "review": {
+    "required": false,
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\repro_005_public_0933_contract_id\\snapshot\\source\\repro_public_0933.ipynb",
+      "--require-metrics-contract"
+    ],
+    "completed_at": "2026-09-01T17:55:52+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-01T17:55:52+00:00",
+  "updated_at": "2026-09-01T19:13:47+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-01T17:55:52+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-01T17:55:52+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-01T17:56:22+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "RUNNING",
+      "at": "2026-09-01T17:56:37+00:00",
+      "note": null
+    },
+    {
+      "from": "RUNNING",
+      "to": "COLLECTING",
+      "at": "2026-09-01T19:12:19+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-01T19:13:47+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "KEEP",
+      "at": "2026-09-01T19:13:47+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-repro-public-0933-contract-id",
+    "submitted_at": "2026-09-01T17:56:22+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-01T19:12:09+00:00"
+  },
+  "evaluation": {
+    "decision": "KEEP",
+    "primary_metric": 0.9381651742127197,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-01T19:13:47+00:00"
+  },
+  "reproducibility": {
+    "status": "verified",
+    "reference_experiment": "repro_004_public_0933_t4x2",
+    "receipt": "experiments/repro_005_public_0933_contract_id/reproducibility.json",
+    "submission_identical": true,
+    "normalized_metrics_identical": true
+  }
+}

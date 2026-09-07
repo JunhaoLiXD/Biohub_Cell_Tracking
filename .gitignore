@@ -26,7 +26,14 @@ results/
 outputs/
 runs/
 logs/
-external_baselines/
+
+# ===== Remote experiment artifacts (large, re-downloadable from Kaggle) =====
+# The experiment RECORDS and immutable snapshots (small text/JSON/notebooks) ARE
+# version-controlled so provenance has an off-site backup. The multi-hundred-MB
+# collected Kaggle outputs and the ephemeral kernel-staging dirs are not.
+experiments/**/artifacts/
+experiments/**/kaggle_kernel/
+experiments/**/kaggle_kernel_retry_*/
 
 # ===== Jupyter =====
 .ipynb_checkpoints/
@@ -39,6 +46,8 @@ __pycache__/
 .venv/
 venv/
 env/
+.env
+.env.*
 .ipynb_checkpoints
 
 # ===== OS / IDE =====
@@ -47,10 +56,16 @@ Thumbs.db
 .vscode/
 .idea/
 .pytest_cache/
+.pytest_tmp_*/
 
-# ===== Local credentials and private workspace =====
+# ===== Local credentials and private workspace (never share) =====
 .kaggle/
 .private/
+.claude/
 
 # ===== Third-party reference material (not ours to redistribute) =====
 references/
+external_baselines/
+
+# ===== Controller runtime lock =====
+.controller.lock

@@ -1,0 +1,35 @@
+{
+  "created_at": "2026-09-06T18:51:10+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_040_public_0941_motion_ema/snapshot/config.yaml",
+      "sha256": "2b803cf78d2b5d75b9c80cd9d5139aa0eb2cbdf4a1f80310f194c39b5d09ecf1"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_040_public_0941_motion_ema/snapshot/source/public_0941_motion_ema.ipynb",
+      "sha256": "914104fffa12f92de10521cd1a106a415a7b353eac5b5c460b04daf83ec96453"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_040_public_0941_motion_ema/snapshot/extra_files/build_public_0941_motion_ema.py",
+      "sha256": "bbe08982119bc54df5f7e4ab5de1eeaf7e9bb4869f01f60c1a4685603ecbbc86"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_040_public_0941_motion_ema/snapshot/extra_files/public_0941_motion_ema_preflight.py",
+      "sha256": "60cbe9991a46d6840c64405fe304136f98522d3e994923138f66ac02eead509b"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_040_public_0941_motion_ema/snapshot/extra_files/public_0941_motion_ema_contract.py",
+      "sha256": "137f679de8825dcfecca4115063f9d4846974e4e579f9491453cee2a6abf5de7"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_040_public_0941_motion_ema/snapshot/extra_files/validate_public_0941_motion_ema.py",
+      "sha256": "9918dd310ccb398aca530409983be97540a7503848f71bbc1ba51869971d5f8d"
+    }
+  ]
+}

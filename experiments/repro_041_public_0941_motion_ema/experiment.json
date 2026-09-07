@@ -1,0 +1,113 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_041_public_0941_motion_ema",
+  "parent": "exp_040_public_0941_motion_ema",
+  "state": "KEEP",
+  "hypothesis": "An independent identical run of exp_040 reproduces its aggregate and specimen metrics within absolute tolerance 1e-12, exact division and EMA counts, and byte-identical test submission.",
+  "change": {
+    "component": "reproducibility_evidence",
+    "from": "One accepted exp_040 EMA screening run",
+    "to": "Independent identical inference with frozen reference comparison in final metrics contract",
+    "variables_changed": "evidence_contract_only"
+  },
+  "signature": "7229e892471f3d7597f798fbab094fd6ac13ecbcdbd9395a53e86493602d2037",
+  "config": "configs/repro_041_public_0941_motion_ema.yaml",
+  "snapshot_config": "experiments/repro_041_public_0941_motion_ema/snapshot/config.yaml",
+  "snapshot_source": "experiments/repro_041_public_0941_motion_ema/snapshot/source/public_0941_ema_repro.ipynb",
+  "snapshot_manifest": "experiments/repro_041_public_0941_motion_ema/snapshot/manifest.json",
+  "git_commit": "28416d0cce4c085362bd784c7480809ba7d37f3e",
+  "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.060321672935
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/repro_041_public_0941_motion_ema/review.md",
+    "completed_at": "2026-09-06T20:54:10+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_public_0941_ema_repro.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\repro_041_public_0941_motion_ema\\snapshot\\source\\public_0941_ema_repro.ipynb"
+    ],
+    "completed_at": "2026-09-06T20:54:14+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-06T20:48:39+00:00",
+  "updated_at": "2026-09-07T02:55:00+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-06T20:54:10+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-06T20:54:14+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-06T20:54:14+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-06T20:54:36+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-07T02:14:32+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-07T02:18:08+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "KEEP",
+      "at": "2026-09-07T02:18:08+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-repro041-public0941-motion-ema",
+    "submitted_at": "2026-09-06T20:54:36+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-07T02:14:32+00:00"
+  },
+  "evaluation": {
+    "decision": "KEEP",
+    "primary_metric": 0.9387332376874039,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-07T02:18:08+00:00"
+  },
+  "leaderboard_submission": {
+    "authorized_by_user": true,
+    "submission_id": 56067514,
+    "competition": "biohub-cell-tracking-during-development",
+    "kernel": "lingxd/biohub-repro041-public0941-motion-ema",
+    "kernel_version": 1,
+    "file_name": "submission.csv",
+    "submission_sha256": "fd1162bfc09b6d06413701aa898eb14bc5df9cc5bfd999fe598bf81fbf125515",
+    "submitted_at_utc": "2026-09-07T02:54:59.363000Z",
+    "status": "PENDING",
+    "public_score": null
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_025_train16_frozen_scorer_candidate_oracle",
+  "parent": "diag_019_train16_final_validation_graph_export",
+  "state": "KEEP",
+  "hypothesis": "Candidate-constrained oracle edits have positive paired headroom on both specimens when baseline and edited graphs are evaluated with the exact frozen lineage-aware validator scorer.",
+  "change": {
+    "component": "phase0_oracle_scorer_alignment",
+    "from": "support-pack native division confusion, which undercounted the frozen 44b6 baseline",
+    "to": "exact frozen bipartite matching, edge confusion, lineage-aware division confusion, and official aggregation copied from the diag_019 validator",
+    "variables_changed": "scorer_implementation_only"
+  },
+  "signature": "f6512b1382190add63a8cfc90ec4218545cb39b7bfa22bb1d55ce85941d9c9f8",
+  "config": "configs/diag_025_train16_frozen_scorer_candidate_oracle.yaml",
+  "snapshot_config": "experiments/diag_025_train16_frozen_scorer_candidate_oracle/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_025_train16_frozen_scorer_candidate_oracle/snapshot/source/phase0_candidate_oracle.ipynb",
+  "snapshot_manifest": "experiments/diag_025_train16_frozen_scorer_candidate_oracle/snapshot/manifest.json",
+  "git_commit": "339ee3c9285f6f6be20a5dbc0d395c5ad31e6420",
+  "validation_protocol": "public_0933_train16_candidate_oracle_v1",
+  "budget": {
+    "expected_gpu_hours": 0.0,
+    "reserved": false,
+    "consumed_gpu_hours": 0.0
+  },
+  "review": {
+    "required": false,
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_phase0_oracle_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\diag_025_train16_frozen_scorer_candidate_oracle\\snapshot\\source\\phase0_candidate_oracle.ipynb",
+      "--artifact-root",
+      "experiments/diag_019_train16_final_validation_graph_export/artifacts"
+    ],
+    "completed_at": "2026-09-03T00:48:21+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-03T00:48:13+00:00",
+  "updated_at": "2026-09-03T01:13:07+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-03T00:48:13+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-03T00:48:21+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-03T00:48:36+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "RUNNING",
+      "at": "2026-09-03T00:48:50+00:00",
+      "note": null
+    },
+    {
+      "from": "RUNNING",
+      "to": "COLLECTING",
+      "at": "2026-09-03T01:13:06+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-03T01:13:07+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "KEEP",
+      "at": "2026-09-03T01:13:07+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-diag025-frozen-scorer-oracle",
+    "submitted_at": "2026-09-03T00:48:36+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-03T01:12:43+00:00"
+  },
+  "evaluation": {
+    "decision": "KEEP",
+    "primary_metric": 0.013151696573802996,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-03T01:13:07+00:00"
+  }
+}

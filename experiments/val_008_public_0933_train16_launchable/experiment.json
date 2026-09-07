@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "experiment_id": "val_008_public_0933_train16_launchable",
+  "parent": "repro_005_public_0933_contract_id",
+  "state": "KEEP",
+  "hypothesis": "A deterministic, division-stratified 16-video validator will provide a materially more stable estimate of the reproduced team-fusion-v6 pipeline than the prior four-video proxy, while preserving the same inference outputs and configuration.",
+  "change": {
+    "component": "validation_protocol",
+    "from": "two videos per specimen selected with division-first alphabetical ordering (four total)",
+    "to": "eight videos per specimen selected by seeded SHA256 ordering with a best-effort target of four division-positive and four division-negative videos (16 total)",
+    "variables_changed": "validation_sample_selection_only"
+  },
+  "signature": "2137dda62045add4a804be58fd24e9b629be45f3b2c7c569e4114d7cc18cccb2",
+  "config": "configs/val_008_public_0933_train16_launchable.yaml",
+  "snapshot_config": "experiments/val_008_public_0933_train16_launchable/snapshot/config.yaml",
+  "snapshot_source": "experiments/val_008_public_0933_train16_launchable/snapshot/source/repro_public_0933.ipynb",
+  "snapshot_manifest": "experiments/val_008_public_0933_train16_launchable/snapshot/manifest.json",
+  "git_commit": "bbe14667c6f02eb91e0be21fe4a36e5f20a13d31",
+  "validation_protocol": "public_0933_embedded_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.137628261025278
+  },
+  "review": {
+    "required": false,
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\val_008_public_0933_train16_launchable\\snapshot\\source\\repro_public_0933.ipynb",
+      "--require-metrics-contract"
+    ],
+    "completed_at": "2026-09-01T19:49:38+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-01T19:49:38+00:00",
+  "updated_at": "2026-09-01T21:07:01+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-01T19:49:38+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-01T19:49:38+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-01T19:52:16+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "RUNNING",
+      "at": "2026-09-01T19:52:38+00:00",
+      "note": null
+    },
+    {
+      "from": "RUNNING",
+      "to": "COLLECTING",
+      "at": "2026-09-01T21:03:37+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-01T21:07:01+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "KEEP",
+      "at": "2026-09-01T21:07:01+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-val-public-0933-train16-launchable",
+    "submitted_at": "2026-09-01T19:52:16+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-01T21:03:07+00:00"
+  },
+  "evaluation": {
+    "decision": "KEEP",
+    "primary_metric": 0.9252519785518039,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-01T21:07:01+00:00"
+  }
+}

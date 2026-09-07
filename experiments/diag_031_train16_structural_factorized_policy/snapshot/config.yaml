@@ -1,0 +1,58 @@
+schema_version: 1
+experiment_id: diag_031_train16_structural_factorized_policy
+parent: diag_030_train16_eligible_validity_factorized_policy
+hypothesis: Inference-available graph, track-duration, and sibling-geometry features allow the eligible-conditioned factorized Family-A policy to produce positive held-out frozen-score deltas in both cross-specimen directions without adjusted-edge regression.
+change:
+  component: phase1_family_a_features
+  from: pre-ILP edge features only
+  to: pre-ILP edge features plus graph-component, track-duration, node-degree, and sibling-geometry features
+  variables_changed: structural_features_only
+
+source_notebook: .private/current/phase1_structural_policy.ipynb
+
+validation:
+  protocol: public_0933_train16_structural_factorized_policy_v1
+  primary_metric: minimum_heldout_delta_score
+  seed: 314159
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  warning: Train16 cross-specimen action-policy gate; all model features are available at inference and ground-truth matching is never a feature.
+
+budget:
+  tier: 1
+  expected_gpu_hours: 0.0
+
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+  per_specimen_max_regression: 0.0
+
+evaluation:
+  mode: gate
+  gate_field: structural_policy_gate_passed
+
+admission:
+  require_claude_review: false
+  methodology_valid: true
+  require_reproducible_for_promotion: false
+
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_phase1_structural_policy_notebook.py
+    - "{source_notebook}"
+
+kaggle:
+  owner: lingxd
+  slug: biohub-diag031-structural-policy
+  title: biohub-diag031-structural-policy
+  inject_experiment_id: false
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 1
+  kernel_sources:
+    - lingxd/biohub-diag019-final-validation-graphs
+  enable_gpu: false
+  enable_internet: false
+  is_private: true

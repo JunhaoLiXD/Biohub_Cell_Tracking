@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_037_train16_motion_ema_weight1",
+  "parent": "repro_036_train16_motion_ema",
+  "state": "REJECT",
+  "hypothesis": "Increasing the confirmed motion-EMA velocity multiplier from 0.5 to 1.0 will improve the paired train16 primary metric on both specimens without reducing adjusted edge Jaccard.\n",
+  "change": {
+    "component": "motion_relink_velocity_weight",
+    "from": 0.5,
+    "to": 1.0,
+    "variables_changed": "velocity_weight_only"
+  },
+  "signature": "471f4aafdeaef71c1e8946bf47266ef8cbe8d3849f43f4449c424a02f273db1c",
+  "config": "configs/exp_037_train16_motion_ema_weight1.yaml",
+  "snapshot_config": "experiments/exp_037_train16_motion_ema_weight1/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_037_train16_motion_ema_weight1/snapshot/source/motion_ema_weight1_train16.ipynb",
+  "snapshot_manifest": "experiments/exp_037_train16_motion_ema_weight1/snapshot/manifest.json",
+  "git_commit": "339ee3c9285f6f6be20a5dbc0d395c5ad31e6420",
+  "validation_protocol": "public_0933_embedded_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.2601074675027777
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/exp_037_train16_motion_ema_weight1/review.md",
+    "completed_at": "2026-09-03T20:04:59+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_motion_ema_weight1_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\exp_037_train16_motion_ema_weight1\\snapshot\\source\\motion_ema_weight1_train16.ipynb"
+    ],
+    "completed_at": "2026-09-03T20:05:04+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-03T18:12:46+00:00",
+  "updated_at": "2026-09-05T20:19:33+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-03T20:04:59+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-03T20:05:04+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-03T20:05:04+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-03T20:05:37+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "RUNNING",
+      "at": "2026-09-03T20:06:02+00:00",
+      "note": null
+    },
+    {
+      "from": "RUNNING",
+      "to": "COLLECTING",
+      "at": "2026-09-05T20:15:38+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-05T20:19:33+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "REJECT",
+      "at": "2026-09-05T20:19:33+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp037-train16-motion-ema-weight1",
+    "submitted_at": "2026-09-03T20:05:37+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-05T20:15:17+00:00"
+  },
+  "evaluation": {
+    "decision": "REJECT",
+    "primary_metric": 0.9277418066013805,
+    "baseline_primary_metric": 0.9273163492758533,
+    "delta": 0.00042545732552723425,
+    "evaluated_at": "2026-09-05T20:19:33+00:00"
+  }
+}

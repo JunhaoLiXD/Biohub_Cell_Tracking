@@ -1,0 +1,15 @@
+[2026-09-02T18:36:02+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_phase0_oracle_notebook.py", "E:\\Project\\Biohub_CellTracking\\experiments\\diag_023_train16_same_run_final_graph_oracle_reviewed\\snapshot\\source\\phase0_candidate_oracle.ipynb"]
+exit_code=0
+STDOUT
+{
+  "cells": 5,
+  "code_cells": 4,
+  "saved_error_outputs": 0,
+  "embedded_runner": true,
+  "candidate_id_guard": true,
+  "stage_aware_endpoint_guard": true,
+  "final_graph_hash_guard": true
+}
+
+STDERR
+

@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-03T02:02:56+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_027_train16_cross_specimen_family_a_policy/snapshot/config.yaml",
+      "sha256": "662a854999c9e875b99a7cbdfe372e6c0ccb6436156b27fe5af53064a5eef504"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_027_train16_cross_specimen_family_a_policy/snapshot/source/phase1_family_a_policy.ipynb",
+      "sha256": "36fe43e5c79e0219b74aa74a1e2fb2269a764aa12ade8c36c44d1d342e3f8aaf"
+    }
+  ]
+}

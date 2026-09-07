@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "limits": {
+    "max_autonomous_experiments": 3,
+    "max_gpu_hours": 6.0,
+    "max_leaderboard_submissions": 0
+  },
+  "experiments": [
+    {
+      "config": "configs/repro_001_public_0933.yaml",
+      "approved": true,
+      "status": "READY_FOR_REVIEW_AND_SMOKE_TEST"
+    },
+    {
+      "config": "configs/exp_002_v9_phase1_division_action.yaml",
+      "approved": false,
+      "status": "WAITING_FOR_IMPLEMENTATION_AND_REVIEW"
+    }
+  ]
+}

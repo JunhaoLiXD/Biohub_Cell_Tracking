@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-03T02:42:51+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_028_train16_deployment_complete_family_a_policy/snapshot/config.yaml",
+      "sha256": "3d929da8638b89ae0ca29557a0c2dc1445a13b26b0cb4d64d4797552e7ce19f2"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_028_train16_deployment_complete_family_a_policy/snapshot/source/phase1_deployment_policy.ipynb",
+      "sha256": "bc7735fd04e31da532446eeffb43bb758816c9792d6291c3c569528a561cc89f"
+    }
+  ]
+}

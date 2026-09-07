@@ -1,0 +1,55 @@
+{
+  "schema_version": 1,
+  "experiment_id": "infra_002_v9_metrics_contract",
+  "parent": "exp_001_v9_phase0_oracle",
+  "state": "READY",
+  "hypothesis": "The v9 Phase 0 notebook emits structured gate metrics only after all oracle families are defined.",
+  "change": {
+    "component": "controller_metrics_contract",
+    "from": "console-only Phase 0 output",
+    "to": "final-code-cell metrics.json artifact",
+    "variables_changed": 0
+  },
+  "signature": "e0a554e30185caf3075f73083b029b5629de75e6eac81e7098946565c5f388e6",
+  "config": "configs\\infra_002_v9_metrics_contract.yaml",
+  "snapshot_config": "experiments\\infra_002_v9_metrics_contract\\snapshot\\config.yaml",
+  "snapshot_source": "experiments\\infra_002_v9_metrics_contract\\snapshot\\source\\v9_division_aware.ipynb",
+  "snapshot_manifest": "experiments\\infra_002_v9_metrics_contract\\snapshot\\manifest.json",
+  "git_commit": "815cf5d4eac89cda206ecfeb256986eed6e16f62",
+  "validation_protocol": "v9_phase0_oracle_train16_delta_only",
+  "budget": {
+    "expected_gpu_hours": 0.0,
+    "reserved": false
+  },
+  "review": {
+    "required": false,
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "C:\\Users\\Ling\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "scripts/validate_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\infra_002_v9_metrics_contract\\snapshot\\source\\v9_division_aware.ipynb",
+      "--require-metrics-contract"
+    ],
+    "completed_at": "2026-09-01T01:41:39+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-01T01:41:39+00:00",
+  "updated_at": "2026-09-01T01:41:39+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-01T01:41:39+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-01T01:41:39+00:00",
+      "note": null
+    }
+  ]
+}

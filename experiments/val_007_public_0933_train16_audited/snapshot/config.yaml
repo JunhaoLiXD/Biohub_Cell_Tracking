@@ -1,0 +1,62 @@
+schema_version: 1
+experiment_id: val_007_public_0933_train16_audited
+parent: repro_005_public_0933_contract_id
+hypothesis: A deterministic, division-stratified 16-video validator will provide a materially more stable estimate of the reproduced team-fusion-v6 pipeline than the prior four-video proxy, while preserving the same inference outputs and configuration.
+change:
+  component: validation_protocol
+  from: two videos per specimen selected with division-first alphabetical ordering (four total)
+  to: eight videos per specimen selected by seeded SHA256 ordering with a best-effort target of four division-positive and four division-negative videos (16 total)
+  variables_changed: validation_sample_selection_only
+
+source_notebook: .private/current/repro_public_0933.ipynb
+
+validation:
+  protocol: public_0933_embedded_train16_stratified_proxy_v1
+  primary_metric: score
+  seed: public_0933_train16_v1
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  division_positive_target_per_specimen: 4
+  stratification_policy: best_effort_with_deterministic_backfill_when_a_stratum_is_scarce
+  warning: The frozen feature extractors saw the training videos. This is an optimistic internal baseline and not leaderboard or promotion evidence.
+
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+
+success:
+  minimum_improvement: 0.0
+  regression_threshold: -1.0
+  per_specimen_max_regression: -1.0
+
+evaluation:
+  mode: gate
+  gate_field: validation_contract_passed
+
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: false
+
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_notebook.py
+    - "{source_notebook}"
+    - --require-metrics-contract
+
+kaggle:
+  owner: lingxd
+  slug: biohub-val-public-0933-train16-audited
+  title: biohub-val-public-0933-train16-audited
+  accelerator: NvidiaTeslaT4
+  inject_experiment_id: true
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true

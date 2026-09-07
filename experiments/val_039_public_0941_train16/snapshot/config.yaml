@@ -1,0 +1,67 @@
+schema_version: 1
+experiment_id: val_039_public_0941_train16
+parent: repro_038_public_0941_exact_copy
+hypothesis: The reproduced Public LB 0.941 inference can establish a complete frozen train16 validation baseline while preserving the exact repro_038 test submission bytes and actual epoch-2 checkpoint.
+change:
+  component: validation_protocol_and_observability
+  from: Exact public 0.941 snapshot with native train4 proxy and stale report literals
+  to: Frozen val_008 train16 selection and scorer, effective reporting, actual-load identity checks, and per-video stage statistics
+  variables_changed: No inference hyperparameter or model change; validation and instrumentation only
+source_notebook: .private/current/public_0941_train16.ipynb
+validation:
+  protocol: public_0941_frozen_train16_stratified_proxy_v1
+  primary_metric: score
+  seed: public_0933_train16_v1
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  division_positive_target_per_specimen: 4
+  sample_and_scorer_reference: val_008_public_0933_train16_launchable
+  warning: Optimistic train-derived proxy because released models saw training videos. Native parent train4 is not comparable. Historical train16 metrics are descriptive controls, never an admission threshold.
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+success:
+  minimum_improvement: 0.0
+  regression_threshold: -1.0
+  per_specimen_max_regression: 0.0
+evaluation:
+  mode: gate
+  gate_field: validation_contract_passed
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_public_0941_train16.py
+    - "{source_notebook}"
+provenance:
+  parent_source_sha256: 24253cae5a958b83d69e201719388031f5758080c5d01ca1a8e374f3a8225389
+  expected_submission_sha256: bf66c879298e71c5cce0326fbac5956ca567a344ae28f0d402dfc5003fba52bd
+  public_score: 0.941
+  submission_id: 56044403
+  review_focus: Read scripts/build_public_0941_train16.py and the two embedded preflight/contract templates; verify frozen selector/scorer and inference preservation. GOAL.md and .private/current/CONTINUATION.md hold current authorization.
+submission:
+  user_authorized_count: 0
+kaggle:
+  owner: lingxd
+  slug: biohub-val039-public0941-train16
+  title: biohub-val039-public0941-train16
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: true
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+    - scripts/build_public_0941_train16.py
+    - scripts/public_0941_train16_preflight.py
+    - scripts/public_0941_train16_contract.py
+    - scripts/validate_public_0941_train16.py

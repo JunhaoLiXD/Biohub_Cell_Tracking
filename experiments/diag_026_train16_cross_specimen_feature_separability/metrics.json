@@ -1,0 +1,169 @@
+{
+  "baseline_primary_metric": 0.5,
+  "experiment_id": "diag_026_train16_cross_specimen_feature_separability",
+  "methodology_valid": true,
+  "metrics": {
+    "directions": {
+      "44b6_to_6bba": {
+        "average_precision": 0.016411102667046477,
+        "average_precision_lift": 10.837295433947782,
+        "roc_auc": 0.8283907599363272,
+        "test_positive": 11,
+        "test_prevalence": 0.0015143171806167401,
+        "test_rows": 7264,
+        "test_specimen": "6bba",
+        "train_positive": 8,
+        "train_rows": 2561,
+        "train_specimen": "44b6"
+      },
+      "6bba_to_44b6": {
+        "average_precision": 0.013510719610630988,
+        "average_precision_lift": 4.325119115353245,
+        "roc_auc": 0.7976400313356835,
+        "test_positive": 8,
+        "test_prevalence": 0.0031237797735259665,
+        "test_rows": 2561,
+        "test_specimen": "44b6",
+        "train_positive": 11,
+        "train_rows": 7264,
+        "train_specimen": "6bba"
+      }
+    },
+    "feature_names": [
+      "distance_um",
+      "fused_logit",
+      "fused_probability",
+      "parent_margin",
+      "child_margin",
+      "parent_rank_for_target",
+      "child_rank_for_source",
+      "minimum_rank",
+      "maximum_margin"
+    ],
+    "feature_separability_passed": true,
+    "minimum_cross_specimen_average_precision_lift": 4.325119115353245,
+    "minimum_cross_specimen_roc_auc": 0.7976400313356835,
+    "per_video": {
+      "44b6_1d530831": {
+        "eligible": 255,
+        "positive": 0,
+        "rows": 145685,
+        "time_collision": 0
+      },
+      "44b6_2a2eff9f": {
+        "eligible": 210,
+        "positive": 2,
+        "rows": 157666,
+        "time_collision": 2
+      },
+      "44b6_551a5dba": {
+        "eligible": 269,
+        "positive": 0,
+        "rows": 138675,
+        "time_collision": 1
+      },
+      "44b6_7a302da0": {
+        "eligible": 494,
+        "positive": 2,
+        "rows": 188259,
+        "time_collision": 5
+      },
+      "44b6_7e557709": {
+        "eligible": 692,
+        "positive": 0,
+        "rows": 171870,
+        "time_collision": 6
+      },
+      "44b6_aaf8b0ea": {
+        "eligible": 237,
+        "positive": 1,
+        "rows": 47497,
+        "time_collision": 3
+      },
+      "44b6_c15fded2": {
+        "eligible": 95,
+        "positive": 0,
+        "rows": 63072,
+        "time_collision": 0
+      },
+      "44b6_c50204e0": {
+        "eligible": 309,
+        "positive": 3,
+        "rows": 181966,
+        "time_collision": 0
+      },
+      "6bba_0c7fa718": {
+        "eligible": 657,
+        "positive": 0,
+        "rows": 38701,
+        "time_collision": 0
+      },
+      "6bba_283bf9f1": {
+        "eligible": 1300,
+        "positive": 0,
+        "rows": 61419,
+        "time_collision": 0
+      },
+      "6bba_337b1b3a": {
+        "eligible": 1337,
+        "positive": 4,
+        "rows": 86732,
+        "time_collision": 0
+      },
+      "6bba_372c8cb8": {
+        "eligible": 1024,
+        "positive": 0,
+        "rows": 12331,
+        "time_collision": 0
+      },
+      "6bba_55c70843": {
+        "eligible": 439,
+        "positive": 0,
+        "rows": 177710,
+        "time_collision": 0
+      },
+      "6bba_80d12824": {
+        "eligible": 635,
+        "positive": 2,
+        "rows": 22536,
+        "time_collision": 0
+      },
+      "6bba_ef7b4f7e": {
+        "eligible": 1201,
+        "positive": 4,
+        "rows": 11217,
+        "time_collision": 0
+      },
+      "6bba_fe670320": {
+        "eligible": 671,
+        "positive": 1,
+        "rows": 27509,
+        "time_collision": 0
+      }
+    },
+    "total_positive": 19,
+    "total_rows": 9825,
+    "wall_clock_seconds": 155.624539939
+  },
+  "primary_metric": 0.7976400313356835,
+  "reproducible": false,
+  "runtime_seconds": 0.0,
+  "schema_version": 1,
+  "specimen_metrics": {
+    "44b6": {
+      "baseline_primary_metric": 0.5,
+      "primary_metric": 0.7976400313356835
+    },
+    "6bba": {
+      "baseline_primary_metric": 0.5,
+      "primary_metric": 0.8283907599363272
+    }
+  },
+  "validation": {
+    "protocol": "public_0933_train16_candidate_feature_separability_v1",
+    "seed": 314159,
+    "warning": "Train-derived representation audit; this is not a deployable action scorer."
+  },
+  "parsed_at": "2026-09-03T01:58:59+00:00",
+  "source": "E:\\Project\\Biohub_CellTracking\\experiments\\diag_026_train16_cross_specimen_feature_separability\\artifacts\\metrics.json"
+}

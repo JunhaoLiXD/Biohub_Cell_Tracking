@@ -1,0 +1,58 @@
+schema_version: 1
+experiment_id: diag_026_train16_cross_specimen_feature_separability
+parent: diag_025_train16_frozen_scorer_candidate_oracle
+hypothesis: Frozen pre-ILP tabular candidate features contain division-edge signal that transfers above chance in both leave-one-specimen-out directions.
+change:
+  component: phase1_candidate_feature_gate
+  from: positive candidate-reachable oracle headroom without evidence that exported features can rank division edges across specimens
+  to: bidirectional leave-one-specimen-out HistGradientBoosting separability audit on matched frozen candidate edges
+  variables_changed: phase1_feature_separability_diagnostic_only
+
+source_notebook: .private/current/phase1_feature_separability.ipynb
+
+validation:
+  protocol: public_0933_train16_candidate_feature_separability_v1
+  primary_metric: minimum_cross_specimen_roc_auc
+  seed: 314159
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  warning: Train-derived representation audit; this is not a deployable action scorer or leaderboard evidence.
+
+budget:
+  tier: 1
+  expected_gpu_hours: 0.0
+
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+  per_specimen_max_regression: 0.0
+
+evaluation:
+  mode: gate
+  gate_field: feature_separability_passed
+
+admission:
+  require_claude_review: false
+  methodology_valid: true
+  require_reproducible_for_promotion: false
+
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_phase1_feature_notebook.py
+    - "{source_notebook}"
+
+kaggle:
+  owner: lingxd
+  slug: biohub-diag026-feature-separability
+  title: biohub-diag026-feature-separability
+  inject_experiment_id: false
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 1
+  kernel_sources:
+    - lingxd/biohub-diag019-final-validation-graphs
+  enable_gpu: false
+  enable_internet: false
+  is_private: true

@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_040_public_0941_motion_ema",
+  "parent": "val_039_public_0941_train16",
+  "state": "KEEP",
+  "hypothesis": "Replacing only the motion-relink one-frame velocity estimate with the previously reproduced per-track EMA at alpha 0.4 will improve the frozen public-0.941 train16 score by at least 0.001 without a material adjusted-edge regression in either specimen or degradation of division counts.\n",
+  "change": {
+    "component": "motion_relink_velocity_estimator",
+    "from": "Latest one-frame displacement with velocity multiplier 0.5",
+    "to": "Per-track exponential moving average with alpha 0.4 and unchanged velocity multiplier 0.5",
+    "variables_changed": "motion_relink_velocity_estimator_only"
+  },
+  "signature": "aec2f30c882136696ccaf4b6f3ce9487303c3c703a05947193d651a3f7dd8d8f",
+  "config": "configs/exp_040_public_0941_motion_ema.yaml",
+  "snapshot_config": "experiments/exp_040_public_0941_motion_ema/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_040_public_0941_motion_ema/snapshot/source/public_0941_motion_ema.ipynb",
+  "snapshot_manifest": "experiments/exp_040_public_0941_motion_ema/snapshot/manifest.json",
+  "git_commit": "28416d0cce4c085362bd784c7480809ba7d37f3e",
+  "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.0788346668808333
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/exp_040_public_0941_motion_ema/review.md",
+    "completed_at": "2026-09-06T19:01:22+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_public_0941_motion_ema.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\exp_040_public_0941_motion_ema\\snapshot\\source\\public_0941_motion_ema.ipynb"
+    ],
+    "completed_at": "2026-09-06T19:01:35+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-06T18:51:11+00:00",
+  "updated_at": "2026-09-06T20:36:54+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-06T19:01:22+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-06T19:01:34+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-06T19:01:35+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-06T19:02:47+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-06T20:33:19+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-06T20:36:54+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "KEEP",
+      "at": "2026-09-06T20:36:54+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp040-public0941-motion-ema",
+    "submitted_at": "2026-09-06T19:02:47+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-06T20:33:00+00:00"
+  },
+  "evaluation": {
+    "decision": "KEEP",
+    "primary_metric": 0.9387332376874039,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-06T20:36:54+00:00"
+  }
+}

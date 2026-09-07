@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-03T14:33:17+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_035_train16_motion_ema_reviewfix/snapshot/config.yaml",
+      "sha256": "74367f469436754287c6843bdb5d9c10f466199189d1314777d19ba35e48bef8"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_035_train16_motion_ema_reviewfix/snapshot/source/motion_ema_train16_v2.ipynb",
+      "sha256": "7d267910839dbb54168e51b1199139cf15ee477f90fea97f6e70ae2f176aeb51"
+    }
+  ]
+}

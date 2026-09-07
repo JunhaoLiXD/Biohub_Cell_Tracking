@@ -1,0 +1,19 @@
+[2026-09-02T04:58:34+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_preilp_edge_export.py", "E:\\Project\\Biohub_CellTracking\\experiments\\diag_014_train16_preilp_edge_export\\snapshot\\source\\repro_public_0933.ipynb"]
+exit_code=0
+STDOUT
+TTA patch applied (400ep spatial D4-style)
+Calibrated dual-seed runtime patch applied
+Frozen frame retention guard applied at 0.90
+Bidirectional harmonic-probability association fusion applied | weight= 0.15
+Pre-ILP detector-coordinate manifest hook applied
+{
+  "cells": 24,
+  "code_cells": 11,
+  "saved_error_outputs": 0,
+  "runtime_transform_compiles": true,
+  "required_snippets": 9,
+  "stage_ordering_valid": true
+}
+
+STDERR
+

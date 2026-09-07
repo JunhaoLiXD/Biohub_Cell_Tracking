@@ -1,0 +1,14 @@
+[2026-09-03T02:03:09+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_phase1_policy_notebook.py", "E:\\Project\\Biohub_CellTracking\\experiments\\diag_027_train16_cross_specimen_family_a_policy\\snapshot\\source\\phase1_family_a_policy.ipynb"]
+exit_code=0
+STDOUT
+{
+  "cells": 7,
+  "code_cells": 6,
+  "saved_error_outputs": 0,
+  "cross_specimen_directions": 2,
+  "metric_scored_policy": true,
+  "maximum_actions_per_video": 1
+}
+
+STDERR
+

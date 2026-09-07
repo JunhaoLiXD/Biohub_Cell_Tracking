@@ -1,0 +1,57 @@
+schema_version: 1
+experiment_id: repro_001_public_0933
+parent: baseline_public_0912
+hypothesis: The exact public 0.933 kernel configuration can be reproduced under lingxd with its embedded validation proxy, complete graph audit, both models loaded, and no metric hack.
+change:
+  component: baseline_pipeline
+  from: frozen public 0.912 two-seed logit blend
+  to: public team-fusion-v6 optimal-balance configuration
+  variables_changed: external_baseline_reproduction
+
+source_notebook: .private/current/repro_public_0933.ipynb
+
+validation:
+  protocol: public_0933_embedded_train4_proxy_v1
+  primary_metric: score
+  seed: 0
+  required_specimens: [44b6, 6bba]
+  warning: Embedded train-derived proxy from the public kernel; this experiment verifies reproducibility and is not promotion evidence.
+
+budget:
+  tier: 1
+  expected_gpu_hours: 1.5
+
+success:
+  minimum_improvement: 0.002
+  regression_threshold: -0.002
+  per_specimen_max_regression: 0.0
+
+evaluation:
+  mode: gate
+  gate_field: reproduction_passed
+
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: false
+
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_notebook.py
+    - "{source_notebook}"
+    - --require-metrics-contract
+
+kaggle:
+  owner: lingxd
+  slug: biohub-repro-public-0933
+  title: Biohub private reproduction public 0.933
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true

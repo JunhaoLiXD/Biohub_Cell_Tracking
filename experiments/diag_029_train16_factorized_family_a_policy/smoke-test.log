@@ -1,0 +1,14 @@
+[2026-09-03T03:01:10+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_phase1_factorized_policy_notebook.py", "E:\\Project\\Biohub_CellTracking\\experiments\\diag_029_train16_factorized_family_a_policy\\snapshot\\source\\phase1_factorized_policy.ipynb"]
+exit_code=0
+STDOUT
+{
+  "cells": 9,
+  "code_cells": 8,
+  "saved_error_outputs": 0,
+  "cross_specimen_directions": 2,
+  "factorized_action_score": true,
+  "ground_truth_feature_leakage": false
+}
+
+STDERR
+

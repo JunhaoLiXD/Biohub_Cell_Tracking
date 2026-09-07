@@ -1,0 +1,72 @@
+schema_version: 1
+experiment_id: exp_040_public_0941_motion_ema
+parent: val_039_public_0941_train16
+hypothesis: >
+  Replacing only the motion-relink one-frame velocity estimate with the previously reproduced
+  per-track EMA at alpha 0.4 will improve the frozen public-0.941 train16 score by at least 0.001
+  without a material adjusted-edge regression in either specimen or degradation of division counts.
+change:
+  component: motion_relink_velocity_estimator
+  from: Latest one-frame displacement with velocity multiplier 0.5
+  to: Per-track exponential moving average with alpha 0.4 and unchanged velocity multiplier 0.5
+  variables_changed: motion_relink_velocity_estimator_only
+source_notebook: .private/current/public_0941_motion_ema.ipynb
+validation:
+  protocol: public_0941_frozen_train16_stratified_proxy_v1
+  primary_metric: score
+  seed: public_0933_train16_v1
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  division_positive_target_per_specimen: 4
+  sample_and_scorer_reference: val_039_public_0941_train16
+  adjusted_edge_material_regression_tolerance: 0.002
+  division_count_gates: {minimum_tp: 4, maximum_fp: 9, maximum_fn: 8}
+  warning: Frozen models saw training videos; this is an optimistic paired screening proxy, not held-out model generalization.
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+success:
+  minimum_improvement: 0.001
+  regression_threshold: 0.0
+  per_specimen_max_regression: 0.002
+evaluation:
+  mode: gate
+  gate_field: ema_candidate_gate_passed
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_public_0941_motion_ema.py
+    - "{source_notebook}"
+provenance:
+  parent_source_sha256: 190d07726229f3834055a226bfc5a77dda2608565c8967d61a7ef10c22cc0512
+  parent_primary_metric: 0.9359778132422281
+  parent_public_lb: 0.941
+  prior_ema_reference: repro_036_train16_motion_ema
+  review_focus: Verify that only motion_relink_edges algorithm semantics change, alpha is 0.4, velocity weight remains 0.5, train16 selection and scorer are frozen, and all configured decision gates are enforced in metrics.json.
+submission:
+  user_authorized_count: 0
+kaggle:
+  owner: lingxd
+  slug: biohub-exp040-public0941-motion-ema
+  title: biohub-exp040-public0941-motion-ema
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: true
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+    - scripts/build_public_0941_motion_ema.py
+    - scripts/public_0941_motion_ema_preflight.py
+    - scripts/public_0941_motion_ema_contract.py
+    - scripts/validate_public_0941_motion_ema.py

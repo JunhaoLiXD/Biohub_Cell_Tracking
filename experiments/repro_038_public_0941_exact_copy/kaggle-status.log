@@ -1,0 +1,28 @@
+[2026-09-05T20:41:12+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-repro038-public0941-exact-copy"]
+exit_code=0
+STDOUT
+lingxd/biohub-repro038-public0941-exact-copy has status "KernelWorkerStatus.RUNNING"
+
+STDERR
+
+[2026-09-06T01:42:09+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-repro038-public0941-exact-copy"]
+exit_code=1
+STDOUT
+
+STDERR
+HTTPSConnectionPool(host='api.kaggle.com', port=443): Max retries exceeded with url: /v1/kernels.KernelsApiService/GetKernelSessionStatus (Caused by NewConnectionError("HTTPSConnection(host='api.kaggle.com', port=443): Failed to establish a new connection: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions"))
+
+[2026-09-06T01:42:24+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-repro038-public0941-exact-copy"]
+exit_code=0
+STDOUT
+lingxd/biohub-repro038-public0941-exact-copy has status "KernelWorkerStatus.COMPLETE"
+
+STDERR
+
+[2026-09-06T01:42:36+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-repro038-public0941-exact-copy"]
+exit_code=0
+STDOUT
+lingxd/biohub-repro038-public0941-exact-copy has status "KernelWorkerStatus.COMPLETE"
+
+STDERR
+

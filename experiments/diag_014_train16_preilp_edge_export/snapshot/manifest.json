@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-02T04:53:04+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_014_train16_preilp_edge_export/snapshot/config.yaml",
+      "sha256": "b032e825b9d417f019d2914bc138368aa8ed9dad296b118d242c74867f97cdb2"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_014_train16_preilp_edge_export/snapshot/source/repro_public_0933.ipynb",
+      "sha256": "734b82225cfbe52777589ad674c66f21db6bf69cc47338d1bfb0bde6478c9882"
+    }
+  ]
+}

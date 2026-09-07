@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-03T03:20:44+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_030_train16_eligible_validity_factorized_policy/snapshot/config.yaml",
+      "sha256": "15d3abe1cbc7a2bb681e59b9f38448b882b444a824db1e04b209140b4b612867"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_030_train16_eligible_validity_factorized_policy/snapshot/source/phase1_eligible_validity_policy.ipynb",
+      "sha256": "905b4c499c96e6e95f8df52ba4a2c3a0fbccd6eb04b7ea6f7bc4e75b109a7958"
+    }
+  ]
+}

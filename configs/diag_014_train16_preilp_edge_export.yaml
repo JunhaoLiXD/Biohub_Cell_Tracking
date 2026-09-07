@@ -1,0 +1,59 @@
+schema_version: 1
+experiment_id: diag_014_train16_preilp_edge_export
+parent: diag_013_train16_deepcenter_causal_calibration
+hypothesis: A bounded label-free export of final fused candidates before thresholding and ILP will preserve the fixed 16-video baseline exactly while producing complete, nonempty, hash-verified edge evidence for all 20 test and validation datasets.
+change:
+  component: pre_ilp_edge_diagnostics
+  from: no persisted final-fusion candidate evidence before thresholding and graph construction
+  to: identical predictions plus gzip JSONL evidence for the top-4 candidates per source or target within 12 micrometers
+  variables_changed: diagnostic_instrumentation_only
+
+source_notebook: .private/current/repro_public_0933.ipynb
+
+validation:
+  protocol: public_0933_embedded_train16_stratified_proxy_v1
+  primary_metric: score
+  seed: public_0933_train16_v1
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  warning: This export must reproduce diag_013 exactly; the candidate evidence is for preregistering Phase 0 oracle coverage tests and is not leaderboard evidence.
+
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+
+success:
+  minimum_improvement: 0.0
+  regression_threshold: -0.000000000001
+  per_specimen_max_regression: 0.0
+
+evaluation:
+  mode: gate
+  gate_field: preilp_export_passed
+
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: false
+
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_preilp_edge_export.py
+    - "{source_notebook}"
+
+kaggle:
+  owner: lingxd
+  slug: biohub-diag014-preilp-edge-export
+  title: biohub-diag014-preilp-edge-export
+  accelerator: NvidiaTeslaT4
+  inject_experiment_id: true
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true

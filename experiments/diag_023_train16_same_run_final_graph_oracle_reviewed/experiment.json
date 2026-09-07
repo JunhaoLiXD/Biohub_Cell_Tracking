@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_023_train16_same_run_final_graph_oracle_reviewed",
+  "parent": "diag_019_train16_final_validation_graph_export",
+  "state": "REMOTE_FAILED",
+  "hypothesis": "Candidate-constrained oracle edits from cumulative families A, A+B, and A+B+C have positive paired combined-metric headroom on both specimens when every candidate, source coordinate, and final graph comes from the same frozen diag_019 execution.",
+  "change": {
+    "component": "phase0_artifact_identity_guard",
+    "from": "candidate and pre-ILP artifacts from diag_014 mixed with final graphs from the independently executed diag_019",
+    "to": "candidate, pre-ILP, and final graph artifacts all loaded from the single diag_019 output root",
+    "variables_changed": "artifact_execution_identity_only"
+  },
+  "signature": "dc1a16190e5a73f1c98acbdf809f02677fae795830bccfa4dda6d76e86255883",
+  "config": "configs/diag_023_train16_same_run_final_graph_oracle_reviewed.yaml",
+  "snapshot_config": "experiments/diag_023_train16_same_run_final_graph_oracle_reviewed/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_023_train16_same_run_final_graph_oracle_reviewed/snapshot/source/phase0_candidate_oracle.ipynb",
+  "snapshot_manifest": "experiments/diag_023_train16_same_run_final_graph_oracle_reviewed/snapshot/manifest.json",
+  "git_commit": "339ee3c9285f6f6be20a5dbc0d395c5ad31e6420",
+  "validation_protocol": "public_0933_train16_candidate_oracle_v1",
+  "budget": {
+    "expected_gpu_hours": 0.0,
+    "reserved": false,
+    "consumed_gpu_hours": 0.0
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/diag_023_train16_same_run_final_graph_oracle_reviewed/review.md",
+    "completed_at": "2026-09-02T18:35:25+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_phase0_oracle_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\diag_023_train16_same_run_final_graph_oracle_reviewed\\snapshot\\source\\phase0_candidate_oracle.ipynb"
+    ],
+    "completed_at": "2026-09-02T18:36:02+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-02T18:30:11+00:00",
+  "updated_at": "2026-09-03T00:21:13+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-02T18:35:25+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-02T18:36:02+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-02T18:36:02+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-02T18:36:24+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "RUNNING",
+      "at": "2026-09-02T18:37:02+00:00",
+      "note": null
+    },
+    {
+      "from": "RUNNING",
+      "to": "REMOTE_FAILED",
+      "at": "2026-09-03T00:21:13+00:00",
+      "note": "Kaggle reported an error state"
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-diag023-same-run-oracle",
+    "submitted_at": "2026-09-02T18:36:24+00:00",
+    "status": "ERROR",
+    "last_checked_at": "2026-09-03T00:21:13+00:00"
+  }
+}

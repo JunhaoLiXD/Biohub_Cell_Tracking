@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-02T18:30:11+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_023_train16_same_run_final_graph_oracle_reviewed/snapshot/config.yaml",
+      "sha256": "7bf8270ab7e7782775ec024b8636af3b2b5d4255f551885d6b356f189e157aa5"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_023_train16_same_run_final_graph_oracle_reviewed/snapshot/source/phase0_candidate_oracle.ipynb",
+      "sha256": "d027cb8c6691def758522c954fad074bda5abc4f7bc77ac8e833d7ede35c4ebe"
+    }
+  ]
+}

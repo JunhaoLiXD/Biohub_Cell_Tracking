@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-03T03:38:56+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_031_train16_structural_factorized_policy/snapshot/config.yaml",
+      "sha256": "5b04c2a4024af46424dc0b4845d35622d28f69815032460c46713e71a3e8e5ca"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_031_train16_structural_factorized_policy/snapshot/source/phase1_structural_policy.ipynb",
+      "sha256": "6ce048cb066a1d7cd796d78d20b06fb02e335d08c8750d0c694b2bf0b7f65669"
+    }
+  ]
+}

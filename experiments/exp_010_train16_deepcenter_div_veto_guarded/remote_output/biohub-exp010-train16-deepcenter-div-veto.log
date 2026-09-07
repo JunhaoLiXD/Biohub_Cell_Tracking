@@ -1,0 +1,39 @@
+[{"stream_name":"stderr","time":7.253659596,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.253742931,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.253747532,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.2537500999999995,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":7.850635364,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":7.850663718,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":7.850674534,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":7.850677676,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":9.600924456,"data":"BIOHUB_PRESET: team_fusion_v6_optimal_balance\n"}
+,{"stream_name":"stdout","time":9.600969806,"data":"BIOHUB_SCORE_AXIS: train16 baseline + DeepCenter safe-division veto\n"}
+,{"stream_name":"stderr","time":9.8878917,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":9.887920721,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":9.887926711,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":9.887981061,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":9.888089123,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":9.888296463,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":9.888352964,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":9.888362165,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":9.888367603,"data":"Exception encountered at \"In [2]\":\n"}
+,{"stream_name":"stderr","time":9.888372799,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":9.888378102,"data":"RuntimeError                              Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":9.888383582,"data":"/tmp/ipykernel_23/3845934161.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":9.888389041,"data":"     36 \n"}
+,{"stream_name":"stderr","time":9.888394338,"data":"     37 if _drift:\n"}
+,{"stream_name":"stderr","time":9.888400006,"data":"---\u003e 38     raise RuntimeError(\n"}
+,{"stream_name":"stderr","time":9.888405391,"data":"     39         \"Configuration drift detected: \" + _guard_json.dumps(_drift, sort_keys=True)\n"}
+,{"stream_name":"stderr","time":9.888410731,"data":"     40     )\n"}
+,{"stream_name":"stderr","time":9.888416162,"data":"\n"}
+,{"stream_name":"stderr","time":9.888421701,"data":"RuntimeError: Configuration drift detected: {\"BIOHUB_DEEPCENTER_SAFE_DIV_THRESHOLD\": \"missing\"}\n"}
+,{"stream_name":"stderr","time":9.888438611,"data":"\n"}
+,{"stream_name":"stderr","time":12.171546777,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":12.171577303,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":12.340007298,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":12.340038772,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":12.993702373,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":13.306649254,"data":"[NbConvertApp] Writing 260015 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":15.759017748,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":17.314742701,"data":"[NbConvertApp] Writing 1155349 bytes to __results__.html\n"}
+]

@@ -1,0 +1,91 @@
+[{"stream_name":"stderr","time":8.299966257,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":8.300035655,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":8.300041431,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":8.300044397,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stderr","time":9.049386373,"data":"0.00s - Debugger warning: It seems that frozen modules are being used, which may\n"}
+,{"stream_name":"stderr","time":9.04943082,"data":"0.00s - make the debugger miss breakpoints. Please pass -Xfrozen_modules=off\n"}
+,{"stream_name":"stderr","time":9.049437711,"data":"0.00s - to python to disable frozen modules.\n"}
+,{"stream_name":"stderr","time":9.049450375,"data":"0.00s - Note: Debugging will proceed. Set PYDEVD_DISABLE_FILE_VALIDATION=1 to disable this validation.\n"}
+,{"stream_name":"stdout","time":431.327041118,"data":"REPO = /kaggle/input/datasets/pilkwang/biohub-tracking-support-pack-50ep-v1/repo\n"}
+,{"stream_name":"stdout","time":435.333126002,"data":"Dependency check failed: {'tracksdata': \"ModuleNotFoundError: No module named 'tracksdata'\", 'geff': \"ModuleNotFoundError: No module named 'geff'\", 'geff_spec': \"ModuleNotFoundError: No module named 'geff_spec'\", 'zarr': \"ModuleNotFoundError: No module named 'zarr'\", 'pyscipopt': \"ModuleNotFoundError: No module named 'pyscipopt'\", 'ilpy': \"ModuleNotFoundError: No module named 'ilpy'\", 'donfig': \"ModuleNotFoundError: No module named 'donfig'\", 'numcodecs': \"ModuleNotFoundError: No module named 'numcodecs'\", 'imagecodecs': \"ModuleNotFoundError: No module named 'imagecodecs'\", 'rustworkx': \"ModuleNotFoundError: No module named 'rustworkx'\", 'polars': 'polars 1.35.2 unusable (old or binary missing)'}\n"}
+,{"stream_name":"stdout","time":679.659360646,"data":"Installing from offline wheels: [PosixPath('/kaggle/input/datasets/pilkwang/biohub-tracking-support-pack-50ep-v1/wheels')]\n"}
+,{"stream_name":"stdout","time":690.21142456,"data":"dy satisfied: dask in /usr/local/lib/python3.12/dist-packages (2026.3.0)\n"}
+,{"stream_name":"stdout","time":690.211489094,"data":"Processing /kaggle/input/datasets/pilkwang/biohub-tracking-support-pack-50ep-v1/wheels/imagecodecs-2026.6.26-cp312-abi3-manylinux_2_28_x86_64.whl\n"}
+,{"stream_name":"stdout","time":690.211499066,"data":"Requirement already satisfied: scikit-image\u003e=0.24 in /usr/local/lib/python3.12/dist-packages (0.25.2)\n"}
+,{"stream_name":"stdout","time":690.211505683,"data":"Requirement already satisfied: pyarrow in /usr/local/lib/python3.12/dist-packages (24.0.0)\n"}
+,{"stream_name":"stdout","time":690.211512245,"data":"Processing /kaggle/input/datasets/pilkwang/biohub-tracking-support-pack-50ep-v1/wheels/rustworkx-0.18.0-cp310-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl\n"}
+,{"stream_name":"stdout","time":690.211518304,"data":"Requirement already satisfied: sqlalchemy\u003e=2 in /usr/local/lib/python3.12/dist-packages (2.0.49)\n"}
+,{"stream_name":"stdout","time":690.211524365,"data":"Processing /kaggle/input/datasets/pilkwang/biohub-tracking-support-pack-50ep-v1/wheels/numcodecs-0.15.1-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl\n"}
+,{"stream_name":"stdout","time":690.211530406,"data":"Processing /kaggle/input/datasets/pilkwang/biohub-tracking-support-pack-50ep-v1/wheels/donfig-0.8.1.post1-py3-none-any.whl\n"}
+,{"stream_name":"stdout","time":690.211536566,"data":"Requirement already satisfied: google-crc32c\u003e=1.5 in /usr/local/lib/python3.12/dist-packages (1.8.0)\n"}
+,{"stream_name":"stdout","time":690.211542574,"data":"Processing /kaggle/input/datasets/pilkwang/biohub-tracking-support-pack-50ep-v1/wheels/bidict-0.23.1-py3-none-any.whl\n"}
+,{"stream_name":"stdout","time":690.211568088,"data":"Requirement already satisfied: psygnal\u003e=0.14 in /usr/local/lib/python3.12/dist-packages (0.15.1)\n"}
+,{"stream_name":"stdout","time":690.211573331,"data":"Requirement already satisfied: rich in /usr/local/lib/python3.12/dist-packages (13.9.4)\n"}
+,{"stream_name":"stdout","time":690.211577831,"data":"Requirement already satisfied: networkx\u003e=3.2.1 in /usr/local/lib/python3.12/dist-packages (3.6.1)\n"}
+,{"stream_name":"stdout","time":690.211582415,"data":"Requirement already satisfied: pydantic\u003e=2.11 in /usr/local/lib/python3.12/dist-packages (2.12.3)\n"}
+,{"stream_name":"stdout","time":690.211586784,"data":"Requirement already satisfied: pydantic-core in /usr/local/lib/python3.12/dist-packages (2.41.4)\n"}
+,{"stream_name":"stdout","time":690.211591067,"data":"Requirement already satisfied: annotated-types in /usr/local/lib/python3.12/dist-packages (0.7.0)\n"}
+,{"stream_name":"stdout","time":690.211595346,"data":"Requirement already satisfied: typing-extensions\u003e=4.13 in /usr/local/lib/python3.12/dist-packages (4.15.0)\n"}
+,{"stream_name":"stdout","time":690.211599807,"data":"Requirement already satisfied: typing-inspection in /usr/local/lib/python3.12/dist-packages (0.4.2)\n"}
+,{"stream_name":"stdout","time":690.211605872,"data":"Requirement already satisfied: markdown-it-py in /usr/local/lib/python3.12/dist-packages (4.0.0)\n"}
+,{"stream_name":"stdout","time":690.211610226,"data":"Requirement already satisfied: pygments in /usr/local/lib/python3.12/dist-packages (2.20.0)\n"}
+,{"stream_name":"stdout","time":690.211614437,"data":"Requirement already satisfied: click in /usr/local/lib/python3.12/dist-packages (8.3.3)\n"}
+,{"stream_name":"stdout","time":690.211618608,"data":"Requirement already satisfied: cloudpickle in /usr/local/lib/python3.12/dist-packages (3.1.2)\n"}
+,{"stream_name":"stdout","time":690.211622984,"data":"Requirement already satisfied: fsspec in /usr/local/lib/python3.12/dist-packages (2025.3.0)\n"}
+,{"stream_name":"stdout","time":690.211627563,"data":"Requirement already satisfied: partd in /usr/local/lib/python3.12/dist-packages (1.4.2)\n"}
+,{"stream_name":"stdout","time":690.211632274,"data":"Requirement already satisfied: locket in /usr/local/lib/python3.12/dist-packages (1.0.0)\n"}
+,{"stream_name":"stdout","time":690.211636697,"data":"Requirement already satisfied: toolz in /usr/local/lib/python3.12/dist-packages (0.12.1)\n"}
+,{"stream_name":"stdout","time":690.211640634,"data":"Requirement already satisfied: pyyaml in /usr/local/lib/python3.12/dist-packages (6.0.3)\n"}
+,{"stream_name":"stdout","time":690.211644606,"data":"Requirement already satisfied: ndindex in /usr/local/lib/python3.12/dist-packages (1.10.1)\n"}
+,{"stream_name":"stdout","time":690.211648899,"data":"Requirement already satisfied: msgpack in /usr/local/lib/python3.12/dist-packages (1.1.2)\n"}
+,{"stream_name":"stdout","time":690.211653567,"data":"Requirement already satisfied: numexpr in /usr/local/lib/python3.12/dist-packages (2.14.1)\n"}
+,{"stream_name":"stdout","time":690.211657899,"data":"Requirement already satisfied: deprecated in /usr/local/lib/python3.12/dist-packages (1.3.1)\n"}
+,{"stream_name":"stdout","time":690.211662257,"data":"Requirement already satisfied: wrapt in /usr/local/lib/python3.12/dist-packages (2.1.2)\n"}
+,{"stream_name":"stdout","time":690.211666606,"data":"Installing collected packages: zarr, tracksdata, rustworkx, pyscipopt, polars-runtime-32, polars, numcodecs, imagecodecs, ilpy, geff-spec, geff, donfig, bidict\n"}
+,{"stream_name":"stdout","time":690.211671384,"data":"  Attempting uninstall: polars-runtime-32\n"}
+,{"stream_name":"stdout","time":690.211675646,"data":"    Found existing installation: polars-runtime-32 1.35.2\n"}
+,{"stream_name":"stdout","time":690.21168586,"data":"    Uninstalling polars-runtime-32-1.35.2:\n"}
+,{"stream_name":"stdout","time":690.211690477,"data":"      Successfully uninstalled polars-runtime-32-1.35.2\n"}
+,{"stream_name":"stdout","time":690.211694925,"data":"  Attempting uninstall: polars\n"}
+,{"stream_name":"stdout","time":690.211699003,"data":"    Found existing installation: polars 1.35.2\n"}
+,{"stream_name":"stdout","time":690.211703138,"data":"    Uninstalling polars-1.35.2:\n"}
+,{"stream_name":"stdout","time":690.211707138,"data":"      Successfully uninstalled polars-1.35.2\n"}
+,{"stream_name":"stdout","time":690.211711326,"data":"Successfully installed bidict-0.23.1 donfig-0.8.1.post1 geff-1.2.0.1.1 geff-spec-1.1.1 ilpy-0.6.0 imagecodecs-2026.6.26 numcodecs-0.15.1 polars-1.42.0 polars-runtime-32-1.42.0 pyscipopt-6.2.1 rustworkx-0.18.0 tracksdata-0.1.0rc6.dev3+g980c2d30a zarr-3.2.1\n"}
+,{"stream_name":"stdout","time":690.211718451,"data":"\n"}
+,{"stream_name":"stdout","time":697.094727925,"data":"tracksdata 0.1.0rc6.dev3+g980c2d30a | geff 1.2.0.1.1 | zarr 3.2.1 | polars 1.42.0 (binary OK)\n"}
+,{"stream_name":"stderr","time":1190.013020351,"data":"Traceback (most recent call last):\n"}
+,{"stream_name":"stderr","time":1190.013102875,"data":"  File \"\u003cstring\u003e\", line 1, in \u003cmodule\u003e\n"}
+,{"stream_name":"stderr","time":1190.013112214,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 131, in execute_notebook\n"}
+,{"stream_name":"stderr","time":1190.013136589,"data":"    raise_for_execution_errors(nb, output_path)\n"}
+,{"stream_name":"stderr","time":1190.013151671,"data":"  File \"/usr/local/lib/python3.12/dist-packages/papermill/execute.py\", line 251, in raise_for_execution_errors\n"}
+,{"stream_name":"stderr","time":1190.013395595,"data":"    raise error\n"}
+,{"stream_name":"stderr","time":1190.014635673,"data":"papermill.exceptions.PapermillExecutionError: \n"}
+,{"stream_name":"stderr","time":1190.014669687,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":1190.014678275,"data":"Exception encountered at \"In [3]\":\n"}
+,{"stream_name":"stderr","time":1190.014684801,"data":"---------------------------------------------------------------------------\n"}
+,{"stream_name":"stderr","time":1190.014691258,"data":"RuntimeError                              Traceback (most recent call last)\n"}
+,{"stream_name":"stderr","time":1190.014697168,"data":"/tmp/ipykernel_16/2385762441.py in \u003ccell line: 0\u003e()\n"}
+,{"stream_name":"stderr","time":1190.01470389,"data":"      3 from pathlib import Path\n"}
+,{"stream_name":"stderr","time":1190.014740117,"data":"      4 \n"}
+,{"stream_name":"stderr","time":1190.014746075,"data":"----\u003e 5 payload = run()\n"}
+,{"stream_name":"stderr","time":1190.014751378,"data":"      6 print(json.dumps({\n"}
+,{"stream_name":"stderr","time":1190.014756813,"data":"      7     'gate': payload['metrics']['oracle_gate_passed'],\n"}
+,{"stream_name":"stderr","time":1190.014762993,"data":"\n"}
+,{"stream_name":"stderr","time":1190.014769191,"data":"/tmp/ipykernel_16/3870249451.py in run(search_root, output_path)\n"}
+,{"stream_name":"stderr","time":1190.014774672,"data":"    457             )\n"}
+,{"stream_name":"stderr","time":1190.014780344,"data":"    458         if candidate_audit[\"time_mismatch_rows\"] or candidate_audit[\"distance_mismatch_rows\"]:\n"}
+,{"stream_name":"stderr","time":1190.01478557,"data":"--\u003e 459             raise RuntimeError(\n"}
+,{"stream_name":"stderr","time":1190.014790402,"data":"    460                 f\"Candidate/prediction node-id mapping failed metadata checks for {name}: \"\n"}
+,{"stream_name":"stderr","time":1190.014810937,"data":"    461                 f\"time_mismatches={candidate_audit['time_mismatch_rows']}, \"\n"}
+,{"stream_name":"stderr","time":1190.014815366,"data":"\n"}
+,{"stream_name":"stderr","time":1190.014819105,"data":"RuntimeError: Candidate/prediction node-id mapping failed metadata checks for 44b6_c15fded2: time_mismatches=0, distance_mismatches=55208\n"}
+,{"stream_name":"stderr","time":1190.014823274,"data":"\n"}
+,{"stream_name":"stderr","time":1192.947518338,"data":"/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\\|'\n"}
+,{"stream_name":"stderr","time":1192.947576705,"data":"  cells[i][c] = re.sub('\\\\\\\\\\|', '|', cell)\n"}
+,{"stream_name":"stderr","time":1193.160530658,"data":"/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\\_'\n"}
+,{"stream_name":"stderr","time":1193.16056804,"data":"  text = re.sub(r'_', '\\_', text) # Escape underscores in display text\n"}
+,{"stream_name":"stderr","time":1194.349236336,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to notebook\n"}
+,{"stream_name":"stderr","time":1194.748047686,"data":"[NbConvertApp] Writing 53637 bytes to __notebook__.ipynb\n"}
+,{"stream_name":"stderr","time":1198.170881825,"data":"[NbConvertApp] Converting notebook __notebook__.ipynb to html\n"}
+,{"stream_name":"stderr","time":1199.375484341,"data":"[NbConvertApp] Writing 446491 bytes to __results__.html\n"}
+]

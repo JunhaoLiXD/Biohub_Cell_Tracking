@@ -1,0 +1,61 @@
+schema_version: 1
+experiment_id: repro_036_train16_motion_ema
+parent: exp_035_train16_motion_ema_reviewfix
+hypothesis: >
+  An independent run of the accepted motion-EMA algorithm will reproduce the aggregate and
+  per-specimen train16 metrics within 1e-12 and produce a byte-identical test submission.
+change:
+  component: reproducibility_evidence
+  from: one accepted train16 motion-EMA run
+  to: independent identical rerun with exact metric and submission-SHA256 gates
+  variables_changed: diagnostic_reproducibility_contract_only
+
+source_notebook: .private/current/motion_ema_repro_train16.ipynb
+
+validation:
+  protocol: public_0933_embedded_train16_stratified_proxy_v1
+  primary_metric: score
+  seed: public_0933_train16_v1
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  warning: This run tests deterministic reproducibility of exp_035; it does not add leaderboard evidence.
+
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+  per_specimen_max_regression: 0.0
+
+evaluation:
+  mode: gate
+  gate_field: reproduction_passed
+
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_motion_ema_repro_notebook.py
+    - "{source_notebook}"
+
+kaggle:
+  owner: lingxd
+  slug: biohub-repro036-train16-motion-ema
+  title: biohub-repro036-train16-motion-ema
+  accelerator: NvidiaTeslaT4
+  inject_experiment_id: true
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true

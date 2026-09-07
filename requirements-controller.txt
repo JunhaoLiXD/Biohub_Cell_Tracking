@@ -1,0 +1,6 @@
+PyYAML>=6.0,<7
+kaggle>=2.2.4,<3
+pytest>=8,<9
+# Required so ZoneInfo can resolve America/New_York for the daily submission cap
+# on platforms without a system tz database (e.g. Windows).
+tzdata>=2024.1

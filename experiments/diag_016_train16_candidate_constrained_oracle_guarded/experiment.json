@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_016_train16_candidate_constrained_oracle_guarded",
+  "parent": "diag_014_train16_preilp_edge_export",
+  "state": "REMOTE_FAILED",
+  "hypothesis": "Candidate-constrained oracle edits from cumulative families A, A+B, and A+B+C have positive combined-metric headroom on both specimens under the fixed 16-video validation protocol.",
+  "change": {
+    "component": "phase0_candidate_constrained_counterfactual_oracle",
+    "from": "complete label-free pre-ILP candidate evidence with no GT-informed headroom estimate",
+    "to": "CPU-only GT-informed atomic edit oracle constrained to the bounded diag_014 candidate export, with explicit artifact, schema, and node-id-space guards",
+    "variables_changed": "diagnostic_analysis_only"
+  },
+  "signature": "6eff480b2d057c39c53cc08fc40e775fbcc7cdce82c51a11b33cf05aeb9166f4",
+  "config": "configs/diag_016_train16_candidate_constrained_oracle_guarded.yaml",
+  "snapshot_config": "experiments/diag_016_train16_candidate_constrained_oracle_guarded/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_016_train16_candidate_constrained_oracle_guarded/snapshot/source/phase0_candidate_oracle.ipynb",
+  "snapshot_manifest": "experiments/diag_016_train16_candidate_constrained_oracle_guarded/snapshot/manifest.json",
+  "git_commit": "339ee3c9285f6f6be20a5dbc0d395c5ad31e6420",
+  "validation_protocol": "public_0933_train16_candidate_oracle_v1",
+  "budget": {
+    "expected_gpu_hours": 0.0,
+    "reserved": false,
+    "consumed_gpu_hours": 0.0
+  },
+  "review": {
+    "required": false,
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\diag_016_train16_candidate_constrained_oracle_guarded\\snapshot\\source\\phase0_candidate_oracle.ipynb",
+      "--require-metrics-contract"
+    ],
+    "completed_at": "2026-09-02T15:02:21+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-02T15:02:10+00:00",
+  "updated_at": "2026-09-02T15:17:32+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-02T15:02:21+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-02T15:02:21+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-02T15:03:07+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "RUNNING",
+      "at": "2026-09-02T15:03:35+00:00",
+      "note": null
+    },
+    {
+      "from": "RUNNING",
+      "to": "REMOTE_FAILED",
+      "at": "2026-09-02T15:17:32+00:00",
+      "note": "Kaggle reported an error state"
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-diag016-candidate-oracle-guarded",
+    "submitted_at": "2026-09-02T15:03:07+00:00",
+    "status": "RUNNING",
+    "last_checked_at": "2026-09-02T15:11:13+00:00"
+  }
+}

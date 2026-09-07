@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-03T04:03:13+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_032_train16_structural_rank_transfer_policy/snapshot/config.yaml",
+      "sha256": "d778c25b49233e2998ea22462a2cc016b7849f5a8d63fcb7f3570ad19bc2f154"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_032_train16_structural_rank_transfer_policy/snapshot/source/phase1_rank_transfer_policy.ipynb",
+      "sha256": "2785a568b95af1da6e0b6dc6b97daeb4101714e62297e4afad3b1f8dc9fa2c4a"
+    }
+  ]
+}

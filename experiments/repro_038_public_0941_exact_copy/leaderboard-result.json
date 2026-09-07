@@ -1,0 +1,14 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_038_public_0941_exact_copy",
+  "submission_id": 56044403,
+  "kernel_version": 1,
+  "status": "COMPLETE",
+  "public_score": 0.941,
+  "public_lb_reproduction_passed_at_displayed_precision": true,
+  "verified_on": "2026-09-06",
+  "source": "Authenticated Kaggle competitions submissions API query",
+  "source_notebook_sha256": "24253cae5a958b83d69e201719388031f5758080c5d01ca1a8e374f3a8225389",
+  "submission_sha256": "bf66c879298e71c5cce0326fbac5956ca567a344ae28f0d402dfc5003fba52bd",
+  "note": "Separate leaderboard evidence. The original local train4 evaluation and immutable snapshot are preserved. No formal controller promotion."
+}

@@ -1,0 +1,35 @@
+[2026-09-02T02:43:59+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag013-deepcenter-causal-calibration"]
+exit_code=0
+STDOUT
+lingxd/biohub-diag013-deepcenter-causal-calibration has status "KernelWorkerStatus.RUNNING"
+
+STDERR
+
+[2026-09-02T03:18:53+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag013-deepcenter-causal-calibration"]
+exit_code=0
+STDOUT
+lingxd/biohub-diag013-deepcenter-causal-calibration has status "KernelWorkerStatus.RUNNING"
+
+STDERR
+
+[2026-09-02T04:03:09+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag013-deepcenter-causal-calibration"]
+exit_code=1
+STDOUT
+
+STDERR
+Cannot access kernel 'lingxd/biohub-diag013-deepcenter-causal-calibration' (Permission 'kernels.get' was denied). The most likely cause is a wrong kernel slug. The benchmark_task_slug returned by get_benchmark_leaderboard differs from the actual kernel slug — use the slug from the notebook URL (kaggle.com/code/owner/KERNEL-SLUG), not from the leaderboard. It can also occur if the notebook is private.
+
+[2026-09-02T04:04:32+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag013-deepcenter-causal-calibration"]
+exit_code=1
+STDOUT
+
+STDERR
+Cannot access kernel 'lingxd/biohub-diag013-deepcenter-causal-calibration' (Permission 'kernels.get' was denied). The most likely cause is a wrong kernel slug. The benchmark_task_slug returned by get_benchmark_leaderboard differs from the actual kernel slug — use the slug from the notebook URL (kaggle.com/code/owner/KERNEL-SLUG), not from the leaderboard. It can also occur if the notebook is private.
+
+[2026-09-02T04:08:26+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag013-deepcenter-causal-calibration"]
+exit_code=0
+STDOUT
+lingxd/biohub-diag013-deepcenter-causal-calibration has status "KernelWorkerStatus.COMPLETE"
+
+STDERR
+

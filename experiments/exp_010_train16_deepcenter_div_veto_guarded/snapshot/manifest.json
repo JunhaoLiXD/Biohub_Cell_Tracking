@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-01T21:19:41+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_010_train16_deepcenter_div_veto_guarded/snapshot/config.yaml",
+      "sha256": "af75cdcbebbcf3631d0387780c6f7ea0fad7804ceff9ab6f3844c45cbbc11865"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_010_train16_deepcenter_div_veto_guarded/snapshot/source/repro_public_0933.ipynb",
+      "sha256": "095fe76d74e59c9a0d8efc0577a41a22aa011ebf70c9f6d48f6cc81c4d6f5e61"
+    }
+  ]
+}

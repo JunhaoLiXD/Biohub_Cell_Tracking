@@ -1,0 +1,62 @@
+schema_version: 1
+experiment_id: diag_024_train16_stage_valid_final_graph_oracle
+parent: diag_019_train16_final_validation_graph_export
+hypothesis: Candidate-constrained oracle edits from cumulative families A, A+B, and A+B+C have positive paired combined-metric headroom on both specimens when candidate provenance is validated at its exported stage and edits are scored on the exact final graphs.
+change:
+  component: phase0_candidate_stage_contract
+  from: pre-ILP candidate endpoints incorrectly required to exist in a downstream saved prediction graph
+  to: trust the parent hash-verified pre-ILP export, exclude the 17 frozen time-inconsistent ID-collision rows, and validate all retained candidates by identity, time adjacency, finite distance, and the 12 um export bound
+  variables_changed: candidate_stage_validation_only
+failure_parent: diag_023_train16_same_run_final_graph_oracle_reviewed
+review_basis: experiments/diag_023_train16_same_run_final_graph_oracle_reviewed/review.md
+
+source_notebook: .private/current/phase0_candidate_oracle.ipynb
+
+validation:
+  protocol: public_0933_train16_candidate_oracle_v1
+  primary_metric: minimum_specimen_abc_delta_score
+  seed: public_0933_train16_v1
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  warning: Train-derived proxy with frozen feature extractors; use paired deltas and cross-specimen consistency only.
+
+budget:
+  tier: 1
+  expected_gpu_hours: 0.0
+
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+  per_specimen_max_regression: 0.0
+
+evaluation:
+  mode: gate
+  gate_field: oracle_gate_passed
+
+admission:
+  require_claude_review: false
+  methodology_valid: true
+  require_reproducible_for_promotion: false
+
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_phase0_oracle_notebook.py
+    - "{source_notebook}"
+    - --artifact-root
+    - experiments/diag_019_train16_final_validation_graph_export/artifacts
+
+kaggle:
+  owner: lingxd
+  slug: biohub-diag024-stage-valid-oracle
+  title: biohub-diag024-stage-valid-oracle
+  inject_experiment_id: false
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 1
+  kernel_sources:
+    - lingxd/biohub-diag019-final-validation-graphs
+  enable_gpu: false
+  enable_internet: false
+  is_private: true

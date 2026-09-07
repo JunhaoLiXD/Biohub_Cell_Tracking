@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-01T17:55:52+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/repro_005_public_0933_contract_id/snapshot/config.yaml",
+      "sha256": "650da33c107bc4ca6dab7b1788cbdc826b1acb4e76d618805e781986b2736827"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/repro_005_public_0933_contract_id/snapshot/source/repro_public_0933.ipynb",
+      "sha256": "ee3651058553846f06727378a68339c43b9916cbf75ecbb311f9e88ce3291b38"
+    }
+  ]
+}

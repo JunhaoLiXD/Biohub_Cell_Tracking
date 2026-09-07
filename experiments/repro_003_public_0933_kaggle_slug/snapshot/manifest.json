@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-01T15:40:36+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/repro_003_public_0933_kaggle_slug/snapshot/config.yaml",
+      "sha256": "689b2ee5f7b97c80fee444c7cbda177c76ecd03ba79b54da5e5577fa286d7006"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/repro_003_public_0933_kaggle_slug/snapshot/source/repro_public_0933.ipynb",
+      "sha256": "4953bc620a51a9901ede038594736ea5a7f76047aaacbf531e0281ba6f13d124"
+    }
+  ]
+}

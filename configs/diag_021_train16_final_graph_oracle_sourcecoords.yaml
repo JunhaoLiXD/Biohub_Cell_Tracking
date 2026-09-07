@@ -1,0 +1,61 @@
+schema_version: 1
+experiment_id: diag_021_train16_final_graph_oracle_sourcecoords
+parent: diag_019_train16_final_validation_graph_export
+hypothesis: Candidate-constrained oracle edits from cumulative families A, A+B, and A+B+C have positive paired combined-metric headroom on both specimens when final graphs are scored and candidate provenance is validated in its original pre-ILP coordinate space.
+change:
+  component: phase0_candidate_provenance_guard
+  from: candidate distances incorrectly revalidated against post-filter coordinates
+  to: final graphs remain the scoring target while candidate IDs, times, and distances are revalidated against their diag_014 pre-ILP source coordinates
+  variables_changed: provenance_coordinate_reference_only
+review_basis: experiments/diag_015_train16_candidate_constrained_oracle/review.md
+failure_parent: diag_020_train16_final_graph_candidate_oracle
+
+source_notebook: .private/current/phase0_candidate_oracle.ipynb
+
+validation:
+  protocol: public_0933_train16_candidate_oracle_v1
+  primary_metric: minimum_specimen_abc_delta_score
+  seed: public_0933_train16_v1
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  warning: Train-derived proxy with frozen feature extractors; use paired deltas and cross-specimen consistency only.
+
+budget:
+  tier: 1
+  expected_gpu_hours: 0.0
+
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+  per_specimen_max_regression: 0.0
+
+evaluation:
+  mode: gate
+  gate_field: oracle_gate_passed
+
+admission:
+  require_claude_review: false
+  methodology_valid: true
+  require_reproducible_for_promotion: false
+
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_phase0_oracle_notebook.py
+    - "{source_notebook}"
+
+kaggle:
+  owner: lingxd
+  slug: biohub-diag021-oracle-sourcecoords
+  title: biohub-diag021-oracle-sourcecoords
+  inject_experiment_id: false
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 1
+  kernel_sources:
+    - lingxd/biohub-diag014-preilp-edge-export
+    - lingxd/biohub-diag019-final-validation-graphs
+  enable_gpu: false
+  enable_internet: false
+  is_private: true

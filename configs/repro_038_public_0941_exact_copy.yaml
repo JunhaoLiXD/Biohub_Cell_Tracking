@@ -1,0 +1,84 @@
+schema_version: 1
+experiment_id: repro_038_public_0941_exact_copy
+parent: repro_036_train16_motion_ema
+hypothesis: >
+  A byte-identical copy of analyticaobscura/biohub-lb-941 under lingxd,
+  with the same declared datasets, T4 accelerator, and Docker image,
+  will produce a valid submission and reproduce the advertised Public LB 0.941.
+change:
+  component: complete_public_configuration_reproduction
+  from: our isolated EMA ablation, Public LB 0.933
+  to: exact archived public Ozan 0.941 notebook, without code or cell changes
+  variables_changed: full_source_snapshot_reproduction_not_causal_ablation
+source_notebook: .private/current/public_0941_exact_copy.ipynb
+validation:
+  protocol: public_0941_unmodified_upstream_train4_lb_probe_v1
+  primary_metric: upstream_train4_proxy_score
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 2
+  warning: >
+    The user explicitly requested one direct public copy and leaderboard submission
+    before controlled reproduction. Retain the original division-first four-video
+    validator unchanged. Its scores are not comparable with our frozen train16
+    scores. No baseline promotion and no inference changes are authorized here.
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: public_lb_reproduction_passed
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_public_0941_copy.py
+    - "{source_notebook}"
+provenance:
+  kernel: analyticaobscura/biohub-lb-941
+  original: external_baselines/analyticaobscura_biohub-lb-941/ORIGINAL/biohub-lb-941.ipynb
+  notebook_sha256: 24253cae5a958b83d69e201719388031f5758080c5d01ca1a8e374f3a8225389
+  note: >
+    No notebook summary, metrics cell, or experiment-ID injection is added, to
+    preserve byte identity. The source already uses English. Attribution is
+    retained here and in the experiment record; do not publish it as our milestone.
+collection:
+  command: scripts/collect_public_0941_copy.py
+  note: >
+    The native source writes validator_results.csv rather than controller
+    metrics.json. A local deterministic adapter reads only those named numeric
+    columns, checks both specimens and submission graph integrity, and verifies
+    the final loaded DeepCenter path against the materialized best.pt receipt.
+    No metric is inferred from prose. Keep evaluation INCONCLUSIVE until the
+    separately recorded remote Public LB is available. Never use the train4
+    proxy as the public reproduction verdict.
+submission:
+  user_authorized_count: 1
+  target_public_score: 0.941
+  remote_history_required_immediately_before_submit: true
+  duplicate_probe: false
+  rationale: First full unmodified reproduction of the advertised 0.941 snapshot.
+kaggle:
+  owner: lingxd
+  slug: biohub-repro038-public0941-exact-copy
+  title: biohub-repro038-public0941-exact-copy
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: false
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+    - scripts/validate_public_0941_copy.py
+    - experiment_controller/public_copy.py

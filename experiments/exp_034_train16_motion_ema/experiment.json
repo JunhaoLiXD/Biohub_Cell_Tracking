@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_034_train16_motion_ema",
+  "parent": "val_008_public_0933_train16_launchable",
+  "state": "MANUAL_REVIEW_REQUIRED",
+  "hypothesis": "Replacing the one-frame motion-relink velocity estimate with a per-track exponential moving average at alpha 0.4, while retaining the parent velocity weight of 0.5, will improve the frozen train16 primary metric on both specimens without reducing adjusted edge Jaccard.\n",
+  "change": {
+    "component": "motion_relink_velocity_estimator",
+    "from": "latest one-frame displacement",
+    "to": "per-track exponential moving average with alpha 0.4",
+    "variables_changed": "velocity_estimator_only"
+  },
+  "signature": "b03a4cc34ca0935a77e52ca13f95e8ad2114462dc3e0dd850744878cd8051342",
+  "config": "configs/exp_034_train16_motion_ema.yaml",
+  "snapshot_config": "experiments/exp_034_train16_motion_ema/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_034_train16_motion_ema/snapshot/source/motion_ema_train16.ipynb",
+  "snapshot_manifest": "experiments/exp_034_train16_motion_ema/snapshot/manifest.json",
+  "git_commit": "339ee3c9285f6f6be20a5dbc0d395c5ad31e6420",
+  "validation_protocol": "public_0933_embedded_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "status": "CHANGES_REQUESTED",
+    "verdict": "REVISE",
+    "path": "experiments/exp_034_train16_motion_ema/review.md",
+    "completed_at": "2026-09-03T14:31:06+00:00"
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-03T14:15:30+00:00",
+  "updated_at": "2026-09-03T14:31:06+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-03T14:15:35+00:00",
+      "note": "Claude review required before smoke test"
+    }
+  ]
+}

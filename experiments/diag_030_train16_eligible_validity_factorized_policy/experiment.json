@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_030_train16_eligible_validity_factorized_policy",
+  "parent": "diag_029_train16_factorized_family_a_policy",
+  "state": "REJECT",
+  "hypothesis": "Training the endpoint-validity factor only on actual deployable Family-A candidates removes its eligibility shortcut and produces positive held-out frozen-score deltas in both cross-specimen directions without adjusted-edge regression.",
+  "change": {
+    "component": "phase1_endpoint_validity_training_distribution",
+    "from": "matched candidates union deployable Family-A candidates",
+    "to": "deployable Family-A candidates only",
+    "variables_changed": "endpoint_validity_training_distribution_only"
+  },
+  "signature": "54a1ab2d33c3b4e6faf09a51bdcc770ad81cf664cf43db9230903ba1626f03ea",
+  "config": "configs/diag_030_train16_eligible_validity_factorized_policy.yaml",
+  "snapshot_config": "experiments/diag_030_train16_eligible_validity_factorized_policy/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_030_train16_eligible_validity_factorized_policy/snapshot/source/phase1_eligible_validity_policy.ipynb",
+  "snapshot_manifest": "experiments/diag_030_train16_eligible_validity_factorized_policy/snapshot/manifest.json",
+  "git_commit": "339ee3c9285f6f6be20a5dbc0d395c5ad31e6420",
+  "validation_protocol": "public_0933_train16_eligible_validity_factorized_policy_v1",
+  "budget": {
+    "expected_gpu_hours": 0.0,
+    "reserved": false,
+    "consumed_gpu_hours": 0.0
+  },
+  "review": {
+    "required": false,
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_phase1_eligible_validity_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\diag_030_train16_eligible_validity_factorized_policy\\snapshot\\source\\phase1_eligible_validity_policy.ipynb"
+    ],
+    "completed_at": "2026-09-03T03:20:44+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-03T03:20:44+00:00",
+  "updated_at": "2026-09-03T03:34:58+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-03T03:20:44+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-03T03:20:44+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-03T03:22:09+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "RUNNING",
+      "at": "2026-09-03T03:22:31+00:00",
+      "note": null
+    },
+    {
+      "from": "RUNNING",
+      "to": "COLLECTING",
+      "at": "2026-09-03T03:34:56+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-03T03:34:58+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "REJECT",
+      "at": "2026-09-03T03:34:58+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-diag030-eligible-validity",
+    "submitted_at": "2026-09-03T03:22:09+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-03T03:34:45+00:00"
+  },
+  "evaluation": {
+    "decision": "REJECT",
+    "primary_metric": 0.0,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-03T03:34:58+00:00"
+  }
+}

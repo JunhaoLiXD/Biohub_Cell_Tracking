@@ -1,0 +1,14 @@
+[2026-09-03T03:02:57+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag029-factorized-policy"]
+exit_code=0
+STDOUT
+lingxd/biohub-diag029-factorized-policy has status "KernelWorkerStatus.RUNNING"
+
+STDERR
+
+[2026-09-03T03:14:39+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag029-factorized-policy"]
+exit_code=0
+STDOUT
+lingxd/biohub-diag029-factorized-policy has status "KernelWorkerStatus.COMPLETE"
+
+STDERR
+

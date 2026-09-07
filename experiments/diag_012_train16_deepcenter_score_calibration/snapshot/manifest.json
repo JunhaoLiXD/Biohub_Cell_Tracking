@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-02T00:44:36+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_012_train16_deepcenter_score_calibration/snapshot/config.yaml",
+      "sha256": "210811f0953ff7c7282962b95ecc281fe8f00ce03ebff2546310d40e09e07599"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_012_train16_deepcenter_score_calibration/snapshot/source/repro_public_0933.ipynb",
+      "sha256": "a4f6d45e346dde6c7473e6073b55b8204ccbb84fd37ad5a8cab8a4fe4d4e1357"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+schema_version: 1
+experiment_id: diag_023_train16_same_run_final_graph_oracle_reviewed
+parent: diag_019_train16_final_validation_graph_export
+hypothesis: Candidate-constrained oracle edits from cumulative families A, A+B, and A+B+C have positive paired combined-metric headroom on both specimens when every candidate, source coordinate, and final graph comes from the same frozen diag_019 execution.
+change:
+  component: phase0_artifact_identity_guard
+  from: candidate and pre-ILP artifacts from diag_014 mixed with final graphs from the independently executed diag_019
+  to: candidate, pre-ILP, and final graph artifacts all loaded from the single diag_019 output root
+  variables_changed: artifact_execution_identity_only
+failure_parent: diag_021_train16_final_graph_oracle_sourcecoords
+supersedes_unlaunched: diag_022_train16_same_run_final_graph_oracle
+
+source_notebook: .private/current/phase0_candidate_oracle.ipynb
+
+validation:
+  protocol: public_0933_train16_candidate_oracle_v1
+  primary_metric: minimum_specimen_abc_delta_score
+  seed: public_0933_train16_v1
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  warning: Train-derived proxy with frozen feature extractors; use paired deltas and cross-specimen consistency only.
+
+budget:
+  tier: 1
+  expected_gpu_hours: 0.0
+
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+  per_specimen_max_regression: 0.0
+
+evaluation:
+  mode: gate
+  gate_field: oracle_gate_passed
+
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: false
+
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_phase0_oracle_notebook.py
+    - "{source_notebook}"
+
+kaggle:
+  owner: lingxd
+  slug: biohub-diag023-same-run-oracle
+  title: biohub-diag023-same-run-oracle
+  inject_experiment_id: false
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 1
+  kernel_sources:
+    - lingxd/biohub-diag019-final-validation-graphs
+  enable_gpu: false
+  enable_internet: false
+  is_private: true

@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_027_train16_cross_specimen_family_a_policy",
+  "parent": "diag_026_train16_cross_specimen_feature_separability",
+  "state": "REJECT",
+  "hypothesis": "A conservative Family-A action policy trained and calibrated on one specimen improves the frozen held-out score in both cross-specimen directions without reducing adjusted edge Jaccard.",
+  "change": {
+    "component": "phase1_family_a_action_policy_gate",
+    "from": "cross-specimen feature separability without metric-scored action selection",
+    "to": "bidirectional held-out evaluation of one highest-scoring orphan-only Family-A action per video above a train-specimen-calibrated threshold",
+    "variables_changed": "phase1_family_a_policy_diagnostic_only"
+  },
+  "signature": "1ace060a752a98c831c4350900aa74b0faab8c93b496e6a8da0a6a9202828750",
+  "config": "configs/diag_027_train16_cross_specimen_family_a_policy.yaml",
+  "snapshot_config": "experiments/diag_027_train16_cross_specimen_family_a_policy/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_027_train16_cross_specimen_family_a_policy/snapshot/source/phase1_family_a_policy.ipynb",
+  "snapshot_manifest": "experiments/diag_027_train16_cross_specimen_family_a_policy/snapshot/manifest.json",
+  "git_commit": "339ee3c9285f6f6be20a5dbc0d395c5ad31e6420",
+  "validation_protocol": "public_0933_train16_cross_specimen_family_a_policy_v1",
+  "budget": {
+    "expected_gpu_hours": 0.0,
+    "reserved": false,
+    "consumed_gpu_hours": 0.0
+  },
+  "review": {
+    "required": false,
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_phase1_policy_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\diag_027_train16_cross_specimen_family_a_policy\\snapshot\\source\\phase1_family_a_policy.ipynb"
+    ],
+    "completed_at": "2026-09-03T02:03:09+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-03T02:02:56+00:00",
+  "updated_at": "2026-09-03T02:39:28+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-03T02:03:09+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-03T02:03:09+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "REMOTE_FAILED",
+      "at": "2026-09-03T02:03:17+00:00",
+      "note": "kaggle kernels push failed"
+    },
+    {
+      "from": "REMOTE_FAILED",
+      "to": "READY",
+      "at": "2026-09-03T02:12:03+00:00",
+      "note": "Retrying a pre-submission Kaggle push failure"
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-03T02:12:05+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "RUNNING",
+      "at": "2026-09-03T02:13:08+00:00",
+      "note": null
+    },
+    {
+      "from": "RUNNING",
+      "to": "COLLECTING",
+      "at": "2026-09-03T02:39:27+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-03T02:39:28+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "REJECT",
+      "at": "2026-09-03T02:39:28+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-diag027-family-a-policy",
+    "submitted_at": "2026-09-03T02:12:05+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-03T02:39:08+00:00"
+  },
+  "evaluation": {
+    "decision": "REJECT",
+    "primary_metric": 0.0,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-03T02:39:28+00:00"
+  }
+}

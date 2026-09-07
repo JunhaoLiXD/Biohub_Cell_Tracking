@@ -1,0 +1,61 @@
+schema_version: 1
+experiment_id: exp_034_train16_motion_ema
+parent: val_008_public_0933_train16_launchable
+hypothesis: >
+  Replacing the one-frame motion-relink velocity estimate with a per-track exponential moving
+  average at alpha 0.4, while retaining the parent velocity weight of 0.5, will improve the frozen
+  train16 primary metric on both specimens without reducing adjusted edge Jaccard.
+change:
+  component: motion_relink_velocity_estimator
+  from: latest one-frame displacement
+  to: per-track exponential moving average with alpha 0.4
+  variables_changed: velocity_estimator_only
+
+source_notebook: .private/current/motion_ema_train16.ipynb
+
+validation:
+  protocol: public_0933_embedded_train16_stratified_proxy_v1
+  primary_metric: score
+  seed: public_0933_train16_v1
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  warning: The frozen feature extractors saw the training videos. Decisions use paired deltas and cross-specimen consistency; the public 0.940 claim is provenance only.
+
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+
+success:
+  minimum_improvement: 0.001
+  regression_threshold: 0.0
+  per_specimen_max_regression: 0.0
+
+evaluation:
+  mode: compare
+
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_motion_ema_notebook.py
+    - "{source_notebook}"
+
+kaggle:
+  owner: lingxd
+  slug: biohub-exp034-train16-motion-ema
+  title: biohub-exp034-train16-motion-ema
+  accelerator: NvidiaTeslaT4
+  inject_experiment_id: true
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true

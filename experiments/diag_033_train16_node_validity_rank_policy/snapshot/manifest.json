@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-03T04:36:15+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_033_train16_node_validity_rank_policy/snapshot/config.yaml",
+      "sha256": "6f072d42cde0a7ebfb3ed8a8f4099f8b03326012ec285e513d6911b9bf8e87b0"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_033_train16_node_validity_rank_policy/snapshot/source/phase1_node_validity_policy.ipynb",
+      "sha256": "80a06275f0962bc0aa37df4b5322183d1ee8d37474e0e6d50965830c1fe78350"
+    }
+  ]
+}

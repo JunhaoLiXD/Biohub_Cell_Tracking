@@ -1,0 +1,97 @@
+[2026-09-02T05:01:18+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag014-preilp-edge-export"]
+exit_code=0
+STDOUT
+lingxd/biohub-diag014-preilp-edge-export has status "KernelWorkerStatus.RUNNING"
+
+STDERR
+
+[2026-09-02T14:33:37+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag014-preilp-edge-export"]
+exit_code=1
+STDOUT
+
+STDERR
+Traceback (most recent call last):
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\urllib3\connection.py", line 204, in _new_conn
+    sock = connection.create_connection(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\urllib3\util\connection.py", line 85, in create_connection
+    raise err
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\urllib3\util\connection.py", line 73, in create_connection
+    sock.connect(sa)
+PermissionError: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\urllib3\connectionpool.py", line 788, in urlopen
+    response = self._make_request(
+               ^^^^^^^^^^^^^^^^^^^
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\urllib3\connectionpool.py", line 488, in _make_request
+    raise new_e
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\urllib3\connectionpool.py", line 464, in _make_request
+    self._validate_conn(conn)
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\urllib3\connectionpool.py", line 1106, in _validate_conn
+    conn.connect()
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\urllib3\connection.py", line 759, in connect
+    self.sock = sock = self._new_conn()
+                       ^^^^^^^^^^^^^^^^
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\urllib3\connection.py", line 219, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: HTTPSConnection(host='api.kaggle.com', port=443): Failed to establish a new connection: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\requests\adapters.py", line 696, in send
+    resp = conn.urlopen(
+           ^^^^^^^^^^^^^
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\urllib3\connectionpool.py", line 842, in urlopen
+    retries = retries.increment(
+              ^^^^^^^^^^^^^^^^^^
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\urllib3\util\retry.py", line 543, in increment
+    raise MaxRetryError(_pool, url, reason) from reason  # type: ignore[arg-type]
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.kaggle.com', port=443): Max retries exceeded with url: /v1/users.AccountService/GenerateAccessToken (Caused by NewConnectionError("HTTPSConnection(host='api.kaggle.com', port=443): Failed to establish a new connection: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions"))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "E:\Project\Biohub_CellTracking\.venv\Scripts\kaggle.EXE\__main__.py", line 7, in <module>
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\kaggle\cli.py", line 75, in main
+    api.authenticate()
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\kaggle\api\kaggle_api_extended.py", line 1245, in authenticate
+    if self._authenticate_with_oauth_creds():
+       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\kaggle\api\kaggle_api_extended.py", line 1328, in _authenticate_with_oauth_creds
+    access_token = creds.get_access_token()
+                   ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\kagglesdk\kaggle_creds.py", line 126, in get_access_token
+    self.refresh_access_token()
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\kagglesdk\kaggle_creds.py", line 112, in refresh_access_token
+    response = self.generate_access_token()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\kagglesdk\kaggle_creds.py", line 136, in generate_access_token
+    return self._client.users.account_client.generate_access_token(request)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\kagglesdk\users\services\account_service.py", line 31, in generate_access_token
+    return self._client.call("users.AccountService", "GenerateAccessToken", request, GenerateAccessTokenResponse)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\kagglesdk\kaggle_http_client.py", line 104, in call
+    http_response = self._session.send(http_request, **settings)
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\requests\sessions.py", line 784, in send
+    r = adapter.send(request, **kwargs)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "E:\Project\Biohub_CellTracking\.venv\Lib\site-packages\requests\adapters.py", line 729, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='api.kaggle.com', port=443): Max retries exceeded with url: /v1/users.AccountService/GenerateAccessToken (Caused by NewConnectionError("HTTPSConnection(host='api.kaggle.com', port=443): Failed to establish a new connection: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions"))
+
+[2026-09-02T14:35:17+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag014-preilp-edge-export"]
+exit_code=0
+STDOUT
+lingxd/biohub-diag014-preilp-edge-export has status "KernelWorkerStatus.COMPLETE"
+
+STDERR
+

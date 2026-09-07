@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-01T01:41:39+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments\\infra_002_v9_metrics_contract\\snapshot\\config.yaml",
+      "sha256": "0768dfb152b6988e5472023dfcf03efd6291296b6e55e3b1e5d17094f3de9332"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments\\infra_002_v9_metrics_contract\\snapshot\\source\\v9_division_aware.ipynb",
+      "sha256": "4b06a88dd948c692d509d9957cda1e91a2c4438b43a19409b6070857d8ddd5c0"
+    }
+  ]
+}

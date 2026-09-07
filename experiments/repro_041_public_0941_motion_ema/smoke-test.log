@@ -1,0 +1,14 @@
+[2026-09-06T20:54:14+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_public_0941_ema_repro.py", "E:\\Project\\Biohub_CellTracking\\experiments\\repro_041_public_0941_motion_ema\\snapshot\\source\\public_0941_ema_repro.ipynb"]
+exit_code=0
+STDOUT
+{
+  "cells": 15,
+  "code_cells": 13,
+  "saved_error_outputs": 0,
+  "inference_cells_identical": true,
+  "negative_controls": 6,
+  "passed": true
+}
+
+STDERR
+

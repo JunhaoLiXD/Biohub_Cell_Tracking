@@ -1,0 +1,20 @@
+{
+  "created_at": "2026-09-02T15:02:10+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_016_train16_candidate_constrained_oracle_guarded/snapshot/config.yaml",
+      "sha256": "6b58ec9cb49d6e3a548c382f7e8bf9ac4a6849cad5aad8c2d1f37791aed308f4"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_016_train16_candidate_constrained_oracle_guarded/snapshot/source/phase0_candidate_oracle.ipynb",
+      "sha256": "d0a15bbcf9d8e94605684d1923bcffbef96044c54263519019ce7f8eb55f649d"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/diag_016_train16_candidate_constrained_oracle_guarded/snapshot/extra_files/run_phase0_candidate_oracle.py",
+      "sha256": "26b9bb879fb6e11154f0f73eeb4e274f26f3d6be687a2f080344511b4a1041f6"
+    }
+  ]
+}

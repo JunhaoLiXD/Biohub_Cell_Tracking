@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_011_train16_deepcenter_div_veto_envfix",
+  "parent": "val_008_public_0933_train16_launchable",
+  "state": "REJECT",
+  "hypothesis": "Enabling the already-loaded DeepCenter gate for safe-division additions will reduce false division edges on the fixed 16-video validator while retaining enough true divisions to improve the combined score on both specimens.",
+  "change": {
+    "component": "safe_division_confirmation",
+    "from": "geometric and motion constraints with DeepCenter safe-division veto disabled",
+    "to": "identical safe-division proposals confirmed by the frozen DeepCenter model at threshold 0.12",
+    "variables_changed": "deepcenter_safe_div_veto_only"
+  },
+  "signature": "5caea74a308da789afb73a7496fea8813ef39794718aea6ce1b9b1487c4ab4cf",
+  "config": "configs/exp_011_train16_deepcenter_div_veto_envfix.yaml",
+  "snapshot_config": "experiments/exp_011_train16_deepcenter_div_veto_envfix/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_011_train16_deepcenter_div_veto_envfix/snapshot/source/repro_public_0933.ipynb",
+  "snapshot_manifest": "experiments/exp_011_train16_deepcenter_div_veto_envfix/snapshot/manifest.json",
+  "git_commit": "bbe14667c6f02eb91e0be21fe4a36e5f20a13d31",
+  "validation_protocol": "public_0933_embedded_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.057986403295
+  },
+  "review": {
+    "required": false,
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\exp_011_train16_deepcenter_div_veto_envfix\\snapshot\\source\\repro_public_0933.ipynb",
+      "--require-metrics-contract"
+    ],
+    "completed_at": "2026-09-01T22:34:57+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-01T22:34:57+00:00",
+  "updated_at": "2026-09-02T00:38:46+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-01T22:34:57+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-01T22:34:57+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-01T22:37:11+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "RUNNING",
+      "at": "2026-09-01T22:37:32+00:00",
+      "note": null
+    },
+    {
+      "from": "RUNNING",
+      "to": "COLLECTING",
+      "at": "2026-09-02T00:35:23+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-02T00:38:46+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "REJECT",
+      "at": "2026-09-02T00:38:46+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp011-train16-deepcenter-div-veto",
+    "submitted_at": "2026-09-01T22:37:11+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-02T00:34:03+00:00"
+  },
+  "evaluation": {
+    "decision": "REJECT",
+    "primary_metric": 0.91613880231486,
+    "baseline_primary_metric": 0.9252519785518039,
+    "delta": -0.009113176236943854,
+    "evaluated_at": "2026-09-02T00:38:46+00:00"
+  }
+}

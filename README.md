@@ -2,7 +2,20 @@
 
 An end-to-end Kaggle solution for detecting and tracking cells through 3D time-lapse microscopy of developing zebrafish embryos.
 
-## Approach
+## Current approach
+
+The working research parent is the reproduced public `analyticaobscura/biohub-lb-941`
+configuration: dual pretrained TemporalUNet3D detections, transformer association,
+ILP tracking, motion/gap repair, and geometry plus epoch-2 DeepCenter division gates.
+Submission 56044403 completed at Public LB **0.941**. No new model was trained.
+`val_039_public_0941_train16` established its fixed 16-video validation baseline at
+**0.935978** with identical test inference (44b6 0.921800; 6bba 0.940332). See
+[research handoff and traceability](docs/research_workflow.md).
+The single-variable motion-EMA transfer `exp_040_public_0941_motion_ema` improved
+that matched proxy to **0.938733** (+0.002755) and passed all configured gates.
+It is a positive candidate awaiting exact reproduction, not yet leaderboard evidence.
+
+## Historical self-contained approach
 
 The pipeline follows a tracking-by-detection design:
 
@@ -18,7 +31,7 @@ The detector is trained with sparse annotations and cosine learning-rate decay. 
 
 The original self-contained pipeline reached Public LB **0.844**. The current controlled research line reproduced a public learned detector/linker configuration at **0.933** and established a deterministic 16-video internal validation protocol. A motion-EMA change improved that internal score from 0.925252 to 0.927316 in two byte-identical runs, but its Public LB remained 0.933.
 
-An exact, unchanged copy of the public `analyticaobscura/biohub-lb-941` notebook has now completed under our account using the author's released pretrained weights; no new model was trained. Its source, actual epoch-2 DeepCenter checkpoint load, and submission graph passed local audits. Kaggle submission `56044403` is pending, so the advertised 0.941 is not yet counted as reproduced. If confirmed, the next gate is a controlled comparison under the same 16-video protocol before adopting or attributing any part of the multi-parameter configuration.
+An exact copy of `analyticaobscura/biohub-lb-941` reproduced **0.941** under our account (submission `56044403`, COMPLETE). Source, actual epoch-2 DeepCenter loading and submission graph passed audits. The user selected this full configuration as the new working research parent. `val_039_public_0941_train16` established its fixed train16 baseline while preserving inference. On that frozen protocol, isolated motion EMA improved train16 from 0.935978 to 0.938733; both specimens improved and division FP fell by one. The result still needs exact reproduction and has not been submitted to the leaderboard. The parent train4 proxy is not comparable with train16. Formal promotion remains separate.
 
 See [selected experiments](docs/experiments.md) for the compact evidence behind the retained configuration.
 

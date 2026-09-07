@@ -1,0 +1,28 @@
+[2026-09-03T02:12:12+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag027-family-a-policy"]
+exit_code=1
+STDOUT
+
+STDERR
+HTTPSConnectionPool(host='api.kaggle.com', port=443): Max retries exceeded with url: /v1/kernels.KernelsApiService/GetKernelSessionStatus (Caused by NewConnectionError("HTTPSConnection(host='api.kaggle.com', port=443): Failed to establish a new connection: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions"))
+
+[2026-09-03T02:13:08+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag027-family-a-policy"]
+exit_code=0
+STDOUT
+lingxd/biohub-diag027-family-a-policy has status "KernelWorkerStatus.RUNNING"
+
+STDERR
+
+[2026-09-03T02:36:02+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag027-family-a-policy"]
+exit_code=1
+STDOUT
+
+STDERR
+Cannot access kernel 'lingxd/biohub-diag027-family-a-policy' (Permission 'kernels.get' was denied). The most likely cause is a wrong kernel slug. The benchmark_task_slug returned by get_benchmark_leaderboard differs from the actual kernel slug — use the slug from the notebook URL (kaggle.com/code/owner/KERNEL-SLUG), not from the leaderboard. It can also occur if the notebook is private.
+
+[2026-09-03T02:39:08+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag027-family-a-policy"]
+exit_code=0
+STDOUT
+lingxd/biohub-diag027-family-a-policy has status "KernelWorkerStatus.COMPLETE"
+
+STDERR
+

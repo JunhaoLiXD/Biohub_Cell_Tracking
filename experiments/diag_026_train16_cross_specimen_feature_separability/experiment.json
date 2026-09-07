@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_026_train16_cross_specimen_feature_separability",
+  "parent": "diag_025_train16_frozen_scorer_candidate_oracle",
+  "state": "KEEP",
+  "hypothesis": "Frozen pre-ILP tabular candidate features contain division-edge signal that transfers above chance in both leave-one-specimen-out directions.",
+  "change": {
+    "component": "phase1_candidate_feature_gate",
+    "from": "positive candidate-reachable oracle headroom without evidence that exported features can rank division edges across specimens",
+    "to": "bidirectional leave-one-specimen-out HistGradientBoosting separability audit on matched frozen candidate edges",
+    "variables_changed": "phase1_feature_separability_diagnostic_only"
+  },
+  "signature": "6caafb4da6140cda588d1e008501a99a6c79a1c722773a0622bb517c6c3bf335",
+  "config": "configs/diag_026_train16_cross_specimen_feature_separability.yaml",
+  "snapshot_config": "experiments/diag_026_train16_cross_specimen_feature_separability/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_026_train16_cross_specimen_feature_separability/snapshot/source/phase1_feature_separability.ipynb",
+  "snapshot_manifest": "experiments/diag_026_train16_cross_specimen_feature_separability/snapshot/manifest.json",
+  "git_commit": "339ee3c9285f6f6be20a5dbc0d395c5ad31e6420",
+  "validation_protocol": "public_0933_train16_candidate_feature_separability_v1",
+  "budget": {
+    "expected_gpu_hours": 0.0,
+    "reserved": false,
+    "consumed_gpu_hours": 0.0
+  },
+  "review": {
+    "required": false,
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_phase1_feature_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\diag_026_train16_cross_specimen_feature_separability\\snapshot\\source\\phase1_feature_separability.ipynb"
+    ],
+    "completed_at": "2026-09-03T01:17:19+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-03T01:17:18+00:00",
+  "updated_at": "2026-09-03T01:58:59+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-03T01:17:19+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-03T01:17:19+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-03T01:30:18+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "RUNNING",
+      "at": "2026-09-03T01:30:40+00:00",
+      "note": null
+    },
+    {
+      "from": "RUNNING",
+      "to": "COLLECTING",
+      "at": "2026-09-03T01:58:58+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-03T01:58:59+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "KEEP",
+      "at": "2026-09-03T01:58:59+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-diag026-feature-separability",
+    "submitted_at": "2026-09-03T01:30:18+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-03T01:58:50+00:00"
+  },
+  "evaluation": {
+    "decision": "KEEP",
+    "primary_metric": 0.7976400313356835,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-03T01:58:59+00:00"
+  }
+}

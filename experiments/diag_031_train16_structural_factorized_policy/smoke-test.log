@@ -1,0 +1,14 @@
+[2026-09-03T03:38:56+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_phase1_structural_policy_notebook.py", "E:\\Project\\Biohub_CellTracking\\experiments\\diag_031_train16_structural_factorized_policy\\snapshot\\source\\phase1_structural_policy.ipynb"]
+exit_code=0
+STDOUT
+{
+  "cells": 11,
+  "code_cells": 10,
+  "saved_error_outputs": 0,
+  "cross_specimen_directions": 2,
+  "structural_feature_count": 18,
+  "ground_truth_feature_leakage": false
+}
+
+STDERR
+

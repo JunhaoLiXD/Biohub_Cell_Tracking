@@ -1,0 +1,13 @@
+[2026-09-06T13:32:37+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_public_0941_train16.py", "E:\\Project\\Biohub_CellTracking\\experiments\\val_039_public_0941_train16\\snapshot\\source\\public_0941_train16.ipynb"]
+exit_code=0
+STDOUT
+{
+  "passed": true,
+  "cells": 14,
+  "scorer_functions": 13,
+  "inference_preserved": true,
+  "saved_errors": 0
+}
+
+STDERR
+

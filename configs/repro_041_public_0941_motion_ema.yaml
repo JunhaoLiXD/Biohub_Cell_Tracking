@@ -1,0 +1,71 @@
+schema_version: 1
+experiment_id: repro_041_public_0941_motion_ema
+parent: exp_040_public_0941_motion_ema
+hypothesis: An independent identical run of exp_040 reproduces its aggregate and specimen metrics within absolute tolerance 1e-12, exact division and EMA counts, and byte-identical test submission.
+change:
+  component: reproducibility_evidence
+  from: One accepted exp_040 EMA screening run
+  to: Independent identical inference with frozen reference comparison in final metrics contract
+  variables_changed: evidence_contract_only
+source_notebook: .private/current/public_0941_ema_repro.ipynb
+validation:
+  protocol: public_0941_frozen_train16_stratified_proxy_v1
+  primary_metric: score
+  seed: public_0933_train16_v1
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  division_positive_target_per_specimen: 4
+  absolute_tolerance: 1.0e-12
+  relative_tolerance: 0.0
+  warning: Repetition tests execution reproducibility; training-derived validation remains optimistic and does not establish held-out generalization.
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+  per_specimen_max_regression: 0.0
+evaluation:
+  mode: gate
+  gate_field: reproduction_passed
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+post_run_review:
+  required: true
+  reviewer: Claude Code
+  scope: This reproduction only; audit completed artifacts and Codex analysis before leaderboard decision. Preserve prelaunch review record and save final review separately.
+  status: PENDING
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_public_0941_ema_repro.py
+    - "{source_notebook}"
+provenance:
+  parent_source_sha256: 914104fffa12f92de10521cd1a106a415a7b353eac5b5c460b04daf83ec96453
+  parent_metrics_sha256: e90931af3e701ada413d672b0e7d629a8f5e2e36c78468b25fc1672b9909382b
+  expected_submission_sha256: fd1162bfc09b6d06413701aa898eb14bc5df9cc5bfd999fe598bf81fbf125515
+  review_focus: Verify all parent cells except the final metrics contract are identical. Check exact reference metrics, zero relative tolerance, negative controls, and this run's additional post-run Claude review requirement.
+submission:
+  user_authorized_count: 0
+kaggle:
+  owner: lingxd
+  slug: biohub-repro041-public0941-motion-ema
+  title: biohub-repro041-public0941-motion-ema
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: true
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+    - scripts/build_public_0941_ema_repro.py
+    - scripts/public_0941_ema_repro_contract.py
+    - scripts/validate_public_0941_ema_repro.py

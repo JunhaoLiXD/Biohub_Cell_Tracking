@@ -1,0 +1,10 @@
+{
+  "schema_version": 1,
+  "active_experiment": "repro_041_public_0941_motion_ema",
+  "phase": "LEADERBOARD_SUBMITTED_AWAITING_SCORE",
+  "summary": "The user-authorized Claude retry returned formal VERDICT: PASS. After a live 0/3 daily-cap and duplicate-hash gate, repro_041 was submitted once to the leaderboard as submission 56067514 at 2026-09-07T02:54:59.363000Z. Kaggle status is PENDING; no score is available yet.",
+  "next_action": "Wait for the user to announce that Kaggle scoring is complete; do not poll or submit again. Then query submission 56067514 once, record its score, compare with the reproduced 0.941 parent, and update the research conclusion. No promotion, milestone v06, successor experiment, or push is authorized.",
+  "leaderboard_submission_authorized": false,
+  "authority": "This block is generated from STATE.json by scripts/render_checkpoint.py. STATE.json plus the active experiments/<id>/experiment.json are the single source of truth for current state. Full authorization detail lives once in GOAL.md.",
+  "updated_at": "2026-09-07T02:55:00+00:00"
+}

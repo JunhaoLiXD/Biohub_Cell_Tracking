@@ -1,0 +1,62 @@
+schema_version: 1
+experiment_id: diag_019_train16_final_validation_graph_export
+parent: diag_014_train16_preilp_edge_export
+hypothesis: Read-only persistence of the exact post-filter validation graphs will preserve the fixed train16 baseline and produce 16 complete, nonempty, hash-verified graph artifacts suitable for the candidate-constrained oracle.
+change:
+  component: final_validation_graph_diagnostics
+  from: validator scores final post-processed graphs without persisting them
+  to: identical scoring plus gzip JSON persistence immediately before validator scoring
+  variables_changed: diagnostic_instrumentation_only
+review_basis:
+  - experiments/diag_014_train16_preilp_edge_export/review.md
+  - experiments/diag_015_train16_candidate_constrained_oracle/review.md
+
+source_notebook: .private/current/repro_public_0933.ipynb
+
+validation:
+  protocol: public_0933_embedded_train16_stratified_proxy_v1
+  primary_metric: score
+  seed: public_0933_train16_v1
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  warning: This read-only export must reproduce diag_014 exactly and is not leaderboard evidence.
+
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+
+success:
+  minimum_improvement: 0.0
+  regression_threshold: -0.000000000001
+  per_specimen_max_regression: 0.0
+
+evaluation:
+  mode: gate
+  gate_field: final_validation_graph_export_passed
+
+admission:
+  require_claude_review: false
+  methodology_valid: true
+  require_reproducible_for_promotion: false
+
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_final_validation_graph_export.py
+    - "{source_notebook}"
+
+kaggle:
+  owner: lingxd
+  slug: biohub-diag019-final-validation-graphs
+  title: biohub-diag019-final-validation-graphs
+  accelerator: NvidiaTeslaT4
+  inject_experiment_id: true
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true

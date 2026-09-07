@@ -1,0 +1,132 @@
+{
+  "baseline_primary_metric": 0.0,
+  "experiment_id": "diag_027_train16_cross_specimen_family_a_policy",
+  "methodology_valid": true,
+  "metrics": {
+    "baseline_reproduced": true,
+    "directions": {
+      "44b6_to_6bba": {
+        "test_baseline": {
+          "adjusted_edge_jaccard": 0.9218386611502192,
+          "division_fn": 5,
+          "division_fp": 11,
+          "division_jaccard": 0.1111111111111111,
+          "division_tp": 2,
+          "edge_weight": 7478,
+          "score": 0.9329497722613302
+        },
+        "test_candidate_videos": 8,
+        "test_delta_adjusted_edge_jaccard": 0.0,
+        "test_delta_division_jaccard": 0.0,
+        "test_delta_score": 0.0,
+        "test_policy": {
+          "adjusted_edge_jaccard": 0.9218386611502192,
+          "division_fn": 5,
+          "division_fp": 11,
+          "division_jaccard": 0.1111111111111111,
+          "division_tp": 2,
+          "edge_weight": 7478,
+          "score": 0.9329497722613302,
+          "selected_actions": 0
+        },
+        "test_specimen": "6bba",
+        "threshold": null,
+        "train_baseline": {
+          "adjusted_edge_jaccard": 0.8931320553703488,
+          "division_fn": 3,
+          "division_fp": 14,
+          "division_jaccard": 0.10526315789473684,
+          "division_tp": 2,
+          "edge_weight": 2596,
+          "score": 0.9036583711598225
+        },
+        "train_candidate_videos": 8,
+        "train_delta_score": 0.0,
+        "train_policy": {
+          "adjusted_edge_jaccard": 0.8931320553703488,
+          "division_fn": 3,
+          "division_fp": 14,
+          "division_jaccard": 0.10526315789473684,
+          "division_tp": 2,
+          "edge_weight": 2596,
+          "score": 0.9036583711598225,
+          "selected_actions": 0
+        },
+        "train_specimen": "44b6"
+      },
+      "6bba_to_44b6": {
+        "test_baseline": {
+          "adjusted_edge_jaccard": 0.8931320553703488,
+          "division_fn": 3,
+          "division_fp": 14,
+          "division_jaccard": 0.10526315789473684,
+          "division_tp": 2,
+          "edge_weight": 2596,
+          "score": 0.9036583711598225
+        },
+        "test_candidate_videos": 8,
+        "test_delta_adjusted_edge_jaccard": 0.0,
+        "test_delta_division_jaccard": 0.0,
+        "test_delta_score": 0.0,
+        "test_policy": {
+          "adjusted_edge_jaccard": 0.8931320553703488,
+          "division_fn": 3,
+          "division_fp": 14,
+          "division_jaccard": 0.10526315789473684,
+          "division_tp": 2,
+          "edge_weight": 2596,
+          "score": 0.9036583711598225,
+          "selected_actions": 8
+        },
+        "test_specimen": "44b6",
+        "threshold": 0.9949423329937821,
+        "train_baseline": {
+          "adjusted_edge_jaccard": 0.9218386611502192,
+          "division_fn": 5,
+          "division_fp": 11,
+          "division_jaccard": 0.1111111111111111,
+          "division_tp": 2,
+          "edge_weight": 7478,
+          "score": 0.9329497722613302
+        },
+        "train_candidate_videos": 8,
+        "train_delta_score": 0.005689776025114446,
+        "train_policy": {
+          "adjusted_edge_jaccard": 0.921972881619778,
+          "division_fn": 4,
+          "division_fp": 11,
+          "division_jaccard": 0.16666666666666666,
+          "division_tp": 3,
+          "edge_weight": 7478,
+          "score": 0.9386395482864447,
+          "selected_actions": 6
+        },
+        "train_specimen": "6bba"
+      }
+    },
+    "family_a_policy_gate_passed": false,
+    "policy": "one highest-scoring orphan-only action per video above a train-specimen threshold",
+    "wall_clock_seconds": 291.61382603599986
+  },
+  "primary_metric": 0.0,
+  "reproducible": false,
+  "runtime_seconds": 0.0,
+  "schema_version": 1,
+  "specimen_metrics": {
+    "44b6": {
+      "baseline_primary_metric": 0.0,
+      "primary_metric": 0.0
+    },
+    "6bba": {
+      "baseline_primary_metric": 0.0,
+      "primary_metric": 0.0
+    }
+  },
+  "validation": {
+    "protocol": "public_0933_train16_cross_specimen_family_a_policy_v1",
+    "seed": 314159,
+    "warning": "Train16 cross-specimen policy gate; thresholds are selected only on the training specimen."
+  },
+  "parsed_at": "2026-09-03T02:39:28+00:00",
+  "source": "E:\\Project\\Biohub_CellTracking\\experiments\\diag_027_train16_cross_specimen_family_a_policy\\artifacts\\metrics.json"
+}

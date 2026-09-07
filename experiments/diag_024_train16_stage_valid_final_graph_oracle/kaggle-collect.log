@@ -1,0 +1,8 @@
+[2026-09-03T00:45:36+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "output", "lingxd/biohub-diag024-stage-valid-oracle", "-p", "E:\\Project\\Biohub_CellTracking\\experiments\\diag_024_train16_stage_valid_final_graph_oracle\\artifacts", "--page-size", "200"]
+exit_code=0
+STDOUT
+Output file downloaded to E:\Project\Biohub_CellTracking\experiments\diag_024_train16_stage_valid_final_graph_oracle\artifacts\metrics.json
+Kernel log downloaded to E:\Project\Biohub_CellTracking\experiments\diag_024_train16_stage_valid_final_graph_oracle\artifacts\biohub-diag024-stage-valid-oracle.log 
+
+STDERR
+

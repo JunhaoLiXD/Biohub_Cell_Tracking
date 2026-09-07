@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-03T03:01:10+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_029_train16_factorized_family_a_policy/snapshot/config.yaml",
+      "sha256": "ca13c2a9aa85422861316f86f17e0ac2fedaf46ebc90d017b62ebb078ed340f9"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_029_train16_factorized_family_a_policy/snapshot/source/phase1_factorized_policy.ipynb",
+      "sha256": "12171a0991bdc2e74f74eb17b2aef08e4a43409e4a39cb11468f6be1b8ccbec6"
+    }
+  ]
+}

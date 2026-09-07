@@ -1,0 +1,201 @@
+{
+  "baseline_primary_metric": 0.9252519785518039,
+  "experiment_id": "diag_019_train16_final_validation_graph_export",
+  "metrics": {
+    "calibration_passed": true,
+    "checks": {
+      "baseline_output_preserved": true,
+      "baseline_specimen_outputs_preserved": true,
+      "bidirectional_weight_exact": true,
+      "deepcenter_loaded": true,
+      "deepcenter_safe_div_audit_enabled": true,
+      "deepcenter_safe_div_audit_nonempty": true,
+      "deepcenter_safe_div_validator_audit_nonempty": true,
+      "deepcenter_safe_div_validator_causal_audit_nonempty": true,
+      "deepcenter_safe_div_validator_causal_scores_present": true,
+      "deepcenter_safe_div_veto_disabled": true,
+      "det_threshold_exact": true,
+      "division_strata_present_per_specimen": true,
+      "dual_t4_visible": true,
+      "experiment_id_injected": true,
+      "final_validation_graph_datasets_exact": true,
+      "final_validation_graph_export_enabled": true,
+      "final_validation_graph_hashes_match": true,
+      "final_validation_graph_stage_exact": true,
+      "final_validation_graphs_nonempty": true,
+      "gap_close_um_exact": true,
+      "per_specimen_sample_count_exact": true,
+      "preilp_edge_audit_datasets_exact": true,
+      "preilp_edge_audit_enabled": true,
+      "preilp_edge_audit_hashes_match": true,
+      "preilp_edge_audit_rows_nonempty": true,
+      "preilp_edge_audit_stage_exact": true,
+      "preset_exact": true,
+      "required_specimens_present": true,
+      "secondary_detection_weight_exact": true,
+      "secondary_edge_weight_exact": true,
+      "secondary_model_loaded": true,
+      "submission_exists": true,
+      "submission_graph_audit_complete": true,
+      "validation_is_finite": true,
+      "validation_sample_count_exact": true
+    },
+    "deepcenter_safe_div_causal_audit": {
+      "causal_fp_edges": 25,
+      "causal_tp_edges": 4,
+      "count": 1130,
+      "scores_present": true
+    },
+    "deepcenter_safe_div_score_audit": {
+      "all_predictions": {
+        "accepted_at_0_12": 53,
+        "count": 8542,
+        "finite": true,
+        "quantiles": {
+          "q00": 2.3118209989847916e-15,
+          "q100": 0.979021430015564,
+          "q25": 1.76765317938532e-08,
+          "q50": 2.5757094590517227e-07,
+          "q75": 2.893639475587406e-06,
+          "q90": 1.9733493718376856e-05,
+          "q95": 7.843041130399795e-05,
+          "q99": 0.024769872426986694
+        }
+      },
+      "files": 1,
+      "validator": {
+        "accepted_at_0_12": 47,
+        "count": 6675,
+        "finite": true,
+        "quantiles": {
+          "q00": 2.3118209989847916e-15,
+          "q100": 0.979021430015564,
+          "q25": 1.9097816661428624e-08,
+          "q50": 2.955308104901633e-07,
+          "q75": 3.3353848039041623e-06,
+          "q90": 2.5053046556422487e-05,
+          "q95": 0.00010871433987631431,
+          "q99": 0.047215195521712924
+        }
+      }
+    },
+    "effective_configuration": {
+      "bidirectional_edge_weight": 0.15,
+      "deepcenter_safe_div_audit": true,
+      "deepcenter_safe_div_veto": false,
+      "det_threshold": 0.965,
+      "gap_close_um": 5.8,
+      "secondary_detection_weight": 0.81,
+      "secondary_edge_weight": 0.15
+    },
+    "failed_checks": [],
+    "final_validation_graph_export": {
+      "artifact_files": 16,
+      "datasets_exact": true,
+      "expected_datasets": 16,
+      "graphs_nonempty": true,
+      "hashes_match": true,
+      "stage_exact": true,
+      "summary_records": 16
+    },
+    "final_validation_graph_export_passed": true,
+    "manual_assurances": {
+      "metric_hack_assessment": {
+        "automated": false,
+        "metric_hack_used": false,
+        "status": "human_reviewed_source_integrity_declaration"
+      },
+      "note": "No-metric-hack is a human/source-integrity assessment, not an automated reproduction gate."
+    },
+    "preilp_edge_audit": {
+      "artifact_files": 20,
+      "datasets_exact": true,
+      "expected_datasets": 20,
+      "hashes_match": true,
+      "rows_nonempty": true,
+      "stage_exact": true,
+      "summary_records": 20,
+      "total_rows": 2030896
+    },
+    "preilp_export_passed": true,
+    "public_lb_claim": 0.933,
+    "upstream_kernel": "evgendvorkin/biohub-0-933-lb",
+    "upstream_notebook_sha256": "635b4c8f3f900a9a9080c3072108d6537fe94ad6c7681983f9cf0ee8aa0536cb",
+    "validation_contract_passed": true
+  },
+  "primary_metric": 0.9252519785518039,
+  "reproducible": false,
+  "runtime_seconds": 4236.34348375,
+  "schema_version": 1,
+  "specimen_metrics": {
+    "44b6": {
+      "adjusted_edge_jaccard": 0.8931320553703488,
+      "baseline_primary_metric": 0.9036583711598225,
+      "division_jaccard": 0.10526315789473684,
+      "division_negative_count": 4,
+      "division_negative_samples": [
+        "44b6_c15fded2",
+        "44b6_1d530831",
+        "44b6_551a5dba",
+        "44b6_7e557709"
+      ],
+      "division_positive_count": 4,
+      "division_positive_samples": [
+        "44b6_7a302da0",
+        "44b6_2a2eff9f",
+        "44b6_c50204e0",
+        "44b6_aaf8b0ea"
+      ],
+      "primary_metric": 0.9036583711598225,
+      "samples": [
+        "44b6_c15fded2",
+        "44b6_7a302da0",
+        "44b6_1d530831",
+        "44b6_551a5dba",
+        "44b6_7e557709",
+        "44b6_2a2eff9f",
+        "44b6_c50204e0",
+        "44b6_aaf8b0ea"
+      ]
+    },
+    "6bba": {
+      "adjusted_edge_jaccard": 0.9218386611502192,
+      "baseline_primary_metric": 0.9329497722613302,
+      "division_jaccard": 0.1111111111111111,
+      "division_negative_count": 4,
+      "division_negative_samples": [
+        "6bba_55c70843",
+        "6bba_372c8cb8",
+        "6bba_283bf9f1",
+        "6bba_0c7fa718"
+      ],
+      "division_positive_count": 4,
+      "division_positive_samples": [
+        "6bba_fe670320",
+        "6bba_337b1b3a",
+        "6bba_ef7b4f7e",
+        "6bba_80d12824"
+      ],
+      "primary_metric": 0.9329497722613302,
+      "samples": [
+        "6bba_fe670320",
+        "6bba_55c70843",
+        "6bba_372c8cb8",
+        "6bba_337b1b3a",
+        "6bba_ef7b4f7e",
+        "6bba_80d12824",
+        "6bba_283bf9f1",
+        "6bba_0c7fa718"
+      ]
+    }
+  },
+  "validation": {
+    "adjusted_edge_jaccard": 0.914441167740993,
+    "division_jaccard": 0.10810810810810811,
+    "protocol": "public_0933_embedded_train16_stratified_proxy_v1",
+    "sample_count": 16,
+    "warning": "Stratified 16-video train-derived proxy from a public kernel. The frozen feature extractors saw training videos, so use this as an optimistic internal baseline, not as leaderboard evidence."
+  },
+  "parsed_at": "2026-09-02T17:42:12+00:00",
+  "source": "E:\\Project\\Biohub_CellTracking\\experiments\\diag_019_train16_final_validation_graph_export\\artifacts\\metrics.json"
+}

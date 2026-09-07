@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "status": "verified",
+  "reference_experiment": "repro_004_public_0933_t4x2",
+  "confirmed_experiment": "repro_005_public_0933_contract_id",
+  "submission_sha256": "4f5caf08a4027aee7210a81b5936cea847d38aa9867ef284fa7e9c763da6b15c",
+  "submission_identical": true,
+  "normalized_metrics_identical": true,
+  "normalization_excluded_fields": [
+    "experiment_id",
+    "runtime_seconds"
+  ],
+  "reference_runtime_seconds": 1932.93253317,
+  "confirmed_runtime_seconds": 1880.8459166270002,
+  "interpretation": "Two independent T4 x2 runs produced byte-identical submissions and identical metrics after excluding run identity and elapsed time. This verifies deterministic reproduction, but does not establish a 0.933 leaderboard result or authorize baseline promotion."
+}

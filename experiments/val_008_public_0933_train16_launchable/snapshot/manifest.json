@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-01T19:49:38+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/val_008_public_0933_train16_launchable/snapshot/config.yaml",
+      "sha256": "b40dffd193f66a7748d8d8894416d7c3c167108e8940b190962b13e40475fe57"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/val_008_public_0933_train16_launchable/snapshot/source/repro_public_0933.ipynb",
+      "sha256": "0307784dbe8a4db0aa31cb83ad71efb8eb0ad21770fac7ddd666da09fa552bcb"
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+[2026-09-02T15:02:21+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_notebook.py", "E:\\Project\\Biohub_CellTracking\\experiments\\diag_016_train16_candidate_constrained_oracle_guarded\\snapshot\\source\\phase0_candidate_oracle.ipynb", "--require-metrics-contract"]
+exit_code=0
+STDOUT
+{
+  "cells": 4,
+  "code_cells": 3,
+  "saved_error_outputs": 0
+}
+
+STDERR
+

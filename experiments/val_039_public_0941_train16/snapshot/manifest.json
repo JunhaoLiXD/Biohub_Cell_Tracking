@@ -1,0 +1,35 @@
+{
+  "created_at": "2026-09-06T13:27:38+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/val_039_public_0941_train16/snapshot/config.yaml",
+      "sha256": "7f39576221429815cd761a6f35bde54d7e425782160dd4f13555d253a4088ca2"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/val_039_public_0941_train16/snapshot/source/public_0941_train16.ipynb",
+      "sha256": "190d07726229f3834055a226bfc5a77dda2608565c8967d61a7ef10c22cc0512"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/val_039_public_0941_train16/snapshot/extra_files/build_public_0941_train16.py",
+      "sha256": "985210e5422de2cd7333effa9c331c74b1fb9f7493e4d44372ca27729323863d"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/val_039_public_0941_train16/snapshot/extra_files/public_0941_train16_preflight.py",
+      "sha256": "f447e885bdb3f285dd16f8a32e66f5cca26f7ea9ef55f4b7888bb9352e3cc971"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/val_039_public_0941_train16/snapshot/extra_files/public_0941_train16_contract.py",
+      "sha256": "65074184561b5d5819f0e98a84088be6856a95fac19fb21f9e0762a6eed27912"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/val_039_public_0941_train16/snapshot/extra_files/validate_public_0941_train16.py",
+      "sha256": "32f202f6d3465d82bab7dab427554f692cc0d17e8452b6771e9ef6bfb628fe7b"
+    }
+  ]
+}

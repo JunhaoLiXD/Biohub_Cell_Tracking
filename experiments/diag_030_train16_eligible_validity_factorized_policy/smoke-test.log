@@ -1,0 +1,14 @@
+[2026-09-03T03:20:44+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_phase1_eligible_validity_notebook.py", "E:\\Project\\Biohub_CellTracking\\experiments\\diag_030_train16_eligible_validity_factorized_policy\\snapshot\\source\\phase1_eligible_validity_policy.ipynb"]
+exit_code=0
+STDOUT
+{
+  "cells": 10,
+  "code_cells": 9,
+  "saved_error_outputs": 0,
+  "cross_specimen_directions": 2,
+  "eligible_conditioned_validity": true,
+  "ground_truth_feature_leakage": false
+}
+
+STDERR
+

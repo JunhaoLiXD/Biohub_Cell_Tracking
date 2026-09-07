@@ -1,0 +1,62 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_001_v9_phase0_oracle",
+  "parent": "baseline_public_0912",
+  "state": "LOCAL_FAILED",
+  "hypothesis": "Recoverable division edits have positive combined metric value on both specimens.",
+  "change": {
+    "component": "division_oracle_audit",
+    "from": "frozen 0.912 graph",
+    "to": "counterfactual oracle families A, B, and C",
+    "variables_changed": 1
+  },
+  "signature": "8711fab08692aa1d42fdc5f5e481e1c1d05a0978517e247b94227db146dab5d2",
+  "config": "configs\\exp_001_v9_phase0_oracle.yaml",
+  "snapshot_config": "experiments\\exp_001_v9_phase0_oracle\\snapshot\\config.yaml",
+  "snapshot_source": "experiments\\exp_001_v9_phase0_oracle\\snapshot\\source\\v9_division_aware.ipynb",
+  "snapshot_manifest": "experiments\\exp_001_v9_phase0_oracle\\snapshot\\manifest.json",
+  "git_commit": "815cf5d4eac89cda206ecfeb256986eed6e16f62",
+  "validation_protocol": "v9_phase0_oracle_train16_delta_only",
+  "budget": {
+    "expected_gpu_hours": 1.0,
+    "reserved": false
+  },
+  "review": {
+    "required": false,
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "INVALIDATED",
+    "command": [
+      "C:\\Users\\Ling\\.cache\\codex-runtimes\\codex-primary-runtime\\dependencies\\python\\python.exe",
+      "scripts/validate_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\exp_001_v9_phase0_oracle\\snapshot\\source\\v9_division_aware.ipynb",
+      "--require-metrics-contract"
+    ],
+    "completed_at": "2026-09-01T01:36:13+00:00",
+    "exit_code": 0,
+    "note": "Invalidated after Claude found that metrics.json was emitted before its dependencies were defined; validator strengthened."
+  },
+  "created_at": "2026-09-01T01:36:12+00:00",
+  "updated_at": "2026-09-01T01:36:13+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-01T01:36:13+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-01T01:36:13+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "LOCAL_FAILED",
+      "at": "2026-09-01T01:40:00+00:00",
+      "note": "Claude review exposed invalid notebook cell ordering; immutable snapshot preserved as failure evidence."
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_036_train16_motion_ema",
+  "parent": "exp_035_train16_motion_ema_reviewfix",
+  "state": "KEEP",
+  "hypothesis": "An independent run of the accepted motion-EMA algorithm will reproduce the aggregate and per-specimen train16 metrics within 1e-12 and produce a byte-identical test submission.\n",
+  "change": {
+    "component": "reproducibility_evidence",
+    "from": "one accepted train16 motion-EMA run",
+    "to": "independent identical rerun with exact metric and submission-SHA256 gates",
+    "variables_changed": "diagnostic_reproducibility_contract_only"
+  },
+  "signature": "2ca82973e23858fcaa6b9314693295ab700e50e12cf00c361ee82cffe487a034",
+  "config": "configs/repro_036_train16_motion_ema.yaml",
+  "snapshot_config": "experiments/repro_036_train16_motion_ema/snapshot/config.yaml",
+  "snapshot_source": "experiments/repro_036_train16_motion_ema/snapshot/source/motion_ema_repro_train16.ipynb",
+  "snapshot_manifest": "experiments/repro_036_train16_motion_ema/snapshot/manifest.json",
+  "git_commit": "339ee3c9285f6f6be20a5dbc0d395c5ad31e6420",
+  "validation_protocol": "public_0933_embedded_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.1220431225886112
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/repro_036_train16_motion_ema/review.md",
+    "completed_at": "2026-09-03T16:51:08+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_motion_ema_repro_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\repro_036_train16_motion_ema\\snapshot\\source\\motion_ema_repro_train16.ipynb"
+    ],
+    "completed_at": "2026-09-03T16:51:13+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-03T16:45:22+00:00",
+  "updated_at": "2026-09-03T18:10:32+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-03T16:51:08+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-03T16:51:13+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-03T16:51:13+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-03T16:54:33+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "RUNNING",
+      "at": "2026-09-03T16:57:39+00:00",
+      "note": null
+    },
+    {
+      "from": "RUNNING",
+      "to": "COLLECTING",
+      "at": "2026-09-03T18:06:21+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-03T18:10:32+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "KEEP",
+      "at": "2026-09-03T18:10:32+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-repro036-train16-motion-ema",
+    "submitted_at": "2026-09-03T16:54:33+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-03T18:06:13+00:00"
+  },
+  "evaluation": {
+    "decision": "KEEP",
+    "primary_metric": 0.9273163492758533,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-03T18:10:32+00:00"
+  }
+}

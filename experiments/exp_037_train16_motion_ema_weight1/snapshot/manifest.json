@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-03T18:12:46+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_037_train16_motion_ema_weight1/snapshot/config.yaml",
+      "sha256": "e60bbd60ef642a1cf388a3957d298d7281d9786b5c35134bc7fa1cadedfed26c"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_037_train16_motion_ema_weight1/snapshot/source/motion_ema_weight1_train16.ipynb",
+      "sha256": "d1dc1fe0aadacf839e7a48e9e94a1238bc5b08913565ea66d0ada5da9eeedf7c"
+    }
+  ]
+}

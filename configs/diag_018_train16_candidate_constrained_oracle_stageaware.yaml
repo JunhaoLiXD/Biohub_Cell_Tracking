@@ -1,0 +1,60 @@
+schema_version: 1
+experiment_id: diag_018_train16_candidate_constrained_oracle_stageaware
+parent: diag_014_train16_preilp_edge_export
+hypothesis: Candidate-constrained oracle edits from cumulative families A, A+B, and A+B+C have positive combined-metric headroom on both specimens under the fixed 16-video validation protocol.
+change:
+  component: phase0_candidate_constrained_counterfactual_oracle
+  from: embedded oracle with an invalid requirement that every pre-ILP candidate endpoint survive into the final graph
+  to: identical oracle with stage-aware ID validation using retained endpoint time and physical-distance consistency
+  variables_changed: diagnostic_guard_only
+review_basis: experiments/diag_015_train16_candidate_constrained_oracle/review.md
+failure_parent: diag_017_train16_candidate_constrained_oracle_embedded
+
+source_notebook: .private/current/phase0_candidate_oracle.ipynb
+
+validation:
+  protocol: public_0933_train16_candidate_oracle_v1
+  primary_metric: minimum_specimen_abc_delta_score
+  seed: public_0933_train16_v1
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  warning: Train-derived proxy with frozen feature extractors; use paired deltas and cross-specimen consistency only.
+
+budget:
+  tier: 1
+  expected_gpu_hours: 0.0
+
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+  per_specimen_max_regression: 0.0
+
+evaluation:
+  mode: gate
+  gate_field: oracle_gate_passed
+
+admission:
+  require_claude_review: false
+  methodology_valid: true
+  require_reproducible_for_promotion: false
+
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_phase0_oracle_notebook.py
+    - "{source_notebook}"
+
+kaggle:
+  owner: lingxd
+  slug: biohub-diag018-candidate-oracle-stageaware
+  title: biohub-diag018-candidate-oracle-stageaware
+  inject_experiment_id: false
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 1
+  kernel_sources:
+    - lingxd/biohub-diag014-preilp-edge-export
+  enable_gpu: false
+  enable_internet: false
+  is_private: true

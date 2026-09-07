@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_041_public_0941_motion_ema",
+  "retry": "retry-01",
+  "reason": "Explicit user-authorized retry after a substantive PASS omitted the required verdict line",
+  "command": [
+    "C:\\Users\\Ling\\AppData\\Local\\Microsoft\\WinGet\\Packages\\Anthropic.ClaudeCode_Microsoft.Winget.Source_8wekyb3d8bbwe\\claude.EXE",
+    "--print",
+    "--permission-mode",
+    "plan",
+    "--output-format",
+    "text"
+  ],
+  "exit_code": 0,
+  "stderr": "",
+  "completed_at": "2026-09-07T02:48:44+00:00",
+  "verdict": "PASS",
+  "review_path": "experiments/repro_041_public_0941_motion_ema/post-run-review-retry-01.md"
+}

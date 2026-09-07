@@ -1,0 +1,19 @@
+{
+    "local_date":  "2026-09-05",
+    "submitted_at_utc":  "2026-09-06T01:44:51.730000Z",
+    "competition":  "biohub-cell-tracking-during-development",
+    "submission_id":  56044403,
+    "experiment_id":  "repro_038_public_0941_exact_copy",
+    "kernel":  "lingxd/biohub-repro038-public0941-exact-copy",
+    "kernel_version":  1,
+    "file_name":  "submission.csv",
+    "submission_sha256":  "bf66c879298e71c5cce0326fbac5956ca567a344ae28f0d402dfc5003fba52bd",
+    "status":  "COMPLETE",
+    "public_score":  0.941,
+    "last_verified_on": "2026-09-06",
+    "evidence_source": "Authenticated Kaggle competition submission history",
+    "remote_history_checked_before_submit":  true,
+    "remote_local_day_count_before_submit":  0,
+    "duplicate_probe":  false,
+    "rationale":  "First exact full public 0.941 reproduction, explicitly authorized once in GOAL.md; source, loaded checkpoint and graph audited."
+}

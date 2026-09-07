@@ -1,0 +1,8 @@
+[2026-09-03T03:34:58+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "output", "lingxd/biohub-diag030-eligible-validity", "-p", "E:\\Project\\Biohub_CellTracking\\experiments\\diag_030_train16_eligible_validity_factorized_policy\\artifacts", "--page-size", "200"]
+exit_code=0
+STDOUT
+Output file downloaded to E:\Project\Biohub_CellTracking\experiments\diag_030_train16_eligible_validity_factorized_policy\artifacts\metrics.json
+Kernel log downloaded to E:\Project\Biohub_CellTracking\experiments\diag_030_train16_eligible_validity_factorized_policy\artifacts\biohub-diag030-eligible-validity.log 
+
+STDERR
+

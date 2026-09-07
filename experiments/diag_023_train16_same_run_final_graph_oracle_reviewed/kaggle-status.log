@@ -1,0 +1,14 @@
+[2026-09-02T18:37:02+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag023-same-run-oracle"]
+exit_code=0
+STDOUT
+lingxd/biohub-diag023-same-run-oracle has status "KernelWorkerStatus.RUNNING"
+
+STDERR
+
+[2026-09-03T00:21:13+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag023-same-run-oracle"]
+exit_code=0
+STDOUT
+lingxd/biohub-diag023-same-run-oracle has status "KernelWorkerStatus.ERROR"
+
+STDERR
+

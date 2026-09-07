@@ -1,0 +1,98 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_028_train16_deployment_complete_family_a_policy",
+  "parent": "diag_027_train16_cross_specimen_family_a_policy",
+  "state": "REJECT",
+  "hypothesis": "Adding actual deployable Family-A candidates to the training negatives removes the matched-only distribution gap and yields positive held-out frozen-score deltas in both cross-specimen directions without adjusted-edge regression.",
+  "change": {
+    "component": "phase1_family_a_training_distribution",
+    "from": "matched-endpoint candidates only",
+    "to": "matched candidates union actual deployable Family-A candidates, with unmatched deployment candidates labeled negative",
+    "variables_changed": "deployment_complete_training_distribution_only"
+  },
+  "signature": "7487bf0755129aaef842fe0ee09f060d4015485700895a7e4b36ff7bb89759c0",
+  "config": "configs/diag_028_train16_deployment_complete_family_a_policy.yaml",
+  "snapshot_config": "experiments/diag_028_train16_deployment_complete_family_a_policy/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_028_train16_deployment_complete_family_a_policy/snapshot/source/phase1_deployment_policy.ipynb",
+  "snapshot_manifest": "experiments/diag_028_train16_deployment_complete_family_a_policy/snapshot/manifest.json",
+  "git_commit": "339ee3c9285f6f6be20a5dbc0d395c5ad31e6420",
+  "validation_protocol": "public_0933_train16_deployment_complete_family_a_policy_v1",
+  "budget": {
+    "expected_gpu_hours": 0.0,
+    "reserved": false,
+    "consumed_gpu_hours": 0.0
+  },
+  "review": {
+    "required": false,
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_phase1_deployment_policy_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\diag_028_train16_deployment_complete_family_a_policy\\snapshot\\source\\phase1_deployment_policy.ipynb"
+    ],
+    "completed_at": "2026-09-03T02:42:51+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-03T02:42:51+00:00",
+  "updated_at": "2026-09-03T02:58:17+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-03T02:42:51+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-03T02:42:51+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-03T02:43:16+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "RUNNING",
+      "at": "2026-09-03T02:43:51+00:00",
+      "note": null
+    },
+    {
+      "from": "RUNNING",
+      "to": "COLLECTING",
+      "at": "2026-09-03T02:58:16+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-03T02:58:17+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "REJECT",
+      "at": "2026-09-03T02:58:17+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-diag028-deployment-policy",
+    "submitted_at": "2026-09-03T02:43:16+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-03T02:58:04+00:00"
+  },
+  "evaluation": {
+    "decision": "REJECT",
+    "primary_metric": 0.0,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-03T02:58:17+00:00"
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_012_train16_deepcenter_score_calibration",
+  "parent": "val_008_public_0933_train16_launchable",
+  "state": "KEEP",
+  "hypothesis": "Recording DeepCenter scores for every safe-division candidate while leaving the veto disabled will reproduce the fixed 16-video baseline exactly and reveal a calibrated score range for a later precision filter.",
+  "change": {
+    "component": "safe_division_diagnostics",
+    "from": "baseline safe-division output without candidate-level DeepCenter scores",
+    "to": "identical ungated output plus per-candidate DeepCenter scores and aggregate score quantiles",
+    "variables_changed": "diagnostic_instrumentation_only"
+  },
+  "signature": "bac7c7f1380463d450b922bcf317422948555a28403faef6827b3fab1663eb62",
+  "config": "configs/diag_012_train16_deepcenter_score_calibration.yaml",
+  "snapshot_config": "experiments/diag_012_train16_deepcenter_score_calibration/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_012_train16_deepcenter_score_calibration/snapshot/source/repro_public_0933.ipynb",
+  "snapshot_manifest": "experiments/diag_012_train16_deepcenter_score_calibration/snapshot/manifest.json",
+  "git_commit": "bbe14667c6f02eb91e0be21fe4a36e5f20a13d31",
+  "validation_protocol": "public_0933_embedded_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.140584891136389
+  },
+  "review": {
+    "required": false,
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\diag_012_train16_deepcenter_score_calibration\\snapshot\\source\\repro_public_0933.ipynb",
+      "--require-metrics-contract"
+    ],
+    "completed_at": "2026-09-02T00:44:36+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-02T00:44:36+00:00",
+  "updated_at": "2026-09-02T02:04:30+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-02T00:44:36+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-02T00:44:36+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-02T00:49:01+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "RUNNING",
+      "at": "2026-09-02T00:49:15+00:00",
+      "note": null
+    },
+    {
+      "from": "RUNNING",
+      "to": "COLLECTING",
+      "at": "2026-09-02T02:00:35+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-02T02:04:30+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "KEEP",
+      "at": "2026-09-02T02:04:30+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-diag012-deepcenter-score-calibration",
+    "submitted_at": "2026-09-02T00:49:01+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-02T02:00:26+00:00"
+  },
+  "evaluation": {
+    "decision": "KEEP",
+    "primary_metric": 0.9252519785518039,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-02T02:04:30+00:00"
+  }
+}
