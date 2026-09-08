@@ -1,0 +1,6 @@
+[2026-09-07T20:19:02+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "push", "-p", "E:\\Project\\Biohub_CellTracking\\experiments\\diag_044_public_0942_motion_ema_online_telemetry\\kaggle_kernel", "--accelerator", "NvidiaTeslaT4"]
+exit_code=0
+STDOUT
+Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/lingxd/biohub-diag044-public0942-ema-telemetry
+
+STDERR

@@ -1,0 +1,81 @@
+schema_version: 1
+experiment_id: diag_044_public_0942_motion_ema_online_telemetry
+parent: repro_041_public_0941_motion_ema
+hypothesis: >
+  Adding read-only online motion telemetry to the exactly reproduced fixed-alpha-0.4
+  parent will preserve its test submission bytes and frozen-train16 metrics exactly
+  while measuring per-video innovation, track-age, assignment-margin, and prospective
+  sparse-gate rates needed to design a bounded label-free soft EMA update.
+change:
+  component: motion_relink_observability
+  from: Fixed per-track EMA alpha 0.4 without online decision telemetry
+  to: Identical fixed per-track EMA alpha 0.4 with read-only online telemetry summaries
+  variables_changed: instrumentation_only_no_prediction_change
+source_notebook: .private/current/public_0942_motion_ema_online_telemetry.ipynb
+validation:
+  protocol: public_0941_frozen_train16_stratified_proxy_v1
+  primary_metric: score
+  seed: public_0933_train16_v1
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  division_positive_target_per_specimen: 4
+  comparison_parent: repro_041_public_0941_motion_ema
+  absolute_tolerance: 1.0e-12
+  relative_tolerance: 0.0
+  expected_primary_metric: 0.9387332376874039
+  expected_submission_sha256: fd1162bfc09b6d06413701aa898eb14bc5df9cc5bfd999fe598bf81fbf125515
+  telemetry:
+    innovation_thresholds: [1.0, 1.25, 1.5, 2.0, 3.0]
+    guarded_gate: track_age_at_least_3_and_assignment_margin_at_least_0.5
+    data_dependencies: runtime_selected_positions_and_assignment_costs_only
+    prohibited_dependencies: [specimen_id, video_id, ground_truth]
+  warning: Frozen models saw training videos; this is a behavior-preservation diagnostic, not held-out generalization.
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+  per_specimen_max_regression: 0.0
+evaluation:
+  mode: gate
+  gate_field: telemetry_diagnostic_passed
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_public_0942_motion_ema_online_telemetry.py
+    - "{source_notebook}"
+provenance:
+  parent_source_sha256: 914104fffa12f92de10521cd1a106a415a7b353eac5b5c460b04daf83ec96453
+  parent_metrics_sha256: 63e8dd963b0358a2231155826a83eed32ff4a68c0635c5b40a19f365350fc4dc
+  parent_validator_sha256: 2e6b0bf3a02f3a74b2115b23342ddd22bd8340d0faa9db8893b4733dadb9da85
+  parent_submission_sha256: fd1162bfc09b6d06413701aa898eb14bc5df9cc5bfd999fe598bf81fbf125515
+  motivating_negative_control: exp_043_public_0942_motion_ema_adaptive_reset
+  review_focus: Verify telemetry is observational only; the alpha-0.4 velocity update and assignment are byte-for-byte behaviorally unchanged; exact parent test hash, aggregate, specimens, video metrics, division counts, and EMA counts are enforced; telemetry uses no specimen, video ID, or ground truth.
+submission:
+  user_authorized_count: 0
+kaggle:
+  owner: lingxd
+  slug: biohub-diag044-public0942-ema-telemetry
+  title: biohub-diag044-public0942-ema-telemetry
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: true
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+    - scripts/build_public_0942_motion_ema_online_telemetry.py
+    - scripts/public_0942_motion_ema_online_telemetry_preflight.py
+    - scripts/public_0942_motion_ema_online_telemetry_contract.py
+    - scripts/validate_public_0942_motion_ema_online_telemetry.py

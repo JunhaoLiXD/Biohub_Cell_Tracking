@@ -1,0 +1,108 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_046_public_0942_motion_ema_sparse_soft",
+  "parent": "repro_041_public_0941_motion_ema",
+  "state": "REJECT",
+  "hypothesis": "Retaining fixed EMA alpha 0.4 for ordinary updates but using a mild alpha 0.6 for the approximately 1.18 percent of frozen-validation updates that simultaneously have normalized velocity innovation above 1.25, source track age at least 3, a finite second assignment candidate, and selected-assignment margin at least 0.5 will improve the frozen-train16 score by at least 0.0001 without materially regressing either specimen, any individual video, or division counts.\n",
+  "change": {
+    "component": "motion_relink_velocity_estimator",
+    "from": "Fixed per-track EMA alpha 0.4 with velocity multiplier 0.5",
+    "to": "Label-free sparse soft EMA using alpha 0.6 only under the fixed innovation, age, finite-alternative, and assignment-margin guard; alpha 0.4 otherwise",
+    "variables_changed": "motion_relink_sparse_soft_ema_rule_only"
+  },
+  "signature": "20b351dee0daf5e20d01f99cfd6d2ac87ac4af3fae3e8b8af33da58614b398a5",
+  "config": "configs/exp_046_public_0942_motion_ema_sparse_soft.yaml",
+  "snapshot_config": "experiments/exp_046_public_0942_motion_ema_sparse_soft/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_046_public_0942_motion_ema_sparse_soft/snapshot/source/public_0942_motion_ema_sparse_soft.ipynb",
+  "snapshot_manifest": "experiments/exp_046_public_0942_motion_ema_sparse_soft/snapshot/manifest.json",
+  "git_commit": "60efd748960dfd44b35e43ab7a6d4f4579b4e864",
+  "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.1107059715155556
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/exp_046_public_0942_motion_ema_sparse_soft/review.md",
+    "completed_at": "2026-09-08T01:07:38+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_public_0942_motion_ema_sparse_soft.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\exp_046_public_0942_motion_ema_sparse_soft\\snapshot\\source\\public_0942_motion_ema_sparse_soft.ipynb"
+    ],
+    "completed_at": "2026-09-08T01:08:03+00:00",
+    "exit_code": 0
+  },
+  "authorization": {
+    "claude_review_authorized_by_user": true,
+    "conditional_remote_launch_authorized_by_user": true,
+    "leaderboard_submission_authorized": false,
+    "recorded_at_utc": "2026-09-08T01:01:16+00:00",
+    "conditions": "One fresh Claude review must return formal PASS with no required change, followed by snapshot smoke PASS; then launch once for validation only"
+  },
+  "created_at": "2026-09-08T01:00:34+00:00",
+  "updated_at": "2026-09-08T02:21:16+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-08T01:07:38+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-08T01:08:03+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-08T01:08:03+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-08T01:08:22+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-08T02:17:42+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-08T02:21:16+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "REJECT",
+      "at": "2026-09-08T02:21:16+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp046-public0942-sparse-soft-ema",
+    "submitted_at": "2026-09-08T01:08:22+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-08T02:17:42+00:00"
+  },
+  "evaluation": {
+    "decision": "REJECT",
+    "primary_metric": 0.9387340065001502,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-08T02:21:16+00:00"
+  }
+}

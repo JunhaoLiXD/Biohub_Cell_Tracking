@@ -1,0 +1,127 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_043_public_0942_motion_ema_adaptive_reset",
+  "parent": "repro_041_public_0941_motion_ema",
+  "state": "REJECT",
+  "hypothesis": "Retaining base EMA alpha 0.4 but resetting the update to alpha 1.0 only when the label-free normalized velocity innovation exceeds 1.0 will preserve or improve the frozen-train16 aggregate score, retain division counts, and improve the worst video-level adjusted-edge delta versus val_039 to at least -0.002.\n",
+  "change": {
+    "component": "motion_relink_velocity_estimator",
+    "from": "Fixed per-track EMA alpha 0.4 with velocity multiplier 0.5",
+    "to": "Label-free adaptive EMA with base alpha 0.4 and one-update alpha 1.0 reset when normalized velocity innovation exceeds 1.0; velocity multiplier remains 0.5",
+    "variables_changed": "motion_relink_adaptive_ema_reset_rule_only"
+  },
+  "signature": "29716ca992d7b7c9cd38430fa4f3dc1310aacf4cf18af19e8402250c42ba1c05",
+  "config": "configs/exp_043_public_0942_motion_ema_adaptive_reset.yaml",
+  "snapshot_config": "experiments/exp_043_public_0942_motion_ema_adaptive_reset/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_043_public_0942_motion_ema_adaptive_reset/snapshot/source/public_0942_motion_ema_adaptive_reset.ipynb",
+  "snapshot_manifest": "experiments/exp_043_public_0942_motion_ema_adaptive_reset/snapshot/manifest.json",
+  "git_commit": "60efd748960dfd44b35e43ab7a6d4f4579b4e864",
+  "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.2846807342136113
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/exp_043_public_0942_motion_ema_adaptive_reset/review.md",
+    "completed_at": "2026-09-07T17:08:07+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_public_0942_motion_ema_adaptive_reset.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\exp_043_public_0942_motion_ema_adaptive_reset\\snapshot\\source\\public_0942_motion_ema_adaptive_reset.ipynb"
+    ],
+    "completed_at": "2026-09-07T17:08:24+00:00",
+    "exit_code": 0
+  },
+  "authorization": {
+    "claude_review_authorized_by_user": true,
+    "conditional_remote_launch_authorized_by_user": true,
+    "recorded_at_utc": "2026-09-07T17:01:08+00:00",
+    "conditions": "Exactly one Claude review must return formal PASS with no required change, followed by snapshot smoke PASS; no leaderboard submission"
+  },
+  "prelaunch_diagnostic": {
+    "status": "PASSED",
+    "scope": "Approximate label-free replay on the frozen alpha-0.4 final submission graph",
+    "eligible_updates": 110731,
+    "reset_updates": 15637,
+    "base_updates": 95094,
+    "reset_fraction": 0.14121610027905465,
+    "report": ".private/research/exp043_prelaunch_adaptive_ema_diagnostic_2026-09-07.md",
+    "limitation": "Trigger-selectivity evidence only; final graph includes downstream edges and does not predict validation score"
+  },
+  "created_at": "2026-09-07T17:01:08+00:00",
+  "updated_at": "2026-09-07T19:42:38+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-07T17:08:07+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-07T17:08:23+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-07T17:08:24+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-07T17:08:51+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-07T19:39:03+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-07T19:42:38+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "REJECT",
+      "at": "2026-09-07T19:42:38+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp043-public0942-adaptive-ema",
+    "submitted_at": "2026-09-07T17:08:51+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-07T19:30:50+00:00"
+  },
+  "evaluation": {
+    "decision": "REJECT",
+    "primary_metric": 0.9368238444059783,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-07T19:42:38+00:00"
+  },
+  "independent_audit": {
+    "status": "PASSED",
+    "completed_at": "2026-09-07T19:47:30+00:00",
+    "script": "scripts/analyze_public_0942_motion_ema_adaptive_reset.py",
+    "report": ".private/research/exp043_completed_analysis_2026-09-07.md",
+    "score_delta_vs_alpha04": -0.0019093932814255865,
+    "score_delta_vs_alpha06": -0.0008569896754508921,
+    "actual_reset_fraction": 0.3932032659480964,
+    "conclusion": "Valid negative result: threshold-1.0 alpha-1.0 hard resets were too frequent and degraded both adjusted-edge quality and division precision."
+  }
+}

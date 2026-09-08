@@ -32,3 +32,7 @@ in `docs/experiments.md`.
 | `val_039_public_0941_train16` | KEEP | KEEP | 0.935978 | - | `public_0941_frozen_train16_stratified_proxy_v1` |
 | `exp_040_public_0941_motion_ema` | KEEP | KEEP | 0.938733 | - | `public_0941_frozen_train16_stratified_proxy_v1` |
 | `repro_041_public_0941_motion_ema` | KEEP | KEEP | 0.938733 | - | `public_0941_frozen_train16_stratified_proxy_v1` |
+| `exp_042_public_0942_motion_ema_alpha06` | REJECT | REJECT | 0.937681 | - | `public_0941_frozen_train16_stratified_proxy_v1` |
+| `exp_043_public_0942_motion_ema_adaptive_reset` | REJECT | REJECT | 0.936824 | - | `public_0941_frozen_train16_stratified_proxy_v1` |
+| `diag_045_public_0942_motion_ema_telemetry_v2` | REJECT | REJECT | 0.938733 | - | `public_0941_frozen_train16_stratified_proxy_v1` |
+| `exp_046_public_0942_motion_ema_sparse_soft` | REJECT | REJECT | 0.938734 | - | `public_0941_frozen_train16_stratified_proxy_v1` |

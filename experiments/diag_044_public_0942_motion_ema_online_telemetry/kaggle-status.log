@@ -1,0 +1,6 @@
+[2026-09-07T21:34:26+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag044-public0942-ema-telemetry"]
+exit_code=0
+STDOUT
+lingxd/biohub-diag044-public0942-ema-telemetry has status "KernelWorkerStatus.ERROR"
+
+STDERR

@@ -1,0 +1,35 @@
+{
+  "created_at": "2026-09-08T01:00:34+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_046_public_0942_motion_ema_sparse_soft/snapshot/config.yaml",
+      "sha256": "3d871d545c991ba78d7638086ed0798c85fa086144979fe8185776d6621baf3d"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_046_public_0942_motion_ema_sparse_soft/snapshot/source/public_0942_motion_ema_sparse_soft.ipynb",
+      "sha256": "e01b8d6777e59b1307dae0b4025aad4fe5be157c8fc069300cd1511619809480"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_046_public_0942_motion_ema_sparse_soft/snapshot/extra_files/build_public_0942_motion_ema_sparse_soft.py",
+      "sha256": "fa2cadee2ecab7992671b8066a6b2477ca85ed1413be4cf5fdba1bb4074e67ab"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_046_public_0942_motion_ema_sparse_soft/snapshot/extra_files/public_0942_motion_ema_sparse_soft_preflight.py",
+      "sha256": "7249cac8ffc681aa52d3cf3e0379f741857830eead4ed0435ce87aebf1e5185d"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_046_public_0942_motion_ema_sparse_soft/snapshot/extra_files/public_0942_motion_ema_sparse_soft_contract.py",
+      "sha256": "03efdd8ef0edc86c9d2f3b305e798037020dfe6bc9e5c6eeda2e04bc7af843a2"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_046_public_0942_motion_ema_sparse_soft/snapshot/extra_files/validate_public_0942_motion_ema_sparse_soft.py",
+      "sha256": "57cb7ae9e43749d3fcd3c1e04eea769a7d5ec7566635c3ea698311c9818a6524"
+    }
+  ]
+}

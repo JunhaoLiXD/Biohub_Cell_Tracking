@@ -1,0 +1,93 @@
+schema_version: 1
+experiment_id: diag_045_public_0942_motion_ema_telemetry_v2
+parent: repro_041_public_0941_motion_ema
+hypothesis: >
+  Corrected read-only online motion telemetry will preserve the reproduced fixed-alpha-0.4
+  parent's test submission and frozen-train16 outputs exactly while producing complete,
+  strictly JSON-serializable per-video guard-decomposition evidence for all four test videos
+  and all 16 frozen validation videos.
+change:
+  component: motion_relink_observability
+  from: Failed diag_044 telemetry with NumPy-integer serialization and only final joint-guard counts
+  to: Native-integer telemetry with strict JSON checks, finite-margin coverage, decomposed guard counts, and informative thresholds
+  variables_changed: instrumentation_only_no_prediction_change
+source_notebook: .private/current/public_0942_motion_ema_telemetry_v2.ipynb
+validation:
+  protocol: public_0941_frozen_train16_stratified_proxy_v1
+  primary_metric: score
+  seed: public_0933_train16_v1
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  division_positive_target_per_specimen: 4
+  comparison_parent: repro_041_public_0941_motion_ema
+  absolute_tolerance: 1.0e-12
+  relative_tolerance: 0.0
+  expected_primary_metric: 0.9387332376874039
+  expected_submission_sha256: fd1162bfc09b6d06413701aa898eb14bc5df9cc5bfd999fe598bf81fbf125515
+  telemetry:
+    innovation_thresholds: [1.0, 1.25, 1.5, 1.75]
+    guard_decomposition:
+      - innovation_only
+      - track_age_at_least_3
+      - finite_assignment_margin
+      - assignment_margin_at_least_0.5
+      - track_age_at_least_3_and_assignment_margin_at_least_0.5
+    coverage_fields: [finite_assignment_margin, nonfinite_assignment_margin]
+    strict_json_serialization: true
+    data_dependencies: runtime_selected_positions_and_assignment_costs_only
+    prohibited_dependencies: [specimen_id, video_id, ground_truth]
+  warning: Frozen models saw training videos; this is a behavior-preservation diagnostic, not held-out generalization.
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+  per_specimen_max_regression: 0.0
+evaluation:
+  mode: gate
+  gate_field: telemetry_diagnostic_passed
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_public_0942_motion_ema_telemetry_v2.py
+    - "{source_notebook}"
+provenance:
+  behavior_parent: repro_041_public_0941_motion_ema
+  failed_predecessor: diag_044_public_0942_motion_ema_online_telemetry
+  failed_predecessor_source_sha256: c418bce2805486d16533cfd296bd1da5dd0dbcd283cf922f9186f23238fc0c3a
+  parent_metrics_sha256: 63e8dd963b0358a2231155826a83eed32ff4a68c0635c5b40a19f365350fc4dc
+  parent_validator_sha256: 2e6b0bf3a02f3a74b2115b23342ddd22bd8340d0faa9db8893b4733dadb9da85
+  parent_submission_sha256: fd1162bfc09b6d06413701aa898eb14bc5df9cc5bfd999fe598bf81fbf125515
+  motivating_negative_control: exp_043_public_0942_motion_ema_adaptive_reset
+  review_focus: Verify that the NumPy serialization failure is closed by native integer counts and a strict runtime JSON gate; telemetry remains observational only; alpha 0.4, velocity weight 0.5, assignments, output graph, frozen samples, scorer, checkpoints, and submission bytes remain exact; guard decomposition is label-free and does not branch on specimen or video identity.
+authorization:
+  user_authorized_at_utc: 2026-09-07T22:07:00Z
+  scope: One fresh Claude review and one conditional Kaggle validation launch after formal PASS and snapshot smoke PASS; no leaderboard submission
+submission:
+  user_authorized_count: 0
+kaggle:
+  owner: lingxd
+  slug: biohub-diag045-public0942-ema-telemetry-v2
+  title: biohub-diag045-public0942-ema-telemetry-v2
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: true
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+    - scripts/build_public_0942_motion_ema_telemetry_v2.py
+    - scripts/public_0942_motion_ema_telemetry_v2_preflight.py
+    - scripts/public_0942_motion_ema_telemetry_v2_contract.py
+    - scripts/validate_public_0942_motion_ema_telemetry_v2.py

@@ -1,11 +1,14 @@
 {
   "schema_version": 1,
   "weekly_budget_hours": 30.0,
-  "remaining_hours": 10.073829110627782,
+  "remaining_hours": 19.456055771626385,
   "reserve_hours": 6.0,
   "max_single_experiment_hours": 4.0,
   "require_user_approval_above_hours": 4.0,
   "reserved_hours": {},
+  "latest_user_reported_remaining_hours": 25.0,
+  "latest_user_reported_at_utc": "2026-09-07T16:51:16+00:00",
+  "budget_epoch_note": "The research director reported 25 GPU hours remaining; prior consumption entries are retained as historical evidence from earlier budget epochs.",
   "consumed": [
     {
       "experiment_id": "repro_003_public_0933_kaggle_slug",
@@ -204,6 +207,36 @@
       "reserved_hours": 2.0,
       "actual_hours": 1.060321672935,
       "recorded_at": "2026-09-07T02:18:08+00:00"
+    },
+    {
+      "experiment_id": "exp_042_public_0942_motion_ema_alpha06",
+      "reserved_hours": 2.0,
+      "actual_hours": 1.0461806115716668,
+      "recorded_at": "2026-09-07T16:41:12+00:00"
+    },
+    {
+      "experiment_id": "exp_043_public_0942_motion_ema_adaptive_reset",
+      "reserved_hours": 2.0,
+      "actual_hours": 1.2846807342136113,
+      "recorded_at": "2026-09-07T19:42:38+00:00"
+    },
+    {
+      "experiment_id": "diag_044_public_0942_motion_ema_online_telemetry",
+      "reserved_hours": 2.0,
+      "actual_hours": 2.0,
+      "recorded_at": "2026-09-07T21:34:26+00:00"
+    },
+    {
+      "experiment_id": "diag_045_public_0942_motion_ema_telemetry_v2",
+      "reserved_hours": 2.0,
+      "actual_hours": 1.1485575226444444,
+      "recorded_at": "2026-09-07T23:36:15+00:00"
+    },
+    {
+      "experiment_id": "exp_046_public_0942_motion_ema_sparse_soft",
+      "reserved_hours": 2.0,
+      "actual_hours": 1.1107059715155556,
+      "recorded_at": "2026-09-08T02:21:16+00:00"
     }
   ]
 }

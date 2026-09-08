@@ -1,0 +1,35 @@
+{
+  "created_at": "2026-09-07T22:08:15+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_045_public_0942_motion_ema_telemetry_v2/snapshot/config.yaml",
+      "sha256": "983de4bbb8839b9e3ba88e7ea538b5b3defdde8225becfdeb8b484a3e1083633"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_045_public_0942_motion_ema_telemetry_v2/snapshot/source/public_0942_motion_ema_telemetry_v2.ipynb",
+      "sha256": "ee0ec68cf97d9ce5928dbae2090c4e98973133c01714387fdd842c4a3b4c1420"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/diag_045_public_0942_motion_ema_telemetry_v2/snapshot/extra_files/build_public_0942_motion_ema_telemetry_v2.py",
+      "sha256": "e761d35d24dd032449453a623d6da41564fddf503641160e91a4e7e8d9b1a374"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/diag_045_public_0942_motion_ema_telemetry_v2/snapshot/extra_files/public_0942_motion_ema_telemetry_v2_preflight.py",
+      "sha256": "91b17c7e4c4da25dbc2bf7ccd020bcf6e5bbf108c7845a79ccc2dbaa1956b31e"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/diag_045_public_0942_motion_ema_telemetry_v2/snapshot/extra_files/public_0942_motion_ema_telemetry_v2_contract.py",
+      "sha256": "291a2cd68c7e0036d3e554ecec7143f3cbd86dde807a5c6a58b55af740687143"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/diag_045_public_0942_motion_ema_telemetry_v2/snapshot/extra_files/validate_public_0942_motion_ema_telemetry_v2.py",
+      "sha256": "d4596782077c6195bdfd4174c871fa66a7a156e44e0b6dff4e764846c9eef244"
+    }
+  ]
+}

@@ -1,0 +1,128 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_042_public_0942_motion_ema_alpha06",
+  "parent": "repro_041_public_0941_motion_ema",
+  "state": "REJECT",
+  "hypothesis": "Increasing only the motion-relink EMA alpha from 0.4 to 0.6 will retain at least the alpha-0.4 frozen-train16 aggregate score while improving the worst video-level adjusted-edge delta versus val_039 to at least -0.002, without material specimen or division-count degradation.\n",
+  "change": {
+    "component": "motion_relink_ema_alpha",
+    "from": "Per-track EMA alpha 0.4 with velocity multiplier 0.5",
+    "to": "Per-track EMA alpha 0.6 with unchanged velocity multiplier 0.5",
+    "variables_changed": "motion_relink_ema_alpha_only"
+  },
+  "signature": "b65ac6e2175f073ccf5773cf43491320a3c115c4bc596c3a40a971b01200d024",
+  "config": "configs/exp_042_public_0942_motion_ema_alpha06.yaml",
+  "snapshot_config": "experiments/exp_042_public_0942_motion_ema_alpha06/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_042_public_0942_motion_ema_alpha06/snapshot/source/public_0942_motion_ema_alpha06.ipynb",
+  "snapshot_manifest": "experiments/exp_042_public_0942_motion_ema_alpha06/snapshot/manifest.json",
+  "git_commit": "60efd748960dfd44b35e43ab7a6d4f4579b4e864",
+  "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.0461806115716668
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/exp_042_public_0942_motion_ema_alpha06/review.md",
+    "completed_at": "2026-09-07T15:06:27+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_public_0942_motion_ema_alpha06.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\exp_042_public_0942_motion_ema_alpha06\\snapshot\\source\\public_0942_motion_ema_alpha06.ipynb"
+    ],
+    "completed_at": "2026-09-07T15:07:14+00:00",
+    "exit_code": 0
+  },
+  "authorization": {
+    "remote_launch_authorized_by_user": true,
+    "recorded_at_utc": "2026-09-07T15:01:34+00:00",
+    "scope": "One Kaggle launch of exp_042 only; no leaderboard submission"
+  },
+  "prelaunch_evidence": {
+    "val039_video_baselines_exact_match": true,
+    "matched_rows": 16,
+    "source": "experiments/val_039_public_0941_train16/artifacts/validator_results.csv",
+    "source_sha256": "44f3f7942943bbc2315acd2824604524fbec68d0b0409da84f553fc196b075e5",
+    "verified_at_utc": "2026-09-07T15:07:14+00:00"
+  },
+  "created_at": "2026-09-07T15:01:34+00:00",
+  "updated_at": "2026-09-07T16:41:12+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-07T15:06:27+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-07T15:07:14+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-07T15:07:14+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-07T15:24:10+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-07T16:37:22+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-07T16:41:12+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "REJECT",
+      "at": "2026-09-07T16:41:12+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp042-public0942-ema-alpha06",
+    "submitted_at": "2026-09-07T15:24:10+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-07T16:36:45+00:00"
+  },
+  "evaluation": {
+    "decision": "REJECT",
+    "primary_metric": 0.9376808340814292,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-07T16:41:12+00:00"
+  },
+  "independent_audit": {
+    "status": "PASSED",
+    "decision_confirmed": "REJECT",
+    "analyzer": "scripts/analyze_public_0942_motion_ema_alpha06.py",
+    "report": ".private/research/exp042_completed_analysis_2026-09-07.md",
+    "primary_metric": 0.9376808340814292,
+    "alpha04_primary_metric": 0.9387332376874039,
+    "delta_vs_alpha04": -0.0010524036059746944,
+    "failed_research_gates": [
+      "aggregate_at_least_alpha04",
+      "worst_video_delta_vs_val039_at_least_minus_0_002",
+      "division_fp_at_most_8"
+    ],
+    "completed_at_utc": "2026-09-07T16:47:10+00:00"
+  }
+}

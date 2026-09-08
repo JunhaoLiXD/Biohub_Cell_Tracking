@@ -1,0 +1,19 @@
+[2026-09-08T01:08:03+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_public_0942_motion_ema_sparse_soft.py", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_046_public_0942_motion_ema_sparse_soft\\snapshot\\source\\public_0942_motion_ema_sparse_soft.ipynb"]
+exit_code=0
+STDOUT
+{
+  "passed": true,
+  "cells": 14,
+  "single_algorithm_change": "label_free_sparse_soft_ema",
+  "base_alpha": 0.4,
+  "soft_alpha": 0.6,
+  "innovation_threshold": 1.25,
+  "minimum_track_age": 3,
+  "minimum_assignment_margin": 0.5,
+  "velocity_weight": 0.5,
+  "strict_policy_count_contract": true,
+  "frozen_train16_protocol": true,
+  "saved_errors": 0
+}
+
+STDERR

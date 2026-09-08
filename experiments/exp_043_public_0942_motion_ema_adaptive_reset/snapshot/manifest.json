@@ -1,0 +1,35 @@
+{
+  "created_at": "2026-09-07T17:01:08+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_043_public_0942_motion_ema_adaptive_reset/snapshot/config.yaml",
+      "sha256": "4374e2518db8eb45ee8f579cd2abdcddd4f5682d487e53cc32035e6b2d436c92"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_043_public_0942_motion_ema_adaptive_reset/snapshot/source/public_0942_motion_ema_adaptive_reset.ipynb",
+      "sha256": "b2734de39a5ae8c0443e5d27db685996e5e40fdd9bb152773f4f5e4ffd2d0c2b"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_043_public_0942_motion_ema_adaptive_reset/snapshot/extra_files/build_public_0942_motion_ema_adaptive_reset.py",
+      "sha256": "dc9d446819ec5bee89442804a3a4136016640f3348cd45dd9df138c6049dc6ae"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_043_public_0942_motion_ema_adaptive_reset/snapshot/extra_files/public_0942_motion_ema_adaptive_reset_preflight.py",
+      "sha256": "45808e9532399b507381f65366bc2c6636bed39c5eb24cb7ec49c9ad40ef3166"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_043_public_0942_motion_ema_adaptive_reset/snapshot/extra_files/public_0942_motion_ema_adaptive_reset_contract.py",
+      "sha256": "eda5d3ae1bbc9c1280a2011e16a5c1826677e30e333432845ac47675cef1a132"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_043_public_0942_motion_ema_adaptive_reset/snapshot/extra_files/validate_public_0942_motion_ema_adaptive_reset.py",
+      "sha256": "5d3f5932bbb985b989880426e86987bd65a83168adf08bdba2979d99717dc7b6"
+    }
+  ]
+}

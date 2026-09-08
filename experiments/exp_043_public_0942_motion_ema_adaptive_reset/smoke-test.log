@@ -1,0 +1,16 @@
+[2026-09-07T17:08:24+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_public_0942_motion_ema_adaptive_reset.py", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_043_public_0942_motion_ema_adaptive_reset\\snapshot\\source\\public_0942_motion_ema_adaptive_reset.ipynb"]
+exit_code=0
+STDOUT
+{
+  "passed": true,
+  "cells": 14,
+  "single_algorithm_change": "label_free_adaptive_ema_reset",
+  "base_alpha": 0.4,
+  "reset_alpha": 1.0,
+  "innovation_threshold": 1.0,
+  "velocity_weight": 0.5,
+  "frozen_train16_protocol": true,
+  "saved_errors": 0
+}
+
+STDERR

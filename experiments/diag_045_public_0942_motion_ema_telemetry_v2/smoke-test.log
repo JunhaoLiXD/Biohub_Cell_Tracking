@@ -1,0 +1,22 @@
+[2026-09-07T22:13:31+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_public_0942_motion_ema_telemetry_v2.py", "E:\\Project\\Biohub_CellTracking\\experiments\\diag_045_public_0942_motion_ema_telemetry_v2\\snapshot\\source\\public_0942_motion_ema_telemetry_v2.ipynb"]
+exit_code=0
+STDOUT
+{
+  "passed": true,
+  "cells": 14,
+  "single_change": "corrected_decomposed_online_motion_telemetry_only",
+  "base_alpha": 0.4,
+  "velocity_weight": 0.5,
+  "thresholds": [
+    1.0,
+    1.25,
+    1.5,
+    1.75
+  ],
+  "native_count_regression": true,
+  "strict_json_contract": true,
+  "exact_parent_behavior_gates": true,
+  "saved_errors": 0
+}
+
+STDERR

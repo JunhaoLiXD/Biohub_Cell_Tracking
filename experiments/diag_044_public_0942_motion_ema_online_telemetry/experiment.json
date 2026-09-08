@@ -1,0 +1,104 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_044_public_0942_motion_ema_online_telemetry",
+  "parent": "repro_041_public_0941_motion_ema",
+  "state": "REMOTE_FAILED",
+  "hypothesis": "Adding read-only online motion telemetry to the exactly reproduced fixed-alpha-0.4 parent will preserve its test submission bytes and frozen-train16 metrics exactly while measuring per-video innovation, track-age, assignment-margin, and prospective sparse-gate rates needed to design a bounded label-free soft EMA update.\n",
+  "change": {
+    "component": "motion_relink_observability",
+    "from": "Fixed per-track EMA alpha 0.4 without online decision telemetry",
+    "to": "Identical fixed per-track EMA alpha 0.4 with read-only online telemetry summaries",
+    "variables_changed": "instrumentation_only_no_prediction_change"
+  },
+  "signature": "2c3a42de25a75682e4db4fa68460493da4c85354beb606c6a3cfe594cc3c349f",
+  "config": "configs/diag_044_public_0942_motion_ema_online_telemetry.yaml",
+  "snapshot_config": "experiments/diag_044_public_0942_motion_ema_online_telemetry/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_044_public_0942_motion_ema_online_telemetry/snapshot/source/public_0942_motion_ema_online_telemetry.ipynb",
+  "snapshot_manifest": "experiments/diag_044_public_0942_motion_ema_online_telemetry/snapshot/manifest.json",
+  "git_commit": "60efd748960dfd44b35e43ab7a6d4f4579b4e864",
+  "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 2.0
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/diag_044_public_0942_motion_ema_online_telemetry/review.md",
+    "completed_at": "2026-09-07T20:18:15+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_public_0942_motion_ema_online_telemetry.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\diag_044_public_0942_motion_ema_online_telemetry\\snapshot\\source\\public_0942_motion_ema_online_telemetry.ipynb"
+    ],
+    "completed_at": "2026-09-07T20:18:45+00:00",
+    "exit_code": 0
+  },
+  "authorization": {
+    "claude_review_authorized_by_user": true,
+    "conditional_remote_launch_authorized_by_user": true,
+    "recorded_at_utc": "2026-09-07T20:12:08+00:00",
+    "conditions": "A fresh experiment-specific Claude review must return formal PASS with no required change, followed by snapshot smoke PASS; no leaderboard submission"
+  },
+  "created_at": "2026-09-07T20:11:25+00:00",
+  "updated_at": "2026-09-07T21:42:41+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-07T20:18:15+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-07T20:18:45+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-07T20:18:45+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-07T20:19:02+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "REMOTE_FAILED",
+      "at": "2026-09-07T21:34:26+00:00",
+      "note": "Kaggle reported an error state"
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-diag044-public0942-ema-telemetry",
+    "submitted_at": "2026-09-07T20:19:02+00:00",
+    "status": "ERROR",
+    "last_checked_at": "2026-09-07T21:34:26+00:00"
+  },
+  "failure_diagnosis": {
+    "diagnosed_at": "2026-09-07T21:42:41+00:00",
+    "stage": "final_contract_validation_stage_stats_serialization",
+    "exception": "TypeError: Object of type int64 is not JSON serializable",
+    "root_cause": "The guarded telemetry count summed NumPy boolean scalars and produced numpy.int64, which standard json.dumps cannot serialize.",
+    "inference_completed": true,
+    "frozen_validation_completed": true,
+    "submission_sha256": "fd1162bfc09b6d06413701aa898eb14bc5df9cc5bfd999fe598bf81fbf125515",
+    "submission_exact_parent": true,
+    "validator_results_sha256": "2e6b0bf3a02f3a74b2115b23342ddd22bd8340d0faa9db8893b4733dadb9da85",
+    "validator_results_exact_parent": true,
+    "validation_telemetry_persisted": false,
+    "metrics_persisted": false,
+    "report": ".private/research/diag044_remote_failure_analysis_2026-09-07.md",
+    "artifacts": "experiments/diag_044_public_0942_motion_ema_online_telemetry/failure_artifacts"
+  }
+}

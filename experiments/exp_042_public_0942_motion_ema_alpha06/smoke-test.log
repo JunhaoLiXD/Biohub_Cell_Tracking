@@ -1,0 +1,14 @@
+[2026-09-07T15:07:14+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_public_0942_motion_ema_alpha06.py", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_042_public_0942_motion_ema_alpha06\\snapshot\\source\\public_0942_motion_ema_alpha06.ipynb"]
+exit_code=0
+STDOUT
+{
+  "passed": true,
+  "cells": 14,
+  "single_variable_change": "motion_relink_ema_alpha_0.4_to_0.6",
+  "ema_alpha": 0.6,
+  "velocity_weight": 0.5,
+  "frozen_train16_protocol": true,
+  "saved_errors": 0
+}
+
+STDERR

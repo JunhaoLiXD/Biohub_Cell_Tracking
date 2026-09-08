@@ -40,7 +40,7 @@
     "exit_code": 0
   },
   "created_at": "2026-09-06T20:48:39+00:00",
-  "updated_at": "2026-09-07T02:55:00+00:00",
+  "updated_at": "2026-09-07T14:27:49+00:00",
   "state_history": [
     {
       "from": "PROPOSED",
@@ -107,7 +107,13 @@
     "file_name": "submission.csv",
     "submission_sha256": "fd1162bfc09b6d06413701aa898eb14bc5df9cc5bfd999fe598bf81fbf125515",
     "submitted_at_utc": "2026-09-07T02:54:59.363000Z",
-    "status": "PENDING",
-    "public_score": null
+    "status": "COMPLETE",
+    "public_score": 0.942,
+    "public_score_precision": 3,
+    "score_source": "user_reported_kaggle_ui",
+    "reported_at_utc": "2026-09-07T14:27:49+00:00",
+    "api_verified": false,
+    "api_verification_status": "BLOCKED_AUTHENTICATION",
+    "api_verification_note": "After the user announced completion, the required remote lookup was attempted. The Kaggle CLI could not authenticate, so no authoritative submission row or score beyond the displayed three decimals was retrieved."
   }
 }

@@ -32,6 +32,7 @@ logs/
 # version-controlled so provenance has an off-site backup. The multi-hundred-MB
 # collected Kaggle outputs and the ephemeral kernel-staging dirs are not.
 experiments/**/artifacts/
+experiments/**/failure_artifacts/
 experiments/**/kaggle_kernel/
 experiments/**/kaggle_kernel_retry_*/
 

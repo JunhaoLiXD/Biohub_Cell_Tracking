@@ -1,48 +1,46 @@
 # Latest Claude Review
 
-Experiment: `repro_041_public_0941_motion_ema`  
-Captured: 2026-09-06T20:54:10+00:00
+Experiment: `exp_046_public_0942_motion_ema_sparse_soft`
+Captured: 2026-09-08T01:07:38+00:00
 
-Here is my independent prelaunch review.
+Here is my independent review.
 
-# Independent review — repro_041_public_0941_motion_ema
+---
+
+# Independent Review — `exp_046_public_0942_motion_ema_sparse_soft`
 
 ## Summary
 
-`repro_041_public_0941_motion_ema` is a pure execution-reproduction of the accepted motion-EMA candidate `exp_040`. It changes only the final evidence contract (`variables_changed: evidence_contract_only`) and gates on exact reproduction of exp_040's aggregate + per-specimen metrics (abs_tol 1e-12, rel_tol 0), exact division and EMA-telemetry counts, and a byte-identical test submission. The build is deterministic and SHA-pinned to the frozen parent notebook and metrics; the contract wiring, gate-field resolution, and six negative controls all check out. It is the evidence-supported successor GOAL.md itself recommends (exp_040 is positive but `reproducible: false`, and reproducibility is a stated promotion prerequisite). Remaining items before launch are process gates, not code defects.
+exp_046 keeps fixed motion-relink EMA alpha 0.4 for ordinary updates and applies a milder-than-rejected alpha 0.6 to the ~1.18% of frozen-validation updates (~1.16% of test) that simultaneously satisfy a label-free guard: normalized velocity innovation > 1.25, source track age ≥ 3, a finite second-best assignment candidate, and selected-assignment margin ≥ 0.5. Parent is terminal KEEP `repro_041_public_0941_motion_ema` (0.9387332376874039; user-reported Public LB 0.942). The change is a single, cleanly isolated variable, correctly implemented, honestly instrumented, and strictly gated. The one real weakness is expected effect size, not correctness.
 
 ## Methodology
 
-- **Testable, one variable:** Yes — the single variable is execution determinism, evaluated by a strict pass/fail gate (`evaluation.mode: gate`, `gate_field: reproduction_passed`).
-- **Parent justifies it:** exp_040 KEEP at 0.9387332 (+0.002755 over val_039), both specimens up, division FP 9→8, but `reproducible: false` with heterogeneous video-level deltas (8+/1 zero/7−). GOAL/AGENTS explicitly name "one exact reproduction" as the next step; `require_reproducible_for_promotion: true`. Stated reasons match the recorded evidence.
-- **Validation / leakage / split:** Same optimistic frozen train16 proxy; the training-leakage caveat is preserved in the config warning. For a reproduction that caveat is irrelevant — this measures determinism, not generalization. The 44b6/6bba 8+8 stratified split and scorer are inherited from val_039 and locked at runtime by `frozen_samples_and_order` / `frozen_strata`.
-- **Not duplicate / not contradicted:** First reproduction of exp_040 on the 0.941 pipeline. Precedent `repro_036` reproduced the motion-EMA algorithm to 1e-12 with a byte-identical submission on the 0.933 pipeline, so bit-exact reproduction is plausible.
+- **One variable (Q1).** Only the effective alpha on the guarded subset changes (0.4→0.6). `EMA_ALPHA=0.4`, `VELOCITY_WEIGHT=0.5`, `LEARNED_BONUS=1.0` are all pinned via env in the setup cell — the `0.75` learned-bonus fallback (nb:243) is never reached because nb:49 pins it to `1.0`. Checkpoints, detector/association/ILP/gap-closing/division logic, frozen train16 samples, strata, and scorer are unchanged.
+- **Validation protocol (Q2).** Frozen train16 stratified proxy, 8 samples/specimen, 4 division-positive each, 44b6/6bba split preserved, scored against the exact parent. Leakage (frozen models saw training videos) is acknowledged and, being identical on both sides of the paired delta, does not bias the comparison. The guard is genuinely label-free — I confirmed in code it reads only `innovation_ratio`, `source_track_age`, and `assignment_margin`; no specimen/video/ground-truth dependency.
+- **Parent justification & non-duplication (Q5/Q7).** This is exactly the follow-up the exp_043 analysis recommended ("calibrate a genuinely rare label-free soft-update gate") after global alpha 0.6 (exp_042, REJECT −0.00105) and the alpha-1.0 hard reset (exp_043, REJECT, 39.3% reset) both failed. Distinct from both.
+- **Sparsity claim is supported by recorded evidence (Q7).** From diag_045 test telemetry, guarded_gt_1250 = 149+106+10+1010 = 1275 over eligible = 109,993 → 0.011592, matching the recorded `test_guarded_fraction_at_1_25 = 0.0115916`; validation 0.0118181 is consistent.
 
 ## Implementation risks
 
-Verified — low risk:
-- **Determinism:** `build_public_0941_ema_repro.py` asserts the parent notebook SHA (914104…) and reference metrics SHA (e90931…) before building; the smoke test asserts the whole notebook `== build()` and `cells[1:-1] == parent cells[:-1]`, so only the final contract cell plus an inserted markdown header differ.
-- **Algorithm / effective-config guards:** parent runtime `effective_*` checks (motion_ema_alpha, velocity_weight, …) compare live values at abs_tol 1e-12, and `motion_relink_velocity_estimator == per_track_ema` is recorded — guards read effective config, not stale prose.
-- **Contract completeness:** `REPRO_EXPECTED` is built from the frozen parent artifacts; all referenced names (`_metrics`, `_specimens`, `_ema_execution`, `_sha256_file`, `SUBMISSION_PATH`, `_contract_math`) are defined before use. Gate field resolves correctly — the controller reads `metrics["metrics"]["reproduction_passed"]`, which the contract sets.
-- **Negative controls:** smoke exercises 6 faults (score, specimen, hash, ema, division, integrity) plus the clean case, asserting the pass flags flip exactly.
+- **Correctly wired (Q3/Q4).** `assignment_margin` = min(finite alternative costs) − selected cost, computed from runtime costs *before* the velocity update (nb:959–962) and passed into `_use_sparse_soft_alpha` (nb:1019–1020). Nonfinite margins → NaN → rejected by the `np.isfinite` guard. Innovation = `‖step − prior_ema‖ / max(‖step‖,‖prior‖,1e-6)` (nb:1016–1018), matching the config. Strict `>1.25`, age `≥3`, margin `≥0.5` all match spec.
+- **Self-consistent contract (Q3).** Enforces `soft == guarded_gt_1250`, `soft + base == eligible`, `finite + nonfinite == eligible`, threshold monotonicity/nesting, and both specimens exercised (nb:2457–2481, 3322–3325). A runtime config-verification block compares effective `soft_alpha / innovation_threshold / min_assignment_margin` against expected constants (nb:2518–2525) — it verifies effective config, not stale prose (Q4).
+- **Gates are parent-relative and meaningful.** aggregate ≥ parent + 0.0001; per-specimen adjusted-edge ≥ −0.001; worst-video delta ≥ −0.002; div TP≥4 / **FP≤8** / FN≤8 (nb:3327–3338). FP≤8 equals the parent, so any new false division fails.
+- **Diff scope.** Working-tree changes are bookkeeping only (GOAL/AGENTS/STATE/GPU_BUDGET/results, etc.); no edits to scorer, controller, or training code. Purely additive.
 
-No blocking implementation defects found.
+## Budget (Q6)
 
-## Budget
+2.0 GPU-h planned; ~14.57 h usable after the 6.0 h reserve; within the 4.0 h single-experiment cap. This bounded review is the single authorized model call. Cost is proportionate — even a null result definitively closes the alpha-0.6 branch.
 
-Reserved 2.0 GPU h; parent ran ~1.08 h, so real cost ≈1.1 h. Budget shows 11.13 h remaining with the 6 h reserve untouched, within `max_single_experiment_hours: 4.0`. Information gain is high relative to cost — it converts exp_040 from `reproducible: false` to a reproducibility verdict, unblocking any later promotion. Worth it.
+## Caveat (non-blocking)
 
-## Required changes (process gates before launch)
+Expected gain is asymmetric: global alpha 0.6 was net-negative, and the hypothesis bets the sign flips on this confident, high-innovation subset. The telemetry supports *sparsity* but, as the config states, is "not event-level causal evidence of benefit," and a 0.0001 floor over ~1.18% of updates is a small target — a marginal/null outcome is plausible. That is a reason to expect a possible REJECT, not to block a cheap, correctly-isolated test. Any positive result is still a paired proxy screen and would require reproduction before promotion (none authorized).
 
-1. Record this review as **PASS** in the experiment record (`review.status: PENDING` → PASSED) — mandated before any launch.
-2. Run and pass the local smoke test (`scripts/validate_public_0941_ema_repro.py`); `smoke_test.status` is PENDING and must be PASSED first.
-3. Launch must use the deterministically built snapshot notebook (`.private/current/public_0941_ema_repro.ipynb`, 247852 B — matches the snapshot).
-4. Keep it validation-only: `submission.user_authorized_count: 0`; **no leaderboard submission** is authorized.
-5. After collection, produce the separate `post-run-review.md` / `post-run-review.json`; a controller KEEP alone is not final Claude approval.
-6. Retain the ≥10% weekly Claude/Codex reserve; do not auto-retry this review after a timeout/quota stop.
+## Required changes
+
+None.
 
 ## Recommendation
 
-Methodology and implementation are sound, the step is justified, and the cost is small. Proceed to the next controller stage (record PASS → local smoke → the single authorized validation-only launch), subject to the process gates above.
+Safe to proceed: run snapshot smoke, and on smoke PASS launch exactly once on Kaggle for validation only. No leaderboard submission, promotion, milestone v06, reproduction, or successor is authorized.
 
 VERDICT: PASS
