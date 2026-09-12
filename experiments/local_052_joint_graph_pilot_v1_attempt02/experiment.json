@@ -1,0 +1,25 @@
+{
+  "experiment_id": "local_052_joint_graph_pilot_v1",
+  "execution": "local_only",
+  "status": "COMPLETED",
+  "parent": "repro_041_public_0941_motion_ema",
+  "evidence_donor": "diag_051_public_0942_tracklet_evidence",
+  "hypothesis": "Five-frame motion and existing secondary appearance improve joint cut-and-reconnect decisions over the original probability alone without damaging division structure.",
+  "admission": {
+    "require_claude_review": true
+  },
+  "review": "No remote admission review requested; local screen only.",
+  "gpu_hours": 0,
+  "started_at": "2026-09-12T03:53:19.195772+00:00",
+  "protocol_sha256": "2c1c66cd4769fd9f200addf6839a86dd29900a1a91fd46805962e73daf203ed8",
+  "source_sha256": {
+    "scripts\\run_diag052_local.py": "9dd04ae319c8213b1ba212fb9b45259c5f0a0fb5b989036cb0f7ac620cc36340",
+    "scripts\\diag052_joint_policy.py": "d6df80367b89b67f6c49e58d7cf0842f53b6f6f2dc8c47c408d439c6f34ae157",
+    "scripts\\analyze_diag051_evidence.py": "3bfe53e16f141ea661603a1afea7a6b18c6a3d9f26b9c6a8a199188089253ee6",
+    "experiments\\diag_051_public_0942_tracklet_evidence\\snapshot\\source\\public_0942_tracklet_evidence.ipynb": "3e4c281303dcbc84010db66b43f73f234163b14e8769fb42207b136cfc84d5e6"
+  },
+  "decision": "REJECT_LOCAL_POLICY",
+  "elapsed_seconds": 59.557362499999954,
+  "completed_at": "2026-09-12T03:54:18.742387+00:00",
+  "result_sha256": "0785dc0ae905f04d77c42450d18d0368c1eab32340cd2897294da463407149c0"
+}

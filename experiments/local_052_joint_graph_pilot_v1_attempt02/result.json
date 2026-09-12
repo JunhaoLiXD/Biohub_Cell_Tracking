@@ -1,0 +1,2216 @@
+{
+  "decision": "REJECT_LOCAL_POLICY",
+  "checks": {
+    "aggregate_gain": true,
+    "context_beats_original": false,
+    "discovery_positive": true,
+    "confirmation_positive": true,
+    "both_specimens_positive": true,
+    "worst_video": true,
+    "division_global": true,
+    "division_specimens": true
+  },
+  "summary": {
+    "all": {
+      "no_change": {
+        "primary_metric": 0.9387332376874039,
+        "adjusted_edge_jaccard": 0.9187332376874039,
+        "division_jaccard": 0.2,
+        "div_tp": 4,
+        "div_fp": 8,
+        "div_fn": 8
+      },
+      "original_score": {
+        "primary_metric": 0.9535869213120838,
+        "adjusted_edge_jaccard": 0.9335869213120838,
+        "division_jaccard": 0.2,
+        "div_tp": 4,
+        "div_fp": 8,
+        "div_fn": 8
+      },
+      "context": {
+        "primary_metric": 0.9519261693422604,
+        "adjusted_edge_jaccard": 0.9319261693422604,
+        "division_jaccard": 0.2,
+        "div_tp": 4,
+        "div_fp": 8,
+        "div_fn": 8
+      }
+    },
+    "discovery": {
+      "no_change": {
+        "primary_metric": 0.9438204802780392,
+        "adjusted_edge_jaccard": 0.921598258055817,
+        "division_jaccard": 0.2222222222222222,
+        "div_tp": 2,
+        "div_fp": 5,
+        "div_fn": 2
+      },
+      "original_score": {
+        "primary_metric": 0.9648384685979295,
+        "adjusted_edge_jaccard": 0.9426162463757073,
+        "division_jaccard": 0.2222222222222222,
+        "div_tp": 2,
+        "div_fp": 5,
+        "div_fn": 2
+      },
+      "context": {
+        "primary_metric": 0.9634300579906937,
+        "adjusted_edge_jaccard": 0.9412078357684714,
+        "division_jaccard": 0.2222222222222222,
+        "div_tp": 2,
+        "div_fp": 5,
+        "div_fn": 2
+      }
+    },
+    "confirmation": {
+      "no_change": {
+        "primary_metric": 0.9332219420822659,
+        "adjusted_edge_jaccard": 0.9150401239004478,
+        "division_jaccard": 0.18181818181818182,
+        "div_tp": 2,
+        "div_fp": 3,
+        "div_fn": 6
+      },
+      "original_score": {
+        "primary_metric": 0.9402455024504629,
+        "adjusted_edge_jaccard": 0.9220636842686447,
+        "division_jaccard": 0.18181818181818182,
+        "div_tp": 2,
+        "div_fp": 3,
+        "div_fn": 6
+      },
+      "context": {
+        "primary_metric": 0.9382698849736197,
+        "adjusted_edge_jaccard": 0.9200880667918016,
+        "division_jaccard": 0.18181818181818182,
+        "div_tp": 2,
+        "div_fp": 3,
+        "div_fn": 6
+      }
+    },
+    "44b6": {
+      "no_change": {
+        "primary_metric": 0.9228460029238004,
+        "adjusted_edge_jaccard": 0.9028460029238004,
+        "division_jaccard": 0.2,
+        "div_tp": 2,
+        "div_fp": 5,
+        "div_fn": 3
+      },
+      "original_score": {
+        "primary_metric": 0.9261834506357616,
+        "adjusted_edge_jaccard": 0.9061834506357616,
+        "division_jaccard": 0.2,
+        "div_tp": 2,
+        "div_fp": 5,
+        "div_fn": 3
+      },
+      "context": {
+        "primary_metric": 0.9250877714504799,
+        "adjusted_edge_jaccard": 0.9050877714504799,
+        "division_jaccard": 0.2,
+        "div_tp": 2,
+        "div_fp": 5,
+        "div_fn": 3
+      }
+    },
+    "6bba": {
+      "no_change": {
+        "primary_metric": 0.9442148231081169,
+        "adjusted_edge_jaccard": 0.9242148231081169,
+        "division_jaccard": 0.2,
+        "div_tp": 2,
+        "div_fp": 3,
+        "div_fn": 5
+      },
+      "original_score": {
+        "primary_metric": 0.9631387547053626,
+        "adjusted_edge_jaccard": 0.9431387547053626,
+        "division_jaccard": 0.2,
+        "div_tp": 2,
+        "div_fp": 3,
+        "div_fn": 5
+      },
+      "context": {
+        "primary_metric": 0.9612807071064912,
+        "adjusted_edge_jaccard": 0.9412807071064911,
+        "division_jaccard": 0.2,
+        "div_tp": 2,
+        "div_fp": 3,
+        "div_fn": 5
+      }
+    }
+  },
+  "deltas": {
+    "all": {
+      "no_change": 0.0,
+      "original_score": 0.01485368362467987,
+      "context": 0.013192931654856466
+    },
+    "discovery": {
+      "no_change": 0.0,
+      "original_score": 0.021017988319890324,
+      "context": 0.01960957771265448
+    },
+    "confirmation": {
+      "no_change": 0.0,
+      "original_score": 0.007023560368196957,
+      "context": 0.005047942891353796
+    },
+    "44b6": {
+      "no_change": 0.0,
+      "original_score": 0.0033374477119612056,
+      "context": 0.002241768526679566
+    },
+    "6bba": {
+      "no_change": 0.0,
+      "original_score": 0.018923931597245702,
+      "context": 0.017065883998374276
+    }
+  },
+  "worst_video_context_adjusted_delta": 0.0,
+  "videos": {
+    "44b6_1d530831": {
+      "population": {
+        "persistent_original_nodes": 33812,
+        "final_ids_rejected_for_identity": 0,
+        "exported_pairs": 433641,
+        "final_node_pairs": 273728,
+        "sources_with_candidates": 33469,
+        "complete_context_pairs": 209647,
+        "candidate_pairs": 240887
+      },
+      "nodes": 34251,
+      "parent_edges": 32809,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 243,
+            "edge_fp": 33,
+            "edge_fn": 28,
+            "div_tp": 0,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 304,
+            "adjusted_edge_jaccard": 0.8028540786719066,
+            "missed_gt_nodes": 8,
+            "spurious_pred_nodes": 33983,
+            "edges_recovered": 243,
+            "edges_fragmented": 16,
+            "edges_lost_to_detection": 12,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 32809
+          },
+          "graph_sha256": "34ca761abb692cff142213c863b900abc21123be10465a2b9d5daa1ce2d37c35"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 243,
+            "edge_fp": 33,
+            "edge_fn": 28,
+            "div_tp": 0,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 304,
+            "adjusted_edge_jaccard": 0.8028540786719066,
+            "missed_gt_nodes": 8,
+            "spurious_pred_nodes": 33983,
+            "edges_recovered": 243,
+            "edges_fragmented": 16,
+            "edges_lost_to_detection": 12,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 15
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 17
+          },
+          "additions": 15,
+          "removals": 17,
+          "actions": 15,
+          "edit_rate_per_parent_edge": 0.0009753421317321467,
+          "coverage": {
+            "protected_edges": 16385,
+            "fork_protected_nodes": 87,
+            "solver_pairs": 91216
+          },
+          "graph_sha256": "e622a7bb56ef4f66018e8776082f1c00c7a8e993f44dba6c6a18fcedc71452bc"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 243,
+            "edge_fp": 33,
+            "edge_fn": 28,
+            "div_tp": 0,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 304,
+            "adjusted_edge_jaccard": 0.8028540786719066,
+            "missed_gt_nodes": 8,
+            "spurious_pred_nodes": 33983,
+            "edges_recovered": 243,
+            "edges_fragmented": 16,
+            "edges_lost_to_detection": 12,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 8
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 10
+          },
+          "additions": 8,
+          "removals": 10,
+          "actions": 8,
+          "edit_rate_per_parent_edge": 0.0005486299490993325,
+          "coverage": {
+            "protected_edges": 16385,
+            "fork_protected_nodes": 87,
+            "solver_pairs": 91216
+          },
+          "graph_sha256": "4e8db1080a033ce08e978b3f3464e1e3d74a6ad13c9f08fee5391a13908fd204"
+        }
+      }
+    },
+    "44b6_2a2eff9f": {
+      "population": {
+        "persistent_original_nodes": 35659,
+        "final_ids_rejected_for_identity": 1,
+        "exported_pairs": 490094,
+        "final_node_pairs": 272939,
+        "sources_with_candidates": 35384,
+        "complete_context_pairs": 211106,
+        "candidate_pairs": 244872
+      },
+      "nodes": 36167,
+      "parent_edges": 34515,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 199,
+            "edge_fp": 21,
+            "edge_fn": 11,
+            "div_tp": 1,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 231,
+            "adjusted_edge_jaccard": 0.8923440590373372,
+            "missed_gt_nodes": 0,
+            "spurious_pred_nodes": 35953,
+            "edges_recovered": 199,
+            "edges_fragmented": 11,
+            "edges_lost_to_detection": 0,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 34515
+          },
+          "graph_sha256": "be6bc756f4bc71faa0b1113b45dd86611a6ba7b042ef52665461d893d29c325d"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 199,
+            "edge_fp": 21,
+            "edge_fn": 11,
+            "div_tp": 1,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 231,
+            "adjusted_edge_jaccard": 0.8923440590373372,
+            "missed_gt_nodes": 0,
+            "spurious_pred_nodes": 35953,
+            "edges_recovered": 199,
+            "edges_fragmented": 11,
+            "edges_lost_to_detection": 0,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 27
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 32
+          },
+          "additions": 27,
+          "removals": 32,
+          "actions": 26,
+          "edit_rate_per_parent_edge": 0.0017094017094017094,
+          "coverage": {
+            "protected_edges": 14217,
+            "fork_protected_nodes": 74,
+            "solver_pairs": 113827
+          },
+          "graph_sha256": "593797170e1a90dc81da73395463cb5a6707920f1a9408a1be2b23dda4590290"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 199,
+            "edge_fp": 21,
+            "edge_fn": 11,
+            "div_tp": 1,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 231,
+            "adjusted_edge_jaccard": 0.8923440590373372,
+            "missed_gt_nodes": 0,
+            "spurious_pred_nodes": 35953,
+            "edges_recovered": 199,
+            "edges_fragmented": 11,
+            "edges_lost_to_detection": 0,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 14
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 15
+          },
+          "additions": 14,
+          "removals": 15,
+          "actions": 13,
+          "edit_rate_per_parent_edge": 0.0008402143995364334,
+          "coverage": {
+            "protected_edges": 14217,
+            "fork_protected_nodes": 74,
+            "solver_pairs": 113827
+          },
+          "graph_sha256": "bf42a65fdfafe562a33e53a7685dec5c7e527fb23e55acfeb9573120760dd9e6"
+        }
+      }
+    },
+    "44b6_551a5dba": {
+      "population": {
+        "persistent_original_nodes": 28899,
+        "final_ids_rejected_for_identity": 1,
+        "exported_pairs": 425966,
+        "final_node_pairs": 206051,
+        "sources_with_candidates": 28731,
+        "complete_context_pairs": 163730,
+        "candidate_pairs": 189818
+      },
+      "nodes": 29328,
+      "parent_edges": 27997,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 200,
+            "edge_fp": 29,
+            "edge_fn": 24,
+            "div_tp": 0,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 253,
+            "adjusted_edge_jaccard": 0.8293337465125147,
+            "missed_gt_nodes": 6,
+            "spurious_pred_nodes": 29106,
+            "edges_recovered": 200,
+            "edges_fragmented": 18,
+            "edges_lost_to_detection": 6,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 27997
+          },
+          "graph_sha256": "e5b3d799dccac45718c08db0da002bf5fb7d810ddb91a14c5d00a18a08160303"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 200,
+            "edge_fp": 29,
+            "edge_fn": 24,
+            "div_tp": 0,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 253,
+            "adjusted_edge_jaccard": 0.8293337465125147,
+            "missed_gt_nodes": 6,
+            "spurious_pred_nodes": 29106,
+            "edges_recovered": 200,
+            "edges_fragmented": 18,
+            "edges_lost_to_detection": 6,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 24
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 30
+          },
+          "additions": 24,
+          "removals": 30,
+          "actions": 24,
+          "edit_rate_per_parent_edge": 0.001928778083366075,
+          "coverage": {
+            "protected_edges": 13371,
+            "fork_protected_nodes": 69,
+            "solver_pairs": 74651
+          },
+          "graph_sha256": "fc4bef9ea80b424dedc284d790a3a253331d4772f7689ac10de604df26cc7a53"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 200,
+            "edge_fp": 29,
+            "edge_fn": 24,
+            "div_tp": 0,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 253,
+            "adjusted_edge_jaccard": 0.8293337465125147,
+            "missed_gt_nodes": 6,
+            "spurious_pred_nodes": 29106,
+            "edges_recovered": 200,
+            "edges_fragmented": 18,
+            "edges_lost_to_detection": 6,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 18
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 21
+          },
+          "additions": 18,
+          "removals": 21,
+          "actions": 18,
+          "edit_rate_per_parent_edge": 0.0013930063935421652,
+          "coverage": {
+            "protected_edges": 13371,
+            "fork_protected_nodes": 69,
+            "solver_pairs": 74651
+          },
+          "graph_sha256": "5e874a74c916aedc4735689a97ab2e22f28a1f3c162d24cab56c279f82761a70"
+        }
+      }
+    },
+    "44b6_7a302da0": {
+      "population": {
+        "persistent_original_nodes": 39739,
+        "final_ids_rejected_for_identity": 3,
+        "exported_pairs": 587203,
+        "final_node_pairs": 291735,
+        "sources_with_candidates": 39428,
+        "complete_context_pairs": 230221,
+        "candidate_pairs": 264935
+      },
+      "nodes": 40300,
+      "parent_edges": 38557,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 490,
+            "edge_fp": 24,
+            "edge_fn": 17,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 1,
+            "weight": 531,
+            "adjusted_edge_jaccard": 0.9594430650699161,
+            "missed_gt_nodes": 0,
+            "spurious_pred_nodes": 39784,
+            "edges_recovered": 490,
+            "edges_fragmented": 17,
+            "edges_lost_to_detection": 0,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 38557
+          },
+          "graph_sha256": "ab127f48ae915a63d0e6ceeac67f3ebfe8f1e241b730d0cdc68abb49904fc68f"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 490,
+            "edge_fp": 25,
+            "edge_fn": 17,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 1,
+            "weight": 532,
+            "adjusted_edge_jaccard": 0.9576396006618899,
+            "missed_gt_nodes": 0,
+            "spurious_pred_nodes": 39784,
+            "edges_recovered": 490,
+            "edges_fragmented": 17,
+            "edges_lost_to_detection": 0,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 1,
+            "unknown": 14
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 16
+          },
+          "additions": 15,
+          "removals": 16,
+          "actions": 15,
+          "edit_rate_per_parent_edge": 0.0008040044609279768,
+          "coverage": {
+            "protected_edges": 19236,
+            "fork_protected_nodes": 147,
+            "solver_pairs": 96295
+          },
+          "graph_sha256": "2b0cfa13e9b052ac8c75d215b7d303e9305762e1c981c9db50b70b2f487c8bea"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 490,
+            "edge_fp": 24,
+            "edge_fn": 17,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 1,
+            "weight": 531,
+            "adjusted_edge_jaccard": 0.9594430650699161,
+            "missed_gt_nodes": 0,
+            "spurious_pred_nodes": 39784,
+            "edges_recovered": 490,
+            "edges_fragmented": 17,
+            "edges_lost_to_detection": 0,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 6
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 6
+          },
+          "additions": 6,
+          "removals": 6,
+          "actions": 6,
+          "edit_rate_per_parent_edge": 0.00031122753326244263,
+          "coverage": {
+            "protected_edges": 19236,
+            "fork_protected_nodes": 147,
+            "solver_pairs": 96295
+          },
+          "graph_sha256": "7803e4882867a09f3111becd7504437d9b619ef352dd648d4987b9567f3e1e36"
+        }
+      }
+    },
+    "44b6_7e557709": {
+      "population": {
+        "persistent_original_nodes": 42571,
+        "final_ids_rejected_for_identity": 3,
+        "exported_pairs": 524236,
+        "final_node_pairs": 370468,
+        "sources_with_candidates": 42250,
+        "complete_context_pairs": 286232,
+        "candidate_pairs": 314488
+      },
+      "nodes": 43110,
+      "parent_edges": 41831,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 546,
+            "edge_fp": 13,
+            "edge_fn": 14,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 0,
+            "weight": 573,
+            "adjusted_edge_jaccard": 0.9748913374413727,
+            "missed_gt_nodes": 4,
+            "spurious_pred_nodes": 42544,
+            "edges_recovered": 546,
+            "edges_fragmented": 10,
+            "edges_lost_to_detection": 4,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 41831
+          },
+          "graph_sha256": "168b3d1127a2d55c0fab80aa3fda943a4a5f519b6b2d5fa8c732853b59e3ce73"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 546,
+            "edge_fp": 13,
+            "edge_fn": 14,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 0,
+            "weight": 573,
+            "adjusted_edge_jaccard": 0.9748913374413727,
+            "missed_gt_nodes": 4,
+            "spurious_pred_nodes": 42544,
+            "edges_recovered": 546,
+            "edges_fragmented": 10,
+            "edges_lost_to_detection": 4,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 8
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 10
+          },
+          "additions": 8,
+          "removals": 10,
+          "actions": 8,
+          "edit_rate_per_parent_edge": 0.0004303028854199039,
+          "coverage": {
+            "protected_edges": 27916,
+            "fork_protected_nodes": 45,
+            "solver_pairs": 67974
+          },
+          "graph_sha256": "975c31157f206d18cac740757195c3177ed5bf75f9a17f4ff67fa41f0c5e4c45"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 546,
+            "edge_fp": 13,
+            "edge_fn": 14,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 0,
+            "weight": 573,
+            "adjusted_edge_jaccard": 0.9748913374413727,
+            "missed_gt_nodes": 4,
+            "spurious_pred_nodes": 42544,
+            "edges_recovered": 546,
+            "edges_fragmented": 10,
+            "edges_lost_to_detection": 4,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 7
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 9
+          },
+          "additions": 7,
+          "removals": 9,
+          "actions": 7,
+          "edit_rate_per_parent_edge": 0.00038249145370658125,
+          "coverage": {
+            "protected_edges": 27916,
+            "fork_protected_nodes": 45,
+            "solver_pairs": 67974
+          },
+          "graph_sha256": "32abea10c57266837381776f4f8bbd198e08d13c9d6828a2f6ac0905cc5e6df1"
+        }
+      }
+    },
+    "44b6_aaf8b0ea": {
+      "population": {
+        "persistent_original_nodes": 13751,
+        "final_ids_rejected_for_identity": 2,
+        "exported_pairs": 203357,
+        "final_node_pairs": 101909,
+        "sources_with_candidates": 13631,
+        "complete_context_pairs": 81622,
+        "candidate_pairs": 92447
+      },
+      "nodes": 13965,
+      "parent_edges": 13414,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 202,
+            "edge_fp": 2,
+            "edge_fn": 4,
+            "div_tp": 1,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 208,
+            "adjusted_edge_jaccard": 1.006899198362613,
+            "missed_gt_nodes": 2,
+            "spurious_pred_nodes": 13758,
+            "edges_recovered": 202,
+            "edges_fragmented": 0,
+            "edges_lost_to_detection": 4,
+            "wrong_association_edges": 2
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 13414
+          },
+          "graph_sha256": "e7850526829c6c1a73a5b74c4b9dc9464dbadd75155c10f37ff6e66ee85a488b"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 202,
+            "edge_fp": 2,
+            "edge_fn": 4,
+            "div_tp": 1,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 208,
+            "adjusted_edge_jaccard": 1.006899198362613,
+            "missed_gt_nodes": 2,
+            "spurious_pred_nodes": 13758,
+            "edges_recovered": 202,
+            "edges_fragmented": 0,
+            "edges_lost_to_detection": 4,
+            "wrong_association_edges": 2
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 5
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 4
+          },
+          "additions": 5,
+          "removals": 4,
+          "actions": 5,
+          "edit_rate_per_parent_edge": 0.0006709408081109288,
+          "coverage": {
+            "protected_edges": 6370,
+            "fork_protected_nodes": 18,
+            "solver_pairs": 36993
+          },
+          "graph_sha256": "77ff28b2643a66e39898f3be8977d4ab8fb1dd7182ed71fd90454d03cdfa38ec"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 202,
+            "edge_fp": 2,
+            "edge_fn": 4,
+            "div_tp": 1,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 208,
+            "adjusted_edge_jaccard": 1.006899198362613,
+            "missed_gt_nodes": 2,
+            "spurious_pred_nodes": 13758,
+            "edges_recovered": 202,
+            "edges_fragmented": 0,
+            "edges_lost_to_detection": 4,
+            "wrong_association_edges": 2
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 3
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 3
+          },
+          "additions": 3,
+          "removals": 3,
+          "actions": 3,
+          "edit_rate_per_parent_edge": 0.0004472938720739526,
+          "coverage": {
+            "protected_edges": 6370,
+            "fork_protected_nodes": 18,
+            "solver_pairs": 36993
+          },
+          "graph_sha256": "516725f19f614d3f87d14221fb86b5699e0fd54b3a5f13c5d034bd4ce78e7097"
+        }
+      }
+    },
+    "44b6_c15fded2": {
+      "population": {
+        "persistent_original_nodes": 18994,
+        "final_ids_rejected_for_identity": 2,
+        "exported_pairs": 223439,
+        "final_node_pairs": 171610,
+        "sources_with_candidates": 18858,
+        "complete_context_pairs": 123506,
+        "candidate_pairs": 142895
+      },
+      "nodes": 19182,
+      "parent_edges": 18436,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 93,
+            "edge_fp": 11,
+            "edge_fn": 9,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 0,
+            "weight": 113,
+            "adjusted_edge_jaccard": 0.8286181836159587,
+            "missed_gt_nodes": 3,
+            "spurious_pred_nodes": 19081,
+            "edges_recovered": 93,
+            "edges_fragmented": 6,
+            "edges_lost_to_detection": 3,
+            "wrong_association_edges": 1
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 18436
+          },
+          "graph_sha256": "5c2197337243b523a9aa637fa00cb28bdaa3a7b1fbb63b541def93fbff53d053"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 95,
+            "edge_fp": 7,
+            "edge_fn": 7,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 0,
+            "weight": 109,
+            "adjusted_edge_jaccard": 0.8774998718671518,
+            "missed_gt_nodes": 3,
+            "spurious_pred_nodes": 19081,
+            "edges_recovered": 95,
+            "edges_fragmented": 4,
+            "edges_lost_to_detection": 3,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 2,
+            "false": 0,
+            "unknown": 316
+          },
+          "removed": {
+            "true": 0,
+            "false": 4,
+            "unknown": 350
+          },
+          "additions": 318,
+          "removals": 354,
+          "actions": 154,
+          "edit_rate_per_parent_edge": 0.036450423085267955,
+          "coverage": {
+            "protected_edges": 13244,
+            "fork_protected_nodes": 111,
+            "solver_pairs": 26228
+          },
+          "graph_sha256": "7b3b99e541f7abdc5b203b99abfae0772d3a2ef657c116ee15f022674ffd67f4"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 94,
+            "edge_fp": 10,
+            "edge_fn": 8,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 0,
+            "weight": 112,
+            "adjusted_edge_jaccard": 0.8450059856344773,
+            "missed_gt_nodes": 3,
+            "spurious_pred_nodes": 19081,
+            "edges_recovered": 94,
+            "edges_fragmented": 5,
+            "edges_lost_to_detection": 3,
+            "wrong_association_edges": 1
+          },
+          "added": {
+            "true": 1,
+            "false": 0,
+            "unknown": 256
+          },
+          "removed": {
+            "true": 0,
+            "false": 1,
+            "unknown": 281
+          },
+          "additions": 257,
+          "removals": 282,
+          "actions": 130,
+          "edit_rate_per_parent_edge": 0.029236276849642005,
+          "coverage": {
+            "protected_edges": 13244,
+            "fork_protected_nodes": 111,
+            "solver_pairs": 26228
+          },
+          "graph_sha256": "d0597e152adea76ea4f8fcc5cb8da59917a196f53457306940f43f07976c44ee"
+        }
+      }
+    },
+    "44b6_c50204e0": {
+      "population": {
+        "persistent_original_nodes": 34132,
+        "final_ids_rejected_for_identity": 0,
+        "exported_pairs": 531280,
+        "final_node_pairs": 239656,
+        "sources_with_candidates": 33876,
+        "complete_context_pairs": 191820,
+        "candidate_pairs": 221623
+      },
+      "nodes": 34669,
+      "parent_edges": 33103,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 287,
+            "edge_fp": 38,
+            "edge_fn": 38,
+            "div_tp": 0,
+            "div_fp": 1,
+            "div_fn": 2,
+            "weight": 363,
+            "adjusted_edge_jaccard": 0.8114734330471076,
+            "missed_gt_nodes": 9,
+            "spurious_pred_nodes": 34345,
+            "edges_recovered": 287,
+            "edges_fragmented": 23,
+            "edges_lost_to_detection": 15,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 33103
+          },
+          "graph_sha256": "c47f89653d28c29c93f7568a491d27aafacf3b3804b392a5df4c9fb1000b9e64"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 289,
+            "edge_fp": 36,
+            "edge_fn": 36,
+            "div_tp": 0,
+            "div_fp": 1,
+            "div_fn": 2,
+            "weight": 361,
+            "adjusted_edge_jaccard": 0.8216553267701306,
+            "missed_gt_nodes": 9,
+            "spurious_pred_nodes": 34345,
+            "edges_recovered": 289,
+            "edges_fragmented": 21,
+            "edges_lost_to_detection": 15,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 2,
+            "false": 0,
+            "unknown": 36
+          },
+          "removed": {
+            "true": 0,
+            "false": 2,
+            "unknown": 45
+          },
+          "additions": 38,
+          "removals": 47,
+          "actions": 38,
+          "edit_rate_per_parent_edge": 0.002567743104854545,
+          "coverage": {
+            "protected_edges": 12072,
+            "fork_protected_nodes": 93,
+            "solver_pairs": 112130
+          },
+          "graph_sha256": "f8fc9fed79e98370cb727181611f37ec1f9236b832f9ae1c0e4345950eabcfb4"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 289,
+            "edge_fp": 36,
+            "edge_fn": 36,
+            "div_tp": 0,
+            "div_fp": 1,
+            "div_fn": 2,
+            "weight": 361,
+            "adjusted_edge_jaccard": 0.8216553267701306,
+            "missed_gt_nodes": 9,
+            "spurious_pred_nodes": 34345,
+            "edges_recovered": 289,
+            "edges_fragmented": 21,
+            "edges_lost_to_detection": 15,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 2,
+            "false": 0,
+            "unknown": 21
+          },
+          "removed": {
+            "true": 0,
+            "false": 2,
+            "unknown": 27
+          },
+          "additions": 23,
+          "removals": 29,
+          "actions": 23,
+          "edit_rate_per_parent_edge": 0.0015708546053227804,
+          "coverage": {
+            "protected_edges": 12072,
+            "fork_protected_nodes": 93,
+            "solver_pairs": 112130
+          },
+          "graph_sha256": "1764b123aaebacebfbb6cdb58b13518ff6dc8a2dd8caf532da85d93b559de320"
+        }
+      }
+    },
+    "6bba_0c7fa718": {
+      "population": {
+        "persistent_original_nodes": 12227,
+        "final_ids_rejected_for_identity": 0,
+        "exported_pairs": 153212,
+        "final_node_pairs": 100337,
+        "sources_with_candidates": 12174,
+        "complete_context_pairs": 70367,
+        "candidate_pairs": 87330
+      },
+      "nodes": 12315,
+      "parent_edges": 11616,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 597,
+            "edge_fp": 83,
+            "edge_fn": 62,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 0,
+            "weight": 742,
+            "adjusted_edge_jaccard": 0.812451201090015,
+            "missed_gt_nodes": 16,
+            "spurious_pred_nodes": 11627,
+            "edges_recovered": 597,
+            "edges_fragmented": 45,
+            "edges_lost_to_detection": 17,
+            "wrong_association_edges": 1
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 11616
+          },
+          "graph_sha256": "b3e4fd0c9bfbb3bfc8a2eb6b157c862d94d991a48acc07c3c147e8ef9662e34d"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 629,
+            "edge_fp": 24,
+            "edge_fn": 30,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 0,
+            "weight": 683,
+            "adjusted_edge_jaccard": 0.9299440091387382,
+            "missed_gt_nodes": 16,
+            "spurious_pred_nodes": 11627,
+            "edges_recovered": 629,
+            "edges_fragmented": 13,
+            "edges_lost_to_detection": 17,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 34,
+            "false": 7,
+            "unknown": 1053
+          },
+          "removed": {
+            "true": 2,
+            "false": 66,
+            "unknown": 1165
+          },
+          "additions": 1094,
+          "removals": 1233,
+          "actions": 500,
+          "edit_rate_per_parent_edge": 0.2003271349862259,
+          "coverage": {
+            "protected_edges": 6998,
+            "fork_protected_nodes": 117,
+            "solver_pairs": 26178
+          },
+          "graph_sha256": "76d5f2cfaae650eccd41fc4cc90099041e7e4306333c14db3ca8ab5a16edc536"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 626,
+            "edge_fp": 28,
+            "edge_fn": 33,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 0,
+            "weight": 687,
+            "adjusted_edge_jaccard": 0.9201199673688756,
+            "missed_gt_nodes": 16,
+            "spurious_pred_nodes": 11627,
+            "edges_recovered": 626,
+            "edges_fragmented": 16,
+            "edges_lost_to_detection": 17,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 30,
+            "false": 4,
+            "unknown": 910
+          },
+          "removed": {
+            "true": 1,
+            "false": 59,
+            "unknown": 985
+          },
+          "additions": 944,
+          "removals": 1045,
+          "actions": 436,
+          "edit_rate_per_parent_edge": 0.1712293388429752,
+          "coverage": {
+            "protected_edges": 6998,
+            "fork_protected_nodes": 117,
+            "solver_pairs": 26178
+          },
+          "graph_sha256": "886a8a9998a84e7aa263155653408e792088f00c6045e360ee57375572a5c94d"
+        }
+      }
+    },
+    "6bba_283bf9f1": {
+      "population": {
+        "persistent_original_nodes": 21529,
+        "final_ids_rejected_for_identity": 2,
+        "exported_pairs": 256249,
+        "final_node_pairs": 189802,
+        "sources_with_candidates": 21391,
+        "complete_context_pairs": 138041,
+        "candidate_pairs": 159573
+      },
+      "nodes": 21597,
+      "parent_edges": 20744,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 1246,
+            "edge_fp": 36,
+            "edge_fn": 42,
+            "div_tp": 0,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 1324,
+            "adjusted_edge_jaccard": 0.9377673482847406,
+            "missed_gt_nodes": 22,
+            "spurious_pred_nodes": 20277,
+            "edges_recovered": 1246,
+            "edges_fragmented": 17,
+            "edges_lost_to_detection": 25,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 20744
+          },
+          "graph_sha256": "af38c796cf340ed4e3f59264ca049e243601d966aa39a04b60f532e789eacec6"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 1251,
+            "edge_fp": 25,
+            "edge_fn": 37,
+            "div_tp": 0,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 1313,
+            "adjusted_edge_jaccard": 0.9494183766608363,
+            "missed_gt_nodes": 22,
+            "spurious_pred_nodes": 20277,
+            "edges_recovered": 1251,
+            "edges_fragmented": 12,
+            "edges_lost_to_detection": 25,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 7,
+            "false": 2,
+            "unknown": 186
+          },
+          "removed": {
+            "true": 2,
+            "false": 13,
+            "unknown": 164
+          },
+          "additions": 195,
+          "removals": 179,
+          "actions": 110,
+          "edit_rate_per_parent_edge": 0.018029309679907443,
+          "coverage": {
+            "protected_edges": 12594,
+            "fork_protected_nodes": 108,
+            "solver_pairs": 44346
+          },
+          "graph_sha256": "6279b6fdafc8f235bae12560a1b187f1deb44ebba8c30a979242cdda43409ab5"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 1250,
+            "edge_fp": 26,
+            "edge_fn": 38,
+            "div_tp": 0,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 1314,
+            "adjusted_edge_jaccard": 0.9479374860504884,
+            "missed_gt_nodes": 22,
+            "spurious_pred_nodes": 20277,
+            "edges_recovered": 1250,
+            "edges_fragmented": 13,
+            "edges_lost_to_detection": 25,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 6,
+            "false": 2,
+            "unknown": 168
+          },
+          "removed": {
+            "true": 2,
+            "false": 12,
+            "unknown": 147
+          },
+          "additions": 176,
+          "removals": 161,
+          "actions": 97,
+          "edit_rate_per_parent_edge": 0.016245661396066334,
+          "coverage": {
+            "protected_edges": 12594,
+            "fork_protected_nodes": 108,
+            "solver_pairs": 44346
+          },
+          "graph_sha256": "a51daa481bdeee74a3ee7d1e760b113e53945894fea82ff9cd0f587d594de100"
+        }
+      }
+    },
+    "6bba_337b1b3a": {
+      "population": {
+        "persistent_original_nodes": 29025,
+        "final_ids_rejected_for_identity": 0,
+        "exported_pairs": 328736,
+        "final_node_pairs": 280626,
+        "sources_with_candidates": 28717,
+        "complete_context_pairs": 194726,
+        "candidate_pairs": 222732
+      },
+      "nodes": 29084,
+      "parent_edges": 28094,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 1181,
+            "edge_fp": 49,
+            "edge_fn": 32,
+            "div_tp": 1,
+            "div_fp": 1,
+            "div_fn": 1,
+            "weight": 1262,
+            "adjusted_edge_jaccard": 0.9401022519768231,
+            "missed_gt_nodes": 0,
+            "spurious_pred_nodes": 27812,
+            "edges_recovered": 1181,
+            "edges_fragmented": 32,
+            "edges_lost_to_detection": 0,
+            "wrong_association_edges": 4
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 28094
+          },
+          "graph_sha256": "beb5fbcf78f7fdd9230cdcabe349b1c1bb4a5df7363b32828dcfce48ef989741"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 1188,
+            "edge_fp": 41,
+            "edge_fn": 25,
+            "div_tp": 1,
+            "div_fp": 1,
+            "div_fn": 1,
+            "weight": 1254,
+            "adjusted_edge_jaccard": 0.9517074181516784,
+            "missed_gt_nodes": 0,
+            "spurious_pred_nodes": 27812,
+            "edges_recovered": 1188,
+            "edges_fragmented": 25,
+            "edges_lost_to_detection": 0,
+            "wrong_association_edges": 6
+          },
+          "added": {
+            "true": 7,
+            "false": 5,
+            "unknown": 267
+          },
+          "removed": {
+            "true": 0,
+            "false": 13,
+            "unknown": 265
+          },
+          "additions": 279,
+          "removals": 278,
+          "actions": 167,
+          "edit_rate_per_parent_edge": 0.01982629743005624,
+          "coverage": {
+            "protected_edges": 20661,
+            "fork_protected_nodes": 140,
+            "solver_pairs": 40941
+          },
+          "graph_sha256": "eb71dfbcfcdba3b0d63d2b116e23cecfd23749cc56d3da38a6e35cbc89c3e403"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 1188,
+            "edge_fp": 39,
+            "edge_fn": 25,
+            "div_tp": 1,
+            "div_fp": 1,
+            "div_fn": 1,
+            "weight": 1252,
+            "adjusted_edge_jaccard": 0.953227717541697,
+            "missed_gt_nodes": 0,
+            "spurious_pred_nodes": 27812,
+            "edges_recovered": 1188,
+            "edges_fragmented": 25,
+            "edges_lost_to_detection": 0,
+            "wrong_association_edges": 5
+          },
+          "added": {
+            "true": 7,
+            "false": 3,
+            "unknown": 230
+          },
+          "removed": {
+            "true": 0,
+            "false": 13,
+            "unknown": 220
+          },
+          "additions": 240,
+          "removals": 233,
+          "actions": 146,
+          "edit_rate_per_parent_edge": 0.016836335160532498,
+          "coverage": {
+            "protected_edges": 20661,
+            "fork_protected_nodes": 140,
+            "solver_pairs": 40941
+          },
+          "graph_sha256": "0071a1ffb2601706df46e1f9ae78e3d1eee1646bf3f21dde758c416f01498c39"
+        }
+      }
+    },
+    "6bba_372c8cb8": {
+      "population": {
+        "persistent_original_nodes": 6626,
+        "final_ids_rejected_for_identity": 0,
+        "exported_pairs": 84878,
+        "final_node_pairs": 56684,
+        "sources_with_candidates": 6565,
+        "complete_context_pairs": 43480,
+        "candidate_pairs": 47406
+      },
+      "nodes": 6651,
+      "parent_edges": 6486,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 1006,
+            "edge_fp": 1,
+            "edge_fn": 1,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 0,
+            "weight": 1008,
+            "adjusted_edge_jaccard": 1.0032753214280064,
+            "missed_gt_nodes": 0,
+            "spurious_pred_nodes": 5615,
+            "edges_recovered": 1006,
+            "edges_fragmented": 1,
+            "edges_lost_to_detection": 0,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 6486
+          },
+          "graph_sha256": "321909f6eb5e872722a8955dd18ceea1b5f105820eeca7263a685111ca0fb990"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 1007,
+            "edge_fp": 0,
+            "edge_fn": 0,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 0,
+            "weight": 1007,
+            "adjusted_edge_jaccard": 1.0052699045719984,
+            "missed_gt_nodes": 0,
+            "spurious_pred_nodes": 5615,
+            "edges_recovered": 1007,
+            "edges_fragmented": 0,
+            "edges_lost_to_detection": 0,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 1,
+            "false": 0,
+            "unknown": 11
+          },
+          "removed": {
+            "true": 0,
+            "false": 1,
+            "unknown": 8
+          },
+          "additions": 12,
+          "removals": 9,
+          "actions": 10,
+          "edit_rate_per_parent_edge": 0.0032377428307123032,
+          "coverage": {
+            "protected_edges": 4495,
+            "fork_protected_nodes": 0,
+            "solver_pairs": 9382
+          },
+          "graph_sha256": "f16e992fdcd2ee502e8fd6e6adc1d22c2a40624b96cb2629d5d3b134f6fab3cb"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 1006,
+            "edge_fp": 1,
+            "edge_fn": 1,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 0,
+            "weight": 1008,
+            "adjusted_edge_jaccard": 1.0032753214280064,
+            "missed_gt_nodes": 0,
+            "spurious_pred_nodes": 5615,
+            "edges_recovered": 1006,
+            "edges_fragmented": 1,
+            "edges_lost_to_detection": 0,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 10
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 7
+          },
+          "additions": 10,
+          "removals": 7,
+          "actions": 8,
+          "edit_rate_per_parent_edge": 0.0026210299105766267,
+          "coverage": {
+            "protected_edges": 4495,
+            "fork_protected_nodes": 0,
+            "solver_pairs": 9382
+          },
+          "graph_sha256": "2dcdf0c38db1b7a213d6ec8215c30a46b71771a2c138ed4a661e078e59598f3f"
+        }
+      }
+    },
+    "6bba_55c70843": {
+      "population": {
+        "persistent_original_nodes": 36482,
+        "final_ids_rejected_for_identity": 0,
+        "exported_pairs": 463058,
+        "final_node_pairs": 276942,
+        "sources_with_candidates": 36175,
+        "complete_context_pairs": 224934,
+        "candidate_pairs": 254022
+      },
+      "nodes": 36825,
+      "parent_edges": 35404,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 394,
+            "edge_fp": 83,
+            "edge_fn": 73,
+            "div_tp": 0,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 550,
+            "adjusted_edge_jaccard": 0.7135115320934888,
+            "missed_gt_nodes": 26,
+            "spurious_pred_nodes": 36361,
+            "edges_recovered": 394,
+            "edges_fragmented": 39,
+            "edges_lost_to_detection": 34,
+            "wrong_association_edges": 1
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 35404
+          },
+          "graph_sha256": "4ea579c47940f098feaff1c06326c730c9913b839c6d39cc5c6c4337d881728d"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 395,
+            "edge_fp": 83,
+            "edge_fn": 72,
+            "div_tp": 0,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 550,
+            "adjusted_edge_jaccard": 0.7153224750683455,
+            "missed_gt_nodes": 26,
+            "spurious_pred_nodes": 36361,
+            "edges_recovered": 395,
+            "edges_fragmented": 38,
+            "edges_lost_to_detection": 34,
+            "wrong_association_edges": 1
+          },
+          "added": {
+            "true": 1,
+            "false": 2,
+            "unknown": 117
+          },
+          "removed": {
+            "true": 0,
+            "false": 2,
+            "unknown": 135
+          },
+          "additions": 120,
+          "removals": 137,
+          "actions": 91,
+          "edit_rate_per_parent_edge": 0.007259066772116145,
+          "coverage": {
+            "protected_edges": 10553,
+            "fork_protected_nodes": 27,
+            "solver_pairs": 151995
+          },
+          "graph_sha256": "7a30d941102378e73c574164bd8a229e5499ba17be31012e3f57b56fd2f90e75"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 395,
+            "edge_fp": 81,
+            "edge_fn": 72,
+            "div_tp": 0,
+            "div_fp": 1,
+            "div_fn": 0,
+            "weight": 548,
+            "adjusted_edge_jaccard": 0.7179331410357482,
+            "missed_gt_nodes": 26,
+            "spurious_pred_nodes": 36361,
+            "edges_recovered": 395,
+            "edges_fragmented": 38,
+            "edges_lost_to_detection": 34,
+            "wrong_association_edges": 1
+          },
+          "added": {
+            "true": 1,
+            "false": 0,
+            "unknown": 55
+          },
+          "removed": {
+            "true": 0,
+            "false": 2,
+            "unknown": 60
+          },
+          "additions": 56,
+          "removals": 62,
+          "actions": 45,
+          "edit_rate_per_parent_edge": 0.0033329567280533275,
+          "coverage": {
+            "protected_edges": 10553,
+            "fork_protected_nodes": 27,
+            "solver_pairs": 151995
+          },
+          "graph_sha256": "eaf617af8791a04de2672657b7f71eb8463cd5ae49b055453f648b43980f8517"
+        }
+      }
+    },
+    "6bba_80d12824": {
+      "population": {
+        "persistent_original_nodes": 8470,
+        "final_ids_rejected_for_identity": 0,
+        "exported_pairs": 111428,
+        "final_node_pairs": 66707,
+        "sources_with_candidates": 8415,
+        "complete_context_pairs": 49871,
+        "candidate_pairs": 59126
+      },
+      "nodes": 8513,
+      "parent_edges": 8101,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 606,
+            "edge_fp": 27,
+            "edge_fn": 48,
+            "div_tp": 1,
+            "div_fp": 0,
+            "div_fn": 0,
+            "weight": 681,
+            "adjusted_edge_jaccard": 0.8948789583971223,
+            "missed_gt_nodes": 29,
+            "spurious_pred_nodes": 7862,
+            "edges_recovered": 606,
+            "edges_fragmented": 11,
+            "edges_lost_to_detection": 37,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 8101
+          },
+          "graph_sha256": "31a3c4b3809c468c7bd713e27fde1c1322e628d33c8cde35456a3170d68299d7"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 612,
+            "edge_fp": 22,
+            "edge_fn": 42,
+            "div_tp": 1,
+            "div_fp": 0,
+            "div_fn": 0,
+            "weight": 676,
+            "adjusted_edge_jaccard": 0.9104236072438471,
+            "missed_gt_nodes": 29,
+            "spurious_pred_nodes": 7862,
+            "edges_recovered": 612,
+            "edges_fragmented": 5,
+            "edges_lost_to_detection": 37,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 6,
+            "false": 2,
+            "unknown": 178
+          },
+          "removed": {
+            "true": 0,
+            "false": 7,
+            "unknown": 182
+          },
+          "additions": 186,
+          "removals": 189,
+          "actions": 116,
+          "edit_rate_per_parent_edge": 0.046290581409702505,
+          "coverage": {
+            "protected_edges": 4496,
+            "fork_protected_nodes": 30,
+            "solver_pairs": 20010
+          },
+          "graph_sha256": "7b66c9f8fa33d0df4a96a892b017dea3ba461c2a84e508c7bd51a2d946fdf9a5"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 611,
+            "edge_fp": 22,
+            "edge_fn": 43,
+            "div_tp": 1,
+            "div_fp": 0,
+            "div_fn": 0,
+            "weight": 676,
+            "adjusted_edge_jaccard": 0.9089359869705729,
+            "missed_gt_nodes": 29,
+            "spurious_pred_nodes": 7862,
+            "edges_recovered": 611,
+            "edges_fragmented": 6,
+            "edges_lost_to_detection": 37,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 5,
+            "false": 1,
+            "unknown": 126
+          },
+          "removed": {
+            "true": 0,
+            "false": 6,
+            "unknown": 120
+          },
+          "additions": 132,
+          "removals": 126,
+          "actions": 89,
+          "edit_rate_per_parent_edge": 0.031847920009875325,
+          "coverage": {
+            "protected_edges": 4496,
+            "fork_protected_nodes": 30,
+            "solver_pairs": 20010
+          },
+          "graph_sha256": "bdd6131bccf11a0a32872d632d739707a8cb7b66eeab0dbb0b73cf9e7ec421c3"
+        }
+      }
+    },
+    "6bba_ef7b4f7e": {
+      "population": {
+        "persistent_original_nodes": 5853,
+        "final_ids_rejected_for_identity": 1,
+        "exported_pairs": 76274,
+        "final_node_pairs": 46965,
+        "sources_with_candidates": 5797,
+        "complete_context_pairs": 37155,
+        "candidate_pairs": 40574
+      },
+      "nodes": 5882,
+      "parent_edges": 5733,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 1179,
+            "edge_fp": 8,
+            "edge_fn": 22,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 2,
+            "weight": 1209,
+            "adjusted_edge_jaccard": 0.978778979172499,
+            "missed_gt_nodes": 16,
+            "spurious_pred_nodes": 4664,
+            "edges_recovered": 1179,
+            "edges_fragmented": 6,
+            "edges_lost_to_detection": 16,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 5733
+          },
+          "graph_sha256": "3f410a712a9352c8fe895e563899601f858863663ab79f4adbb18d90645fd367"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 1179,
+            "edge_fp": 8,
+            "edge_fn": 22,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 2,
+            "weight": 1209,
+            "adjusted_edge_jaccard": 0.978778979172499,
+            "missed_gt_nodes": 16,
+            "spurious_pred_nodes": 4664,
+            "edges_recovered": 1179,
+            "edges_fragmented": 6,
+            "edges_lost_to_detection": 16,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 4
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 4
+          },
+          "additions": 4,
+          "removals": 4,
+          "actions": 4,
+          "edit_rate_per_parent_edge": 0.0013954299668585382,
+          "coverage": {
+            "protected_edges": 3201,
+            "fork_protected_nodes": 9,
+            "solver_pairs": 13407
+          },
+          "graph_sha256": "1823ac53b89c717f4eb72c1f061317f629f2d1ba6b329086f4be0f5d1367e4a7"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 1179,
+            "edge_fp": 8,
+            "edge_fn": 22,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 2,
+            "weight": 1209,
+            "adjusted_edge_jaccard": 0.978778979172499,
+            "missed_gt_nodes": 16,
+            "spurious_pred_nodes": 4664,
+            "edges_recovered": 1179,
+            "edges_fragmented": 6,
+            "edges_lost_to_detection": 16,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 3
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 3
+          },
+          "additions": 3,
+          "removals": 3,
+          "actions": 3,
+          "edit_rate_per_parent_edge": 0.0010465724751439038,
+          "coverage": {
+            "protected_edges": 3201,
+            "fork_protected_nodes": 9,
+            "solver_pairs": 13407
+          },
+          "graph_sha256": "8ebb3b112e33c9d6062cb3d2222899697ba2eb18bf3c15d6f43a23c1cca57c00"
+        }
+      }
+    },
+    "6bba_fe670320": {
+      "population": {
+        "persistent_original_nodes": 9682,
+        "final_ids_rejected_for_identity": 0,
+        "exported_pairs": 120392,
+        "final_node_pairs": 83866,
+        "sources_with_candidates": 9567,
+        "complete_context_pairs": 59381,
+        "candidate_pairs": 69963
+      },
+      "nodes": 9722,
+      "parent_edges": 9276,
+      "arms": {
+        "no_change": {
+          "score": {
+            "edge_tp": 666,
+            "edge_fp": 10,
+            "edge_fn": 14,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 2,
+            "weight": 690,
+            "adjusted_edge_jaccard": 0.9751403534113341,
+            "missed_gt_nodes": 9,
+            "spurious_pred_nodes": 9015,
+            "edges_recovered": 666,
+            "edges_fragmented": 6,
+            "edges_lost_to_detection": 8,
+            "wrong_association_edges": 0
+          },
+          "added": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "removed": {
+            "true": 0,
+            "false": 0,
+            "unknown": 0
+          },
+          "additions": 0,
+          "removals": 0,
+          "actions": 0,
+          "edit_rate_per_parent_edge": 0.0,
+          "coverage": {
+            "protected_edges": 9276
+          },
+          "graph_sha256": "64e97631194d0f0a8011b7fccbe342c8e1228c826996f0c069a8fab52efdc278"
+        },
+        "original_score": {
+          "score": {
+            "edge_tp": 670,
+            "edge_fp": 4,
+            "edge_fn": 10,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 2,
+            "weight": 684,
+            "adjusted_edge_jaccard": 0.98960228953089,
+            "missed_gt_nodes": 9,
+            "spurious_pred_nodes": 9015,
+            "edges_recovered": 670,
+            "edges_fragmented": 2,
+            "edges_lost_to_detection": 8,
+            "wrong_association_edges": 2
+          },
+          "added": {
+            "true": 4,
+            "false": 1,
+            "unknown": 237
+          },
+          "removed": {
+            "true": 0,
+            "false": 7,
+            "unknown": 235
+          },
+          "additions": 242,
+          "removals": 242,
+          "actions": 136,
+          "edit_rate_per_parent_edge": 0.05217766278568348,
+          "coverage": {
+            "protected_edges": 5257,
+            "fork_protected_nodes": 39,
+            "solver_pairs": 23911
+          },
+          "graph_sha256": "a2b03e96096cb531f3b07eefdf0db81e4082d0ec7eab30833cb7eb78b8efeaec"
+        },
+        "context": {
+          "score": {
+            "edge_tp": 668,
+            "edge_fp": 8,
+            "edge_fn": 12,
+            "div_tp": 0,
+            "div_fp": 0,
+            "div_fn": 2,
+            "weight": 688,
+            "adjusted_edge_jaccard": 0.9809119257942945,
+            "missed_gt_nodes": 9,
+            "spurious_pred_nodes": 9015,
+            "edges_recovered": 668,
+            "edges_fragmented": 4,
+            "edges_lost_to_detection": 8,
+            "wrong_association_edges": 2
+          },
+          "added": {
+            "true": 2,
+            "false": 0,
+            "unknown": 187
+          },
+          "removed": {
+            "true": 0,
+            "false": 2,
+            "unknown": 180
+          },
+          "additions": 189,
+          "removals": 182,
+          "actions": 112,
+          "edit_rate_per_parent_edge": 0.039995687796463994,
+          "coverage": {
+            "protected_edges": 5257,
+            "fork_protected_nodes": 39,
+            "solver_pairs": 23911
+          },
+          "graph_sha256": "483f834488d92473365a3d703d62cd7b28ad38a2787248fcb44ecd64621d4aaa"
+        }
+      }
+    }
+  },
+  "verified_input_files": 1776,
+  "protocol_sha256": "2c1c66cd4769fd9f200addf6839a86dd29900a1a91fd46805962e73daf203ed8",
+  "limitations": [
+    "Train16 backbone exposure and prior analysis prevent independent generalization claims.",
+    "Sparse annotations leave many edits unknown.",
+    "Five-frame geometry uses parent-smoothed coordinates and two-frame appearance embeddings; no learned five-frame encoder.",
+    "Frozen-parent context does not reflect sequential recomputation after edits.",
+    "No new forks or nodes are created; headroom is narrower than the GT oracle."
+  ]
+}

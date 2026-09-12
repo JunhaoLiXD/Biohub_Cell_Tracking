@@ -1,0 +1,25 @@
+{
+  "created_at": "2026-09-09T04:26:44+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/val_049_public_0944_train16/snapshot/config.yaml",
+      "sha256": "4f3637a4a808608c54728124a7bcd6e04b04f0554f337703e02869d553d8702b"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/val_049_public_0944_train16/snapshot/source/public_0944_train16.ipynb",
+      "sha256": "866949f8416dab445fbd406d6ad33623a9a78afeac709209b4d71f253c94e76d"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/val_049_public_0944_train16/snapshot/extra_files/build_public_0944_train16.py",
+      "sha256": "70359fb181da27771620374ce56982fe3035177f6dee1fb9860d0e89af6c7b5e"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/val_049_public_0944_train16/snapshot/extra_files/validate_public_0944_train16.py",
+      "sha256": "d6a069244761d3f4eca831f92c92aa36533b062af30a4b247a188a81c7e51f86"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_047_public_0946_edge_feature_tta_exact_copy",
+  "parent": "repro_038_public_0941_exact_copy",
+  "state": "MANUAL_REVIEW_REQUIRED",
+  "hypothesis": "The public reyhanksatria/biohub-cell-tracking-0-946-lb notebook, changed only to mount the same public Pilkwang artifact datasets under their available Kaggle paths, will produce a valid submission and reproduce the advertised Public LB 0.946 under the lingxd account.\n",
+  "change": {
+    "component": "complete_public_edge_feature_tta_configuration_reproduction",
+    "from": "reproduced public 0.941 pipeline without edge-feature TTA",
+    "to": "public 0.946 pipeline with eight-view inverse-aligned UNet feature averaging for association",
+    "variables_changed": "full_source_reproduction_with_declared_dataset_path_substitutions_not_causal_ablation"
+  },
+  "signature": "e812e14bccaeeb4ce6d1bc772ddcff013beafa31b16a911d23827e096ba60cba",
+  "config": "configs/repro_047_public_0946_edge_feature_tta_exact_copy.yaml",
+  "snapshot_config": "experiments/repro_047_public_0946_edge_feature_tta_exact_copy/snapshot/config.yaml",
+  "snapshot_source": "experiments/repro_047_public_0946_edge_feature_tta_exact_copy/snapshot/source/public_0946_edge_feature_tta_copy.ipynb",
+  "snapshot_manifest": "experiments/repro_047_public_0946_edge_feature_tta_exact_copy/snapshot/manifest.json",
+  "git_commit": "f9adf48ccb4e5c0cafd9f2285b0634fda522dba1",
+  "validation_protocol": "public_0946_path_only_edited_upstream_train4_lb_probe_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "status": "CHANGES_REQUESTED",
+    "verdict": "REVISE",
+    "path": "experiments/repro_047_public_0946_edge_feature_tta_exact_copy/review.md",
+    "completed_at": "2026-09-08T18:40:59+00:00"
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-08T18:34:09+00:00",
+  "updated_at": "2026-09-08T18:40:59+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-08T18:40:59+00:00",
+      "note": "Claude verdict: REVISE"
+    }
+  ]
+}

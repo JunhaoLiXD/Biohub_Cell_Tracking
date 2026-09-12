@@ -1,0 +1,25 @@
+{
+  "created_at": "2026-09-09T16:03:06+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_050_public_0944_tta_off/snapshot/config.yaml",
+      "sha256": "3a8b37bdb39d9da358fb50b08001d0842a40886943a09aaa78da6bdadd1d50b4"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_050_public_0944_tta_off/snapshot/source/public_0944_tta_off.ipynb",
+      "sha256": "3417003a2e5c5f0ed82eb2450b868517493066971c9eda53a607517ec96cbcbc"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_050_public_0944_tta_off/snapshot/extra_files/build_public_0944_tta_off.py",
+      "sha256": "886348d875ed6bde46838e8e290b75a9fa87f1720be31c929e1aa9855905713e"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_050_public_0944_tta_off/snapshot/extra_files/validate_public_0944_tta_off.py",
+      "sha256": "19ea94b67fe53abbc5d14cd2c1c9ddee3dc9bf1b5abaa38f0abecb0f66a3ef18"
+    }
+  ]
+}

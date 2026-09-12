@@ -1,46 +1,39 @@
 # Latest Claude Review
 
-Experiment: `exp_046_public_0942_motion_ema_sparse_soft`
-Captured: 2026-09-08T01:07:38+00:00
+Experiment: `diag_051_public_0942_tracklet_evidence`  
+Captured: 2026-09-10T02:28:37+00:00
 
-Here is my independent review.
+Review complete. This was a read-only methodology review, and the deliverable is the assessment itself (not a code-change plan), so I'm returning it directly.
 
----
-
-# Independent Review — `exp_046_public_0942_motion_ema_sparse_soft`
+# Review — diag_051_public_0942_tracklet_evidence
 
 ## Summary
 
-exp_046 keeps fixed motion-relink EMA alpha 0.4 for ordinary updates and applies a milder-than-rejected alpha 0.6 to the ~1.18% of frozen-validation updates (~1.16% of test) that simultaneously satisfy a label-free guard: normalized velocity innovation > 1.25, source track age ≥ 3, a finite second-best assignment candidate, and selected-assignment margin ≥ 0.5. Parent is terminal KEEP `repro_041_public_0941_motion_ema` (0.9387332376874039; user-reported Public LB 0.942). The change is a single, cleanly isolated variable, correctly implemented, honestly instrumented, and strictly gated. The one real weakness is expected effect size, not correctness.
+`diag_051` is a behavior-preserving, observation-only evidence export built from the immutable `repro_041` snapshot (EMA 0.4, train16 0.9387332376874039, Public LB 0.942). It adds read-only hooks that persist a sparse candidate-logit pool, two-frame appearance embeddings, 11 post-processing stage graphs, a pre-ILP node-ID registry, and the scorer bipartite matching — so the next longer-context tracklet-association pilot can be scoped against reachable error. Predictions are byte-gated to the parent; no training, no inference-parameter change, no submission. Controller state is `MANUAL_REVIEW_REQUIRED` (review + smoke PENDING); this review gates smoke.
 
 ## Methodology
 
-- **One variable (Q1).** Only the effective alpha on the guarded subset changes (0.4→0.6). `EMA_ALPHA=0.4`, `VELOCITY_WEIGHT=0.5`, `LEARNED_BONUS=1.0` are all pinned via env in the setup cell — the `0.75` learned-bonus fallback (nb:243) is never reached because nb:49 pins it to `1.0`. Checkpoints, detector/association/ILP/gap-closing/division logic, frozen train16 samples, strata, and scorer are unchanged.
-- **Validation protocol (Q2).** Frozen train16 stratified proxy, 8 samples/specimen, 4 division-positive each, 44b6/6bba split preserved, scored against the exact parent. Leakage (frozen models saw training videos) is acknowledged and, being identical on both sides of the paired delta, does not bias the comparison. The guard is genuinely label-free — I confirmed in code it reads only `innovation_ratio`, `source_track_age`, and `assignment_margin`; no specimen/video/ground-truth dependency.
-- **Parent justification & non-duplication (Q5/Q7).** This is exactly the follow-up the exp_043 analysis recommended ("calibrate a genuinely rare label-free soft-update gate") after global alpha 0.6 (exp_042, REJECT −0.00105) and the alpha-1.0 hard reset (exp_043, REJECT, 39.3% reset) both failed. Distinct from both.
-- **Sparsity claim is supported by recorded evidence (Q7).** From diag_045 test telemetry, guarded_gt_1250 = 149+106+10+1010 = 1275 over eligible = 109,993 → 0.011592, matching the recorded `test_guarded_fraction_at_1_25 = 0.0115916`; validation 0.0118181 is consistent.
+- **Testable / single-variable:** instrumentation only. Predictions are held constant by exact submission SHA (`fd11…`) and validator-CSV SHA (`2e6b…`) gates, so the diagnostic is cleanly attributable.
+- **Protocol / leakage / 44b6–6bba:** reuses the frozen train16 stratified proxy (8/specimen, both required, per-specimen reported). Leakage is acknowledged and correctly scoped — this is an offline reachability audit, not a generalization or advancement claim. GT enters only the offline `final_scored`/`scorer_matching` payloads, never the predictor; no metric can be gamed since predictions equal the parent byte-for-byte. Grouped-split design is explicitly deferred to the future pilot.
+- **Parent justifies successor:** the residual error inventory in the design (258 fragmentation edge FN, 181 detection edge FN, division 4/8/8) matches `repro_041` metrics exactly (101+157, 44+137, 4/8/8). Parent choice correctly avoids the TTA lineage (val_049/exp_050). History supports the direction — division graph-only Family-A routes closed at 0.0 (diag_027–033) and the motion-relink bonus sweep saturated, so the association audit is the redirect the archived v9 §7 fallback and optimization audit §5 anticipated. Not duplicate, not contradicted.
 
 ## Implementation risks
 
-- **Correctly wired (Q3/Q4).** `assignment_margin` = min(finite alternative costs) − selected cost, computed from runtime costs *before* the velocity update (nb:959–962) and passed into `_use_sparse_soft_alpha` (nb:1019–1020). Nonfinite margins → NaN → rejected by the `np.isfinite` guard. Innovation = `‖step − prior_ema‖ / max(‖step‖,‖prior‖,1e-6)` (nb:1016–1018), matching the config. Strict `>1.25`, age `≥3`, margin `≥0.5` all match spec.
-- **Self-consistent contract (Q3).** Enforces `soft == guarded_gt_1250`, `soft + base == eligible`, `finite + nonfinite == eligible`, threshold monotonicity/nesting, and both specimens exercised (nb:2457–2481, 3322–3325). A runtime config-verification block compares effective `soft_alpha / innovation_threshold / min_assignment_margin` against expected constants (nb:2518–2525) — it verifies effective config, not stale prose (Q4).
-- **Gates are parent-relative and meaningful.** aggregate ≥ parent + 0.0001; per-specimen adjusted-edge ≥ −0.001; worst-video delta ≥ −0.002; div TP≥4 / **FP≤8** / FN≤8 (nb:3327–3338). FP≤8 equals the parent, so any new false division fails.
-- **Diff scope.** Working-tree changes are bookkeeping only (GOAL/AGENTS/STATE/GPU_BUDGET/results, etc.); no edits to scorer, controller, or training code. Purely additive.
+- **Worker local-variable dependency (the diag_044-style risk) — verified low.** I confirmed in the frozen predictor that every name the worker reads exists at the `del unet_out` insertion point (`probs, c_src, c_tgt, candidates, cfg, t_src, t_tgt, raw, idx_src, idx_tgt, all_edges, ds_arr, unet_feat_*, secondary_*, _ev_primary_logits`, and `ds_path` for `_ev_begin`). `seen_pairs` + window stride W−1 guarantee each consecutive pair once → 99 exports, matching the contract, no false duplicate-guard trips.
+- **JSON strictness:** `allow_nan=False` plus a numpy `.item()` default handler are applied; evidence fields are native types — the diag_044 serialization lesson is incorporated.
+- **Fail-closed run-completion risks** (waste GPU on failure only; no data corruption, submission still byte-gated): (1) the 128 MiB per-video cap can raise mid-run if node-count × feature-dim exceeds the estimate — un-checkable locally; (2) `worker_exports_complete` assumes all 16 videos have 100 nonempty frames (99 pairs); (3) hard dependency on `secondary_model` being present; (4) stem-key consistency between worker and graph hooks.
+- **Algorithm preservation:** static smoke checks predictor + notebook function ASTs identical after erasing only `_ev_`-prefixed calls/assignments; selector cell exact except two observation-enabling lines; runtime guards are the parent's `effective_*` checks plus live SHA equality — not stale prose. Strong.
 
-## Budget (Q6)
+## Budget
 
-2.0 GPU-h planned; ~14.57 h usable after the 6.0 h reserve; within the 4.0 h single-experiment cap. This bounded review is the single authorized model call. Cost is proportionate — even a null result definitively closes the alpha-0.6 branch.
-
-## Caveat (non-blocking)
-
-Expected gain is asymmetric: global alpha 0.6 was net-negative, and the hypothesis bets the sign flips on this confident, high-innovation subset. The telemetry supports *sparsity* but, as the config states, is "not event-level causal evidence of benefit," and a 0.0001 floor over ~1.18% of updates is a small target — a marginal/null outcome is plausible. That is a reason to expect a possible REJECT, not to block a cheap, correctly-isolated test. Any positive result is still a paired proxy screen and would require reproduction before promotion (none authorized).
+2.0 GPU h (≤ 4.0 cap; 16.83 h remaining, 10.83 usable outside the 6 h reserve). One run yields the missing candidate/appearance/stage/matching evidence to choose the next major direction, no submission. High information gain per GPU-hour, contingent on completion.
 
 ## Required changes
 
-None.
+No code changes. Pre-launch confirmations: (1) local unit tests and static smoke must pass (smoke PENDING); (2) confirm per-video cache headroom under 128 MiB, or accept fail-closed as the only downside; (3) confirm all 16 frozen videos have 100 nonempty frames; (4) confirm `secondary_model` present (it is).
 
 ## Recommendation
 
-Safe to proceed: run snapshot smoke, and on smoke PASS launch exactly once on Kaggle for validation only. No leaderboard submission, promotion, milestone v06, reproduction, or successor is authorized.
+Hypothesis testable and attributable, algorithm preserved and machine-verified, exact-byte and effective-config gates intact, contract fields present, parent result and error inventory justify the successor, no correctness defect found. Residual risks are fail-closed completion issues addressed by smoke plus two manifest confirmations. Safe to proceed to the smoke-test stage.
 
 VERDICT: PASS

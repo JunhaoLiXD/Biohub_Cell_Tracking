@@ -1,0 +1,40 @@
+{
+  "created_at": "2026-09-10T02:22:20+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_051_public_0942_tracklet_evidence/snapshot/config.yaml",
+      "sha256": "831b63544521b0f3765adcd030682ca96ac0cf7378f64ef73c5983a3851ac5a5"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_051_public_0942_tracklet_evidence/snapshot/source/public_0942_tracklet_evidence.ipynb",
+      "sha256": "3e4c281303dcbc84010db66b43f73f234163b14e8769fb42207b136cfc84d5e6"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/diag_051_public_0942_tracklet_evidence/snapshot/extra_files/build_tracklet_evidence.py",
+      "sha256": "e1eec53e9994dcc113be3c5ff6491b7f71c8b2d164bd28c99a85eb303232ebb1"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/diag_051_public_0942_tracklet_evidence/snapshot/extra_files/tracklet_evidence_worker.py",
+      "sha256": "91edbf4707ceac0ee4c6a79e99076f928139e19250a75dcb458158cb94068fcb"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/diag_051_public_0942_tracklet_evidence/snapshot/extra_files/tracklet_evidence_graphs.py",
+      "sha256": "d6e8011257019403b8df2a0c17124b40a59c9bf0957333715ec9412c2076b2f1"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/diag_051_public_0942_tracklet_evidence/snapshot/extra_files/tracklet_evidence_contract.py",
+      "sha256": "6877f0e209c403a056e243feebfbfc305c11b11b663a897b84a8a6cb6beb871d"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/diag_051_public_0942_tracklet_evidence/snapshot/extra_files/validate_tracklet_evidence.py",
+      "sha256": "d5c3a16576daf2999dd4a658f58d9090b1ea9f81741e53023c56dc4939d3098c"
+    }
+  ]
+}

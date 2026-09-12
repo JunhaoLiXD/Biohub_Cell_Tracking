@@ -1,0 +1,23 @@
+{
+  "discovery": [
+    "44b6_1d530831",
+    "44b6_2a2eff9f",
+    "44b6_551a5dba",
+    "44b6_7a302da0",
+    "6bba_0c7fa718",
+    "6bba_283bf9f1",
+    "6bba_337b1b3a",
+    "6bba_372c8cb8"
+  ],
+  "confirmation": [
+    "44b6_7e557709",
+    "44b6_aaf8b0ea",
+    "44b6_c15fded2",
+    "44b6_c50204e0",
+    "6bba_55c70843",
+    "6bba_80d12824",
+    "6bba_ef7b4f7e",
+    "6bba_fe670320"
+  ],
+  "fitted_parameters": false
+}

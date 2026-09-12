@@ -1,0 +1,7 @@
+[2026-09-10T02:29:33+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_tracklet_evidence.py", "E:\\Project\\Biohub_CellTracking\\experiments\\diag_051_public_0942_tracklet_evidence\\snapshot\\source\\public_0942_tracklet_evidence.ipynb"]
+exit_code=0
+STDOUT
+{"passed": true, "frozen_algorithm_ast": true, "frozen_selector": true, "frozen_scorer": true, "runtime_exact_bytes_gate": true}
+
+STDERR
+

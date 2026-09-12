@@ -1,0 +1,15 @@
+[2026-09-08T18:48:04+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_public_0946_copy.py", "E:\\Project\\Biohub_CellTracking\\experiments\\repro_048_public_0946_exact_copy\\snapshot\\source\\public_0946_edge_feature_tta_copy.ipynb"]
+exit_code=0
+STDOUT
+{
+  "cells": 2,
+  "code_cells": 1,
+  "upstream_sha256": "ae8e01a262211045161984e469e8be23e3386bab9140fe12df503dc6a1e010e6",
+  "edited_sha256": "4eda3c3dae83f5ad21fee35513aad5f325e09b6de8f77fa55d9b7d6d4b50ca16",
+  "dataset_path_edits_only": true,
+  "edge_feature_tta": true,
+  "motion_ema": false
+}
+
+STDERR
+

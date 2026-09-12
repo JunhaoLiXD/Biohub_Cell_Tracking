@@ -1,0 +1,151 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_048_public_0946_exact_copy",
+  "parent": "repro_038_public_0941_exact_copy",
+  "state": "INCONCLUSIVE",
+  "hypothesis": "The complete public reyhanksatria/biohub-cell-tracking-0-946-lb notebook, changed only to mount the same public Pilkwang artifact datasets under their available Kaggle paths, will produce a valid submission and reproduce the advertised Public LB 0.946 under the lingxd account. This full-source test does not attribute any reproduced score difference to one component.\n",
+  "change": {
+    "component": "complete_public_edge_feature_tta_configuration_reproduction",
+    "from": "reproduced public 0.941 pipeline without edge-feature TTA",
+    "to": "public 0.946 pipeline with eight-view inverse-aligned UNet feature averaging for association",
+    "variables_changed": "full_source_reproduction_with_declared_dataset_path_substitutions_not_causal_ablation"
+  },
+  "signature": "d9910525f4ee7af7153c460d4231ff33dcd8e85b9affd01adb968fa590c8e4b6",
+  "config": "configs/repro_048_public_0946_exact_copy.yaml",
+  "snapshot_config": "experiments/repro_048_public_0946_exact_copy/snapshot/config.yaml",
+  "snapshot_source": "experiments/repro_048_public_0946_exact_copy/snapshot/source/public_0946_edge_feature_tta_copy.ipynb",
+  "snapshot_manifest": "experiments/repro_048_public_0946_exact_copy/snapshot/manifest.json",
+  "git_commit": "f9adf48ccb4e5c0cafd9f2285b0634fda522dba1",
+  "validation_protocol": "public_0946_submission_integrity_lb_probe_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 0.35718106635611113
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/repro_048_public_0946_exact_copy/review.md",
+    "completed_at": "2026-09-08T18:47:51+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_public_0946_copy.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\repro_048_public_0946_exact_copy\\snapshot\\source\\public_0946_edge_feature_tta_copy.ipynb"
+    ],
+    "completed_at": "2026-09-08T18:48:04+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-08T18:42:46+00:00",
+  "updated_at": "2026-09-08T19:39:46+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-08T18:47:51+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-08T18:48:04+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-08T18:48:04+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "REMOTE_FAILED",
+      "at": "2026-09-08T18:48:13+00:00",
+      "note": "kaggle kernels push failed"
+    },
+    {
+      "from": "REMOTE_FAILED",
+      "to": "READY",
+      "at": "2026-09-08T18:58:37+00:00",
+      "note": "Retrying a pre-submission Kaggle push failure"
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-08T18:58:39+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-08T19:36:54+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "REMOTE_FAILED",
+      "at": "2026-09-08T19:36:54+00:00",
+      "note": "kaggle kernels output failed"
+    },
+    {
+      "from": "REMOTE_FAILED",
+      "to": "READY",
+      "at": "2026-09-08T19:39:19+00:00",
+      "note": "Recovering completed remote output after local download failure"
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-08T19:39:19+00:00",
+      "note": "Remote kernel was already complete; no relaunch"
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-08T19:39:19+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-08T19:39:46+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "INCONCLUSIVE",
+      "at": "2026-09-08T19:39:46+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-repro048-public0946-exact-copy",
+    "submitted_at": "2026-09-08T18:58:39+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-08T19:36:48+00:00"
+  },
+  "evaluation": {
+    "decision": "INCONCLUSIVE",
+    "primary_metric": 1.0,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-08T19:39:46+00:00"
+  },
+  "leaderboard_submission": {
+    "submission_id": 56105868,
+    "kernel_version": 1,
+    "file_name": "submission.csv",
+    "submission_sha256": "0319ba6d8e864335d3573f6b1a6227c546f17e9247a0c2858fa09b6c2422db3f",
+    "submitted_at_utc": "2026-09-08T19:41:08.933000Z",
+    "status": "COMPLETE",
+    "public_score": 0.944,
+    "public_score_precision": 3,
+    "score_source": "authenticated_kaggle_submission_history",
+    "verified_at_utc": "2026-09-09T04:18:23+00:00",
+    "remote_history_checked_before_submit": true,
+    "remote_local_day_count_before_submit": 0
+  }
+}

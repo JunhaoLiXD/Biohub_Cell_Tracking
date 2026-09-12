@@ -1,0 +1,7 @@
+[2026-09-09T16:09:02+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_public_0944_tta_off.py", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_050_public_0944_tta_off\\snapshot\\source\\public_0944_tta_off.ipynb"]
+exit_code=0
+STDOUT
+{"passed": true, "frozen_scorer": true, "frozen_selector": true, "upstream_motion": true, "algorithmic_change": "edge_feature_tta_1_to_0", "graph_export_after_scoring": true}
+
+STDERR
+

@@ -1,0 +1,35 @@
+{
+  "created_at": "2026-09-08T18:34:09+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/repro_047_public_0946_edge_feature_tta_exact_copy/snapshot/config.yaml",
+      "sha256": "2ed951b7dc2f68237c5205a888e7b8aed64e33124cfa16bed4fb3e3b7f44d1bd"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/repro_047_public_0946_edge_feature_tta_exact_copy/snapshot/source/public_0946_edge_feature_tta_copy.ipynb",
+      "sha256": "4eda3c3dae83f5ad21fee35513aad5f325e09b6de8f77fa55d9b7d6d4b50ca16"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_047_public_0946_edge_feature_tta_exact_copy/snapshot/extra_files/build_public_0946_copy.py",
+      "sha256": "56fd7b8529b583cbbe6a8330a9b3d34cb1cd5d6e461e165e10614e5ace99c0ba"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_047_public_0946_edge_feature_tta_exact_copy/snapshot/extra_files/validate_public_0946_copy.py",
+      "sha256": "c6f2aabfbb2b69d2d8ebe2b2601f6bca9226916b88f9a0031d210a36691c9dd2"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_047_public_0946_edge_feature_tta_exact_copy/snapshot/extra_files/collect_public_0946_copy.py",
+      "sha256": "52c2213cec9fcc3211fead50769cd2690b303a985f5cddba43681ebf120d1aea"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_047_public_0946_edge_feature_tta_exact_copy/snapshot/extra_files/public_0946_copy.py",
+      "sha256": "55697f2bda1d14e2ad18cbe045e8a4e596954c23d798e494f6b564b744856b22"
+    }
+  ]
+}

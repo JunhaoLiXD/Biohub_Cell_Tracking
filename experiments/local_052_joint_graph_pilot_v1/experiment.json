@@ -1,0 +1,23 @@
+{
+  "experiment_id": "local_052_joint_graph_pilot_v1",
+  "execution": "local_only",
+  "status": "LOCAL_FAILED",
+  "parent": "repro_041_public_0941_motion_ema",
+  "evidence_donor": "diag_051_public_0942_tracklet_evidence",
+  "hypothesis": "Five-frame motion and existing secondary appearance improve joint cut-and-reconnect decisions over the original probability alone without damaging division structure.",
+  "admission": {
+    "require_claude_review": true
+  },
+  "review": "No remote admission review requested; local screen only.",
+  "gpu_hours": 0,
+  "started_at": "2026-09-12T03:51:51.756273+00:00",
+  "protocol_sha256": "3f8e82c704d1cce2efc29d05fdf14660e3b2f1b3ef50fd9410aace17e7a48212",
+  "source_sha256": {
+    "scripts\\run_diag052_local.py": "a0012a96bcf70361f5b65c86c2a77b3d7ab6a60bdc29bf66d0ee4c5c1894db5c",
+    "scripts\\diag052_joint_policy.py": "bdc841440fa10e77f760079bfad13f27debc60d7f9e4929e33da8cd77a71ab1f",
+    "scripts\\analyze_diag051_evidence.py": "3bfe53e16f141ea661603a1afea7a6b18c6a3d9f26b9c6a8a199188089253ee6",
+    "experiments\\diag_051_public_0942_tracklet_evidence\\snapshot\\source\\public_0942_tracklet_evidence.ipynb": "3e4c281303dcbc84010db66b43f73f234163b14e8769fb42207b136cfc84d5e6"
+  },
+  "failure": "Candidate identity guard found recovered ID 46717 at final frame 4 reusing original frame 99 ID; stopped on second video before aggregate scoring.",
+  "successor_attempt": "local_052_joint_graph_pilot_v1_attempt02"
+}

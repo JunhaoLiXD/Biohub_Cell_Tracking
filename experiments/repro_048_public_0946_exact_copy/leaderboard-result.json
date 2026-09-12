@@ -1,0 +1,14 @@
+{
+  "experiment_id": "repro_048_public_0946_exact_copy",
+  "submission_id": 56105868,
+  "status": "COMPLETE",
+  "public_score": 0.944,
+  "public_score_precision": 3,
+  "score_source": "authenticated_kaggle_submission_history",
+  "verified_at_utc": "2026-09-09T04:18:23+00:00",
+  "advertised_public_score": 0.946,
+  "advertised_score_reproduced": false,
+  "submission_sha256": "0319ba6d8e864335d3573f6b1a6227c546f17e9247a0c2858fa09b6c2422db3f",
+  "public_notebook_output_sha256": "0319ba6d8e864335d3573f6b1a6227c546f17e9247a0c2858fa09b6c2422db3f",
+  "byte_identical_to_current_public_output": true
+}

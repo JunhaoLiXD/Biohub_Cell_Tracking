@@ -1,17 +1,162 @@
 # Project Goal
 
+## Current result: local joint graph pilot completed
+
+The zero-GPU joint graph pilot completed and all 48 output graphs passed independent audit. Original-score repair scores 0.9535869213120838 (+0.01485368362467987); context repair scores 0.9519261693422604 (+0.013192931654856466). Division remains 4/8/8. The preregistered context-increment gate failed; retain REJECT_LOCAL_POLICY for that hypothesis. The original-score control is a promising separate candidate, not a Public LB result. GPU balance remains 15.667408447732495 hours including six protected hours.
+
+Review the concrete original-score joint-repair successor design in .private/research/diag052_original_score_successor_design.md. Preserve the rejected context gate and fixed parameters; no sweep. Before any remote validation, integrate prediction-only provenance-safe inference, prove exact parity with all 16 local graphs, and obtain a fresh experiment-specific Claude PASS plus snapshot smoke and budget admission. No leaderboard submission or promotion. Results: experiments/local_052_joint_graph_pilot_v1_attempt02/result.json.
+
+Thirteen focused tests passed. Initial attempt stopped on reused recovery node IDs; attempt02 checks identity through all stages and passed all 1,776 input hashes. Identity-checked residual v3 reproduces 242 residuals, 85 accepted and original probability top1/top3/top8=109/212/241. Grouped fixed-rule panels are not independent heldout generalization. No remote run or model review occurred.
+
+Report: `.private/research/diag052_completed_analysis.md`. Older diag_051 preparing and rank-repair work-queue text below is historical and superseded.
+
+
+## Active authorization: local joint graph pilot, 2026-09-11
+
+The user accepted the bounded continuation plan: finish rank-diagnostic tests,
+then compare no-change, original-score joint repair, and five-frame-context joint
+repair using the existing diag_051 cache. This supersedes the stale secondary-
+appearance-first checkpoint. Run one fixed zero-GPU screen, with video-grouped
+discovery/confirmation panels, full graph scoring, conflict and fork protection,
+and no GT in action generation. Preregistered specification:
+`.private/research/diag052_protocol_v1.json`; local record:
+`experiments/local_052_joint_graph_pilot_v1/experiment.json`.
+
+Timebox local exploration to two days. No post-result parameter sweep. Only a
+successful gate permits preparing one bounded remote validation, which still
+requires a fresh experiment-specific Claude PASS, snapshot smoke, and budget
+reservation while preserving six GPU hours. No leaderboard submission, promotion,
+new training architecture or public-source diversion is included. Exact model
+allowance is unavailable; no external model review is needed for the local screen.
+The earlier one-child Luna repair assignment belongs to the prior interrupted
+task, not a standing requirement to delegate this new implementation.
+
+## Completed diag_051 result, 2026-09-10
+
+diag_051 completed as valid diagnostic KEEP at 0.9387332376874039, with exact
+repro_041 test/validation CSV bytes. Independent snapshot, submission, 176
+graph/matching payload and 1600 NPZ audits passed; all 16 final graph scores
+reproduce the frozen CSV. Runtime was 1.163561077056389 tracked GPU hours;
+15.667408447732495 remain including the protected six hours.
+
+The measured pool covers 242/258 fragmentation edges, but only three connect
+free endpoints. Seventy-five accepted true links disappear during motion
+relinking. Joint sparse GT repair gives +0.0862015291 proxy and division 9/8/3;
+this is conditional structural headroom, not a deployable gain. Simple appearance
+and motion ranks remain weak. Recommend a grouped offline five-frame
+cut-and-reconnect feasibility proposal with conflict and division handling.
+Retain EMA 0.4 and the separate verified Public LB 0.944 candidate. No successor,
+training, review, remote launch, LB submission or promotion is authorized by this
+completed analysis. Do not rerun diag_051 or add telemetry. Full report:
+`.private/research/diag051_completed_analysis_2026-09-10.md`.
+
+The user subsequently authorized the offline pilot and explicitly requested
+Luna medium for code work. Review found a masked-row alignment bug in the initial
+rank diagnostic; `offline_feasibility.json` is invalid historical output and its
+grouped-feasibility PASS interpretation is withdrawn. Independent probability
+top-1/top-3/top-8 counts are 109/212/241 of 242 residuals, with 85 accepted.
+One bounded `gpt-5.6-luna` medium task repairs extraction and adds regression
+tests. Use a versioned corrected residual-conditioned diagnostic before any
+GT-blind full-graph policy screen, with original-score and no-change controls.
+No grouped holdout or graph-editing feasibility pass has been established.
+See `.private/research/diag051_next_step_review_2026-09-10.md`. Remote launch,
+leaderboard submission and promotion remain outside this local authorization.
+
+## Active authorization: diag_051 retained-parent evidence export
+
+The user's latest request authorizes the next experiment under the agreed plan:
+one behavior-preserving evidence export from repro_041, as specified in
+`.private/research/diag051_tracklet_evidence_design.md`. This supersedes older
+no-successor wording below. The matched negative exp_050 closes TTA composition;
+the next priority is the retained-parent reachable-error audit before a
+longer-context association pilot. Reserve two GPU hours, protect six hours,
+require fresh experiment-specific Claude PASS and snapshot smoke, then launch
+once. No leaderboard submission, promotion or training launch is included.
+Exact weekly model allowance is unavailable; use one bounded review and do not
+automatically retry a timeout/quota stop. After launch wait for user completion
+notice; check and collect once, without repeated polling or relaunch.
+
+<!-- BEGIN EXP050 HANDOFF -->
+## Current exp_050 handoff, 2026-09-09
+
+exp_050 completed as valid contract-only KEEP at 0.9359778132422281. The matched feature-TTA effect B-A is -0.004908183342538841; both specimen combined scores decline with TTA. Division explains 82.47% of the loss (off 4/9/8 versus on 3/8/9). All 29 runtime checks passed; independent CSV arithmetic, receipts and 16 final graph audits passed. Both validation CSV and test submission are byte-identical to historical val_039. Retain reproduced EMA 0.4 as the train16 reference and verified Public LB 0.944 as a separate candidate. Close the TTA/EMA composition screen under the accepted negative-effect stopping rule.
+
+Do not launch C/D, repeat exp_050, resubmit identical bytes, or promote. Propose a bounded residual association/division audit on the retained EMA reference before a separately specified structural intervention. No new architecture or training launch is authorized. Runtime was 1.0982387771125 tracked GPU hours; 16.830969524788884 hours remain including the protected six hours. Full analysis: .private/research/exp050_completed_analysis_2026-09-09.md.
+
+Strategy: `.private/research/val049_next_strategy_resolution.md`. Local audit: `.private/research/val049_source_audit/README.md`. Three-new-arm ceiling with 2-hour reservations each; preserve six GPU hours. Current arm state: KEEP. Any advancement to independent reproduction must clear the retained repro_041 quality floor; contract KEEP alone is not advancement.
+<!-- END EXP050 HANDOFF -->
+## Completed authorization record: post-val_049 discussion and conditional execution, 2026-09-09
+
+The user authorized Codex to discuss the proposed source/error audit and bounded
+TTA/EMA factorial plan with Claude, reach agreement, and then execute it. First
+perform the local audit after strategy agreement; choose remote arms from its
+evidence. Every arm still needs its own fresh Claude PASS, snapshot smoke, tracked
+hypothesis, actual parent, exact change, and sufficient budget. Retain the six-hour
+GPU reserve. No leaderboard submission, promotion, training pilot, alpha/threshold
+sweep or important-branch push is included. Record accepted strategy amendments
+in `.private/research/val049_next_strategy_resolution.md`. Older no-successor text
+describes prior authorization and does not override this new permission.
+
+## Completed result record: val_049 baseline, 2026-09-09
+
+val_049 completed as contract-only KEEP at train16 0.9310696298996892, down 0.0076636077877147 versus reproduced EMA 0.4 and 0.0049081833425389 versus val_039. All 25 runtime checks and the independent CSV arithmetic audit passed; test bytes exactly match the verified Public LB 0.944 submission. Division TP/FP/FN is 3/8/9 versus 4/8/8; division explains 65.24% of the loss. Both specimen combined scores fall. Retain the Public LB candidate and the EMA train16 reference separately; no promotion.
+
+Audit common-source equivalence and the division/node-count differences before specifying matched TTA/EMA controls. The complete configuration comparison cannot isolate TTA. Do not resubmit identical output or relaunch val_049. No new remote experiment is part of this result analysis.
+
+Runtime: 1.1696664033688888 tracked GPU hours. This record is superseded by
+exp_050; current remaining budget is 16.830969524788884 hours including the
+six-hour reserve. Raw GEFF artifacts are not the final filtered validation graphs.
+The full report is `.private/research/val049_completed_analysis_2026-09-09.md`.
+
+
+## Completed authorization record: 2026-09-09 research continuation
+
+The user authorized substantive discussion with Claude Code followed by experiments.
+First establish val_049_public_0944_train16 on behavior parent repro_048 with
+unchanged test inference and frozen val_039 selector/scorer. Obtain fresh Claude
+PASS and snapshot smoke before one Kaggle launch, budgeted at 2 GPU hours.
+Discuss NEXT_RESEARCH_PRIORITIES.md, including the subsequent matched TTA/EMA
+factorial design. Subsequent choices depend on the completed baseline evidence.
+No leaderboard submission or promotion is included in this validation launch.
+
 <!-- BEGIN AUTO-CHECKPOINT (generated by scripts/render_checkpoint.py — edit STATE.json, not this block) -->
 ## Active checkpoint (single source of truth: `STATE.json`)
 
-- **Active experiment:** `exp_046_public_0942_motion_ema_sparse_soft`
-- **Controller state (from `experiments/exp_046_public_0942_motion_ema_sparse_soft/experiment.json`):** REJECT
-- **Phase:** COMPLETED_REJECT_ANALYZED
+- **Active experiment:** `diag_051_public_0942_tracklet_evidence`
+- **Controller state (from `experiments/diag_051_public_0942_tracklet_evidence/experiment.json`):** KEEP
+- **Phase:** LOCAL_JOINT_REPAIR_AUDITED_CONTEXT_REJECTED
 - **Leaderboard submission:** NOT authorized
-- **Summary:** exp_046 completed as a valid REJECT at 0.9387340065001502, only +0.000000768812746243519 versus fixed-alpha-0.4 repro_041 and far below the preregistered +0.0001 gate. All implementation and evidence-contract checks passed; division remained 4/8/8 and both specimens rose only microscopically. The policy fired on 4240/345908 validation updates (1.2258 percent) and 1295/109993 test updates (1.1773 percent), with exact per-video equality to guarded_gt_1250. Ten of 16 validation videos were unchanged, four rose and two fell; edge TP/FP/FN were unchanged on every video, while total predicted nodes fell by six. Runtime was 1.1107059715155556 GPU hours; 19.456055771626385 tracked hours remain including the protected 6-hour reserve.
-- **Next action:** Retain repro_041 fixed alpha 0.4 and close the EMA alpha/threshold tuning branch. Do not relaunch, reproduce, submit exp_046 to the leaderboard, run a denser or stronger EMA sweep, call Claude, create or launch a successor, promote, publish milestone v06, or push without explicit user authorization. Recommended next direction is a separately justified experiment targeting actual association or division errors rather than another EMA-alpha variant.
+- **Summary:** The zero-GPU joint graph pilot completed and all 48 output graphs passed independent audit. Original-score repair scores 0.9535869213120838 (+0.01485368362467987); context repair scores 0.9519261693422604 (+0.013192931654856466). Division remains 4/8/8. The preregistered context-increment gate failed; retain REJECT_LOCAL_POLICY for that hypothesis. The original-score control is a promising separate candidate, not a Public LB result. GPU balance remains 15.667408447732495 hours including six protected hours.
+- **Next action:** Review the concrete original-score joint-repair successor design in .private/research/diag052_original_score_successor_design.md. Preserve the rejected context gate and fixed parameters; no sweep. Before any remote validation, integrate prediction-only provenance-safe inference, prove exact parity with all 16 local graphs, and obtain a fresh experiment-specific Claude PASS plus snapshot smoke and budget admission. No leaderboard submission or promotion. Results: experiments/local_052_joint_graph_pilot_v1_attempt02/result.json.
 
-_Generated from `STATE.json` (updated 2026-09-08T02:21:16+00:00). Do not hand-edit this block; edit `STATE.json` and rerun `python scripts/render_checkpoint.py`. Full authorization detail lives once in `GOAL.md`._
+_Generated from `STATE.json` (updated 2026-09-12T03:58:37.065057+00:00). Do not hand-edit this block; edit `STATE.json` and rerun `python scripts/render_checkpoint.py`. Full authorization detail lives once in `GOAL.md`._
 <!-- END AUTO-CHECKPOINT -->
+
+## Active authorization detail (repro_048) — canonical
+
+On 2026-09-08 the user authorized one copy-and-edit execution of the current
+credible public 0.946 notebook and one leaderboard score submission after valid
+output. Only unavailable owner-specific dataset mount paths may differ from the
+archived upstream bytes; no algorithm or parameter edits are authorized.
+
+`repro_047_public_0946_edge_feature_tta_exact_copy` is an unlaunched preflight
+REVISE record. Claude found that its collector incorrectly required an upstream
+train4 metric artifact that this notebook does not create. The corrected immutable
+successor is `repro_048_public_0946_exact_copy`: local evaluation is limited to
+execution, pinned artifact identity, and submission graph integrity, while quality
+is decided by the external leaderboard. Claude returned PASS and snapshot smoke
+passed. The private Kaggle kernel launched once at 2026-09-08T18:58:39Z with a
+2.0-hour reservation.
+
+The user reported completion on 2026-09-08. The run was checked and collected
+once, passed the declared integrity contract, and consumed 0.35718106635611113
+GPU hours. Immediately before submission, remote and local history both showed
+zero submissions for the local day and the output hash was nonduplicate. Kaggle
+submission 56105868 completed at Public LB 0.944. The current public notebook's
+saved output is byte-identical to ours, so the advertised 0.946 is not reproducible
+from the shared materials. No training occurred during either inference run.
+Do not resubmit, relaunch, promote, start a follow-on experiment, publish a
+milestone, or push without new authorization.
 
 ## Active completed-result detail (exp_046) — canonical
 

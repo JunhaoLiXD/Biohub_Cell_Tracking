@@ -36,3 +36,7 @@ in `docs/experiments.md`.
 | `exp_043_public_0942_motion_ema_adaptive_reset` | REJECT | REJECT | 0.936824 | - | `public_0941_frozen_train16_stratified_proxy_v1` |
 | `diag_045_public_0942_motion_ema_telemetry_v2` | REJECT | REJECT | 0.938733 | - | `public_0941_frozen_train16_stratified_proxy_v1` |
 | `exp_046_public_0942_motion_ema_sparse_soft` | REJECT | REJECT | 0.938734 | - | `public_0941_frozen_train16_stratified_proxy_v1` |
+| `repro_048_public_0946_exact_copy` | INCONCLUSIVE | INCONCLUSIVE | 1.000000 | - | `public_0946_submission_integrity_lb_probe_v1` |
+| `val_049_public_0944_train16` | KEEP | KEEP | 0.931070 | - | `public_0941_frozen_train16_stratified_proxy_v1` |
+| `exp_050_public_0944_tta_off` | KEEP | KEEP | 0.935978 | - | `public_0941_frozen_train16_stratified_proxy_v1` |
+| `diag_051_public_0942_tracklet_evidence` | KEEP | KEEP | 0.938733 | - | `public_0941_frozen_train16_stratified_proxy_v1` |

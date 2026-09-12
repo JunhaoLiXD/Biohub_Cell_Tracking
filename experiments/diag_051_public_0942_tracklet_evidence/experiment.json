@@ -1,0 +1,107 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_051_public_0942_tracklet_evidence",
+  "parent": "repro_041_public_0941_motion_ema",
+  "state": "KEEP",
+  "hypothesis": "A single observational export can preserve the reproduced EMA-0.4 predictions exactly while supplying the missing candidate, appearance, graph-stage and scorer-matching evidence needed to estimate reachable longer-context tracklet headroom.",
+  "change": {
+    "component": "retained_parent_evidence_export",
+    "from": "Reproduced EMA 0.4 with raw post-ILP GEFF and aggregate error counts",
+    "to": "Identical predictions with bounded sparse candidate logits, existing appearance embeddings, stable detection-to-graph IDs, stage graphs and final scored graphs",
+    "variables_changed": "Instrumentation only; no training or inference parameter changes"
+  },
+  "signature": "88e835201758c7110894114401f8db764da1327010acf443db9390c519a95c8f",
+  "config": "configs/diag_051_public_0942_tracklet_evidence.yaml",
+  "snapshot_config": "experiments/diag_051_public_0942_tracklet_evidence/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_051_public_0942_tracklet_evidence/snapshot/source/public_0942_tracklet_evidence.ipynb",
+  "snapshot_manifest": "experiments/diag_051_public_0942_tracklet_evidence/snapshot/manifest.json",
+  "git_commit": "f9adf48ccb4e5c0cafd9f2285b0634fda522dba1",
+  "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.163561077056389
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/diag_051_public_0942_tracklet_evidence/review.md",
+    "completed_at": "2026-09-10T02:28:37+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_tracklet_evidence.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\diag_051_public_0942_tracklet_evidence\\snapshot\\source\\public_0942_tracklet_evidence.ipynb"
+    ],
+    "completed_at": "2026-09-10T02:29:33+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-10T02:22:20+00:00",
+  "updated_at": "2026-09-10T04:14:31+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-10T02:22:27+00:00",
+      "note": "Claude review required before smoke test"
+    },
+    {
+      "from": "MANUAL_REVIEW_REQUIRED",
+      "to": "REVIEWED",
+      "at": "2026-09-10T02:28:37+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-10T02:29:33+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-10T02:29:33+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-10T02:30:27+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-10T03:59:59+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-10T04:14:31+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "KEEP",
+      "at": "2026-09-10T04:14:31+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-diag051-public0942-tracklet-evidence",
+    "submitted_at": "2026-09-10T02:30:27+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-10T03:57:05+00:00"
+  },
+  "evaluation": {
+    "decision": "KEEP",
+    "primary_metric": 0.9387332376874039,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-10T04:14:31+00:00"
+  }
+}

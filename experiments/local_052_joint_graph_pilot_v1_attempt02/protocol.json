@@ -1,0 +1,53 @@
+{
+  "id": "local_052_joint_graph_pilot_v1",
+  "parent": "repro_041_public_0941_motion_ema",
+  "evidence_donor": "diag_051_public_0942_tracklet_evidence",
+  "hypothesis": "Five-frame motion and existing secondary appearance improve joint cut-and-reconnect decisions over the original probability alone without damaging division structure.",
+  "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+  "supplemental_protocol": "Fixed-rule video-grouped discovery/confirmation screen; no training or threshold selection. Within each specimen sort video IDs; first four are discovery, last four confirmation. Report both specimens separately as transfer stress panels, not fitted leave-specimen-out validation.",
+  "arms": [
+    "no_change",
+    "original_score",
+    "context"
+  ],
+  "parameters": {
+    "top_k": 8,
+    "protected_probability": 0.9,
+    "edit_penalty": 0.25,
+    "appearance_weight": 0.5,
+    "motion_weight": 0.5,
+    "motion_scale_um": 7.0,
+    "motion_cap": 2.0
+  },
+  "candidate_policy": "All exported final-node candidates for every source, without GT access. Keep top eight original probabilities per source plus all existing graph edges. Context is computed on the frozen parent graph from t-2,t-1,t,t+1,t+2, when two unbranched predecessors and one unbranched successor exist. Missing context contributes zero; same pool in both arms.",
+  "objective": "Original utility is max(0,logit(probability)-logit(exported threshold)). Context adds 0.5*secondary_cosine - 0.5*min(motion_residual_um/7,2) only with complete motion context. Maximize sum utility minus 0.25 per added or removed edge; retaining a current edge is explicitly rewarded. Joint maximum-weight bipartite assignment per frame with private no-edge dummies. Reject symmetric-difference components containing no addition or nonpositive objective gain.",
+  "protection": "Freeze existing fork parents and children and every current edge touching them. Freeze current edges absent from cache, and original-probability >=0.9 edges with unique best outgoing probability. Preserve their outgoing/incoming slots. No new forks: new decisions have at most one child; existing two-child forks are retained. Nodes, coordinates, detector, weights and EMA unchanged.",
+  "scoring": "Reuse the frozen scorer and node matching, valid because nodes and coordinates are unchanged. Recompute complete graph edge/division metrics and aggregation weights. Log every action's additions/removals/objective. Label edits using frozen scorer semantics: TP, annotation-supported FP, unknown. Unknown is never converted into negative evidence.",
+  "gates": {
+    "aggregate_delta_min": 0.005,
+    "context_minus_original_min": 0.001,
+    "discovery_delta_positive": true,
+    "confirmation_delta_positive": true,
+    "both_specimen_delta_positive": true,
+    "worst_video_adjusted_edge_delta_min": -0.002,
+    "division_tp_min": 4,
+    "division_fp_max": 8,
+    "division_fn_max": 8,
+    "division_per_specimen_noninferiority": true
+  },
+  "budget": {
+    "gpu_hours": 0,
+    "timebox_days": 2,
+    "protected_gpu_hours": 6
+  },
+  "stopping_rule": "One fixed screen only. No post-result weight/threshold sweep. A failed gate stops remote advancement for this policy; it does not disprove all context methods.",
+  "limitations": [
+    "Train16 backbone exposure and prior analysis prevent independent generalization claims.",
+    "Sparse annotations leave many edits unknown.",
+    "Five-frame geometry uses parent-smoothed coordinates and two-frame appearance embeddings; no learned five-frame encoder.",
+    "Frozen-parent context does not reflect sequential recomputation after edits.",
+    "No new forks or nodes are created; headroom is narrower than the GT oracle."
+  ],
+  "remote": "Only after a successful local gate and fresh experiment-specific Claude PASS plus smoke may one bounded remote validation be prepared under the user's accepted plan. No leaderboard submission or promotion is authorized.",
+  "integrity_amendment": "Before any aggregate evaluation: original candidate IDs must have unchanged frame identity and remain present through every exported stage. Reject IDs removed and reused by recovery. Failed attempt retained; utility parameters, panels and gates unchanged."
+}

@@ -1,0 +1,35 @@
+{
+  "created_at": "2026-09-08T18:42:46+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/repro_048_public_0946_exact_copy/snapshot/config.yaml",
+      "sha256": "b2659f7f4eebd0c6025a6fecbafec6224acb508c831093ae829e7c22ab310c4f"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/repro_048_public_0946_exact_copy/snapshot/source/public_0946_edge_feature_tta_copy.ipynb",
+      "sha256": "4eda3c3dae83f5ad21fee35513aad5f325e09b6de8f77fa55d9b7d6d4b50ca16"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_048_public_0946_exact_copy/snapshot/extra_files/build_public_0946_copy.py",
+      "sha256": "56fd7b8529b583cbbe6a8330a9b3d34cb1cd5d6e461e165e10614e5ace99c0ba"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_048_public_0946_exact_copy/snapshot/extra_files/validate_public_0946_copy.py",
+      "sha256": "c6f2aabfbb2b69d2d8ebe2b2601f6bca9226916b88f9a0031d210a36691c9dd2"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_048_public_0946_exact_copy/snapshot/extra_files/collect_public_0946_copy.py",
+      "sha256": "52c2213cec9fcc3211fead50769cd2690b303a985f5cddba43681ebf120d1aea"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_048_public_0946_exact_copy/snapshot/extra_files/public_0946_copy.py",
+      "sha256": "c3db030274e25741c4a1d6193f7cab5f3ac009088aa920bf02f3c46aebfe9ec4"
+    }
+  ]
+}

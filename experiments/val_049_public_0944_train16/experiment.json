@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "experiment_id": "val_049_public_0944_train16",
+  "parent": "repro_048_public_0946_exact_copy",
+  "state": "KEEP",
+  "hypothesis": "The verified Public LB 0.944 configuration can establish the frozen train16 baseline while exactly preserving its test submission and pretrained checkpoint identities.",
+  "change": {
+    "component": "validation_instrumentation",
+    "from": "Verified public 0.944 test inference without labeled validation",
+    "to": "Same inference with the exact val_039 train16 selector and scorer and checkpoint-load telemetry",
+    "variables_changed": "Validation instrumentation only; no training or inference parameter change"
+  },
+  "signature": "5be2023d8f572ece5b67976565dc78f772094e88dfb0aad6d349ec95943e8428",
+  "config": "configs/val_049_public_0944_train16.yaml",
+  "snapshot_config": "experiments/val_049_public_0944_train16/snapshot/config.yaml",
+  "snapshot_source": "experiments/val_049_public_0944_train16/snapshot/source/public_0944_train16.ipynb",
+  "snapshot_manifest": "experiments/val_049_public_0944_train16/snapshot/manifest.json",
+  "git_commit": "f9adf48ccb4e5c0cafd9f2285b0634fda522dba1",
+  "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.1696664033688888
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/val_049_public_0944_train16/review.md",
+    "completed_at": "2026-09-09T04:34:34+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_public_0944_train16.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\val_049_public_0944_train16\\snapshot\\source\\public_0944_train16.ipynb"
+    ],
+    "completed_at": "2026-09-09T04:35:39+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-09T04:26:44+00:00",
+  "updated_at": "2026-09-09T15:29:00+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-09T04:34:34+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-09T04:35:39+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-09T04:35:39+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-09T04:37:16+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-09T15:25:54+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-09T15:29:00+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "KEEP",
+      "at": "2026-09-09T15:29:00+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-val049-public0944-train16",
+    "submitted_at": "2026-09-09T04:37:16+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-09T15:25:46+00:00"
+  },
+  "evaluation": {
+    "decision": "KEEP",
+    "primary_metric": 0.9310696298996892,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-09T15:29:00+00:00"
+  }
+}

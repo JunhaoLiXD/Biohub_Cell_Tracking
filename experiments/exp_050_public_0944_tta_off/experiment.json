@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_050_public_0944_tta_off",
+  "parent": "val_049_public_0944_train16",
+  "state": "KEEP",
+  "hypothesis": "Disabling only association feature TTA on the exact val_049 source will isolate the B-minus-A train16 feature-TTA effect without confounding the historical source lineages.",
+  "change": {
+    "component": "association_feature_tta",
+    "from": "BIOHUB_EDGE_FEATURE_TTA=1 on frozen val_049",
+    "to": "BIOHUB_EDGE_FEATURE_TTA=0 with unchanged detection D4 TTA and upstream motion",
+    "variables_changed": "One algorithmic flag; read-only executed-branch telemetry and final scored-graph export"
+  },
+  "signature": "7ecfd593ec6687ea14aab1e2f76286d55dfd25150e84bd7b3114b0eeca6d9af2",
+  "config": "configs/exp_050_public_0944_tta_off.yaml",
+  "snapshot_config": "experiments/exp_050_public_0944_tta_off/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_050_public_0944_tta_off/snapshot/source/public_0944_tta_off.ipynb",
+  "snapshot_manifest": "experiments/exp_050_public_0944_tta_off/snapshot/manifest.json",
+  "git_commit": "f9adf48ccb4e5c0cafd9f2285b0634fda522dba1",
+  "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.0982387771125
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/exp_050_public_0944_tta_off/review.md",
+    "completed_at": "2026-09-09T16:08:57+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_public_0944_tta_off.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\exp_050_public_0944_tta_off\\snapshot\\source\\public_0944_tta_off.ipynb"
+    ],
+    "completed_at": "2026-09-09T16:09:02+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-09T16:03:06+00:00",
+  "updated_at": "2026-09-10T01:53:58+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-09T16:08:57+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-09T16:09:02+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-09T16:09:02+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-09T16:09:15+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-10T01:49:46+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-10T01:53:58+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "KEEP",
+      "at": "2026-09-10T01:53:58+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp050-public0944-tta-off",
+    "submitted_at": "2026-09-09T16:09:15+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-10T01:49:22+00:00"
+  },
+  "evaluation": {
+    "decision": "KEEP",
+    "primary_metric": 0.9359778132422281,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-10T01:53:58+00:00"
+  }
+}

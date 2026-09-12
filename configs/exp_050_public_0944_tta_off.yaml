@@ -1,0 +1,61 @@
+schema_version: 1
+experiment_id: exp_050_public_0944_tta_off
+parent: val_049_public_0944_train16
+hypothesis: Disabling only association feature TTA on the exact val_049 source will isolate the B-minus-A train16 feature-TTA effect without confounding the historical source lineages.
+change:
+  component: association_feature_tta
+  from: BIOHUB_EDGE_FEATURE_TTA=1 on frozen val_049
+  to: BIOHUB_EDGE_FEATURE_TTA=0 with unchanged detection D4 TTA and upstream motion
+  variables_changed: One algorithmic flag; read-only executed-branch telemetry and final scored-graph export
+source_notebook: .private/current/public_0944_tta_off.ipynb
+validation:
+  protocol: public_0941_frozen_train16_stratified_proxy_v1
+  primary_metric: score
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  sample_and_scorer_reference: val_039_public_0941_train16
+  warning: Train-derived optimistic attribution screen. Contract KEEP is validity only. B is frozen val_049; historical val_039 and repro_041 are external references, not certified matched controls.
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+success:
+  minimum_improvement: 0.001
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: validation_contract_passed
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+local:
+  smoke_test: ['{python}', scripts/validate_public_0944_tta_off.py, '{source_notebook}']
+provenance:
+  review_focus: Read .private/research/val049_next_strategy_resolution.md and .private/research/val049_source_audit/README.md. Verify exact B parent, single feature-TTA flag change, unchanged detection TTA/motion/scorer, executed-branch receipts on both splits, candidate test hash stability rather than inappropriate parent hash, final graph export after scoring, and strict JSON numeric serialization. B-A determines whether composition is warranted; KEEP is not advancement. Historical A/C equivalence is not claimed.
+  parent_score: 0.9310696298996892
+  hypothesis_direction: A is a matched attribution control; report B-A in either direction
+  next_arm_gate: If B-A is negative and no independent rescue mechanism is established, stop composition. No automatic C/D launch.
+  advancement_gate: Candidates considered for future independent reproduction must exceed repro_041 by 0.001, improve both specimen scores, protect edge tails at -0.002 and division counts globally and per specimen. Separate from this contract-only gate.
+authorization:
+  scope: User authorized Claude discussion and execution after agreement on 2026-09-09. Claude agreed with amendments, accepted by Codex. First bounded arm after local audit; no LB submission or promotion.
+submission:
+  user_authorized_count: 0
+kaggle:
+  owner: lingxd
+  slug: biohub-exp050-public0944-tta-off
+  title: biohub-exp050-public0944-tta-off
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: true
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+    - scripts/build_public_0944_tta_off.py
+    - scripts/validate_public_0944_tta_off.py

@@ -1,0 +1,50 @@
+{
+  "status": "PASS",
+  "graphs_audited": 48,
+  "checks": [
+    "graph hashes",
+    "exact node preservation",
+    "action reconstruction",
+    "forward edges and degrees",
+    "fork identity",
+    "frozen edit labels",
+    "frozen full-graph scores",
+    "aggregate scores"
+  ],
+  "edit_totals": {
+    "no_change": {
+      "added_true": 0,
+      "removed_true": 0,
+      "added_false": 0,
+      "removed_false": 0,
+      "added_unknown": 0,
+      "removed_unknown": 0,
+      "added": 0,
+      "removed": 0,
+      "actions": 0
+    },
+    "original_score": {
+      "added_true": 64,
+      "removed_true": 4,
+      "added_false": 20,
+      "removed_false": 115,
+      "added_unknown": 2498,
+      "removed_unknown": 2662,
+      "added": 2582,
+      "removed": 2781,
+      "actions": 1419
+    },
+    "context": {
+      "added_true": 54,
+      "removed_true": 3,
+      "added_false": 10,
+      "removed_false": 97,
+      "added_unknown": 2022,
+      "removed_unknown": 2094,
+      "added": 2086,
+      "removed": 2194,
+      "actions": 1144
+    }
+  },
+  "result_sha256": "0785dc0ae905f04d77c42450d18d0368c1eab32340cd2897294da463407149c0"
+}

@@ -463,6 +463,66 @@
       "git_commit": "60efd748960dfd44b35e43ab7a6d4f4579b4e864",
       "metrics_path": "experiments/exp_046_public_0942_motion_ema_sparse_soft/metrics.json",
       "evaluated_at": "2026-09-08T02:21:16+00:00"
+    },
+    {
+      "experiment_id": "repro_048_public_0946_exact_copy",
+      "status": "INCONCLUSIVE",
+      "parent": "repro_038_public_0941_exact_copy",
+      "hypothesis": "The complete public reyhanksatria/biohub-cell-tracking-0-946-lb notebook, changed only to mount the same public Pilkwang artifact datasets under their available Kaggle paths, will produce a valid submission and reproduce the advertised Public LB 0.946 under the lingxd account. This full-source test does not attribute any reproduced score difference to one component.\n",
+      "validation_score": 1.0,
+      "validation_protocol": "public_0946_submission_integrity_lb_probe_v1",
+      "previous_best": null,
+      "delta": null,
+      "runtime_hours": 0.35718106635611113,
+      "decision": "INCONCLUSIVE",
+      "git_commit": "f9adf48ccb4e5c0cafd9f2285b0634fda522dba1",
+      "metrics_path": "experiments/repro_048_public_0946_exact_copy/metrics.json",
+      "evaluated_at": "2026-09-08T19:39:46+00:00"
+    },
+    {
+      "experiment_id": "val_049_public_0944_train16",
+      "status": "KEEP",
+      "parent": "repro_048_public_0946_exact_copy",
+      "hypothesis": "The verified Public LB 0.944 configuration can establish the frozen train16 baseline while exactly preserving its test submission and pretrained checkpoint identities.",
+      "validation_score": 0.9310696298996892,
+      "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+      "previous_best": null,
+      "delta": null,
+      "runtime_hours": 1.1696664033688888,
+      "decision": "KEEP",
+      "git_commit": "f9adf48ccb4e5c0cafd9f2285b0634fda522dba1",
+      "metrics_path": "experiments/val_049_public_0944_train16/metrics.json",
+      "evaluated_at": "2026-09-09T15:29:00+00:00"
+    },
+    {
+      "experiment_id": "exp_050_public_0944_tta_off",
+      "status": "KEEP",
+      "parent": "val_049_public_0944_train16",
+      "hypothesis": "Disabling only association feature TTA on the exact val_049 source will isolate the B-minus-A train16 feature-TTA effect without confounding the historical source lineages.",
+      "validation_score": 0.9359778132422281,
+      "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+      "previous_best": null,
+      "delta": null,
+      "runtime_hours": 1.0982387771125,
+      "decision": "KEEP",
+      "git_commit": "f9adf48ccb4e5c0cafd9f2285b0634fda522dba1",
+      "metrics_path": "experiments/exp_050_public_0944_tta_off/metrics.json",
+      "evaluated_at": "2026-09-10T01:53:58+00:00"
+    },
+    {
+      "experiment_id": "diag_051_public_0942_tracklet_evidence",
+      "status": "KEEP",
+      "parent": "repro_041_public_0941_motion_ema",
+      "hypothesis": "A single observational export can preserve the reproduced EMA-0.4 predictions exactly while supplying the missing candidate, appearance, graph-stage and scorer-matching evidence needed to estimate reachable longer-context tracklet headroom.",
+      "validation_score": 0.9387332376874039,
+      "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+      "previous_best": null,
+      "delta": null,
+      "runtime_hours": 1.163561077056389,
+      "decision": "KEEP",
+      "git_commit": "f9adf48ccb4e5c0cafd9f2285b0634fda522dba1",
+      "metrics_path": "experiments/diag_051_public_0942_tracklet_evidence/metrics.json",
+      "evaluated_at": "2026-09-10T04:14:31+00:00"
     }
   ]
 }

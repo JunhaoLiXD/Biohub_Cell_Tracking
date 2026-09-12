@@ -1,0 +1,21 @@
+[2026-09-10T03:46:40+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag051-public0942-tracklet-evidence"]
+exit_code=1
+STDOUT
+
+STDERR
+HTTPSConnectionPool(host='api.kaggle.com', port=443): Max retries exceeded with url: /v1/kernels.KernelsApiService/GetKernelSessionStatus (Caused by NewConnectionError("HTTPSConnection(host='api.kaggle.com', port=443): Failed to establish a new connection: [WinError 10013] An attempt was made to access a socket in a way forbidden by its access permissions"))
+
+[2026-09-10T03:47:45+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag051-public0942-tracklet-evidence"]
+exit_code=1
+STDOUT
+
+STDERR
+Cannot access kernel 'lingxd/biohub-diag051-public0942-tracklet-evidence' (Permission 'kernels.get' was denied). The most likely cause is a wrong kernel slug. The benchmark_task_slug returned by get_benchmark_leaderboard differs from the actual kernel slug — use the slug from the notebook URL (kaggle.com/code/owner/KERNEL-SLUG), not from the leaderboard. It can also occur if the notebook is private.
+
+[2026-09-10T03:57:05+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-diag051-public0942-tracklet-evidence"]
+exit_code=0
+STDOUT
+lingxd/biohub-diag051-public0942-tracklet-evidence has status "KernelWorkerStatus.COMPLETE"
+
+STDERR
+

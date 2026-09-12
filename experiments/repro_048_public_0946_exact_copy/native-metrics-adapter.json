@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_048_public_0946_exact_copy",
+  "primary_metric": 1.0,
+  "runtime_seconds": 1285.851838882,
+  "reproducible": false,
+  "validation": {
+    "protocol": "public_0946_submission_integrity_lb_probe_v1",
+    "sample_count": 4,
+    "warning": "Binary execution and graph-integrity check; quality is decided only by the external Public LB."
+  },
+  "metrics": {
+    "copy_execution_passed": true,
+    "submission_audit": {
+      "datasets": [
+        "44b6_0113de3b",
+        "44b6_0b24845f",
+        "6bba_05b6850b",
+        "6bba_05db0fb1"
+      ],
+      "nodes": 122791,
+      "edges": 118491,
+      "sha256": "0319ba6d8e864335d3573f6b1a6227c546f17e9247a0c2858fa09b6c2422db3f"
+    },
+    "actual_deepcenter_path": "/kaggle/input/datasets/pilkwang/biohub-deepcenter-unet3d-center-prior-v1/weights/full_frame_center/best.pt",
+    "public_lb_reproduction_passed": null
+  }
+}

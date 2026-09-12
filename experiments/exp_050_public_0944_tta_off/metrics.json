@@ -1,0 +1,360 @@
+{
+  "experiment_id": "exp_050_public_0944_tta_off",
+  "metrics": {
+    "arm": "A",
+    "attribution_arm_only": true,
+    "checks": {
+      "deepcenter_best_pt": true,
+      "deepcenter_epoch2": true,
+      "deepcenter_hash_bound": true,
+      "deepcenter_path_bound": true,
+      "density_penalty_available": true,
+      "dual_t4": true,
+      "edge_feature_tta_disabled": true,
+      "effective_bidirectional_weight": true,
+      "effective_deepcenter_division_threshold": true,
+      "effective_det_threshold": true,
+      "effective_division_parent_um": true,
+      "effective_division_sister_um": true,
+      "effective_gap_close_um": true,
+      "effective_motion_velocity_weight": true,
+      "effective_secondary_detection_weight": true,
+      "effective_sister_symmetry": true,
+      "executed_source_unchanged": true,
+      "executed_tta_off_both_splits": true,
+      "experiment_id_injected": true,
+      "final_graph_exports_complete": true,
+      "finite_scores": true,
+      "frozen_samples_and_order": true,
+      "frozen_strata": true,
+      "primary_hash_exact": true,
+      "sample_count": true,
+      "secondary_hash_exact": true,
+      "stage_stats_complete": true,
+      "test_submission_recorded": true,
+      "test_submission_unchanged_after_validation": true
+    },
+    "comparison_arm": "B=val_049_public_0944_train16",
+    "edge_tta_execution_counts": {
+      "test": 396,
+      "validation": 1584
+    },
+    "executed_source_sha256": "c79f5c7c65421271f722566cfc8b5fe67615a13015f85e868db714b922dd707f",
+    "failed_checks": [],
+    "final_graph_manifest": {
+      "44b6_1d530831": {
+        "edges": 32809,
+        "nodes": 34255,
+        "path": "/kaggle/working/final_validation_graphs/44b6_1d530831.json.gz",
+        "sha256": "ae4d222a50922a9f1335a2edd0b59b50879e746bac116f665378645055508e1d"
+      },
+      "44b6_2a2eff9f": {
+        "edges": 34508,
+        "nodes": 36161,
+        "path": "/kaggle/working/final_validation_graphs/44b6_2a2eff9f.json.gz",
+        "sha256": "4dbf921beeaaa154627cc410791541e5d8d35a4eeddef044faf1c29fdd772bfa"
+      },
+      "44b6_551a5dba": {
+        "edges": 27996,
+        "nodes": 29326,
+        "path": "/kaggle/working/final_validation_graphs/44b6_551a5dba.json.gz",
+        "sha256": "5cdbb3fa45a42f4170155b73e6b70ca8e8d276274bf3b8ba2d1751d5cfd24871"
+      },
+      "44b6_7a302da0": {
+        "edges": 38583,
+        "nodes": 40329,
+        "path": "/kaggle/working/final_validation_graphs/44b6_7a302da0.json.gz",
+        "sha256": "1957b449430812c6eff4c30037308a38b83b0086b95e74ba2472f678dcf97104"
+      },
+      "44b6_7e557709": {
+        "edges": 41828,
+        "nodes": 43106,
+        "path": "/kaggle/working/final_validation_graphs/44b6_7e557709.json.gz",
+        "sha256": "e8cb8722d26e493073c99b94f4873f151b6873b6b84c66983f549a977dcc24dd"
+      },
+      "44b6_aaf8b0ea": {
+        "edges": 13409,
+        "nodes": 13959,
+        "path": "/kaggle/working/final_validation_graphs/44b6_aaf8b0ea.json.gz",
+        "sha256": "ba7c56d0dd072f9317d21f2b258697505d53ae0f1227a4a58c91ef3622d8214d"
+      },
+      "44b6_c15fded2": {
+        "edges": 18445,
+        "nodes": 19200,
+        "path": "/kaggle/working/final_validation_graphs/44b6_c15fded2.json.gz",
+        "sha256": "4169ca9b63a4ffb9e058ddd9ed85dec9a483380a29802f9ff1a660c4571b0de4"
+      },
+      "44b6_c50204e0": {
+        "edges": 33120,
+        "nodes": 34683,
+        "path": "/kaggle/working/final_validation_graphs/44b6_c50204e0.json.gz",
+        "sha256": "28aa6a17398a5baf28cd939652a435dce3c9dc53fc78134c8e7cb9d0cf767f95"
+      },
+      "6bba_0c7fa718": {
+        "edges": 11651,
+        "nodes": 12354,
+        "path": "/kaggle/working/final_validation_graphs/6bba_0c7fa718.json.gz",
+        "sha256": "f2792eebebfcc00108543b4be94b18f0b63a6d891643d8bb85e94ab67ac529b0"
+      },
+      "6bba_283bf9f1": {
+        "edges": 20745,
+        "nodes": 21598,
+        "path": "/kaggle/working/final_validation_graphs/6bba_283bf9f1.json.gz",
+        "sha256": "37d50a4f837ae57ae3f349e9ccce6c2db9592a38e4f95661764b671f2fec1d9d"
+      },
+      "6bba_337b1b3a": {
+        "edges": 28088,
+        "nodes": 29081,
+        "path": "/kaggle/working/final_validation_graphs/6bba_337b1b3a.json.gz",
+        "sha256": "7addbd4c8ea7b5381851c9e38ad9284085de4c72ebc9dea10a41893f54e77fbb"
+      },
+      "6bba_372c8cb8": {
+        "edges": 6486,
+        "nodes": 6651,
+        "path": "/kaggle/working/final_validation_graphs/6bba_372c8cb8.json.gz",
+        "sha256": "28e83aff61e4a9a7670ccf3003f11463da81fae5e7e33bd8da7c9a5363b0787b"
+      },
+      "6bba_55c70843": {
+        "edges": 35380,
+        "nodes": 36804,
+        "path": "/kaggle/working/final_validation_graphs/6bba_55c70843.json.gz",
+        "sha256": "6706c6163430bb8d46634d041024bdbb788576158060b83f9107330a6fa97688"
+      },
+      "6bba_80d12824": {
+        "edges": 8105,
+        "nodes": 8519,
+        "path": "/kaggle/working/final_validation_graphs/6bba_80d12824.json.gz",
+        "sha256": "c85cdd2ec4fac5204d9a4dee58b0934cef5124e9143cc2c887f4c47129dc82b7"
+      },
+      "6bba_ef7b4f7e": {
+        "edges": 5729,
+        "nodes": 5877,
+        "path": "/kaggle/working/final_validation_graphs/6bba_ef7b4f7e.json.gz",
+        "sha256": "3fcb778e40be0d294b78183915feb8a9fd143e62c8130f49cf59a1c301966837"
+      },
+      "6bba_fe670320": {
+        "edges": 9290,
+        "nodes": 9735,
+        "path": "/kaggle/working/final_validation_graphs/6bba_fe670320.json.gz",
+        "sha256": "68c89531c3452dcecc3c0d2dc797595711d4162a2a5a572028b213c5491b085b"
+      }
+    },
+    "inference_identity": {
+      "actual_checkpoint": {
+        "epoch": 2,
+        "path": "/kaggle/input/datasets/pilkwang/biohub-deepcenter-unet3d-center-prior-v1/weights/full_frame_center/best.pt",
+        "sha256": "8040999a92f6b7bbd98fa8cf458141e045c0f9ad7c936bdb3b18e1f7edafe2a0"
+      },
+      "checks": {
+        "deepcenter_best_pt": true,
+        "deepcenter_epoch2": true,
+        "deepcenter_hash_bound": true,
+        "deepcenter_path_bound": true,
+        "dual_t4": true,
+        "edge_feature_tta_disabled": true,
+        "effective_bidirectional_weight": true,
+        "effective_deepcenter_division_threshold": true,
+        "effective_det_threshold": true,
+        "effective_division_parent_um": true,
+        "effective_division_sister_um": true,
+        "effective_gap_close_um": true,
+        "effective_motion_velocity_weight": true,
+        "effective_secondary_detection_weight": true,
+        "effective_sister_symmetry": true,
+        "primary_hash_exact": true,
+        "secondary_hash_exact": true,
+        "test_submission_recorded": true
+      },
+      "configuration": {
+        "bidirectional_primary_weight": 0.15,
+        "deepcenter_gap_confirm_min_span_um": 8.5,
+        "deepcenter_gap_threshold": 0.25,
+        "deepcenter_safe_div_threshold": 0.25,
+        "detector_threshold": 0.965,
+        "edge_candidate_threshold": 0.48,
+        "fallback_scope": "individual_frame",
+        "gap_close_um": 5.0,
+        "ilp_appearance_weight": 0.0,
+        "ilp_disappearance_weight": 2.0,
+        "minimum_candidate_retention": 0.9,
+        "safe_div_max_um": 9.0,
+        "safe_div_sister_max_um": 14.0,
+        "safe_div_sister_symmetry_tau": 0.6,
+        "secondary_detection_weight": 0.8,
+        "secondary_edge_weight": 0.15,
+        "secondary_link_mode": "low_margin_consensus",
+        "secondary_low_margin_max": 0.35
+      },
+      "environment": {
+        "BIOHUB_ADAPTIVE_SHORT_TRACK_RESCUE": "1",
+        "BIOHUB_ALLOW_ARTIFACT_FALLBACK": "1",
+        "BIOHUB_AUDIT_PHASE": "test",
+        "BIOHUB_BIDIRECTIONAL_EDGE_WEIGHT": "0.15",
+        "BIOHUB_BIDIRECTIONAL_FUSION_MODE": "harmonic_probability",
+        "BIOHUB_DEEPCENTER_CHECKPOINT": "/kaggle/input/datasets/pilkwang/biohub-deepcenter-unet3d-center-prior-v1/weights/full_frame_center/best.pt",
+        "BIOHUB_DEEPCENTER_EXPECTED_EPOCH": "2",
+        "BIOHUB_DEEPCENTER_GAP_CONFIRM_MIN_SPAN_UM": "8.5",
+        "BIOHUB_DEEPCENTER_GAP_THRESHOLD": "0.25",
+        "BIOHUB_DEEPCENTER_GAP_VETO": "1",
+        "BIOHUB_DEEPCENTER_SAFE_DIV_THRESHOLD": "0.25",
+        "BIOHUB_DEEPCENTER_SAFE_DIV_VETO": "1",
+        "BIOHUB_DET_THRESHOLD": "0.965",
+        "BIOHUB_DIAGNOSTIC_ARM": "harmonic_association_production",
+        "BIOHUB_DUAL_SEED_EDGE_THRESHOLD": "0.48",
+        "BIOHUB_DUAL_SEED_MIN_CANDIDATE_RETENTION": "0.90",
+        "BIOHUB_EDGE_FEATURE_TTA": "0",
+        "BIOHUB_GAP_CLOSE_MAX_GAP": "2",
+        "BIOHUB_GAP_CLOSE_UM": "5.0",
+        "BIOHUB_GAP_DENSITY_ADAPTIVE": "1",
+        "BIOHUB_GAP_DENSITY_GAIN": "0.040",
+        "BIOHUB_GAP_DENSITY_MAX_STEP_DELTA_UM": "0.125",
+        "BIOHUB_GAP_DENSITY_NEIGHBORS": "3",
+        "BIOHUB_GAP_DENSITY_REFERENCE_UM": "6.5",
+        "BIOHUB_ILP_APPEARANCE_WEIGHT": "0.0",
+        "BIOHUB_ILP_DISAPPEARANCE_WEIGHT": "2",
+        "BIOHUB_ILP_DIVISION_WEIGHT": "1.2",
+        "BIOHUB_MODEL_ARTIFACTS": "/kaggle/input/biohub-tracking-support-pack-50ep-v1",
+        "BIOHUB_MOTION_RELINK_LEARNED_BONUS": "1.0",
+        "BIOHUB_OUTPUT_FILTER_SHORT_TRACKS": "1",
+        "BIOHUB_OUTPUT_GAP2_RECOVERY": "1",
+        "BIOHUB_OUTPUT_KEEP_DIVISION_COMPONENTS": "1",
+        "BIOHUB_OUTPUT_MIN_TRACK_LEN": "6",
+        "BIOHUB_REQUIRE_DEEPCENTER_VETO": "1",
+        "BIOHUB_RUN_OUTPUT_DIAGNOSTICS": "0",
+        "BIOHUB_SAFE_DIV_DIVERGE_UM": "2.25",
+        "BIOHUB_SAFE_DIV_EXISTING_CHILD_MAX_UM": "10.0",
+        "BIOHUB_SAFE_DIV_FRAME_FRAC_CAP": "0.0076",
+        "BIOHUB_SAFE_DIV_GLOBAL_FRAC_CAP": "0.00375",
+        "BIOHUB_SAFE_DIV_MAX_UM": "9.0",
+        "BIOHUB_SAFE_DIV_SISTER_MAX_UM": "14.0",
+        "BIOHUB_SAFE_DIV_SISTER_SYMMETRY_TAU": "0.6",
+        "BIOHUB_SECONDARY_ARTIFACT_MANIFEST": "/kaggle/input/biohub-temporal-unet3d-seed314159-v1/ARTIFACT_MANIFEST.json",
+        "BIOHUB_SECONDARY_DETECTION_WEIGHT": "0.80",
+        "BIOHUB_SECONDARY_EDGE_WEIGHT": "0.15",
+        "BIOHUB_SECONDARY_LINK_MODE": "low_margin_consensus",
+        "BIOHUB_SECONDARY_LOW_MARGIN_MAX": "0.35",
+        "BIOHUB_SECONDARY_MIX_TEMPERATURE": "1",
+        "BIOHUB_SECONDARY_WEIGHTS": "/kaggle/working/secondary_seed_weights/unet_transformer/split_0/edge_predictor_best.pth",
+        "BIOHUB_SHORT_TRACK_RESCUE_MAX_MEAN_EDGE_DIST_UM": "3.0",
+        "BIOHUB_SHORT_TRACK_RESCUE_MAX_NODES_ABS": "120",
+        "BIOHUB_SHORT_TRACK_RESCUE_MAX_NODES_FRAC": "0.012",
+        "BIOHUB_SHORT_TRACK_RESCUE_MIN_LEN": "4",
+        "BIOHUB_SHORT_TRACK_RESCUE_MIN_MEAN_EDGE_PROB": "0.88",
+        "BIOHUB_TARGET_ARTIFACT_SLUG": "biohub-tracking-support-pack-50ep-v1",
+        "BIOHUB_USE_DEEPCENTER_VETO": "1"
+      },
+      "parent": "val_049_public_0944_train16",
+      "submission_sha256": "bf66c879298e71c5cce0326fbac5956ca567a344ae28f0d402dfc5003fba52bd"
+    },
+    "parent_public_lb": 0.944,
+    "parent_submission_id": 56105868,
+    "quality_advancement_authorized": false,
+    "timing_seconds": {
+      "test_and_setup": 1374.340767061,
+      "test_predict": 531.0756208896637,
+      "validation_and_scoring": 2579.3188416780004,
+      "validation_predict": 1835.2743518352509
+    },
+    "tta_effect_b_minus_a": -0.004908183342538841,
+    "tta_nonnegative_screen": false,
+    "validation_contract_passed": true
+  },
+  "primary_metric": 0.9359778132422281,
+  "reproducible": false,
+  "runtime_seconds": 3953.659597605,
+  "schema_version": 1,
+  "specimen_metrics": {
+    "44b6": {
+      "adjusted_edge_jaccard": 0.9017996822478785,
+      "division_jaccard": 0.2,
+      "division_negative_samples": [
+        "44b6_c15fded2",
+        "44b6_1d530831",
+        "44b6_551a5dba",
+        "44b6_7e557709"
+      ],
+      "division_positive_samples": [
+        "44b6_7a302da0",
+        "44b6_2a2eff9f",
+        "44b6_c50204e0",
+        "44b6_aaf8b0ea"
+      ],
+      "error_summary": {
+        "adjusted_edge_jaccard": 0.9017996822478785,
+        "div_fn": 3,
+        "div_fp": 5,
+        "div_tp": 2,
+        "division_jaccard": 0.2,
+        "edges_fragmented": 101,
+        "edges_lost_to_detection": 44,
+        "edges_recovered": 2260,
+        "missed_gt_nodes": 32,
+        "proxy_score": 0.9217996822478786,
+        "spurious_pred_nodes": 248601,
+        "wrong_association_edges": 3
+      },
+      "primary_metric": 0.9217996822478786,
+      "samples": [
+        "44b6_c15fded2",
+        "44b6_7a302da0",
+        "44b6_1d530831",
+        "44b6_551a5dba",
+        "44b6_7e557709",
+        "44b6_2a2eff9f",
+        "44b6_c50204e0",
+        "44b6_aaf8b0ea"
+      ]
+    },
+    "6bba": {
+      "adjusted_edge_jaccard": 0.9221497755630705,
+      "division_jaccard": 0.18181818181818182,
+      "division_negative_samples": [
+        "6bba_55c70843",
+        "6bba_372c8cb8",
+        "6bba_283bf9f1",
+        "6bba_0c7fa718"
+      ],
+      "division_positive_samples": [
+        "6bba_fe670320",
+        "6bba_337b1b3a",
+        "6bba_ef7b4f7e",
+        "6bba_80d12824"
+      ],
+      "error_summary": {
+        "adjusted_edge_jaccard": 0.9221497755630705,
+        "div_fn": 5,
+        "div_fp": 4,
+        "div_tp": 2,
+        "division_jaccard": 0.18181818181818182,
+        "edges_fragmented": 161,
+        "edges_lost_to_detection": 139,
+        "edges_recovered": 6869,
+        "missed_gt_nodes": 118,
+        "proxy_score": 0.9403315937448887,
+        "spurious_pred_nodes": 123263,
+        "wrong_association_edges": 6
+      },
+      "primary_metric": 0.9403315937448887,
+      "samples": [
+        "6bba_fe670320",
+        "6bba_55c70843",
+        "6bba_372c8cb8",
+        "6bba_337b1b3a",
+        "6bba_ef7b4f7e",
+        "6bba_80d12824",
+        "6bba_283bf9f1",
+        "6bba_0c7fa718"
+      ]
+    }
+  },
+  "validation": {
+    "adjusted_edge_jaccard": 0.916930194194609,
+    "division_jaccard": 0.19047619047619047,
+    "protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+    "sample_count": 16,
+    "selection_and_scorer_reference": "val_039_public_0941_train16",
+    "warning": "Frozen models saw training videos; optimistic train-derived proxy, not held-out model generalization."
+  },
+  "parsed_at": "2026-09-10T01:53:58+00:00",
+  "source": "E:\\Project\\Biohub_CellTracking\\experiments\\exp_050_public_0944_tta_off\\artifacts\\metrics.json"
+}

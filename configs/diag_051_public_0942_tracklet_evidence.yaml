@@ -1,0 +1,71 @@
+schema_version: 1
+experiment_id: diag_051_public_0942_tracklet_evidence
+parent: repro_041_public_0941_motion_ema
+hypothesis: A single observational export can preserve the reproduced EMA-0.4 predictions exactly while supplying the missing candidate, appearance, graph-stage and scorer-matching evidence needed to estimate reachable longer-context tracklet headroom.
+change:
+  component: retained_parent_evidence_export
+  from: Reproduced EMA 0.4 with raw post-ILP GEFF and aggregate error counts
+  to: Identical predictions with bounded sparse candidate logits, existing appearance embeddings, stable detection-to-graph IDs, stage graphs and final scored graphs
+  variables_changed: Instrumentation only; no training or inference parameter changes
+source_notebook: .private/current/public_0942_tracklet_evidence.ipynb
+validation:
+  protocol: public_0941_frozen_train16_stratified_proxy_v1
+  primary_metric: score
+  seed: public_0933_train16_v1
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  comparison_parent: repro_041_public_0941_motion_ema
+  absolute_tolerance: 1.0e-12
+  relative_tolerance: 0.0
+  expected_primary_metric: 0.9387332376874039
+  expected_submission_sha256: fd1162bfc09b6d06413701aa898eb14bc5df9cc5bfd999fe598bf81fbf125515
+  expected_validator_sha256: 2e6b0bf3a02f3a74b2115b23342ddd22bd8340d0faa9db8893b4733dadb9da85
+  warning: Pretrained models saw training videos. This is an evidence-validity diagnostic, not held-out generalization or method advancement. GT is offline analysis only. Unexported candidates are unmeasured.
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+  per_specimen_max_regression: 0.0
+evaluation:
+  mode: gate
+  gate_field: evidence_diagnostic_passed
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+local:
+  smoke_test: ['{python}', scripts/validate_tracklet_evidence.py, '{source_notebook}']
+provenance:
+  plan: NEXT_RESEARCH_PRIORITIES.md Current next step retained-parent reachable-error audit
+  design: .private/research/diag051_tracklet_evidence_design.md
+  review_focus: Read the current diag_051 authorization in GOAL.md and design document. Verify observation-only worker and graph hooks, AST erasure equivalence, no GT access in worker, unchanged selector/scorer and exact parent test/CSV gates. Check variable scope, node-ID mapping, finite NPZ/strict JSON, per-video 128 MiB worker cap, all 99 consecutive pairs for each frozen video, and stage/matching coverage. Diagnose whether this one export is sufficient for the bounded audit; no follow-on telemetry chain or training launch is authorized by this config.
+  sparse_pool: Top eight blended-probability candidates per source and target, union every accepted pre-ILP edge; exported statuses distinguish threshold rejection, degree-cap rejection and acceptance
+  embeddings: Primary and secondary existing two-frame feature vectors for every endpoint in every consecutive pair; offline five-frame composition only
+authorization:
+  scope: User requested the next experiment according to the agreed plan. One retained-parent evidence diagnostic is authorized, after fresh Claude PASS and smoke. Preserve six GPU hours. No leaderboard submission or promotion.
+submission:
+  user_authorized_count: 0
+kaggle:
+  owner: lingxd
+  slug: biohub-diag051-public0942-tracklet-evidence
+  title: biohub-diag051-public0942-tracklet-evidence
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: true
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+    - scripts/build_tracklet_evidence.py
+    - scripts/tracklet_evidence_worker.py
+    - scripts/tracklet_evidence_graphs.py
+    - scripts/tracklet_evidence_contract.py
+    - scripts/validate_tracklet_evidence.py

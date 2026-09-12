@@ -86,6 +86,29 @@
                                 "reason": "Kaggle CreateCodeSubmission also requires the output file name; kernel and version alone are insufficient."
                             },
                             "rationale": "First leaderboard evaluation of the independently exact-reproduced public-0.941 motion-EMA candidate; formal post-run Claude verdict PASS."
+                        },
+                        {
+                            "local_date": "2026-09-08",
+                            "gate_checked_at_utc": "2026-09-08T19:40:28+00:00",
+                            "submitted_at_utc": "2026-09-08T19:41:08.933000Z",
+                            "competition": "biohub-cell-tracking-during-development",
+                            "submission_id": 56105868,
+                            "experiment_id": "repro_048_public_0946_exact_copy",
+                            "kernel": "lingxd/biohub-repro048-public0946-exact-copy",
+                            "kernel_version": 1,
+                            "file_name": "submission.csv",
+                            "submission_sha256": "0319ba6d8e864335d3573f6b1a6227c546f17e9247a0c2858fa09b6c2422db3f",
+                            "status": "COMPLETE",
+                            "public_score": 0.944,
+                            "public_score_precision": 3,
+                            "score_source": "authenticated_kaggle_submission_history",
+                            "verified_at_utc": "2026-09-09T04:18:23+00:00",
+                            "remote_history_checked_before_submit": true,
+                            "remote_local_day_count_before_submit": 0,
+                            "local_day_count_before_submit": 0,
+                            "duplicate_probe": false,
+                            "user_authorized": true,
+                            "rationale": "First independent leaderboard verification of the current credible public 0.946 full-source candidate; path-only dataset mount edits and graph integrity audited."
                         }
                     ]
 }
