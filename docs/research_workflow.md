@@ -1,5 +1,15 @@
 # Research handoff and traceability
 
+> **Superseded operational summary (2026-09-15):** This compact document retains
+> the historical traceability snapshot below. For current state, exp_055
+> restrictions, and the Claude Code/Codex consensus workflow, use
+> [`PROJECT_HANDOFF.md`](research/PROJECT_HANDOFF.md). Future experiments require
+> `admission.require_codex_review: true`, a fresh Codex `PASS`, and
+> `scripts/request_codex_review.py`; older Claude-based configs and receipts are
+> historical evidence and remain unchanged.
+
+## Historical snapshot (superseded)
+
 Current working parent (2026-09-06): the reproduced public
 `analyticaobscura/biohub-lb-941` configuration, `repro_038_public_0941_exact_copy`.
 Submission 56044403 completed at Public LB **0.941** using released pretrained

@@ -1,8 +1,96 @@
 # Project Goal
 
+## Canonical workflow authorization (current)
+
+The detailed operational handoff is `docs/research/PROJECT_HANDOFF.md`. For the
+next research cycle, Claude Code is the strategy author and implementation lead;
+Codex is the independent strategy challenger and implementation reviewer.
+Claude Code must state the actual parent, one falsifiable hypothesis, exact
+change, validation protocol, budget, artifacts, risks, and rollback/stop rule.
+Codex must independently challenge methodology, leakage, graph semantics,
+provenance, numerical stability, tests, reproducibility, and budget. Claude Code
+revises until a versioned strategy record explicitly says `CONSENSUS`; without
+consensus, execution stops and the disagreement returns to the user.
+
+After consensus, all existing experiment gates remain in force: explicit
+tracked hypothesis/change/parent, local and snapshot smoke, fresh
+experiment-specific review, controller admission, resource reservation, and
+independent Codex artifact/metric audit. Future experiment configs must set
+`admission.require_codex_review: true` (optionally `reviewer_provider: codex`),
+use `scripts/request_codex_review.py`, and require a fresh Codex `PASS` before
+execution. Historical Claude-based configs and receipts, including exp_055,
+remain preserved evidence and are not rewritten. The late-stage accuracy push may
+include explicitly authorized high-risk/high-reward experiments, including
+potentially framework-changing designs. They may fail, but must be bounded,
+reversible, fail-fast, leakage-free, reproducible, and honestly distinguish
+local proxy evidence from Public LB evidence. Preserve budgets, the six-hour GPU
+reserve, model allowance reserves, and no-automatic-LB/promotion rules. The
+migrated controller accepts the Codex admission field while remaining
+backward-compatible with historical records.
+
+## Active execution directive
+
+`exp_055_original_score_joint_bootstrap_smoke_fix` is the only active experiment
+and remains `SUBMITTED`. Until the user provides its completion notice, wait and
+do not poll, collect, relaunch, rebuild, request another review, prepare a
+successor, submit to the leaderboard, or promote. After the notice, check and
+collect exactly once and independently audit the graph hashes, score rows,
+solver receipt, metrics, and submission integrity. Only after a valid terminal
+result and audit may Claude Code author the next strategy for Codex challenge
+and revision to explicit `CONSENSUS`.
+
+All dated experiment sections below this directive are historical unless they
+match `STATE.json` and the active experiment record. Their former "current" or
+"next" wording does not supersede this directive.
+
+## Current launch: exp_053 SUBMITTED, 2026-09-13
+
+exp_053_original_score_joint_repair launched once at 2026-09-13T04:15:17Z as
+lingxd/biohub-exp053-original-score-joint-repair. Two GPU hours are reserved
+from the user-reconciled 30-hour balance; preserve six protected hours.
+Fresh Claude formal PASS was recovered verbatim from the SAME review session's
+full assistant message after final stdout omitted the required verdict line.
+Prompt/session/timestamps and unchanged snapshot were verified; original MISSING
+stdout and recovery provenance are preserved in review-recovery.json and
+review-same-call-events.json. No additional model call occurred. Snapshot smoke
+passed at 04:14:49Z. All 16 final-stage prediction-only repair fixtures match
+exactly and 13 combined tests passed. The separate upstream Windows smoothing
+replay differs by <=1.71e-13; remote input/output graph hashes remain strict.
+
+Wait for user completion notice, then check and collect once and independently
+audit. Do not poll, relaunch, rebuild, review again, relax hash gates, submit to
+leaderboard or promote. Context remains REJECT_LOCAL_POLICY. The remote run also
+tests cross-platform solver parity; no remote quality result is available yet.
+Older preparation text below is historical and superseded by this launch.
+
+
+## Current preparation: exp_053, 2026-09-13
+
+Fixed original-score integration is snapshotted as exp_053_original_score_joint_repair.
+All 16 prediction-only final-stage repair fixtures match exact nodes and edges;
+13 combined tests and preliminary smoke passed. The separate upstream Windows
+smoothing replay differs by <=1.71e-13; remote input/output graph hash gates remain
+strict. See docs/research/exp053_original_score_integration.md for scope and the
+isolated hash-pinned Linux SciPy 1.18.1 solver. Fresh Claude review is pending.
+GPU balance is 30 hours including six protected hours; no reservation or launch.
+
+
+## Active authorization: original-score joint repair, 2026-09-12
+
+The user reported 30 GPU hours remaining and authorized the next step from the
+concrete original-score successor design. Implement the fixed original-score
+policy with prediction-only provenance, prove exact parity on all 16 local
+graphs, then obtain one fresh experiment-specific Claude review and snapshot
+smoke before one bounded remote validation with a two-hour reservation.
+Preserve six GPU hours. The context hypothesis remains REJECT_LOCAL_POLICY;
+no parameter sweep, training, leaderboard submission or promotion is authorized.
+Exact model allowance is unavailable; disclose before the bounded review and
+never automatically retry timeout or quota stops.
+
+
 ## Current result: local joint graph pilot completed
 
-The zero-GPU joint graph pilot completed and all 48 output graphs passed independent audit. Original-score repair scores 0.9535869213120838 (+0.01485368362467987); context repair scores 0.9519261693422604 (+0.013192931654856466). Division remains 4/8/8. The preregistered context-increment gate failed; retain REJECT_LOCAL_POLICY for that hypothesis. The original-score control is a promising separate candidate, not a Public LB result. GPU balance remains 15.667408447732495 hours including six protected hours.
+The zero-GPU joint graph pilot completed and all 48 output graphs passed independent audit. Original-score repair scores 0.9535869213120838 (+0.01485368362467987); context repair scores 0.9519261693422604 (+0.013192931654856466). Division remains 4/8/8. The preregistered context-increment gate failed; retain REJECT_LOCAL_POLICY for that hypothesis. The original-score control is a promising separate candidate, not a Public LB result. GPU balance was reconciled to 30 hours by user report on 2026-09-12, including six protected hours.
 
 Review the concrete original-score joint-repair successor design in .private/research/diag052_original_score_successor_design.md. Preserve the rejected context gate and fixed parameters; no sweep. Before any remote validation, integrate prediction-only provenance-safe inference, prove exact parity with all 16 local graphs, and obtain a fresh experiment-specific Claude PASS plus snapshot smoke and budget admission. No leaderboard submission or promotion. Results: experiments/local_052_joint_graph_pilot_v1_attempt02/result.json.
 
@@ -122,14 +210,14 @@ No leaderboard submission or promotion is included in this validation launch.
 <!-- BEGIN AUTO-CHECKPOINT (generated by scripts/render_checkpoint.py — edit STATE.json, not this block) -->
 ## Active checkpoint (single source of truth: `STATE.json`)
 
-- **Active experiment:** `diag_051_public_0942_tracklet_evidence`
-- **Controller state (from `experiments/diag_051_public_0942_tracklet_evidence/experiment.json`):** KEEP
-- **Phase:** LOCAL_JOINT_REPAIR_AUDITED_CONTEXT_REJECTED
+- **Active experiment:** `exp_055_original_score_joint_bootstrap_smoke_fix`
+- **Controller state (from `experiments/exp_055_original_score_joint_bootstrap_smoke_fix/experiment.json`):** KEEP
+- **Phase:** EXP057_SUBMITTED_AWAITING_COMPLETION
 - **Leaderboard submission:** NOT authorized
-- **Summary:** The zero-GPU joint graph pilot completed and all 48 output graphs passed independent audit. Original-score repair scores 0.9535869213120838 (+0.01485368362467987); context repair scores 0.9519261693422604 (+0.013192931654856466). Division remains 4/8/8. The preregistered context-increment gate failed; retain REJECT_LOCAL_POLICY for that hypothesis. The original-score control is a promising separate candidate, not a Public LB result. GPU balance remains 15.667408447732495 hours including six protected hours.
-- **Next action:** Review the concrete original-score joint-repair successor design in .private/research/diag052_original_score_successor_design.md. Preserve the rejected context gate and fixed parameters; no sweep. Before any remote validation, integrate prediction-only provenance-safe inference, prove exact parity with all 16 local graphs, and obtain a fresh experiment-specific Claude PASS plus snapshot smoke and budget admission. No leaderboard submission or promotion. Results: experiments/local_052_joint_graph_pilot_v1_attempt02/result.json.
+- **Summary:** exp_055 completed on Kaggle as controller KEEP (gate joint_repair_passed) at frozen train16 proxy 0.9535869213120838, +0.01485368362467987 over repro_041's 0.9387332376874039. An independent audit confirmed the submission SHA256 9eb4826b..., the adjusted-edge + 0.1*division arithmetic, all 35 contract checks, solver pin SciPy 1.18.1, and byte-identical ordered joint-repair actions on all 16 scored samples versus the zero-GPU local_052 original-score pilot. Division is unchanged at 4/8/8 and the whole gain is adjusted-edge, ~85% from 6bba. Runtime 1.0972611120275 GPU hours charged once; 26.9027388879725 remain with six protected. This is an optimistic frozen-training proxy, not Public LB evidence; metrics.reproducible is false. KEEP authorizes neither promotion nor leaderboard submission. One user-authorized Public LB scoring (submission 56261282, notebook code-submission) returned 0.942 -- exactly repro_041's 0.942, ZERO gain -- so the large proxy gain did not transfer to held-out test.
+- **Next action:** exp_057 (0.944 bundle + motion EMA 0.4) launched once at 2026-09-16T04:36:06Z as kernel lingxd/biohub-exp057-0944-motion-ema (state SUBMITTED), 1.0 GPU hour reserved (six protected preserved). WAIT for the user completion notice; do NOT poll. On completion: check and collect ONCE (scripts/check_kaggle.py, scripts/collect_results.py), then independently audit metrics.json: exp057_ema_integrity_passed must be true, with the four checks (effective_on_pass_alpha_is_preregistered_0_4, ema_off_submission_byte_parity_repro048==0319ba6d, canonical_edge_diff_at_least_one, ema_predictions_positive), the EMA-off submission SHA, canonical edge symdiff count, and the candidate (EMA-on) submission SHA. The gate is exp057_ema_integrity_passed (controller KEEP/REJECT is integrity-only; quality is decided by the external Public LB). If integrity passes, the SINGLE Public LB submission of the EMA-on candidate is a SEPARATE explicit user authorization (competition_submit_code, gate_submission remote-history + duplicate check, 3/day cap) comparing against repro_048 0.944. Do not relaunch, poll, promote, or submit to the leaderboard without that authorization. exp_058 v0.3 (combined A+B fine-tune) is queued behind exp_057.
 
-_Generated from `STATE.json` (updated 2026-09-12T03:58:37.065057+00:00). Do not hand-edit this block; edit `STATE.json` and rerun `python scripts/render_checkpoint.py`. Full authorization detail lives once in `GOAL.md`._
+_Generated from `STATE.json` (updated 2026-09-16T04:36:30+00:00). Do not hand-edit this block; edit `STATE.json` and rerun `python scripts/render_checkpoint.py`. Full authorization detail lives once in `GOAL.md`._
 <!-- END AUTO-CHECKPOINT -->
 
 ## Active authorization detail (repro_048) — canonical

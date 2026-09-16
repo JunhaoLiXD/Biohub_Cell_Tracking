@@ -1,0 +1,85 @@
+{
+  "created_at": "2026-09-15T03:15:52+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/config.yaml",
+      "sha256": "416f44ee0c5018a599f131f98cf8d783c7ce828ea58fd587a65d44263a632d31"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/source/original_score_joint_repair_v3.ipynb",
+      "sha256": "cbb9efc2000db96c1cb1a5e23c38174b0aaf5ae56b61ff4862b9477f1a6b58a7"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/extra_files/build_original_score_joint_repair_v3.py",
+      "sha256": "65e19b8c95a2273e39b29373cca8b7c083299ee96729ad2f4b211caa0bf36762"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/extra_files/build_original_score_joint_repair.py",
+      "sha256": "caff8aa6b867c2270d1fde7ac33cf500b2f33be3e1531cca1c303f9fe154d66a"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/extra_files/original_score_joint_repair.py",
+      "sha256": "a3b799dcf93a19679c8a95aa67f3458b4a6179aafe729eb74f46ae44ce72d2bd"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/extra_files/original_score_joint_hooks.py",
+      "sha256": "3983255a895bbba43ae8984829131e10183ba412cf35385530c8283e18c52a37"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/extra_files/original_score_joint_contract.py",
+      "sha256": "7bc54a380bb73fdde4108b1657b8cb6afbbbdfa44e35f01ef6ff7d44d178e6aa"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/extra_files/validate_original_score_joint_repair_v3.py",
+      "sha256": "b9137b94633aa55e5d94452a840ab6539b5eb531fd353534b95aadc751e22637"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/extra_files/validate_original_score_joint_repair_v2.py",
+      "sha256": "81ce3eda4ee969d8582466bb45bb72b52de1bd06388667980b78a4b6b81f93d5"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/extra_files/validate_original_score_joint_repair.py",
+      "sha256": "718075437f68f107fc8b5fc091d6c5ca84021e1f2b8a779468f602a612a498ea"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/extra_files/verify_original_score_parity.py",
+      "sha256": "91b0441059c78f4cf109df5e0828942c5d42edabad335a10686dcb72f060749d"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/extra_files/verify_original_score_parity_v2.py",
+      "sha256": "f20e0723a632495b0947c144b1bce8e173584485ece672a7428c435baa602d7e"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/extra_files/joint_repair_frozen_smoothing.py",
+      "sha256": "a1c92fb55b54d2a525c8bcd581d3e29735abf10b4b1b84346072a221ae99cfe1"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/extra_files/exp055_bootstrap_smoke_repair.md",
+      "sha256": "3b4d6212f4b01ce22d0cb13c8eaba4bdfff2c312981f65b606c72ce314e5d2e6"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/extra_files/manifest.json",
+      "sha256": "14e5d30c1741897c60cf3754fd23ab899eeba9add1741c428783e2c214bf3b05"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/extra_files/SCIPY_LICENSE.txt",
+      "sha256": "17e7db9ffa4913121fa2df484633a362456a482da736c99db4711a98473770ea"
+    }
+  ]
+}

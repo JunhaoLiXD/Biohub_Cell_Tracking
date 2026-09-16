@@ -1,0 +1,76 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_057_0944_motion_ema",
+  "parent": "repro_048_public_0946_exact_copy",
+  "state": "SUBMITTED",
+  "hypothesis": "Adding motion EMA alpha 0.4 (velocity weight 0.5) to the otherwise byte-identical complete repro_048 edge-feature-TTA bundle yields a Public LB score strictly greater than 0.944 -- i.e. EMA improves the full 0.944 pipeline rather than being redundant with or antagonistic to its bundled edge-feature TTA. Decided by the external Public LB, not the discredited frozen train16 proxy.\n",
+  "change": {
+    "component": "motion_relink_velocity_ema",
+    "from": "repro_048 one-frame motion-relink velocity, motion EMA absent",
+    "to": "per-node velocity EMA (velocity_um) with alpha 0.4, velocity weight 0.5, gated by BIOHUB_MOTION_RELINK_EMA_ALPHA",
+    "variables_changed": "single_variable_motion_relink_ema_only_all_other_repro_048_settings_frozen"
+  },
+  "signature": "68e2cd476d12ab137e4c4781adfa7fb7d251121528f9551c0b05963bb9fce8af",
+  "config": "configs/exp_057_0944_motion_ema.yaml",
+  "snapshot_config": "experiments/exp_057_0944_motion_ema/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_057_0944_motion_ema/snapshot/source/exp057_0944_motion_ema.ipynb",
+  "snapshot_manifest": "experiments/exp_057_0944_motion_ema/snapshot/manifest.json",
+  "git_commit": "6fcddffa66fb8f7660d1b181a0e5ca35ae25455d",
+  "validation_protocol": "public_0944_plus_ema_submission_integrity_lb_probe_v1",
+  "budget": {
+    "expected_gpu_hours": 1.0,
+    "reserved": true
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/exp_057_0944_motion_ema/review.md",
+    "completed_at": "2026-09-16T04:33:00+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_exp057_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\exp_057_0944_motion_ema\\snapshot\\source\\exp057_0944_motion_ema.ipynb"
+    ],
+    "completed_at": "2026-09-16T04:33:48+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-16T04:26:00+00:00",
+  "updated_at": "2026-09-16T04:36:06+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-16T04:33:00+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-16T04:33:48+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-16T04:33:48+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-16T04:36:06+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp057-0944-motion-ema",
+    "submitted_at": "2026-09-16T04:36:06+00:00",
+    "status": "SUBMITTED",
+    "last_checked_at": null
+  }
+}

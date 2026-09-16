@@ -1,0 +1,7 @@
+[2026-09-16T04:33:48+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_exp057_notebook.py", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_057_0944_motion_ema\\snapshot\\source\\exp057_0944_motion_ema.ipynb"]
+exit_code=0
+STDOUT
+exp_057 static validation PASSED: notebook is repro_048 + only the scoped EMA edits (config/init/prediction/propagation) plus the appended fail-closed integrity block; off-switch, env var, velocity_um EMA, telemetry counters, mirrored off/on writer, metrics.json emission, and byte-identical markdown all present.
+
+STDERR
+

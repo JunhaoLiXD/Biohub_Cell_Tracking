@@ -1,0 +1,94 @@
+schema_version: 1
+experiment_id: exp_055_original_score_joint_bootstrap_smoke_fix
+parent: repro_041_public_0941_motion_ema
+hypothesis: The fixed original-score protected joint cut-and-reconnect rule reproduces
+  the local_052 original-score gain with the corrected isolated solver bootstrap.
+change:
+  component: admission_smoke_portability
+  to: Retain the exp_054 bootstrap fix and execute its extracted import/call/assertion
+    with dependency-free temporary modules
+  variables_changed: Admission harness only versus exp_054; remote behavior unchanged
+    except injected experiment id
+  from: exp_054 smoke required NumPy in the controller's dependency-minimal virtual environment
+source_notebook: .private/current/original_score_joint_repair_v3.ipynb
+validation:
+  protocol: public_0941_frozen_train16_stratified_proxy_v1
+  primary_metric: score
+  seed: public_0933_train16_v1
+  required_specimens:
+  - 44b6
+  - 6bba
+  samples_per_specimen: 8
+  comparison_parent: repro_041_public_0941_motion_ema
+  absolute_tolerance: 1.0e-12
+  relative_tolerance: 0.0
+  expected_primary_metric: 0.9535869213120838
+  warning: Frozen training proxy, not independent holdout. exp_053 failed remotely
+    before inference and exp_054 failed only in its local smoke environment.
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+  per_specimen_max_regression: 0.0
+evaluation:
+  mode: gate
+  gate_field: joint_repair_passed
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+local:
+  smoke_test:
+  - '{python}'
+  - scripts/validate_original_score_joint_repair_v3.py
+  - '{source_notebook}'
+provenance:
+  design: docs/research/exp055_bootstrap_smoke_repair.md
+  failed_remote_predecessor: exp_053_original_score_joint_repair
+  failed_local_predecessor: exp_054_original_score_joint_bootstrap_fix
+  failure_analysis: .private/research/exp053_remote_failure_analysis_2026-09-14.md
+  local_parity: experiments/local_054_original_score_final_stage_parity/result.json
+  review_focus: Verify remote-notebook behavior equivalence to exp_054 except experiment
+    id, the dependency-free clean-namespace test of actual emitted AST nodes, exact
+    16-graph gates, prediction-only provenance, pinned Linux solver and unchanged metrics contract.
+authorization:
+  scope: User authorized execution of the minimal corrected successor on 2026-09-14.
+    exp_055 is the routine terminal-state successor after exp_054 stopped at local smoke.
+    One fresh review, snapshot smoke, two-hour reservation and one remote launch are
+    authorized. Preserve six hours. No leaderboard submission, promotion, training or sweep.
+submission:
+  user_authorized_count: 0
+kaggle:
+  owner: lingxd
+  slug: biohub-exp055-original-score-bootstrap-smoke-fix
+  title: biohub-exp055-original-score-bootstrap-smoke-fix
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: true
+  competition_sources:
+  - biohub-cell-tracking-during-development
+  dataset_sources:
+  - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+  - pilkwang/biohub-temporal-unet3d-seed314159-v1
+  - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+  - scripts/build_original_score_joint_repair_v3.py
+  - scripts/build_original_score_joint_repair.py
+  - scripts/original_score_joint_repair.py
+  - scripts/original_score_joint_hooks.py
+  - scripts/original_score_joint_contract.py
+  - scripts/validate_original_score_joint_repair_v3.py
+  - scripts/validate_original_score_joint_repair_v2.py
+  - scripts/validate_original_score_joint_repair.py
+  - scripts/verify_original_score_parity.py
+  - scripts/verify_original_score_parity_v2.py
+  - scripts/joint_repair_frozen_smoothing.py
+  - docs/research/exp055_bootstrap_smoke_repair.md
+  - .private/runtime/joint_repair_linux/manifest.json
+  - .private/runtime/joint_repair_linux/SCIPY_LICENSE.txt

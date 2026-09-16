@@ -21,6 +21,7 @@ import yaml
 
 
 EXPERIMENT_ID_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{2,79}$")
+REVIEW_PROVIDERS = {"claude", "codex"}
 
 TERMINAL_STATES = {
     "EVALUATED",
@@ -226,6 +227,37 @@ def validate_config(config: dict[str, Any], root: Path) -> None:
             raise ControllerError(f"success.{key} must be numeric")
 
 
+def configured_review_provider(config: dict[str, Any]) -> str:
+    """Resolve the review provider without changing schema-1 config semantics.
+
+    ``require_claude_review`` is the historical spelling and remains the
+    fallback.  New configs can opt into Codex with either an explicit
+    ``admission.reviewer_provider`` (or top-level ``reviewer_provider``) or
+    ``admission.require_codex_review``.
+    """
+    admission = config.get("admission") or {}
+    if not isinstance(admission, dict):
+        admission = {}
+    explicit = admission.get("reviewer_provider", config.get("reviewer_provider"))
+    if explicit is not None:
+        provider = str(explicit).strip().lower()
+        if provider not in REVIEW_PROVIDERS:
+            raise ControllerError(
+                f"Unsupported reviewer_provider={explicit!r}; expected one of {sorted(REVIEW_PROVIDERS)}"
+            )
+        return provider
+    if admission.get("require_codex_review"):
+        return "codex"
+    return "claude"
+
+
+def review_provider_label(record: dict[str, Any]) -> str:
+    """Return a human-readable provider label, defaulting legacy records to Claude."""
+    review = record.get("review") or {}
+    provider = str(review.get("provider") or "claude").strip().lower()
+    return {"codex": "Codex", "claude": "Claude"}.get(provider, provider.title() or "review")
+
+
 def experiment_dir(root: Path, experiment_id: str) -> Path:
     if not EXPERIMENT_ID_RE.fullmatch(experiment_id):
         raise ControllerError(f"Invalid experiment id: {experiment_id}")
@@ -350,6 +382,16 @@ def create_experiment(
     }
     write_json(snapshot / "manifest.json", manifest)
 
+    admission = config.get("admission") or {}
+    review_required = bool(
+        admission.get("require_claude_review", False)
+        or admission.get("require_codex_review", False)
+    )
+    review = {
+        "required": review_required,
+        "provider": configured_review_provider(config),
+        "status": "PENDING",
+    }
     record = {
         "schema_version": 1,
         "experiment_id": experiment_id,
@@ -365,7 +407,7 @@ def create_experiment(
         "git_commit": _git_commit(project_root),
         "validation_protocol": config["validation"]["protocol"],
         "budget": {"expected_gpu_hours": float(config["budget"]["expected_gpu_hours"]), "reserved": False},
-        "review": {"required": bool(config.get("admission", {}).get("require_claude_review", False)), "status": "PENDING"},
+        "review": review,
         "smoke_test": {"status": "PENDING"},
         "created_at": utc_now(),
         "updated_at": utc_now(),
@@ -491,8 +533,9 @@ def run_smoke_test(root: Path, experiment_id: str) -> dict[str, Any]:
     record = load_record(root, experiment_id)
     _, config = load_config(root / str(record["snapshot_config"]), root)
     if record["review"].get("required") and record["review"].get("status") != "PASSED":
-        transition(root, record, "MANUAL_REVIEW_REQUIRED", note="Claude review required before smoke test")
-        raise ControllerError(f"{experiment_id} requires a completed Claude review before smoke testing")
+        provider = review_provider_label(record)
+        transition(root, record, "MANUAL_REVIEW_REQUIRED", note=f"Required {provider} review is missing before smoke test")
+        raise ControllerError(f"{experiment_id} requires a completed {provider} review before smoke testing")
     verify_snapshot(root, record)
     transition(root, record, "LOCAL_TESTING")
     command = _command_from_config(root, record, config)

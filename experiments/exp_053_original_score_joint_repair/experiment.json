@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_053_original_score_joint_repair",
+  "parent": "repro_041_public_0941_motion_ema",
+  "state": "REMOTE_FAILED",
+  "hypothesis": "The fixed original-score protected joint cut-and-reconnect rule reproduces the local_052 original-score gain using prediction-only provenance in test and frozen train16 inference.",
+  "change": {
+    "component": "post_smoothing_joint_association",
+    "to": "Frozen original-score local_052 attempt02 joint repair",
+    "variables_changed": "Only joint graph edge selection; unchanged nodes, smoothing, models, EMA and validation",
+    "from": "Reproduced EMA 0.4 final graph"
+  },
+  "signature": "6933668d54b6353a159875c02835dfb02d063c57fcb0d5964d4d5f25c1545fe1",
+  "config": "configs/exp_053_original_score_joint_repair.yaml",
+  "snapshot_config": "experiments/exp_053_original_score_joint_repair/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_053_original_score_joint_repair/snapshot/source/original_score_joint_repair.ipynb",
+  "snapshot_manifest": "experiments/exp_053_original_score_joint_repair/snapshot/manifest.json",
+  "git_commit": "6fcddffa66fb8f7660d1b181a0e5ca35ae25455d",
+  "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 2.0
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/exp_053_original_score_joint_repair/review.md",
+    "completed_at": "2026-09-13T04:12:19+00:00",
+    "recovery_path": "experiments/exp_053_original_score_joint_repair/review-recovery.json"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_original_score_joint_repair.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\exp_053_original_score_joint_repair\\snapshot\\source\\original_score_joint_repair.ipynb"
+    ],
+    "completed_at": "2026-09-13T04:14:49+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-13T04:03:01+00:00",
+  "updated_at": "2026-09-15T02:55:16+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-13T04:12:19+00:00",
+      "note": "Claude verdict: MISSING"
+    },
+    {
+      "from": "MANUAL_REVIEW_REQUIRED",
+      "to": "REVIEWED",
+      "at": "2026-09-13T04:14:49+00:00",
+      "note": "Recovered verbatim formal PASS from same Claude session; original MISSING stdout and provenance retained. No additional model call."
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-13T04:14:49+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-13T04:14:49+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-13T04:15:17+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "REMOTE_FAILED",
+      "at": "2026-09-15T02:55:16+00:00",
+      "note": "Kaggle reported an error state"
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp053-original-score-joint-repair",
+    "submitted_at": "2026-09-13T04:15:17+00:00",
+    "status": "ERROR",
+    "last_checked_at": "2026-09-15T02:55:16+00:00"
+  }
+}

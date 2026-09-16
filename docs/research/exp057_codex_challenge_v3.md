@@ -1,0 +1,5 @@
+- §3.2 correctly identifies a direct notebook-level edit of `motion_relink_edges`, preserves the `prev_pos is None` fallback, defines the unset/empty off-switch, and names `BIOHUB_MOTION_RELINK_EMA_ALPHA`.
+- The integrity rule is deterministic and sound: EMA-off must reproduce submission SHA-256 `0319ba6d…`; EMA-on must satisfy `|added ∪ removed| >= 1` on canonical edges.
+- One narrow specification defect remains. The verified reference uses `velocity_um`, propagated after each accepted match as `velocity_um[target_id]` from `step_velocity = target_pos - source_pos` and `velocity_um.get(source_id)`. V3 instead describes updating from `source_pos - prev_pos` without naming `velocity_um` or specifying source-to-target state propagation. Its proposed telemetry also does not name the reference counters `motion_relink_ema_predictions` and `motion_relink_one_frame_fallbacks`. This leaves materially different implementations contract-compliant.
+
+VERDICT: REVISE (name `velocity_um`; specify the accepted-match source-to-target EMA propagation/update and the exact EMA-prediction/one-frame-fallback telemetry counters)

@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "tests": "14 passed",
+  "clean_namespace_solver_probe": true,
+  "controller_venv_precheck": "PASS",
+  "notebook_sha256": "cbb9efc2000db96c1cb1a5e23c38174b0aaf5ae56b61ff4862b9477f1a6b58a7",
+  "remote_notebook_equivalence": {
+    "comparison": "exp_054 snapshot source",
+    "normalized_source_exact": true,
+    "changed_cells": [14],
+    "only_change": "injected experiment id"
+  },
+  "parity": {
+    "path": "experiments/local_054_original_score_final_stage_parity/result.json",
+    "applicable_because_remote_behavior_matches_exp_054": true,
+    "videos": 16,
+    "exact_nodes": true,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "max_coordinate_delta": 0.0,
+    "max_frozen_smoothing_replay_delta": 1.7053025658242404e-13
+  },
+  "failed_predecessors": {
+    "exp_053_original_score_joint_repair": "REMOTE_FAILED: missing notebook-global NumPy import",
+    "exp_054_original_score_joint_bootstrap_fix": "LOCAL_FAILED: controller smoke interpreter lacked NumPy"
+  },
+  "recorded_at": "2026-09-15T03:15:52+00:00"
+}

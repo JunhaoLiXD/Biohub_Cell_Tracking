@@ -523,6 +523,21 @@
       "git_commit": "f9adf48ccb4e5c0cafd9f2285b0634fda522dba1",
       "metrics_path": "experiments/diag_051_public_0942_tracklet_evidence/metrics.json",
       "evaluated_at": "2026-09-10T04:14:31+00:00"
+    },
+    {
+      "experiment_id": "exp_055_original_score_joint_bootstrap_smoke_fix",
+      "status": "KEEP",
+      "parent": "repro_041_public_0941_motion_ema",
+      "hypothesis": "The fixed original-score protected joint cut-and-reconnect rule reproduces the local_052 original-score gain with the corrected isolated solver bootstrap.",
+      "validation_score": 0.9535869213120838,
+      "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+      "previous_best": null,
+      "delta": null,
+      "runtime_hours": 1.0972611120275002,
+      "decision": "KEEP",
+      "git_commit": "6fcddffa66fb8f7660d1b181a0e5ca35ae25455d",
+      "metrics_path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/metrics.json",
+      "evaluated_at": "2026-09-15T18:19:49+00:00"
     }
   ]
 }

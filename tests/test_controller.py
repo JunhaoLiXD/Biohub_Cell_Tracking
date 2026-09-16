@@ -546,3 +546,49 @@ def test_claude_review_uses_explicit_utf8_decoding(project_factory, monkeypatch)
     assert captured["encoding"] == "utf-8"
     assert captured["errors"] == "replace"
     assert reviewed["review"]["status"] == "PASSED"
+    assert reviewed["review"]["provider"] == "claude"
+    assert (root / "experiments" / record["experiment_id"] / "claude-prompt.md").exists()
+    assert (root / "experiments" / record["experiment_id"] / "claude-review-run.json").exists()
+    assert (root / "CLAUDE_REVIEW.md").exists()
+
+
+def test_codex_review_uses_read_only_command_and_provider_artifacts(project_factory, monkeypatch):
+    root, config = project_factory()
+    config_text = config.read_text(encoding="utf-8")
+    config.write_text(
+        config_text.replace(
+            "require_claude_review: false",
+            "require_codex_review: true\n  reviewer_provider: codex",
+        ),
+        encoding="utf-8",
+    )
+    record = create_experiment(config, root=root)
+    assert record["review"]["required"] is True
+    assert record["review"]["provider"] == "codex"
+    captured = {}
+    monkeypatch.setattr(review_module, "codex_command", lambda: [
+        "codex", "exec", "--ephemeral", "--sandbox", "read-only", "--skip-git-repo-check", "-"
+    ])
+
+    def fake_run(*args, **kwargs):
+        captured.update({"args": args, **kwargs})
+        return CompletedProcess(args=args[0], returncode=0, stdout="Independent review\n\nVERDICT: PASS\n", stderr="")
+
+    monkeypatch.setattr(review_module.subprocess, "run", fake_run)
+    reviewed = request_review(root, record["experiment_id"])
+
+    assert captured["args"] == (
+        ["codex", "exec", "--ephemeral", "--sandbox", "read-only", "--skip-git-repo-check", "-"],
+    )
+    assert "Challenge the proposed strategy, methodology, and implementation independently" in captured["input"]
+    assert "Claude-authored strategy, Codex objections, and resulting revisions" in captured["input"]
+    assert "explicit ``CONSENSUS``" in captured["input"]
+    assert "high-risk or framework-changing experiment may bundle coupled" in captured["input"]
+    for gate in ("leakage", "provenance", "hash-integrity", "budget", "leaderboard-submission", "promotion"):
+        assert gate in captured["input"]
+    exp_dir = root / "experiments" / record["experiment_id"]
+    assert reviewed["review"]["provider"] == "codex"
+    assert (exp_dir / "codex-prompt.md").exists()
+    assert (exp_dir / "codex-review-run.json").exists()
+    assert (root / "CODEX_REVIEW.md").exists()
+    assert not (root / "CLAUDE_REVIEW.md").exists()

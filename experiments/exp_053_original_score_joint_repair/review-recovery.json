@@ -1,0 +1,16 @@
+{
+  "method": "Exact same-call assistant message recovery; unchanged strict verdict parser",
+  "session_id": "d59111d1-5a6f-447d-94b6-cb89e164d51c",
+  "message_id": "dbb165d6-f529-417e-9aa5-5c3bf78670c4",
+  "original_review": {
+    "required": true,
+    "status": "CHANGES_REQUESTED",
+    "verdict": "MISSING",
+    "path": "experiments/exp_053_original_score_joint_repair/review.md",
+    "completed_at": "2026-09-13T04:12:19+00:00"
+  },
+  "source_transcript": "C:\\Users\\Ling\\.claude\\projects\\E--Project-Biohub-CellTracking\\d59111d1-5a6f-447d-94b6-cb89e164d51c.jsonl",
+  "source_transcript_sha256": "72c2e8b84537c89fe025fb8049c811225cc1fa25e4022074611dac56d5271e22",
+  "recovered_text_sha256": "b18a549f31c2d1bf79a10889d05df5b2cf1639041948d9673a44cb06706877be",
+  "recovered_at": "2026-09-13T04:14:49+00:00"
+}

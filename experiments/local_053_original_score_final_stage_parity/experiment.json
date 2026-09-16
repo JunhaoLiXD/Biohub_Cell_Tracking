@@ -1,0 +1,13 @@
+{
+  "experiment_id": "local_053_original_score_final_stage_parity",
+  "parent": "repro_041_public_0941_motion_ema",
+  "evidence_donor": "diag_051_public_0942_tracklet_evidence",
+  "execution": "local_only",
+  "gpu_hours": 0,
+  "status": "PASS",
+  "recorded_at": "2026-09-13T04:04:15.379508+00:00",
+  "admission": {
+    "require_claude_review": true
+  },
+  "note": "Local prerequisite only; no remote admission implied. See exp053 integration design for exact-fixture scope and upstream numerical discrepancy."
+}

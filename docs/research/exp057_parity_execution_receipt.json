@@ -1,0 +1,20 @@
+{
+  "generated_at_utc": "2026-09-16T04:25:17.765847+00:00",
+  "script": "scripts/verify_exp057_ema_parity.py",
+  "exp057_notebook_sha256": "38fb52c2efd3d8814d2c009c16e78307eeb2829ae7528e2d6d59539032c4a256",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "2.5.3",
+    "scipy": "1.18.1",
+    "note": "dependency-capable venv (the controller minimal .venv lacks numpy/scipy by design)"
+  },
+  "exit_code": 0,
+  "result": "PASS",
+  "stdout": [
+    "[constant-motion] base_edges=6 off==base:True ema_predictions_on=4 on!=base:False",
+    "[accelerating-motion] base_edges=6 off==base:True ema_predictions_on=6 on!=base:True",
+    "[ambiguous-flip] base_edges=3 off==base:True ema_predictions_on=3 on!=base:True",
+    "EMA materially changed edges in >=1 scenario: True",
+    "RESULT: PASS"
+  ]
+}

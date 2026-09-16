@@ -1,0 +1,17 @@
+{
+  "experiment_id": "exp_055_original_score_joint_bootstrap_smoke_fix",
+  "submission_id": 56261282,
+  "competition": "biohub-cell-tracking-during-development",
+  "status": "COMPLETE",
+  "public_score": 0.942,
+  "public_score_precision": 3,
+  "score_source": "authenticated_kaggle_submission_history_and_user_report",
+  "verified_at_utc": "2026-09-15T19:05:01.673000Z",
+  "submission_sha256": "9eb4826b33a44bd647ea57c2e0f40514f543446384d2c685d2c227175e241aec",
+  "baseline_repro_041_public_score": 0.942,
+  "delta_vs_repro_041_lb": 0.0,
+  "frozen_train16_proxy_score": 0.9535869213120838,
+  "proxy_delta_vs_repro_041": 0.01485368362467987,
+  "interpretation": "The original-score joint repair produced ZERO Public LB improvement (0.942 == repro_041 0.942 at 3-decimal displayed precision), despite a large +0.01485 frozen train16 stratified proxy gain that reproduced local_052 exactly. The proxy did not transfer to held-out test. This is decisive evidence that the frozen-training train16 proxy is severely optimistic for this class of post-smoothing graph-repair change. The repair did alter the test graphs (119259 nodes, 91 fewer edges than repro_041) but the net Public LB effect is ~0.",
+  "consequence": "exp_056 go-gate (exp_055 LB strictly > 0.942) FAILED. The division-aware joint repair was premised on the joint-repair framework being a validated LB transfer vehicle; the LB shows it is not. Per the recorded decision tree and user pre-decision, do not launch exp_056 as the stacked design; return to the user to re-scope."
+}

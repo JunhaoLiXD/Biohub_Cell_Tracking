@@ -1,0 +1,178 @@
+{
+  "44b6_1d530831": {
+    "nodes": 34251,
+    "edges": 32807,
+    "actions": 15,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "e622a7bb56ef4f66018e8776082f1c00c7a8e993f44dba6c6a18fcedc71452bc"
+  },
+  "44b6_2a2eff9f": {
+    "nodes": 36167,
+    "edges": 34510,
+    "actions": 26,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "593797170e1a90dc81da73395463cb5a6707920f1a9408a1be2b23dda4590290"
+  },
+  "44b6_551a5dba": {
+    "nodes": 29328,
+    "edges": 27991,
+    "actions": 24,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "fc4bef9ea80b424dedc284d790a3a253331d4772f7689ac10de604df26cc7a53"
+  },
+  "44b6_7a302da0": {
+    "nodes": 40300,
+    "edges": 38556,
+    "actions": 15,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "2b0cfa13e9b052ac8c75d215b7d303e9305762e1c981c9db50b70b2f487c8bea"
+  },
+  "44b6_7e557709": {
+    "nodes": 43110,
+    "edges": 41829,
+    "actions": 8,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "975c31157f206d18cac740757195c3177ed5bf75f9a17f4ff67fa41f0c5e4c45"
+  },
+  "44b6_aaf8b0ea": {
+    "nodes": 13965,
+    "edges": 13415,
+    "actions": 5,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "77ff28b2643a66e39898f3be8977d4ab8fb1dd7182ed71fd90454d03cdfa38ec"
+  },
+  "44b6_c15fded2": {
+    "nodes": 19182,
+    "edges": 18400,
+    "actions": 154,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "7b3b99e541f7abdc5b203b99abfae0772d3a2ef657c116ee15f022674ffd67f4"
+  },
+  "44b6_c50204e0": {
+    "nodes": 34669,
+    "edges": 33094,
+    "actions": 38,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "f8fc9fed79e98370cb727181611f37ec1f9236b832f9ae1c0e4345950eabcfb4"
+  },
+  "6bba_0c7fa718": {
+    "nodes": 12315,
+    "edges": 11477,
+    "actions": 500,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "76d5f2cfaae650eccd41fc4cc90099041e7e4306333c14db3ca8ab5a16edc536"
+  },
+  "6bba_283bf9f1": {
+    "nodes": 21597,
+    "edges": 20760,
+    "actions": 110,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "6279b6fdafc8f235bae12560a1b187f1deb44ebba8c30a979242cdda43409ab5"
+  },
+  "6bba_337b1b3a": {
+    "nodes": 29084,
+    "edges": 28095,
+    "actions": 167,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "eb71dfbcfcdba3b0d63d2b116e23cecfd23749cc56d3da38a6e35cbc89c3e403"
+  },
+  "6bba_372c8cb8": {
+    "nodes": 6651,
+    "edges": 6489,
+    "actions": 10,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "f16e992fdcd2ee502e8fd6e6adc1d22c2a40624b96cb2629d5d3b134f6fab3cb"
+  },
+  "6bba_55c70843": {
+    "nodes": 36825,
+    "edges": 35387,
+    "actions": 91,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "7a30d941102378e73c574164bd8a229e5499ba17be31012e3f57b56fd2f90e75"
+  },
+  "6bba_80d12824": {
+    "nodes": 8513,
+    "edges": 8098,
+    "actions": 116,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "7b66c9f8fa33d0df4a96a892b017dea3ba461c2a84e508c7bd51a2d946fdf9a5"
+  },
+  "6bba_ef7b4f7e": {
+    "nodes": 5882,
+    "edges": 5733,
+    "actions": 4,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "1823ac53b89c717f4eb72c1f061317f629f2d1ba6b329086f4be0f5d1367e4a7"
+  },
+  "6bba_fe670320": {
+    "nodes": 9722,
+    "edges": 9276,
+    "actions": 136,
+    "exact_nodes": true,
+    "max_coordinate_delta": 0,
+    "frozen_smoothing_replay_max_delta": 1.7053025658242404e-13,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "reference_sha256": "a2b03e96096cb531f3b07eefdf0db81e4082d0ec7eab30833cb7eb78b8efeaec"
+  }
+}

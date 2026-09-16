@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-09-16T04:26:00+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_057_0944_motion_ema/snapshot/config.yaml",
+      "sha256": "bdcf39251117e648877cae00c7bd117299735bc2a517fdb62ec52e92444091c2"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_057_0944_motion_ema/snapshot/source/exp057_0944_motion_ema.ipynb",
+      "sha256": "38fb52c2efd3d8814d2c009c16e78307eeb2829ae7528e2d6d59539032c4a256"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_057_0944_motion_ema/snapshot/extra_files/build_exp057_0944_motion_ema.py",
+      "sha256": "95f429e5dd93f3ab90ca81832f410787658cee8445ec21e3a80b2bf47bcb9e5e"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_057_0944_motion_ema/snapshot/extra_files/verify_exp057_ema_parity.py",
+      "sha256": "a77bf34c1863c93e089fe7e313b2dc753d442f8873d82a180520c4b3d6f1c5e0"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_057_0944_motion_ema/snapshot/extra_files/verify_exp057_integrity_gate.py",
+      "sha256": "79534226b3f5a6b8f7e1288914f51f0d8353be58f83812546ea891cfc476f908"
+    }
+  ]
+}

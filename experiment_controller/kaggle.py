@@ -27,6 +27,7 @@ from .core import (
     read_json,
     release_budget,
     reserve_budget,
+    review_provider_label,
     run_smoke_test,
     save_record,
     transition,
@@ -186,9 +187,10 @@ def launch(
     kaggle_command()
 
     if record.get("review", {}).get("required") and record["review"].get("status") != "PASSED":
+        provider = review_provider_label(record)
         if record["state"] in {"PROPOSED", "REVIEWED", "READY"}:
-            transition(root, record, "MANUAL_REVIEW_REQUIRED", note="Required Claude review is missing")
-        raise ControllerError(f"{experiment_id} requires Claude review before remote launch")
+            transition(root, record, "MANUAL_REVIEW_REQUIRED", note=f"Required {provider} review is missing")
+        raise ControllerError(f"{experiment_id} requires {provider} review before remote launch")
     if record.get("smoke_test", {}).get("status") != "PASSED":
         record = run_smoke_test(root, experiment_id)
     if record["state"] == "BUDGET_BLOCKED" and record.get("smoke_test", {}).get("status") == "PASSED":

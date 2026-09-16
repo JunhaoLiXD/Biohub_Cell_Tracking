@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_054_original_score_joint_bootstrap_fix",
+  "parent": "repro_041_public_0941_motion_ema",
+  "state": "LOCAL_FAILED",
+  "hypothesis": "The fixed original-score protected joint cut-and-reconnect rule reproduces the local_052 original-score gain after repairing the exp_053 notebook bootstrap.",
+  "change": {
+    "component": "isolated_solver_bootstrap",
+    "to": "Explicit local NumPy import before the solver self-test",
+    "variables_changed": "Bootstrap namespace only; unchanged joint repair, models, EMA, smoothing, validation and scoring",
+    "from": "exp_053 bootstrap relied on a later notebook-global NumPy import"
+  },
+  "signature": "9ae2de61d55d57d96353391177b78c14ae6ad5a573c47b6ef3b529d53e27945f",
+  "config": "configs/exp_054_original_score_joint_bootstrap_fix.yaml",
+  "snapshot_config": "experiments/exp_054_original_score_joint_bootstrap_fix/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_054_original_score_joint_bootstrap_fix/snapshot/source/original_score_joint_repair_v2.ipynb",
+  "snapshot_manifest": "experiments/exp_054_original_score_joint_bootstrap_fix/snapshot/manifest.json",
+  "git_commit": "6fcddffa66fb8f7660d1b181a0e5ca35ae25455d",
+  "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/exp_054_original_score_joint_bootstrap_fix/review.md",
+    "completed_at": "2026-09-15T03:13:21+00:00"
+  },
+  "smoke_test": {
+    "status": "FAILED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_original_score_joint_repair_v2.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\exp_054_original_score_joint_bootstrap_fix\\snapshot\\source\\original_score_joint_repair_v2.ipynb"
+    ],
+    "completed_at": "2026-09-15T03:13:29+00:00",
+    "exit_code": 1
+  },
+  "created_at": "2026-09-15T03:07:39+00:00",
+  "updated_at": "2026-09-15T03:13:29+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-15T03:13:21+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-15T03:13:29+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "LOCAL_FAILED",
+      "at": "2026-09-15T03:13:29+00:00",
+      "note": "Smoke-test command failed"
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+[2026-09-13T04:14:49+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_original_score_joint_repair.py", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_053_original_score_joint_repair\\snapshot\\source\\original_score_joint_repair.ipynb"]
+exit_code=0
+STDOUT
+{"status": "PASS", "notebook_sha256": "86d16b1bd7b67b0de32dd337167697d9ad3a32272433d01fd185928eb6f2f02e", "note": "Linux extension is hash-pinned and runtime-load-tested before inference; local Windows cannot execute ELF"}
+
+STDERR
+

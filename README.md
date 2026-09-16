@@ -4,16 +4,18 @@ An end-to-end Kaggle solution for detecting and tracking cells through 3D time-l
 
 ## Current approach
 
+For the authoritative project state, active-run restrictions, and the Claude
+Code/Codex consensus workflow, read [the current project handoff](docs/research/PROJECT_HANDOFF.md).
+
 The working research parent is the reproduced public `analyticaobscura/biohub-lb-941`
 configuration: dual pretrained TemporalUNet3D detections, transformer association,
-ILP tracking, motion/gap repair, and geometry plus epoch-2 DeepCenter division gates.
-Submission 56044403 completed at Public LB **0.941**. No new model was trained.
-`val_039_public_0941_train16` established its fixed 16-video validation baseline at
-**0.935978** with identical test inference (44b6 0.921800; 6bba 0.940332). See
-[research handoff and traceability](docs/research_workflow.md).
-The single-variable motion-EMA transfer `exp_040_public_0941_motion_ema` improved
-that matched proxy to **0.938733** (+0.002755) and passed all configured gates.
-It is a positive candidate awaiting exact reproduction, not yet leaderboard evidence.
+ILP tracking, motion/gap repair, and epoch-2 DeepCenter division gates.
+`repro_041_public_0941_motion_ema` is the exactly reproduced train16 reference at
+**0.9387332376874039** with fixed motion EMA alpha 0.4 and user-reported Public LB
+0.942. A separate verified public reference, submission `56105868`, scored Public
+LB **0.944**. The active run is `exp_055_original_score_joint_bootstrap_smoke_fix`,
+which is pending the user's completion notice and has no leaderboard submission or
+promotion authorization. See [the current project handoff](docs/research/PROJECT_HANDOFF.md).
 
 ## Historical self-contained approach
 

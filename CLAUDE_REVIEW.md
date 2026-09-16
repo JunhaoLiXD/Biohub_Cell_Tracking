@@ -1,39 +1,48 @@
 # Latest Claude Review
 
-Experiment: `diag_051_public_0942_tracklet_evidence`  
-Captured: 2026-09-10T02:28:37+00:00
+Experiment: `exp_055_original_score_joint_bootstrap_smoke_fix`  
+Captured: 2026-09-15T03:22:53+00:00
 
-Review complete. This was a read-only methodology review, and the deliverable is the assessment itself (not a code-change plan), so I'm returning it directly.
+Review complete. All eight evaluation points assessed read-only; findings below.
 
-# Review — diag_051_public_0942_tracklet_evidence
+---
+
+# Independent Review — exp_055_original_score_joint_bootstrap_smoke_fix
 
 ## Summary
 
-`diag_051` is a behavior-preserving, observation-only evidence export built from the immutable `repro_041` snapshot (EMA 0.4, train16 0.9387332376874039, Public LB 0.942). It adds read-only hooks that persist a sparse candidate-logit pool, two-frame appearance embeddings, 11 post-processing stage graphs, a pre-ILP node-ID registry, and the scorer bipartite matching — so the next longer-context tracklet-association pilot can be scoped against reachable error. Predictions are byte-gated to the parent; no training, no inference-parameter change, no submission. Controller state is `MANUAL_REVIEW_REQUIRED` (review + smoke PENDING); this review gates smoke.
+exp_055 is an infrastructure-repair successor in the chain exp_053 → exp_054 → exp_055. The research variable — the fixed original-score protected joint cut-and-reconnect repair layered on frozen repro_041 (0.941) inference — is unchanged. exp_055's only delta versus exp_054 is the admission smoke harness; the remote notebook is byte-equivalent to exp_054 except the injected experiment id (`local_validation.json`: normalized source exact, `changed_cells=[14]`).
+
+The exp_053 root cause (`np.array` referenced before numpy import in the isolated Linux solver bootstrap, cell In[6], `NameError` at ~311 s) is fixed: `import numpy as _jr_np` (notebook line 1112) precedes `_jr_np.array([[1.,3.],[4.,1.]])` (line 1126). Every fix the failure analysis demanded is present — explicit bootstrap numpy import, execution-level clean-namespace smoke, fresh review, snapshot smoke, new reservation. Snapshot integrity verified independently: reviewed notebook, smoke target (`.private/current/…ipynb`) and manifest all share sha256 `cbb9efc2…`; the working `validate_original_score_joint_repair_v2.py` matches the shipped snapshot copy byte-for-byte.
 
 ## Methodology
 
-- **Testable / single-variable:** instrumentation only. Predictions are held constant by exact submission SHA (`fd11…`) and validator-CSV SHA (`2e6b…`) gates, so the diagnostic is cleanly attributable.
-- **Protocol / leakage / 44b6–6bba:** reuses the frozen train16 stratified proxy (8/specimen, both required, per-specimen reported). Leakage is acknowledged and correctly scoped — this is an offline reachability audit, not a generalization or advancement claim. GT enters only the offline `final_scored`/`scorer_matching` payloads, never the predictor; no metric can be gamed since predictions equal the parent byte-for-byte. Grouped-split design is explicitly deferred to the future pilot.
-- **Parent justifies successor:** the residual error inventory in the design (258 fragmentation edge FN, 181 detection edge FN, division 4/8/8) matches `repro_041` metrics exactly (101+157, 44+137, 4/8/8). Parent choice correctly avoids the TTA lineage (val_049/exp_050). History supports the direction — division graph-only Family-A routes closed at 0.0 (diag_027–033) and the motion-relink bonus sweep saturated, so the association audit is the redirect the archived v9 §7 fallback and optimization audit §5 anticipated. Not duplicate, not contradicted.
+- **One variable / attribution:** Clean. Single algorithmic change vs parent repro_041 = the joint-repair policy; exp_055 vs exp_054 = admission harness only.
+- **Validation protocol:** `public_0941_frozen_train16_stratified_proxy_v1`, 8 samples × {44b6, 6bba}, paired against repro_041. Gate requires proxy gain ≥ 0.005 over 0.9387 and division preserved at 4/8/8. Expected 0.95359 (+0.0148).
+- **Leakage / 44b6-6bba split:** Honestly disclosed as an optimistic frozen-training proxy (models saw the training videos), *not* an independent holdout — stated in config, notebook and metrics warnings. Per-specimen balanced. Trust only as paired screening evidence; absolute score is optimistic. Consistent with project-wide methodology.
+- **Parent justification:** repro_041 is terminal KEEP, reproducible 0.9387, Public LB 0.942. The local_052 pilot showed +0.0148 original-score gain (the context variant was rejected → REJECT_LOCAL_POLICY; original-score retained as a separate candidate). Never remotely validated → this is the evidence-supported next step.
+- **Duplicate / contradicted:** No. exp_053 died at bootstrap, exp_054 stopped at local smoke; no remote quality result exists yet.
 
 ## Implementation risks
 
-- **Worker local-variable dependency (the diag_044-style risk) — verified low.** I confirmed in the frozen predictor that every name the worker reads exists at the `del unet_out` insertion point (`probs, c_src, c_tgt, candidates, cfg, t_src, t_tgt, raw, idx_src, idx_tgt, all_edges, ds_arr, unet_feat_*, secondary_*, _ev_primary_logits`, and `ds_path` for `_ev_begin`). `seen_pairs` + window stride W−1 guarantee each consecutive pair once → 99 exports, matching the contract, no false duplicate-guard trips.
-- **JSON strictness:** `allow_nan=False` plus a numpy `.item()` default handler are applied; evidence fields are native types — the diag_044 serialization lesson is incorporated.
-- **Fail-closed run-completion risks** (waste GPU on failure only; no data corruption, submission still byte-gated): (1) the 128 MiB per-video cap can raise mid-run if node-count × feature-dim exceeds the estimate — un-checkable locally; (2) `worker_exports_complete` assumes all 16 videos have 100 nonempty frames (99 pairs); (3) hard dependency on `secondary_model` being present; (4) stem-key consistency between worker and graph hooks.
-- **Algorithm preservation:** static smoke checks predictor + notebook function ASTs identical after erasing only `_ev_`-prefixed calls/assignments; selector cell exact except two observation-enabling lines; runtime guards are the parent's `effective_*` checks plus live SHA equality — not stale prose. Strong.
+- **Bootstrap regression guard (resolved, well-covered):** `execute_clean_namespace_solver_probe` (v2, chained by v3) extracts the actual emitted `_jr_np` import, solver-call and assert AST nodes, asserts import-before-call ordering, and executes them under fake numpy/solver modules in a clean namespace. It both reproduces and blocks the exp_053 fault, and runs in the controller's dependency-minimal venv (base validator is stdlib-only).
+- **Provenance / effective-config guards:** Base validator asserts a prediction-only repair core (no `final_scored`, `scorer_matching`, secondary features), fixed `PARAMETERS(top_k=8, protected_probability=0.9, edit_penalty=0.25)`, post-smoothing hook placement, and no saved cell outputs. Runtime contract checks `effective_*` values, solver pinned 1.18.1, and a config-drift guard — it verifies live config, not stale prose.
+- **Parity evidence:** local_054 — 16/16 videos exact nodes & edges, max coordinate delta 0, baseline unchanged; cross-platform frozen-smoothing replay ≤ 1.71e-13 (diagnostic only, not topology-gating).
+- **Residual, non-blocking:** `VALIDATION_STAGE_STATS` is written via `json.dumps(..., allow_nan=False)` (line 4477) without explicit native-scalar coercion — the diag_044 failure class. Mitigated: this structure is inherited from repro_041, which serialized it successfully on Kaggle; division counts/edges elsewhere use `int()`; per-video JR receipts are serialized during inference and locally parity-tested. Low risk.
+- **Residual, context:** The full remote inference → scoring → metrics.json path of this notebook family has never completed on Kaggle (exp_053 died early). It is byte-inherited from remotely-proven repro_041 plus locally parity-tested hooks — precisely what this bounded validation tests.
 
 ## Budget
 
-2.0 GPU h (≤ 4.0 cap; 16.83 h remaining, 10.83 usable outside the 6 h reserve). One run yields the missing candidate/appearance/stage/matching evidence to choose the next major direction, no submission. High information gain per GPU-hour, contingent on completion.
+2.0 GPU hours reserved; 28.0 remaining, 6.0 protected → 22 usable, 20 after. Within `max_single_experiment_hours` (4.0). Info gain is high (first remote test of a +0.0148 proxy candidate); cost justified.
 
 ## Required changes
 
-No code changes. Pre-launch confirmations: (1) local unit tests and static smoke must pass (smoke PENDING); (2) confirm per-video cache headroom under 128 MiB, or accept fail-closed as the only downside; (3) confirm all 16 frozen videos have 100 nonempty frames; (4) confirm `secondary_model` present (it is).
+None blocking. Advisory only:
+1. (Optional, defensive) Coerce `VALIDATION_STAGE_STATS` values to native int/float before the line-4477 `json.dumps(allow_nan=False)` to fully close the diag_044 serialization class.
+2. Treat a clean, ERROR-free remote completion (metrics.json + submission.csv produced) as a precondition before interpreting the proxy score — this is the family's first end-to-end remote run.
 
 ## Recommendation
 
-Hypothesis testable and attributable, algorithm preserved and machine-verified, exact-byte and effective-config gates intact, contract fields present, parent result and error inventory justify the successor, no correctness defect found. Residual risks are fail-closed completion issues addressed by smoke plus two manifest confirmations. Safe to proceed to the smoke-test stage.
+The admission chain is complete and correct: the exp_053 bug is fixed, the new clean-namespace probe genuinely guards it, snapshot integrity is hash-verified, parity is exact on all 16 graphs, provenance and effective-config guards are sound, budget is ample, and parent/evidence justify the run. Remaining risks are inherited-safe and disclosed. Safe to proceed to the next controller stage (snapshot smoke → remote launch).
 
 VERDICT: PASS

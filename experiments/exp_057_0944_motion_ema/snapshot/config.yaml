@@ -1,0 +1,124 @@
+schema_version: 1
+experiment_id: exp_057_0944_motion_ema
+parent: repro_048_public_0946_exact_copy
+hypothesis: >
+  Adding motion EMA alpha 0.4 (velocity weight 0.5) to the otherwise byte-identical
+  complete repro_048 edge-feature-TTA bundle yields a Public LB score strictly
+  greater than 0.944 -- i.e. EMA improves the full 0.944 pipeline rather than being
+  redundant with or antagonistic to its bundled edge-feature TTA. Decided by the
+  external Public LB, not the discredited frozen train16 proxy.
+change:
+  component: motion_relink_velocity_ema
+  from: repro_048 one-frame motion-relink velocity, motion EMA absent
+  to: per-node velocity EMA (velocity_um) with alpha 0.4, velocity weight 0.5, gated by BIOHUB_MOTION_RELINK_EMA_ALPHA
+  variables_changed: single_variable_motion_relink_ema_only_all_other_repro_048_settings_frozen
+source_notebook: .private/current/exp057_0944_motion_ema.ipynb
+validation:
+  protocol: public_0944_plus_ema_submission_integrity_lb_probe_v1
+  primary_metric: binary_execution_and_graph_integrity
+  warning: >
+    This notebook produces no labeled local validation metric that decides the
+    result. The controller checks execution, artifact identity, EMA-off submission
+    byte-parity to repro_048 (SHA256 0319ba6d...), the |added U removed| >= 1
+    canonical-diff admission gate, EMA execution telemetry, and submission graph
+    integrity only. Quality is decided by the separately recorded external Public
+    LB. The frozen train16 proxy is diagnostic-only and never decides.
+budget:
+  tier: 1
+  expected_gpu_hours: 1.0
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: exp057_ema_integrity_passed
+admission:
+  require_claude_review: true
+  require_codex_review: true
+  reviewer_provider: codex
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_exp057_notebook.py
+    - "{source_notebook}"
+provenance:
+  base_notebook: experiments/repro_048_public_0946_exact_copy/snapshot/source/public_0946_edge_feature_tta_copy.ipynb
+  base_sha256: 4eda3c3dae83f5ad21fee35513aad5f325e09b6de8f77fa55d9b7d6d4b50ca16
+  builder: scripts/build_exp057_0944_motion_ema.py
+  ema_reference: .private/current/motion_ema_repro_train16.ipynb
+  edit_note: >
+    Direct notebook-level edit of motion_relink_edges: adds velocity_um EMA state,
+    source->target propagation velocity_um[target]=alpha*step+(1-alpha)*prev,
+    prediction branch with motion_relink_ema_predictions /
+    motion_relink_one_frame_fallbacks counters, gated by
+    BIOHUB_MOTION_RELINK_EMA_ALPHA (setdefault 0.4, so unset defaults EMA ON at
+    0.4). An explicit empty string disables EMA => velocity_um never populated =>
+    byte-identical repro_048 submission (the off/on switch lives in one snapshot).
+  parity_proof: >
+    scripts/verify_exp057_ema_parity.py proves EMA-off == repro_048 base function
+    on all synthetic scenarios (complete ordered edge records), EMA branch
+    exercised, and EMA materially changes the relinked edge set in an
+    ambiguous-flip case. It requires numpy/scipy (the controller minimal .venv
+    lacks them by design), so it runs in a dependency-capable venv; the execution
+    receipt with environment versions and the exp_057 notebook SHA is
+    docs/research/exp057_parity_execution_receipt.json.
+  static_smoke: >
+    scripts/validate_exp057_notebook.py is the dependency-free admission smoke
+    (runs in the minimal .venv): reverse-patch equality, full parsed-notebook
+    identity after restoring only the motion_relink cell source, integrity-block
+    constructs, on/off writer mirror, and byte-identical markdown.
+  effective_alpha_gate: >
+    The runtime integrity gate fail-closes unless the effective on-pass alpha is a
+    finite float exactly 0.4 (isinstance float and == 0.4), so a pre-existing env
+    value such as 0.6 cannot pass while testing the wrong experiment.
+    scripts/verify_exp057_integrity_gate.py (dependency-free) execs the notebook's
+    actual gate lines and proves non-0.4 / string / None / broken-check inputs all
+    yield exp057_ema_integrity_passed=false; alpha 0.4 with all checks true passes.
+  comparison_note: >
+    repro_048 enables BIOHUB_EDGE_FEATURE_TTA=1 and did NOT set
+    BIOHUB_MOTION_RELINK_EMA_ALPHA. exp_057 adds ONLY the EMA relink change on top
+    of the frozen repro_048 bundle.
+collection:
+  note: >
+    Public-LB reproduction remains undecided until the separately recorded and
+    separately user-authorized competition submission result is recorded. The
+    controller runtime must verify EMA-off byte-parity to 0319ba6d... and the
+    |added U removed| >= 1 canonical-diff gate before any submission is proposed.
+authorization:
+  user_authorized_at_local: 2026-09-15
+  scope: >
+    User authorized the exp_057 direction (0.944 bundle + motion EMA 0.4),
+    LB-validated. The single Public LB submission additionally requires explicit
+    per-submission user authorization at submit time; it is NOT pre-authorized by
+    this config.
+submission:
+  user_authorized_count: 0
+  requires_explicit_user_authorization: true
+  remote_history_required_immediately_before_submit: true
+  duplicate_probe: false
+  rationale: >
+    One LB submission would isolate the motion-EMA effect on the four test movies
+    against the repro_048 0.944 baseline. Not pre-authorized; ask the user at submit
+    time.
+kaggle:
+  owner: lingxd
+  slug: biohub-exp057-0944-motion-ema
+  title: biohub-exp057-0944-motion-ema
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: false
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+    - scripts/build_exp057_0944_motion_ema.py
+    - scripts/verify_exp057_ema_parity.py
+    - scripts/verify_exp057_integrity_gate.py

@@ -1,0 +1,101 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_055_original_score_joint_bootstrap_smoke_fix",
+  "parent": "repro_041_public_0941_motion_ema",
+  "state": "KEEP",
+  "hypothesis": "The fixed original-score protected joint cut-and-reconnect rule reproduces the local_052 original-score gain with the corrected isolated solver bootstrap.",
+  "change": {
+    "component": "admission_smoke_portability",
+    "to": "Retain the exp_054 bootstrap fix and execute its extracted import/call/assertion with dependency-free temporary modules",
+    "variables_changed": "Admission harness only versus exp_054; remote behavior unchanged except injected experiment id",
+    "from": "exp_054 smoke required NumPy in the controller's dependency-minimal virtual environment"
+  },
+  "signature": "132c70342a6f5cc050669a95f2799e3a17cf7b3d7e85b41830a08242ef3a1d28",
+  "config": "configs/exp_055_original_score_joint_bootstrap_smoke_fix.yaml",
+  "snapshot_config": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/source/original_score_joint_repair_v3.ipynb",
+  "snapshot_manifest": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/snapshot/manifest.json",
+  "git_commit": "6fcddffa66fb8f7660d1b181a0e5ca35ae25455d",
+  "validation_protocol": "public_0941_frozen_train16_stratified_proxy_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.0972611120275002
+  },
+  "review": {
+    "required": true,
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/review.md",
+    "completed_at": "2026-09-15T03:22:53+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_original_score_joint_repair_v3.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\exp_055_original_score_joint_bootstrap_smoke_fix\\snapshot\\source\\original_score_joint_repair_v3.ipynb"
+    ],
+    "completed_at": "2026-09-15T03:22:58+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-15T03:15:52+00:00",
+  "updated_at": "2026-09-15T18:19:49+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-15T03:22:53+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-15T03:22:58+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-15T03:22:58+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-15T03:27:49+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-15T17:59:56+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-15T18:19:49+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "KEEP",
+      "at": "2026-09-15T18:19:49+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp055-original-score-bootstrap-smoke-fix",
+    "submitted_at": "2026-09-15T03:27:49+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-15T17:59:42+00:00"
+  },
+  "evaluation": {
+    "decision": "KEEP",
+    "primary_metric": 0.9535869213120838,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-15T18:19:49+00:00"
+  }
+}

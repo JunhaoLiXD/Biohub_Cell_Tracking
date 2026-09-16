@@ -1,0 +1,7 @@
+{
+  "wheel": "scipy-1.18.1-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl",
+  "wheel_sha256": "f55fa87b6c612ecd6b058f167c53231b1d14e412efe361d3d6e38b3631c73218",
+  "extension": "_lsap.cpython-312-x86_64-linux-gnu.so",
+  "extension_sha256": "67871ca804df8da4fadf4e9238ea0536d92ff0915ddae885b368c65ce43e5b3f",
+  "version": "1.18.1"
+}

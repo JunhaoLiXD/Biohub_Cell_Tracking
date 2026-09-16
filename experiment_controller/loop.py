@@ -4,7 +4,16 @@ import time
 from pathlib import Path
 from typing import Any
 
-from .core import ControllerError, create_experiment, experiment_dir, load_config, load_record, read_json, write_json
+from .core import (
+    ControllerError,
+    create_experiment,
+    experiment_dir,
+    load_config,
+    load_record,
+    read_json,
+    review_provider_label,
+    write_json,
+)
 from .kaggle import check_status, collect, launch
 
 
@@ -40,7 +49,7 @@ def run_once(root: Path) -> list[dict[str, Any]]:
         record = load_record(root, experiment_id)
         state = record["state"]
         if state in {"PROPOSED", "MANUAL_REVIEW_REQUIRED"} and record.get("review", {}).get("required"):
-            action = "NEEDS_CLAUDE_REVIEW"
+            action = f"NEEDS_{review_provider_label(record).upper()}_REVIEW"
         elif state in {"PROPOSED", "REVIEWED"}:
             action = "READY_FOR_SMOKE_AND_LAUNCH"
             launch(root, experiment_id)

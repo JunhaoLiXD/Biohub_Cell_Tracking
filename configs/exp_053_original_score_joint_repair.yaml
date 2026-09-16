@@ -1,0 +1,92 @@
+schema_version: 1
+experiment_id: exp_053_original_score_joint_repair
+parent: repro_041_public_0941_motion_ema
+hypothesis: The fixed original-score protected joint cut-and-reconnect rule reproduces
+  the local_052 original-score gain using prediction-only provenance in test and frozen
+  train16 inference.
+change:
+  component: post_smoothing_joint_association
+  to: Frozen original-score local_052 attempt02 joint repair
+  variables_changed: Only joint graph edge selection; unchanged nodes, smoothing,
+    models, EMA and validation
+  from: Reproduced EMA 0.4 final graph
+source_notebook: .private/current/original_score_joint_repair.ipynb
+validation:
+  protocol: public_0941_frozen_train16_stratified_proxy_v1
+  primary_metric: score
+  seed: public_0933_train16_v1
+  required_specimens:
+  - 44b6
+  - 6bba
+  samples_per_specimen: 8
+  comparison_parent: repro_041_public_0941_motion_ema
+  absolute_tolerance: 1.0e-12
+  relative_tolerance: 0.0
+  expected_primary_metric: 0.9535869213120838
+  warning: Frozen training proxy, not independent holdout. Exact final-stage prediction-fixture
+    repair parity passed. Cross-platform upstream smoothing replay differs by at most
+    1.71e-13; remote full graph hashes remain strict.
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+  per_specimen_max_regression: 0.0
+evaluation:
+  mode: gate
+  gate_field: joint_repair_passed
+admission:
+  require_claude_review: true
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+local:
+  smoke_test:
+  - '{python}'
+  - scripts/validate_original_score_joint_repair.py
+  - '{source_notebook}'
+provenance:
+  design: docs/research/exp053_original_score_integration.md
+  local_parity: experiments/local_053_original_score_final_stage_parity/result.json
+  review_focus: Inspect immutable snapshot and design. Check provenance through same-frame
+    ID replacement; identical test/val cache export and post-smoothing hook; no GT/scorer
+    dependency in core; original-score fixture parity scope versus cross-platform
+    upstream smoothing diagnostic; isolated hash-pinned SciPy 1.18.1 CPython3.12 Linux
+    _lsap extension without replacing system SciPy or NumPy; runtime native extension
+    smoke before inference; exact no-change/output hashes and score rows; inherited
+    metadata and contract compatibility. Gate failure must prohibit advancement.
+authorization:
+  scope: User reported 30 GPU hours and authorized next step. One fixed original-score
+    successor, fresh Claude PASS, snapshot smoke and two GPU-hour budget reservation
+    before one remote validation. Preserve six hours. No leaderboard submission, promotion,
+    training or sweep.
+submission:
+  user_authorized_count: 0
+kaggle:
+  owner: lingxd
+  slug: biohub-exp053-original-score-joint-repair
+  title: biohub-exp053-original-score-joint-repair
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: true
+  competition_sources:
+  - biohub-cell-tracking-during-development
+  dataset_sources:
+  - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+  - pilkwang/biohub-temporal-unet3d-seed314159-v1
+  - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+  - scripts/build_original_score_joint_repair.py
+  - scripts/original_score_joint_repair.py
+  - scripts/original_score_joint_hooks.py
+  - scripts/original_score_joint_contract.py
+  - scripts/validate_original_score_joint_repair.py
+  - scripts/verify_original_score_parity.py
+  - scripts/joint_repair_frozen_smoothing.py
+  - docs/research/exp053_original_score_integration.md
+  - .private/runtime/joint_repair_linux/manifest.json
+  - .private/runtime/joint_repair_linux/SCIPY_LICENSE.txt

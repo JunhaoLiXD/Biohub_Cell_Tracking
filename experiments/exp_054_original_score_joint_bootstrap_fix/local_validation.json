@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "tests": "14 passed",
+  "test_command": "python -m pytest tests/test_original_score_joint_repair.py tests/test_original_score_joint_repair_bootstrap.py tests/test_diag052_joint_policy.py -q",
+  "clean_namespace_solver_probe": true,
+  "snapshot_smoke_precheck": "PASS",
+  "notebook_sha256": "582761bd2212fd53834e72c0f8a7217ff9d7e04dc6c0dc4d304d4be455589c11",
+  "semantic_diff": {
+    "normalized_source_exact": true,
+    "changed_cells": [7, 14],
+    "allowed_changes": [
+      "explicit import numpy as _jr_np before isolated solver self-test",
+      "np.array changed to _jr_np.array in that self-test",
+      "injected experiment id changed from exp_053 to exp_054"
+    ]
+  },
+  "parity": {
+    "path": "experiments/local_054_original_score_final_stage_parity/result.json",
+    "videos": 16,
+    "exact_nodes": true,
+    "exact_edges": true,
+    "baseline_unchanged": true,
+    "max_coordinate_delta": 0.0,
+    "max_frozen_smoothing_replay_delta": 1.7053025658242404e-13
+  },
+  "failed_predecessor": "exp_053_original_score_joint_repair",
+  "failure_reproduced_by_old_snapshot": "NameError: name 'np' is not defined",
+  "recorded_at": "2026-09-15T03:07:39+00:00"
+}

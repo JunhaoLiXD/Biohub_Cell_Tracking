@@ -1,0 +1,21 @@
+{
+  "local_date": "2026-09-15",
+  "gate_checked_at_utc": "2026-09-15T18:45:55+00:00",
+  "submitted_at_utc": "2026-09-15T19:05:01.673000Z",
+  "competition": "biohub-cell-tracking-during-development",
+  "submission_id": 56261282,
+  "experiment_id": "exp_055_original_score_joint_bootstrap_smoke_fix",
+  "kernel": "lingxd/biohub-exp055-original-score-bootstrap-smoke-fix",
+  "kernel_version": 1,
+  "file_name": "submission.csv",
+  "submission_sha256": "9eb4826b33a44bd647ea57c2e0f40514f543446384d2c685d2c227175e241aec",
+  "status": "PENDING",
+  "submit_method": "competition_submit_code (Kaggle notebook/code submission API)",
+  "remote_history_checked_before_submit": true,
+  "remote_local_day_count_before_submit": 0,
+  "duplicate_probe": false,
+  "user_authorized": true,
+  "frozen_train16_proxy_score": 0.9535869213120838,
+  "proxy_delta_vs_repro_041": 0.01485368362467987,
+  "rationale": "User authorized one leaderboard scoring of the exp_055 KEEP candidate (original-score joint repair applied after smoothing). This isolates the repair effect on the four competition test movies against the repro_041 0.942 baseline. File submission was rejected (competition is notebook-only); submitted the completed kernel version 1 via the code-submission API."
+}

@@ -1,0 +1,16 @@
+[2026-09-15T03:13:29+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_original_score_joint_repair_v2.py", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_054_original_score_joint_bootstrap_fix\\snapshot\\source\\original_score_joint_repair_v2.ipynb"]
+exit_code=1
+STDOUT
+{"status": "PASS", "notebook_sha256": "582761bd2212fd53834e72c0f8a7217ff9d7e04dc6c0dc4d304d4be455589c11", "note": "Linux extension is hash-pinned and runtime-load-tested before inference; local Windows cannot execute ELF"}
+
+STDERR
+Traceback (most recent call last):
+  File "E:\Project\Biohub_CellTracking\scripts\validate_original_score_joint_repair_v2.py", line 76, in <module>
+    main(sys.argv[1])
+  File "E:\Project\Biohub_CellTracking\scripts\validate_original_score_joint_repair_v2.py", line 71, in main
+    execute_clean_namespace_solver_probe(path)
+  File "E:\Project\Biohub_CellTracking\scripts\validate_original_score_joint_repair_v2.py", line 57, in execute_clean_namespace_solver_probe
+    exec(compile(core, "<clean-namespace-original-score-repair>", "exec"), module.__dict__)
+  File "<clean-namespace-original-score-repair>", line 7, in <module>
+ModuleNotFoundError: No module named 'numpy'
+

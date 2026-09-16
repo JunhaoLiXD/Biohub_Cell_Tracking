@@ -1,11 +1,20 @@
 {
   "schema_version": 1,
-  "active_experiment": "diag_051_public_0942_tracklet_evidence",
-  "phase": "LOCAL_JOINT_REPAIR_AUDITED_CONTEXT_REJECTED",
-  "summary": "The zero-GPU joint graph pilot completed and all 48 output graphs passed independent audit. Original-score repair scores 0.9535869213120838 (+0.01485368362467987); context repair scores 0.9519261693422604 (+0.013192931654856466). Division remains 4/8/8. The preregistered context-increment gate failed; retain REJECT_LOCAL_POLICY for that hypothesis. The original-score control is a promising separate candidate, not a Public LB result. GPU balance remains 15.667408447732495 hours including six protected hours.",
-  "next_action": "Review the concrete original-score joint-repair successor design in .private/research/diag052_original_score_successor_design.md. Preserve the rejected context gate and fixed parameters; no sweep. Before any remote validation, integrate prediction-only provenance-safe inference, prove exact parity with all 16 local graphs, and obtain a fresh experiment-specific Claude PASS plus snapshot smoke and budget admission. No leaderboard submission or promotion. Results: experiments/local_052_joint_graph_pilot_v1_attempt02/result.json.",
+  "active_experiment": "exp_055_original_score_joint_bootstrap_smoke_fix",
+  "phase": "EXP057_SUBMITTED_AWAITING_COMPLETION",
+  "summary": "exp_055 completed on Kaggle as controller KEEP (gate joint_repair_passed) at frozen train16 proxy 0.9535869213120838, +0.01485368362467987 over repro_041's 0.9387332376874039. An independent audit confirmed the submission SHA256 9eb4826b..., the adjusted-edge + 0.1*division arithmetic, all 35 contract checks, solver pin SciPy 1.18.1, and byte-identical ordered joint-repair actions on all 16 scored samples versus the zero-GPU local_052 original-score pilot. Division is unchanged at 4/8/8 and the whole gain is adjusted-edge, ~85% from 6bba. Runtime 1.0972611120275 GPU hours charged once; 26.9027388879725 remain with six protected. This is an optimistic frozen-training proxy, not Public LB evidence; metrics.reproducible is false. KEEP authorizes neither promotion nor leaderboard submission. One user-authorized Public LB scoring (submission 56261282, notebook code-submission) returned 0.942 -- exactly repro_041's 0.942, ZERO gain -- so the large proxy gain did not transfer to held-out test.",
+  "next_action": "exp_057 (0.944 bundle + motion EMA 0.4) launched once at 2026-09-16T04:36:06Z as kernel lingxd/biohub-exp057-0944-motion-ema (state SUBMITTED), 1.0 GPU hour reserved (six protected preserved). WAIT for the user completion notice; do NOT poll. On completion: check and collect ONCE (scripts/check_kaggle.py, scripts/collect_results.py), then independently audit metrics.json: exp057_ema_integrity_passed must be true, with the four checks (effective_on_pass_alpha_is_preregistered_0_4, ema_off_submission_byte_parity_repro048==0319ba6d, canonical_edge_diff_at_least_one, ema_predictions_positive), the EMA-off submission SHA, canonical edge symdiff count, and the candidate (EMA-on) submission SHA. The gate is exp057_ema_integrity_passed (controller KEEP/REJECT is integrity-only; quality is decided by the external Public LB). If integrity passes, the SINGLE Public LB submission of the EMA-on candidate is a SEPARATE explicit user authorization (competition_submit_code, gate_submission remote-history + duplicate check, 3/day cap) comparing against repro_048 0.944. Do not relaunch, poll, promote, or submit to the leaderboard without that authorization. exp_058 v0.3 (combined A+B fine-tune) is queued behind exp_057.",
   "leaderboard_submission_authorized": false,
+  "resolved_leaderboard_submission": {
+    "submission_id": 56261282,
+    "experiment_id": "exp_055_original_score_joint_bootstrap_smoke_fix",
+    "submitted_at_utc": "2026-09-15T19:05:01.673000Z",
+    "status": "COMPLETE",
+    "public_score": 0.942,
+    "delta_vs_repro_041_lb": 0.0,
+    "note": "Zero Public LB gain vs repro_041 (0.942 == 0.942); the large frozen train16 proxy gain did not transfer. exp_056 go-gate failed."
+  },
   "authority": "This block is generated from STATE.json by scripts/render_checkpoint.py. STATE.json plus the active experiments/<id>/experiment.json are the single source of truth for current state. Full authorization detail lives once in GOAL.md.",
-  "updated_at": "2026-09-12T03:58:37.065057+00:00",
-  "active_local_experiment": "local_052_joint_graph_pilot_v1_attempt02"
+  "updated_at": "2026-09-16T04:36:30+00:00",
+  "active_local_experiment": "local_054_original_score_final_stage_parity"
 }

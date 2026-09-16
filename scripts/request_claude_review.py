@@ -1,3 +1,9 @@
+"""Legacy entry point for the provider-selecting review request.
+
+New experiments should use request_codex_review.py when they opt into Codex;
+this wrapper remains for historical Claude-review workflows.
+"""
+
 from __future__ import annotations
 
 import argparse
@@ -9,7 +15,7 @@ from experiment_controller.review import request_review
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Request a read-only Claude Code experiment review")
+    parser = argparse.ArgumentParser(description="Request a legacy Claude/provider-selected experiment review")
     parser.add_argument("experiment")
     args = parser.parse_args()
     try:
@@ -22,4 +28,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-
