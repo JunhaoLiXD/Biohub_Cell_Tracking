@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_058_a0_division_diagnostic",
+  "parent": "repro_048_public_0946_exact_copy",
+  "state": "MANUAL_REVIEW_REQUIRED",
+  "hypothesis": "DIAGNOSTIC ONLY (A0 Parts 2-3), no quality hypothesis. On the exact 0.944 lineage (val_049 frozen GEFFs), export (P2) each safe_division candidate's stage-by-stage journey through the real 14-step gate + GT mapping, and (P3) a scorer-faithful characterization of predicted fork nodes + one-at-a-time official-score suppression/addition deltas, to determine WHERE division fails (candidate generation vs gating vs scoring) and whether any feature separates true from false divisions. Prediction-preserving; decides nothing about the leaderboard.\n",
+  "change": {
+    "component": "division_diagnostic_telemetry_only",
+    "from": "repro_048/val_049 postprocessing with no division-candidate telemetry",
+    "to": "Side-effect-free instrumentation of add_safe_divisions_postlink and deepcenter_accept_repair_point that records per-candidate journey + geometry + DeepCenter score, plus a post-run GT-mapping / scorer-faithful fork audit / suppression-addition rescoring stage, in a FULL re-run of the val_049 train16 pipeline (no GEFF reuse; user decision 2026-09-16).\n",
+    "variables_changed": "read_only_diagnostic_telemetry_only_no_prediction_path_change"
+  },
+  "signature": "4ff2edfeb8b1dd9aef5836c4928260be2b4bf059aef093f6ce2ff663271bf53f",
+  "config": "configs/exp_058_a0_division_diagnostic.yaml",
+  "snapshot_config": "experiments/exp_058_a0_division_diagnostic/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_058_a0_division_diagnostic/snapshot/source/exp058_a0_division_diagnostic.ipynb",
+  "snapshot_manifest": "experiments/exp_058_a0_division_diagnostic/snapshot/manifest.json",
+  "git_commit": "bebb531af9073e2c8ff49a3cbc69c44602f276fb",
+  "validation_protocol": "public_0944_train16_division_diagnostic_v1",
+  "budget": {
+    "expected_gpu_hours": 1.3,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "CHANGES_REQUESTED",
+    "verdict": "BLOCK",
+    "path": "experiments/exp_058_a0_division_diagnostic/review.md",
+    "completed_at": "2026-09-17T03:48:06+00:00"
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-17T03:43:31+00:00",
+  "updated_at": "2026-09-17T03:48:06+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-17T03:48:06+00:00",
+      "note": "Codex verdict: BLOCK"
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-09-17T04:15:21+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_058_a0_division_diagnostic/snapshot/config.yaml",
+      "sha256": "ec869a16042a6908023ea7dcf95103e5ecd9b72896c9629c788d3af492c1dbcc"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_058_a0_division_diagnostic/snapshot/source/exp058_a0_division_diagnostic.ipynb",
+      "sha256": "96e12605fe8eaf921291fd22fcb43e64e1d78993b6b51d077fe6bcaf58c78c54"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_058_a0_division_diagnostic/snapshot/extra_files/build_exp058_a0_division_diagnostic.py",
+      "sha256": "0556d3e3bcac04c4e8c196c906548d66541a35b82bbd6f92f237b9cfb2f0e6c2"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_058_a0_division_diagnostic/snapshot/extra_files/exp058_instrumentation.py",
+      "sha256": "287ae1d20f9b04f2640ac11a2fe8d9a67a88b2cfb9db75e5f24dc623c345ccb0"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_058_a0_division_diagnostic/snapshot/extra_files/validate_exp058_notebook.py",
+      "sha256": "f7038a3d7ac6632834ba1e33d44b9246955a0577bad9e0b7f28b3107c2ac9487"
+    }
+  ]
+}

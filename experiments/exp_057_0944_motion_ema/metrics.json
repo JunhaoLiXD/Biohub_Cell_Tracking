@@ -1,0 +1,40 @@
+{
+  "candidate_submission_sha256": "dd7171be860704e53d252f48cad9ae68ac1d34a0f93348fc530268e07656ad39",
+  "canonical_edge_symdiff_count": 3714,
+  "checks": {
+    "canonical_edge_diff_at_least_one": true,
+    "effective_on_pass_alpha_is_preregistered_0_4": true,
+    "ema_off_submission_byte_parity_repro048": true,
+    "ema_predictions_positive": true
+  },
+  "effective_motion_relink_ema_alpha": 0.4,
+  "effective_motion_relink_velocity_weight": 0.5,
+  "ema_off_submission_sha256": "0319ba6d8e864335d3573f6b1a6227c546f17e9247a0c2858fa09b6c2422db3f",
+  "ema_on_submission_sha256": "dd7171be860704e53d252f48cad9ae68ac1d34a0f93348fc530268e07656ad39",
+  "exp057_ema_integrity_passed": true,
+  "experiment_id": "exp_057_0944_motion_ema",
+  "motion_relink_ema_predictions": 126453,
+  "motion_relink_one_frame_fallbacks": 0,
+  "primary_metric": 1.0,
+  "primary_metric_meaning": "binary_execution_and_graph_integrity (1.0 pass / 0.0 fail); quality decided by external Public LB",
+  "repro048_reference_sha256": "0319ba6d8e864335d3573f6b1a6227c546f17e9247a0c2858fa09b6c2422db3f",
+  "runtime_seconds": 1475.0147078037262,
+  "schema_version": 1,
+  "source_provenance": {
+    "base_repro048_notebook_sha256": "4eda3c3dae83f5ad21fee35513aad5f325e09b6de8f77fa55d9b7d6d4b50ca16",
+    "deepcenter_checkpoint_sha256": "8040999a92f6b7bbd98fa8cf458141e045c0f9ad7c936bdb3b18e1f7edafe2a0",
+    "primary_checkpoint_sha256": "12f6881ee3620a831697ca098ff8f48e687a24225f4e048b538deec3562fe771",
+    "secondary_checkpoint_sha256": "9bac2fa0dadc4a6fc1899e0caf187f4b553e0a7cd90ba1261a68b35ffe9e305f"
+  },
+  "timing": {
+    "ema_off_verification_pass_seconds": 249.74024510383606,
+    "full_cell_wall_seconds": 1475.0147120952606,
+    "gpu_prediction_seconds": 571.0776619911194,
+    "note": "runtime_seconds is the full cell wall time (GPU prediction + on-pass postprocessing/submission + the EMA-off verification pass). The EMA-off pass re-runs postprocessing incl. DeepCenter veto (CUDA), so it is not GPU-free; it is included above."
+  },
+  "validation": {
+    "protocol": "public_0944_plus_ema_submission_integrity_lb_probe_v1"
+  },
+  "parsed_at": "2026-09-16T14:34:24+00:00",
+  "source": "E:\\Project\\Biohub_CellTracking\\experiments\\exp_057_0944_motion_ema\\artifacts\\metrics.json"
+}

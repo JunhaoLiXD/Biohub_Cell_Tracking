@@ -1,0 +1,98 @@
+schema_version: 1
+experiment_id: exp_058_a0_division_diagnostic
+parent: repro_048_public_0946_exact_copy
+hypothesis: >
+  DIAGNOSTIC ONLY (A0 Parts 2-3), no quality hypothesis. On the exact 0.944 lineage
+  (val_049 frozen GEFFs), export (P2) each safe_division candidate's stage-by-stage
+  journey through the real 14-step gate + GT mapping, and (P3) a scorer-faithful
+  characterization of predicted fork nodes + one-at-a-time official-score
+  suppression/addition deltas, to determine WHERE division fails (candidate
+  generation vs gating vs scoring) and whether any feature separates true from false
+  divisions. Prediction-preserving; decides nothing about the leaderboard.
+change:
+  component: division_diagnostic_telemetry_only
+  from: repro_048/val_049 postprocessing with no division-candidate telemetry
+  to: >
+    Side-effect-free instrumentation of add_safe_divisions_postlink and
+    deepcenter_accept_repair_point that records per-candidate journey + geometry +
+    DeepCenter score, plus a post-run GT-mapping / scorer-faithful fork audit /
+    suppression-addition rescoring stage, in a FULL re-run of the val_049 train16
+    pipeline (no GEFF reuse; user decision 2026-09-16).
+  variables_changed: read_only_diagnostic_telemetry_only_no_prediction_path_change
+source_notebook: .private/current/exp058_a0_division_diagnostic.ipynb
+substrate_note: >
+  FULL RE-RUN (user decision 2026-09-16: no GEFF upload). The notebook is the
+  val_049 train16 notebook run end-to-end (detector + association + postprocessing +
+  scorer), ~1.3 GPU hr (budget expanded from 1.0 by user), with only additive
+  diagnostic telemetry + a post-run analysis stage + the integrity block. No frozen
+  GEFF dataset is created or uploaded.
+validation:
+  protocol: public_0944_train16_division_diagnostic_v1
+  primary_metric: binary_diagnostic_integrity
+  required_specimens: [44b6, 6bba]
+  samples_per_specimen: 8
+  sample_and_scorer_reference: val_039_public_0941_train16
+  warning: >
+    Diagnostic only. The controller checks integrity: shadow parity (instrumented vs
+    uninstrumented postprocessing byte-identical intermediate graphs on the same
+    frozen GEFFs), test submission SHA256 == 0319ba6d..., exact reproduction of
+    val_049 train16 score 0.9310696298996892 and division 3/8/9, exact
+    evaluate_divisions reproduction, telemetry completeness for all 16 videos, and
+    native-int JSON. It decides NOTHING about quality or the Public LB. train16 is
+    exhausted exploratory calibration; any A2 needs new specimens or a pre-registered
+    one-shot external test.
+budget:
+  tier: 1
+  expected_gpu_hours: 1.3
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: exp058_diagnostic_integrity_passed
+admission:
+  require_claude_review: true
+  require_codex_review: true
+  reviewer_provider: codex
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+local:
+  smoke_test: ['{python}', scripts/validate_exp058_notebook.py, '{source_notebook}']
+provenance:
+  base_notebook: experiments/val_049_public_0944_train16/snapshot/source/public_0944_train16.ipynb
+  base_experiment: val_049_public_0944_train16
+  builder: scripts/build_exp058_a0_division_diagnostic.py
+  instrumented_functions:
+    - add_safe_divisions_postlink
+    - deepcenter_accept_repair_point
+  strategy_proposal: docs/research/exp058_a0_division_diagnostic_proposal.md
+  codex_challenge: docs/research/exp058_a0_codex_challenge_v1.md
+  expected_submission_sha256: 0319ba6d8e864335d3573f6b1a6227c546f17e9247a0c2858fa09b6c2422db3f
+  expected_train16_score: 0.9310696298996892
+  expected_division_counts: {tp: 3, fp: 8, fn: 9}
+authorization:
+  scope: >
+    User authorized ONE minimal GPU diagnostic export for A0 Parts 2-3 on
+    2026-09-16 (GPU spend only). Launch still requires CONSENSUS + fresh Codex
+    admission + snapshot smoke + tracked budget reservation.
+submission:
+  user_authorized_count: 0
+kaggle:
+  owner: lingxd
+  slug: biohub-exp058-a0-division-diagnostic
+  title: biohub-exp058-a0-division-diagnostic
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: true
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+    - scripts/build_exp058_a0_division_diagnostic.py
+    - scripts/validate_exp058_notebook.py

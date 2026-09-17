@@ -1,0 +1,52 @@
+{
+  "local_date": "2026-09-16",
+  "gate_checked_at_utc": "2026-09-16T14:37:45+00:00",
+  "submitted_at_utc": "2026-09-16T14:39:05.743000Z",
+  "competition": "biohub-cell-tracking-during-development",
+  "submission_id": 56281129,
+  "experiment_id": "exp_057_0944_motion_ema",
+  "kernel": "lingxd/biohub-exp057-0944-motion-ema",
+  "kernel_version": 1,
+  "file_name": "submission.csv",
+  "submission_sha256": "dd7171be860704e53d252f48cad9ae68ac1d34a0f93348fc530268e07656ad39",
+  "ema_off_submission_sha256": "0319ba6d8e864335d3573f6b1a6227c546f17e9247a0c2858fa09b6c2422db3f",
+  "repro048_reference_sha256": "0319ba6d8e864335d3573f6b1a6227c546f17e9247a0c2858fa09b6c2422db3f",
+  "canonical_edge_symdiff_count": 3714,
+  "status": "COMPLETE",
+  "submit_method": "competition_submit_code (Kaggle notebook/code submission API)",
+  "gate_verdict": {
+    "allowed": true,
+    "cap": 3,
+    "remote_today": 0,
+    "local_today": 0,
+    "used": 0,
+    "remaining": 3,
+    "duplicate": false
+  },
+  "remote_history_checked_before_submit": true,
+  "remote_local_day_count_before_submit": 0,
+  "duplicate_probe": false,
+  "user_authorized": true,
+  "integrity_gate": {
+    "exp057_ema_integrity_passed": true,
+    "effective_on_pass_alpha_is_preregistered_0_4": true,
+    "ema_off_submission_byte_parity_repro048": true,
+    "canonical_edge_diff_at_least_one": true,
+    "ema_predictions_positive": true,
+    "ema_predictions": 126453,
+    "one_frame_fallbacks": 0,
+    "independently_hashed": true
+  },
+  "baseline_for_comparison": {
+    "experiment_id": "repro_048_public_0946_exact_copy",
+    "submission_id": 56105868,
+    "public_score": 0.944
+  },
+  "rationale": "User authorized one leaderboard scoring of the exp_057 integrity-KEEP candidate: the repro_048 0.944 edge-feature-TTA bundle plus the single scoped motion EMA alpha 0.4 change (velocity weight 0.5). The appended EMA-off verification pass reproduced repro_048's 0.944 submission byte-for-byte (0319ba6d), so the EMA-on candidate (dd7171be) is causally isolated to the EMA edit. Public LB probe against repro_048 0.944; the discredited frozen train16 proxy was deliberately not used.",
+  "public_score": 0.944,
+  "public_score_precision": 3,
+  "score_source": "authenticated_kaggle_submission_history",
+  "verified_at_utc": "2026-09-16T14:40:00+00:00",
+  "delta_vs_repro_048_lb": 0.0,
+  "note": "Public LB 0.944 == repro_048 0.944 (zero displayed-precision gain) despite a 3714-edge canonical graph difference. Because the same-run EMA-off replay reproduced 0.944 byte-for-byte, the result is causally isolated to the EMA edit: motion EMA is redundant/neutral on top of the 0.944 edge-feature-TTA bundle. Pre-registered decision => close the 'EMA on 0.944' branch. repro_048 0.944 remains the best public number."
+}
