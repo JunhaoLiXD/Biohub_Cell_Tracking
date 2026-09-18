@@ -1,20 +1,25 @@
 # Biohub Cell Tracking — Project Handoff
 
-Status: current repository checkpoint, 2026-09-15. This file is the operational
+Status: current repository checkpoint, 2026-09-18. This file is the operational
 handoff for Claude Code as primary author and Codex as independent reviewer. Read
-`AGENTS.md`, `GOAL.md`, `.private/current/CONTINUATION.md`,
-`.private/current/MEMORY.md`, and the active experiment record before acting.
+`HANDOUT.md` first, then `STATE.json`, `AGENTS.md`, `GOAL.md`,
+`.private/current/CONTINUATION.md`, and the active experiment record before acting.
 Historical records remain evidence and are not implicit authorization.
 
 ## Claude Code startup action
 
-Read `STATE.json` and the active experiment record first. exp_055 is now
-terminal **KEEP** and has been independently audited (2026-09-15); the single
-check/collection is complete and must not be repeated. The project has entered
-the Valid-KEEP branch: Claude Code's active task is to author the next strategy
-proposal, Codex challenges it, and Claude revises to a versioned `CONSENSUS`
-before any implementation or launch. Do not relaunch, re-collect, promote, or
-submit to the leaderboard. KEEP does not authorize promotion or LB submission.
+Read `HANDOUT.md` and `STATE.json` first. **Current state (2026-09-18):** the new best
+Public LB is **0.947** (`repro_059`, authenticated submission 56313491) — a verbatim copy
+of a public 0.947 notebook on the same Pilkwang checkpoints as our 0.944 (so the +0.003 is
+100% post-processing/TTA), adopted as the working parent. The active experiment
+**`exp_060_deepcenter_safe_div_threshold_sweep`** (a DeepCenter safe-division threshold
+micro-sweep {0.20 control / 0.18 / 0.22} on the frozen 0.947 pipeline) is **LAUNCHED on
+Kaggle** (kernel `lingxd/biohub-exp060-deepcenter-safe-div-threshold-sweep`, manual push
+outside the controller by explicit user authorization, awaiting completion). On completion,
+verify the 0.20-arm byte-parity (SHA == `d3453380`) + the integrity gate, then analyze the
+0.18/0.22 division telemetry; the LB submission of an arm is a SEPARATE user authorization
+(competition is notebook-only). Do NOT poll; do NOT relaunch/submit without user go-ahead.
+The `HANDOUT.md` `>>> NEXT STEP <<<` block is authoritative for the immediate action.
 
 ## Goal and system
 
@@ -26,9 +31,20 @@ gates, then emits the competition `submission.csv` tracking graph.
 
 ## Current evidence
 
-* Verified public reference: submission `56105868`, Public LB **0.944**. It is
-  byte-identical to the currently shared public notebook output. The advertised
-  0.946 is not reproduced and its bundled changes have no isolated causal claim.
+* **New best Public LB: `repro_059_public_0947_exact_copy` = 0.947** (authenticated
+  submission `56313491`, COMPLETE, 2026-09-17). Verbatim copy of a public 0.947 notebook
+  (documented upstream `raykkretzschmar/biohub-bidirectional-primary-union13-diagnostic-v1`),
+  running the **same three Pilkwang checkpoints** as our 0.944 — so the +0.003 is 100%
+  post-processing/TTA (model byte-identical), not causally isolated. It is the adopted working
+  parent. Dissection (vs 0.944): DeepCenter(division) TTA ON + secondary edge-feature TTA ON +
+  DeepCenter safe-div threshold 0.25→0.20 + an embedded held-out PP-sweep that selected `tight55`
+  (MOTION_RELINK_TIGHT_UM 6.0→5.5). Self-attested `metric_hack_used=False`. Full provenance:
+  `experiments/repro_059_public_0947_exact_copy/PROVENANCE.md`.
+* Public-frontier recon (2026-09-18): the LB frontier is ~0.970 but those are private/unshared;
+  the reproducible public cluster all shares the same Pilkwang checkpoints, and no verified public
+  notebook clearly above 0.947 was found. → improve ON the 0.947 base.
+* Prior verified public reference: submission `56105868`, Public LB **0.944**. Byte-identical to
+  the shared public notebook output. The advertised 0.946 is not reproduced.
 * Stable train16 parent: `repro_041_public_0941_motion_ema`, score
   **0.9387332376874039**, fixed motion EMA alpha 0.4, and user-reported Public
   LB 0.942. Its 16-video graphs and scoring artifacts passed independent audits.
@@ -69,6 +85,10 @@ reports remain the source of truth for raw artifacts, hashes, and gate results.
 | `exp_053_original_score_joint_repair` | `REMOTE_FAILED` before inference | Missing isolated-bootstrap NumPy import; no quality conclusion or score. Preserve failure artifacts; do not retry. |
 | `exp_054_original_score_joint_bootstrap_fix` | `LOCAL_FAILED` | Import fix was present, but minimal controller environment lacked NumPy; not a method failure. |
 | `exp_055_original_score_joint_bootstrap_smoke_fix` | **KEEP**, proxy **0.9535869213120838**, +0.01485368362467987 | Remote run reproduced the `local_052` original-score policy exactly: byte-identical ordered joint-repair actions on all 16 scored samples, division unchanged 4/8/8, gain entirely adjusted-edge (~85% from 6bba). Independent audit passed; frozen-training proxy only, not Public LB; `reproducible: false`; no promotion/LB. |
+| `exp_055` → Public LB probe (submission 56261282) | Public LB **0.942 == repro_041**, Δ0 | The +0.0149 frozen train16 proxy did NOT transfer. train16 proxy declared severely optimistic for post-smoothing graph-repair. |
+| `exp_057_0944_motion_ema` → Public LB probe (56281129) | Public LB **0.944 == repro_048**, Δ0 | Motion EMA on 0.944 is neutral/redundant (EMA-off replay byte-identical to 0.944). Branch closed. Two causally-isolated post-hoc edits both LB-flat → remaining loss is not in the association/motion layer. |
+| `repro_059_public_0947_exact_copy` | Public LB **0.947**, submission `56313491` | NEW BEST (+0.003 vs 0.944). Verbatim public-notebook copy, same Pilkwang checkpoints → gain is 100% post-processing/TTA (DeepCenter TTA + secondary edge TTA + safe-div threshold 0.25→0.20 + held-out PP-sweep tight55). Adopted as working parent; bundled, not causally isolated. |
+| `exp_060_deepcenter_safe_div_threshold_sweep` | **LAUNCHED 2026-09-18**, awaiting completion | DeepCenter safe-division threshold micro-sweep {0.20 control / 0.18 / 0.22} on the frozen 0.947 pipeline (division is the bottleneck: 0.20 gate rejects 414 candidates; 0.18 primary arm). Strategy CONSENSUS (3 Codex rounds) + implementation verified across 12 Codex rounds; launched by manual push (formal controller admission REVISE was circular — demands local verification of the GPU pipeline it gates). Produces 0.20/0.18/0.22 submissions + division telemetry + gated metrics.json; 0.20 arm must byte-reproduce parent SHA d3453380. No auto LB submission. |
 
 ## Important entry points and artifacts
 

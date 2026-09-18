@@ -162,6 +162,26 @@
       "verified_at_utc": "2026-09-16T14:40:00+00:00",
       "delta_vs_repro_048_lb": 0.0,
       "note_lb": "Public LB 0.944 equals repro_048 0.944: ZERO displayed-precision gain despite a 3714-edge graph difference. Because the EMA-off replay is byte-identical to 0.944, this isolates the result to the EMA edit: motion EMA is redundant/neutral on top of the edge-feature-TTA bundle. Pre-registered rule => close the 'EMA on 0.944' branch."
+    },
+    {
+      "local_date": "2026-09-17",
+      "submitted_at_utc": "2026-09-17T20:52:56.617000Z",
+      "competition": "biohub-cell-tracking-during-development",
+      "submission_id": 56313491,
+      "experiment_id": "repro_059_public_0947_exact_copy",
+      "kernel": "lingxd/biohub-repro059-public-0947-exact-copy",
+      "kernel_version": 1,
+      "file_name": "submission.csv",
+      "notebook_source_sha256": "5b349d3caf4feaa6d04cfb790e34923066f29119794846c6fd0d685337f8cd6a",
+      "status": "COMPLETE",
+      "public_score": 0.947,
+      "public_score_precision": 3,
+      "score_source": "authenticated_kaggle_submission_history",
+      "verified_at_utc": "2026-09-18T00:00:00+00:00",
+      "delta_vs_repro_048_lb": 0.003,
+      "user_authorized": true,
+      "provenance": "manual_backfill_external_submission_not_controller_run",
+      "note_lb": "NEW BEST Public LB 0.947 (+0.003 vs repro_048 0.944). Verbatim copy of a public 0.947 notebook; documented upstream = raykkretzschmar/biohub-bidirectional-primary-union13-diagnostic-v1 (source_notebook_sha256 3e65ca69...). SAME three Pilkwang checkpoints as our 0.944 (deepcenter-unet3d-center-prior-v1, temporal-unet3d-seed314159-v1, tracking-support-pack-50ep-v1) => the +0.003 is 100% post-processing/TTA, model byte-identical. Prediction-affecting deltas vs 0.944: (A) DeepCenter TTA OFF->ON; (B) secondary edge-feature TTA OFF->ON w=0.75; (C) DeepCenter safe-div threshold 0.25->0.20; (D) embedded held-out PP-sweep selected tight55 = MOTION_RELINK_TIGHT_UM 6.0->5.5. Notebook self-attests metric_hack_used=False, public_output_used=False, organizer_labels_used=False, leaderboard_feedback_used=True. Submitted 2026-09-17 outside the experiment-controller flow; this is a backfilled provenance record."
     }
   ]
 }

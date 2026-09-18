@@ -1,8 +1,3 @@
-# Latest Codex Review
-
-Experiment: `exp_060_deepcenter_safe_div_threshold_sweep`  
-Captured: 2026-09-18T19:28:12+00:00
-
 ## Summary
 
 **REVISE.** Explicit strategy **CONSENSUS** is recorded in the Claude proposal and Codex v1–v3 objection/revision history. The experiment is reasonable, but required isolation verification remains incomplete.

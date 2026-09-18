@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_060_deepcenter_safe_div_threshold_sweep",
+  "parent": "repro_059_public_0947_exact_copy",
+  "state": "MANUAL_REVIEW_REQUIRED",
+  "hypothesis": "The DeepCenter safe-division accept threshold (parent 0.20) is an LB-movable division lever. On the frozen 0.947 pipeline (repro_059, identical Pilkwang checkpoints), with the resolved post-processing config PINNED (base env + MOTION_RELINK_TIGHT_UM=5.5, adaptive PP-sweep NOT used for selection), produce three test submissions at DEEPCENTER_SAFE_DIV_THRESHOLD in {0.20 (byte-parity control), 0.18, 0.22} from one inference (shared heatmaps), and submit the two changed arms to the now-unlimited Public LB. Pre-registered arms; the LB decides. Division is the bottleneck (held-out 3/1/9; the 0.20 gate accepts 316 / rejects 414 candidates on the test movies, so 0.18/0.22 will materially move the accepted-division set).\n",
+  "change": {
+    "component": "deepcenter_safe_division_threshold_only",
+    "from": "repro_059 postprocessing with DEEPCENTER_SAFE_DIV_THRESHOLD fixed at 0.20 (single submission)",
+    "to": "Purely-additive appended cells that re-run the UNCHANGED filter_output_graph per test movie at three safe-div thresholds sharing one persistent DeepCenter heatmap cache, writing three submissions + attribution telemetry (candidate identities/scores/accept + cross-arm fork/edge deltas) + a controller metrics.json gated on 0.20 byte-parity. The parent's own 0.947 prediction path runs byte-unchanged (parity guard).\n",
+    "variables_changed": "deepcenter_safe_div_threshold_sweep_only_no_parent_path_change"
+  },
+  "signature": "e27caaf146548b6ce69e075d2348f5ee8248965b2e329689193c2c7724d46f76",
+  "config": "configs/exp_060_deepcenter_safe_div_threshold_sweep.yaml",
+  "snapshot_config": "experiments/exp_060_deepcenter_safe_div_threshold_sweep/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_060_deepcenter_safe_div_threshold_sweep/snapshot/source/exp060_deepcenter_safe_div_threshold_sweep.ipynb",
+  "snapshot_manifest": "experiments/exp_060_deepcenter_safe_div_threshold_sweep/snapshot/manifest.json",
+  "git_commit": "a8bedc5aa085e3b8a7bd2158b2affb69f425167f",
+  "validation_protocol": "public_0947_deepcenter_safe_div_threshold_sweep_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "CHANGES_REQUESTED",
+    "verdict": "REVISE",
+    "path": "experiments/exp_060_deepcenter_safe_div_threshold_sweep/review.md",
+    "completed_at": "2026-09-18T19:28:12+00:00"
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-18T19:26:28+00:00",
+  "updated_at": "2026-09-18T19:28:12+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-18T19:28:12+00:00",
+      "note": "Codex verdict: REVISE"
+    }
+  ]
+}
