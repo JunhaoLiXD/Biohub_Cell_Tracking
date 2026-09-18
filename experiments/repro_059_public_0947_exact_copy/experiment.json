@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_059_public_0947_exact_copy",
+  "parent": "repro_048_public_0946_exact_copy",
+  "state": "EXTERNALLY_SUBMITTED",
+  "provenance": "manual_backfill_external_submission_not_controller_run",
+  "hypothesis": "A verbatim copy of a public 0.947 notebook (upstream raykkretzschmar/biohub-bidirectional-primary-union13-diagnostic-v1), run under the lingxd account with the same three public Pilkwang checkpoints, reproduces Public LB 0.947. Full-source reproduction; no component is causally isolated. NOTE: this run was submitted directly on Kaggle outside the experiment-controller flow; this record is a backfill for provenance.\n",
+  "change": {
+    "component": "complete_public_secondary_deepcenter_tta_0947_configuration_reproduction",
+    "from": "our reproduced public 0.944/0.946 pipeline (repro_048, edge-feature TTA)",
+    "to": "public 0.947 pipeline = 0.946 base + DeepCenter (division) TTA + secondary edge-feature TTA (w=0.75) + DeepCenter safe-div threshold 0.25->0.20 + embedded held-out PP-sweep (selected tight55: MOTION_RELINK_TIGHT_UM 6.0->5.5)",
+    "variables_changed": "full_source_reproduction_not_causal_ablation; model checkpoints byte-identical to 0.944 so the +0.003 is entirely post-processing/TTA"
+  },
+  "model_lineage": {
+    "checkpoints_identical_to_0944": true,
+    "datasets": [
+      "pilkwang/biohub-deepcenter-unet3d-center-prior-v1",
+      "pilkwang/biohub-temporal-unet3d-seed314159-v1",
+      "pilkwang/biohub-tracking-support-pack-50ep-v1"
+    ],
+    "documented_upstream_kernel": "raykkretzschmar/biohub-bidirectional-primary-union13-diagnostic-v1",
+    "documented_upstream_notebook_sha256": "3e65ca691941949196bf417030ea84fccafe16baaec174b2a63540451bb937e8",
+    "documented_method_attribution": "0.933 fixed-90 dual-seed baseline -> 0.934 harmonic mutual-support fusion -> 0.939 wider divisions and calmer fusion -> 0.941 repair-threshold adaptation -> 0.946 primary edge-feature TTA + held-out post-process selection -> 0.947 secondary feature TTA + DeepCenter TTA",
+    "integrity_self_attestation": {
+      "metric_hack_used": false,
+      "public_output_used": false,
+      "organizer_labels_used_for_configuration": false,
+      "leaderboard_feedback_used_for_configuration": true
+    }
+  },
+  "snapshot_source": "experiments/repro_059_public_0947_exact_copy/snapshot/source/biohub-repro059-public-0947-exact-copy.ipynb",
+  "snapshot_notebook_source_sha256": "5b349d3caf4feaa6d04cfb790e34923066f29119794846c6fd0d685337f8cd6a",
+  "review": {
+    "required": false,
+    "status": "NOT_APPLICABLE_MANUAL_BACKFILL",
+    "note": "This was a direct verbatim public reproduction submitted outside the controller. No Claude/Codex admission was run because no novel change was authored. Any SUCCESSOR built on this parent must go through the full Claude-proposes / Codex-challenges / CONSENSUS + fresh Codex admission workflow."
+  },
+  "smoke_test": {
+    "status": "NOT_APPLICABLE_MANUAL_BACKFILL"
+  },
+  "leaderboard_submission": {
+    "submission_id": 56313491,
+    "kernel_id": "lingxd/biohub-repro059-public-0947-exact-copy",
+    "kernel_version": 1,
+    "file_name": "submission.csv",
+    "submitted_at_utc": "2026-09-17T20:52:56.617000Z",
+    "status": "COMPLETE",
+    "public_score": 0.947,
+    "public_score_precision": 3,
+    "score_source": "authenticated_kaggle_submission_history",
+    "baseline_public_score": 0.944,
+    "delta_vs_repro_048_lb": 0.003,
+    "note": "New best Public LB. +0.003 vs repro_048 0.944, entirely post-processing/TTA (checkpoints identical)."
+  },
+  "created_at": "2026-09-18T00:00:00+00:00",
+  "updated_at": "2026-09-18T00:00:00+00:00"
+}

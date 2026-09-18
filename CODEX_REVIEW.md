@@ -1,45 +1,45 @@
 # Latest Codex Review
 
-Experiment: `exp_057_0944_motion_ema`  
-Captured: 2026-09-16T04:33:00+00:00
+Experiment: `exp_060_deepcenter_safe_div_threshold_sweep`  
+Captured: 2026-09-18T19:28:12+00:00
 
 ## Summary
 
-The current snapshot is safe to advance to local smoke testing. The hypothesis isolates one major variable—motion EMA α=0.4—on the verified repro_048 Public LB 0.944 bundle. Explicit strategy `CONSENSUS` is recorded after four Codex challenges and Claude revisions.
+**REVISE.** Explicit strategy **CONSENSUS** is recorded in the Claude proposal and Codex v1–v3 objection/revision history. The experiment is reasonable, but required isolation verification remains incomplete.
+
+Read-only checks passed: all six snapshot hashes, stripped-parent source parity, embedded-module equality, and the structural validator. Git diff was inspected. No files were changed.
 
 ## Methodology
 
-- Parent choice is logical: repro_048 has authenticated Public LB 0.944 evidence, while the train16 proxy is acknowledged as contaminated and diagnostic-only.
-- The primary hypothesis is falsifiable at displayed leaderboard precision: `>0.944` succeeds; `≤0.944` terminates this recipe without an α sweep.
-- No ground truth, video identity, or specimen-specific branching enters inference.
-- The four test movies cover both 44b6 and 6bba, although Public LB supplies only aggregate quality. Per-movie runtime statistics remain available for post-run domain audit.
-- This is not a duplicate: EMA was validated on the weaker 0.941 lineage but has not been tested on the complete 0.944 bundle.
+- The fixed **0.20/0.18/0.22** bracket tests one variable on the correct parent, repro_059.
+- The parent’s bundled +0.003 does not establish a threshold benefit. Likewise, 316 accepted/414 rejected candidates do not establish how many scores lie near the proposed boundaries.
+- No new test-label leakage was identified. Public-LB selection provides tuning evidence, not independent generalization or demonstrated transfer between **44b6 and 6bba**.
+- Parent selection artifacts contain **eight crops, four per specimen**, contradicting the four-sample summary.
+- Historical failures on different checkpoints do not directly invalidate this probe.
 
 ## Implementation risks
 
-- The snapshot differs from repro_048 only in the authorized code cell: EMA configuration/state, prediction and propagation, telemetry, timing, and the fail-closed integrity block.
-- Effective α is checked numerically at runtime; stale prose or a pre-existing non-0.4 environment value cannot pass.
-- EMA-off must reproduce the exact parent submission SHA-256 `0319ba6d…`; EMA-on must execute EMA prediction and change at least one canonical edge.
-- Existing graph checks cover all four datasets, contiguous rows, dangling/nonconsecutive edges, maximum indegree 1, maximum outdegree 2, and checkpoint hashes.
-- The emitted metrics satisfy the controller’s required schema and gate lookup. Omitting `reproducible` safely prevents promotion because the controller treats it as false.
-- Admission v4 cites an obsolete pre-final notebook hash (`8a1436…`). The actual snapshot, working notebook, parity receipt, and manifest now consistently match `38fb52c2…`. This formal review covers that current snapshot; the older admission record should remain historical rather than be rewritten.
+- **Consensus-required isolation evidence is missing.** Arm-order testing uses a mock `filter_output_graph`; only the scalar acceptance function is extracted from the actual parent. This does not verify real postprocessing order invariance.
+- The runtime input fingerprint hashes **paths, sizes and modification times**, not graph contents. Cached heatmaps remain mutable and are neither content-verified nor protected against mutation.
+- Effective configuration checks now compare 74 live globals, environment settings and assigned thresholds. Immediate control-SHA rejection, required metrics fields, strict telemetry serialization, and exact fork/edge differences are present.
+- The watchdog now raises `KeyboardInterrupt` and attempts child termination, fixing the earlier swallowable `TimeoutError`. Python signal handling can nevertheless be delayed during native computation.
+- Implementation reruns full postprocessing and the parent’s adaptive sweep; descriptions claiming only appended cells or downstream-only replay are stale.
 
 ## Budget
 
-The 1.0-hour reservation is proportionate to the parent’s 0.357-hour run and remains below the four-hour cap. With 26.9027 hours remaining, the protected six-hour reserve is preserved. Exact weekly model allowance remains unknown, but this was one bounded review.
+The recorded **26.493 hours** accommodates a two-hour reservation while preserving six protected hours. No reservation exists.
+
+Information gain is reasonable for one bounded run, but the runtime estimate must include parent sweep execution and duplicated heatmap computation. Exact weekly model allowance remains unavailable.
 
 ## Required changes
 
-No implementation revision is required. Before remote launch:
-
-1. Record this formal PASS against the current snapshot.
-2. Run the configured local snapshot smoke.
-3. Reserve 1.0 GPU hour and reach controller `READY`.
-4. Obtain explicit user authorization for the Kaggle launch.
-5. Treat any Public LB submission as a separate authorization after runtime integrity passes and remote submission history is checked.
+1. Verify arm-order invariance using **actual extracted postprocessing** with deterministic cached inputs, including competing candidates and downstream filtering.
+2. Verify graph and heatmap **content immutability** across arms; protect cached arrays or compare content digests.
+3. Reconcile strategy/config descriptions with the implemented replay and cost model. Correct the validation-panel count.
+4. Rebuild the snapshot after changes and obtain fresh admission review, then complete smoke and reservation gates. Keep leaderboard submission and promotion separately authorized.
 
 ## Recommendation
 
-Proceed only to the next controller stage—local smoke testing. PASS does not authorize launch, leaderboard submission, or promotion, and it does not predict that EMA will improve the score.
+Do not launch this snapshot yet. Strategy consensus is satisfied; implementation verification is the remaining substantive gap. The behavioral suite was inspected but not executed because it creates temporary files, contrary to this review’s read-only restriction.
 
-VERDICT: PASS
+VERDICT: REVISE

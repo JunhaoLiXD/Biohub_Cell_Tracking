@@ -2,7 +2,7 @@
   "schema_version": 1,
   "experiment_id": "exp_057_0944_motion_ema",
   "parent": "repro_048_public_0946_exact_copy",
-  "state": "SUBMITTED",
+  "state": "KEEP",
   "hypothesis": "Adding motion EMA alpha 0.4 (velocity weight 0.5) to the otherwise byte-identical complete repro_048 edge-feature-TTA bundle yields a Public LB score strictly greater than 0.944 -- i.e. EMA improves the full 0.944 pipeline rather than being redundant with or antagonistic to its bundled edge-feature TTA. Decided by the external Public LB, not the discredited frozen train16 proxy.\n",
   "change": {
     "component": "motion_relink_velocity_ema",
@@ -19,7 +19,8 @@
   "validation_protocol": "public_0944_plus_ema_submission_integrity_lb_probe_v1",
   "budget": {
     "expected_gpu_hours": 1.0,
-    "reserved": true
+    "reserved": false,
+    "consumed_gpu_hours": 0.4097263077232573
   },
   "review": {
     "required": true,
@@ -40,7 +41,7 @@
     "exit_code": 0
   },
   "created_at": "2026-09-16T04:26:00+00:00",
-  "updated_at": "2026-09-16T04:36:06+00:00",
+  "updated_at": "2026-09-16T14:34:24+00:00",
   "state_history": [
     {
       "from": "PROPOSED",
@@ -65,12 +66,37 @@
       "to": "SUBMITTED",
       "at": "2026-09-16T04:36:06+00:00",
       "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-16T14:33:29+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-16T14:34:24+00:00",
+      "note": null
+    },
+    {
+      "from": "EVALUATED",
+      "to": "KEEP",
+      "at": "2026-09-16T14:34:24+00:00",
+      "note": null
     }
   ],
   "remote": {
     "kernel_id": "lingxd/biohub-exp057-0944-motion-ema",
     "submitted_at": "2026-09-16T04:36:06+00:00",
-    "status": "SUBMITTED",
-    "last_checked_at": null
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-16T14:33:21+00:00"
+  },
+  "evaluation": {
+    "decision": "KEEP",
+    "primary_metric": 1.0,
+    "baseline_primary_metric": null,
+    "delta": null,
+    "evaluated_at": "2026-09-16T14:34:24+00:00"
   }
 }

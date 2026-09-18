@@ -538,6 +538,21 @@
       "git_commit": "6fcddffa66fb8f7660d1b181a0e5ca35ae25455d",
       "metrics_path": "experiments/exp_055_original_score_joint_bootstrap_smoke_fix/metrics.json",
       "evaluated_at": "2026-09-15T18:19:49+00:00"
+    },
+    {
+      "experiment_id": "exp_057_0944_motion_ema",
+      "status": "KEEP",
+      "parent": "repro_048_public_0946_exact_copy",
+      "hypothesis": "Adding motion EMA alpha 0.4 (velocity weight 0.5) to the otherwise byte-identical complete repro_048 edge-feature-TTA bundle yields a Public LB score strictly greater than 0.944 -- i.e. EMA improves the full 0.944 pipeline rather than being redundant with or antagonistic to its bundled edge-feature TTA. Decided by the external Public LB, not the discredited frozen train16 proxy.\n",
+      "validation_score": 1.0,
+      "validation_protocol": "public_0944_plus_ema_submission_integrity_lb_probe_v1",
+      "previous_best": null,
+      "delta": null,
+      "runtime_hours": 0.4097263077232573,
+      "decision": "KEEP",
+      "git_commit": "6fcddffa66fb8f7660d1b181a0e5ca35ae25455d",
+      "metrics_path": "experiments/exp_057_0944_motion_ema/metrics.json",
+      "evaluated_at": "2026-09-16T14:34:24+00:00"
     }
   ]
 }
