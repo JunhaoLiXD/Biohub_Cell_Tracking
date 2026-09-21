@@ -84,7 +84,8 @@ VALIDATOR_DISABLE_LINE = ("import os as _e61os_pre  # exp061\n"
                           "if _e61os_pre.environ.get('BIOHUB_EXP061_ENABLE', '1') != '0':  # exp061\n"
                           "    _e61os_pre.environ['BIOHUB_VALIDATOR_ENABLE'] = '0'  # exp061")
 STUB_LINE = "_exp061_log_veto_candidate = (lambda *a, **k: None)  # exp061 stub"
-GAP1_LOGGER = ("_exp061_log_veto_candidate('gap', dataset, mid_t, {'middle_id': middle_id}, "
+GAP1_LOGGER = ("_exp061_log_veto_candidate('gap', dataset, mid_t, {'middle_id': middle_id, "
+               "'left_id': source_id, 'right_id': target_id, 'reused': int(middle_reused)}, "
                "node_point(middle))  # exp061")
 SAFEDIV_LOGGER = ("_exp061_log_veto_candidate('safe_div', dataset, int(candidate['t']), "
                   "{'parent_id': source_id, 'existing_child_id': existing_child_id, "

@@ -24,22 +24,50 @@
   "review": {
     "required": true,
     "provider": "codex",
-    "status": "CHANGES_REQUESTED",
+    "status": "CHANGES_ADDRESSED_PENDING_REREVIEW",
     "verdict": "REVISE",
+    "verdict_note": "The recorded verdict is the historical Codex v3 REVISE. The five required changes have since been addressed in the harness (see `revision`); a FRESH Codex admission review is still required before launch and has NOT yet been run.",
     "path": "experiments/exp_061_deepcenter_tta/review.md",
-    "completed_at": "2026-09-21T04:12:46+00:00"
+    "completed_at": "2026-09-21T04:12:46+00:00",
+    "rereview_required": true
+  },
+  "revision": {
+    "revision": "v3-fixes",
+    "addressed_at": "2026-09-21T00:00:00+00:00",
+    "addresses_review": "experiments/exp_061_deepcenter_tta/review.md (Codex v3 REVISE)",
+    "snapshot_rebuilt": true,
+    "local_tests": "scripts/test_exp061_behavioral.py PASS (incl. executable numpy fixtures A-N); scripts/validate_exp061_notebook.py PASS",
+    "changes": [
+      "#1 Independent parent config: EXP061_PARENT_BASE_DEFAULTS / EXP061_FROZEN_PARENT_CONFIG transcribed from the parent notebook (test-guarded by test_N), replacing the self-captured baseline; live knobs asserted == frozen reference up front and per arm (live_pinned_config_equals_frozen_parent gate).",
+      "#2 Attribution: gap logger now carries left/right endpoint ids + reuse flag; gap survival = both bridge edges in the final graph; per-stage gap1/gap2/safe-div counters + DeepCenter-bypass counts captured per dataset; cross-arm stage-specific deltas + per-arm survival summary in telemetry.",
+      "#3 Executable fixtures: mocked end-to-end run (numpy torch shim, fake model/filter/geffs) exercises parity gate, gap+safe-div survival, verified-zero-response, config-drift fail-closed, corrupt-cache digest-reject recovery, and clean measured per-dataset budget abort.",
+      "#4 Feasibility: measured per-dataset budget gate governs every arm incl. the control (clean aborted_budget between datasets, no half-written CSV); worksheet records measured per-dataset cost + view-cache capacity/I/O; _dc_cache_trim memory fix retained.",
+      "#5 Budget/state: GPU_BUDGET.json ledger reconciled (added exp_060 manual run at a conservative 2.0h upper-bound estimate; remaining 26.493 -> 24.493h); snapshot + manifest rebuilt."
+    ],
+    "still_required_before_launch": [
+      "FRESH Codex admission review PASS on this rebuilt snapshot (scripts/request_codex_review.py)",
+      "snapshot smoke evidence",
+      "2.0h GPU reservation (preserve six protected)",
+      "explicit user launch authorization; then per-arm LB submissions each separately authorized"
+    ]
   },
   "smoke_test": {
     "status": "PENDING"
   },
   "created_at": "2026-09-21T04:10:21+00:00",
-  "updated_at": "2026-09-21T04:12:46+00:00",
+  "updated_at": "2026-09-21T00:00:00+00:00",
   "state_history": [
     {
       "from": "PROPOSED",
       "to": "MANUAL_REVIEW_REQUIRED",
       "at": "2026-09-21T04:12:46+00:00",
       "note": "Codex verdict: REVISE"
+    },
+    {
+      "from": "MANUAL_REVIEW_REQUIRED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-21T00:00:00+00:00",
+      "note": "Addressed all five Codex v3 REVISE items; snapshot + manifest rebuilt; local tests + validator PASS. Awaiting a FRESH Codex admission review before launch (no re-review run yet)."
     }
   ]
 }

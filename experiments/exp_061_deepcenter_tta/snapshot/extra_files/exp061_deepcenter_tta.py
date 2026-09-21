@@ -97,6 +97,64 @@ EXP061_CONFIG_KEYS = (
 )
 
 # ---------------------------------------------------------------------------
+# INDEPENDENTLY-DERIVED frozen parent config (admission v3 #1).
+#
+# These are the repro_059 (0.947) post-processing knob DEFAULTS, transcribed ONCE from the parent
+# notebook's own `KEY = float/int(os.environ.get('BIOHUB_KEY', 'DEFAULT'))` / `... != '0'` lines
+# (the source of truth for the 0.947 pipeline) -- NOT captured from this experiment's live run.
+# scripts/test_exp061_behavioral.py re-parses the parent notebook and asserts this table matches,
+# so it cannot silently drift from the parent. At runtime every started arm's live config is
+# asserted EQUAL to EXP061_FROZEN_PARENT_CONFIG key-by-key (fail-closed), which is this table with
+# the documented tight55 override applied -- so the gate verifies the STARTING values equal an
+# independently frozen reference, not merely that they stay constant across arms.
+EXP061_PARENT_BASE_DEFAULTS = {
+    "ILP_EDGE_WEIGHT": -1.0, "ILP_APPEARANCE_WEIGHT": 0.1, "ILP_DISAPPEARANCE_WEIGHT": 0.1,
+    "ILP_DIVISION_WEIGHT": 1.0, "OUTPUT_EDGE_MAX_UM": 14.0, "OUTPUT_ENFORCE_NEXT_FRAME": True,
+    "OUTPUT_SINGLE_PARENT_REPAIR": True, "OUTPUT_SINGLE_CHILD_REPAIR": False,
+    "OUTPUT_PRUNE_ISOLATED": True, "OUTPUT_MOTION_RELINK": True, "MOTION_RELINK_TIGHT_UM": 6.0,
+    "MOTION_RELINK_RELAXED_UM": 10.0, "MOTION_RELINK_VELOCITY_WEIGHT": 0.5,
+    "MOTION_RELINK_LEARNED_BONUS": 0.75, "MOTION_RELINK_MAX_FRAME_NODES": 2600,
+    "OUTPUT_DIVISION_GEOMETRY_FILTER": False, "DIV_PARENT_MAX_UM": 10.5, "DIV_SISTER_MAX_UM": 8.0,
+    "DIV_DROP_TO_SINGLE_IF_BAD": True, "OUTPUT_GAP_CLOSE": True, "GAP_CLOSE_MAX_GAP": 1,
+    "GAP_CLOSE_UM": 6.0, "GAP_DENSITY_ADAPTIVE": False, "GAP_DENSITY_REFERENCE_UM": 6.5,
+    "GAP_DENSITY_GAIN": 0.04, "GAP_DENSITY_MAX_STEP_DELTA_UM": 0.125, "GAP_DENSITY_NEIGHBORS": 3,
+    "GAP_CLOSE_REUSE_EXISTING": True, "GAP_CLOSE_REUSE_UM": 3.2, "GAP_CLOSE_MAX_ADDED_FRAC": 0.05,
+    "GAP_CLOSE_MAX_ADDED_ABS": 2000, "GAP_REFINE_SYNTHETIC": True, "GAP_REFINE_WIN_Z": 1,
+    "GAP_REFINE_WIN_YX": 3, "GAP_REFINE_MAX_SHIFT_UM": 3.2, "OUTPUT_FILTER_SHORT_TRACKS": True,
+    "OUTPUT_MIN_TRACK_LEN": 6, "OUTPUT_KEEP_DIVISION_COMPONENTS": True, "OUTPUT_LINEFIT_SMOOTH": True,
+    "OUTPUT_LINEFIT_WEIGHT": 0.8, "OUTPUT_LINEFIT_WINDOW": 2, "OUTPUT_GAP2_RECOVERY": False,
+    "GAP2_MAX_TOTAL_UM": 10.2, "GAP2_MAX_STEP_UM": 4.4, "GAP2_MAX_LINKS_FRAC": 0.0045,
+    "GAP2_MAX_LINKS_ABS": 180, "GAP2_REQUIRE_CONTEXT": True, "GAP2_FRAME_FRAC_CAP": 0.006,
+    "OUTPUT_SAFE_DIVISIONS": True, "SAFE_DIV_MAX_UM": 4.7, "SAFE_DIV_SISTER_MAX_UM": 7.2,
+    "SAFE_DIV_SISTER_SYMMETRY_TAU": 0.0, "SAFE_DIV_EXISTING_CHILD_MAX_UM": 7.8,
+    "SAFE_DIV_FRAME_FRAC_CAP": 0.008, "SAFE_DIV_GLOBAL_FRAC_CAP": 0.004, "SAFE_DIV_DIVERGE_UM": 2.25,
+    "SAFE_DIV_REQUIRE_DIVERGENCE": True, "SAFE_DIV_REQUIRE_MUTUAL_NN": True,
+    "USE_DEEPCENTER_VETO": True, "REQUIRE_DEEPCENTER_VETO": True, "DEEPCENTER_GAP_VETO": True,
+    "DEEPCENTER_SAFE_DIV_VETO": True, "DEEPCENTER_GAP_THRESHOLD": 0.10, "DEEPCENTER_EXPECTED_EPOCH": 0,
+    "DEEPCENTER_GAP_CONFIRM_MIN_SPAN_UM": 0.0, "DEEPCENTER_SAFE_DIV_THRESHOLD": 0.12,
+    "DEEPCENTER_SCORE_WIN_Z": 1, "DEEPCENTER_SCORE_WIN_YX": 2,
+}
+# The resolved 0.947 config = the parent defaults with ONLY the documented tight55 override. Built
+# from the two independent tables so the override lives in exactly one place.
+EXP061_FROZEN_PARENT_CONFIG = {**EXP061_PARENT_BASE_DEFAULTS, **EXP061_RESOLVED_OVERRIDES}
+
+# ---------------------------------------------------------------------------
+# Per-STAGE filter_output_graph counters captured per dataset (admission v3 #2): the parent's own
+# `stats` dict already attributes node/edge additions and DeepCenter bypasses to the gap1, gap2 and
+# safe-division stages. Capturing them per arm lets us report gap1/gap2-SPECIFIC final edge deltas
+# and the count of DeepCenter-BYPASSED gap candidates (the ones the veto never scored), which a
+# single global edge delta cannot. Missing keys default to 0 (the parent only emits a counter the
+# first time it increments).
+EXP061_STAGE_STAT_KEYS = {
+    "gap1": ("gap_candidates", "gap_pairs_selected", "gap_added_edges", "gap_added_nodes",
+             "gap_inserted_synthetic", "gap_reused_existing",
+             "deepcenter_gap_bypassed_strong_motion", "deepcenter_gap_bypassed_observed_node"),
+    "gap2": ("gap2_candidates", "gap2_pairs_selected", "gap2_added_edges", "gap2_added_nodes"),
+    "safe_div": ("safe_division_candidates", "safe_division_geometric_candidates",
+                 "safe_divisions_added"),
+}
+
+# ---------------------------------------------------------------------------
 # Per-arm TTA view specification.
 #
 # A "view" is an ordered forward transform T applied to the input tensor; the raw model output
@@ -240,7 +298,7 @@ def run_exp061_deepcenter_tta(g: dict) -> dict:
         "filter_output_graph", "graph_from_geff", "DEEPCENTER_VETO_DETECTOR",
         "test_stems", "CSV_COLUMNS", "REPO_DIR", "METHOD", "WORKING_DIR",
         "deepcenter_heatmap_for_frame", "deepcenter_accept_repair_point", "deepcenter_score_point",
-        "read_test_frame", "_dc_pool_frame_xy", "_dc_normalize_dynamic_range",
+        "read_test_frame", "_dc_pool_frame_xy", "_dc_normalize_dynamic_range", "_dc_cache_trim",
         "DEEPCENTER_SAFE_DIV_THRESHOLD", "MOTION_RELINK_TIGHT_UM",
     ]
     missing = [name for name in required if name not in g]
@@ -277,11 +335,28 @@ def run_exp061_deepcenter_tta(g: dict) -> dict:
             raise RuntimeError(f"exp061: cannot pin unknown global {key}")
         g[key] = value
 
-    # explicit FROZEN-PARENT config reference (admission v2 #2): the parent's resolved 0.947 config
-    # = its own runtime config globals (validator disabled => selected_config defaults to base) PLUS
-    # the documented tight55 override, captured ONCE here before any arm runs. Every arm's live
-    # config is compared DIRECTLY to this (not transitively via the control CSV).
-    expected_parent_config = _capture_effective_config()
+    # INDEPENDENT frozen-parent reference (admission v3 #1): the parent's resolved 0.947 config is
+    # NOT captured from this run. It is EXP061_FROZEN_PARENT_CONFIG -- the parent notebook's own knob
+    # defaults (transcribed once, guarded by scripts/test_exp061_behavioral.py against the parent
+    # notebook) with the documented tight55 override. Every started arm's LIVE knob config is
+    # asserted EQUAL to this independent reference, key-by-key, fail-closed -- so the gate verifies
+    # the STARTING values equal an independently frozen config, not merely that they stay constant
+    # across arms. `live_parent_config_snapshot` (with env keys) is recorded for telemetry only.
+    def _knob_config(cfg):
+        # the knob subset (drop the informational `env:` entries) for the frozen-reference compare
+        return {k: v for k, v in cfg.items() if not str(k).startswith("env:")}
+
+    expected_parent_config = dict(EXP061_FROZEN_PARENT_CONFIG)   # independent reference (v3 #1)
+    live_parent_config_snapshot = _capture_effective_config()   # telemetry-only (incl env keys)
+    # up-front fail-closed check: the live pinned config must already equal the frozen reference
+    # before ANY arm runs (missing/extra/diff knob -> gate fails, no wasted GPU on a mis-pinned run)
+    live_knobs = _knob_config(live_parent_config_snapshot)
+    live_config_equals_frozen_parent = (live_knobs == expected_parent_config)
+    if not live_config_equals_frozen_parent:
+        _diff = {k: (expected_parent_config.get(k), live_knobs.get(k))
+                 for k in set(expected_parent_config) | set(live_knobs)
+                 if expected_parent_config.get(k) != live_knobs.get(k)}
+        print(f"[exp061] LIVE CONFIG != FROZEN PARENT (gate fails closed): {_diff}", flush=True)
 
     # checkpoint provenance (admission #1): REQUIRE the parent's verified deepcenter checkpoint
     # hash from its runtime-integrity report -- no silent placeholder fallback. If it cannot be
@@ -440,6 +515,10 @@ def run_exp061_deepcenter_tta(g: dict) -> dict:
         if len(samp) < EXP061_HEATMAP_SAMPLE_FRAMES:
             samp[(dataset, int(t))] = heatmap
         heatmap_cache[key] = heatmap
+        # preserve the parent's bounded per-movie heatmap retention (admission v2 #4 memory): the
+        # parent calls _dc_cache_trim(heatmap_cache) here, else complete heatmaps accumulate.
+        if "_dc_cache_trim" in g:
+            g["_dc_cache_trim"](heatmap_cache)
         return heatmap
 
     # ---------------------------------------------------------------------
@@ -501,6 +580,26 @@ def run_exp061_deepcenter_tta(g: dict) -> dict:
             out.setdefault(int(e["source_id"]), []).append(int(e["target_id"]))
         return {s: sorted(ch) for s, ch in out.items() if len(ch) >= 2}
 
+    # MEASURED per-dataset wall costs (admission v3 #4): the arm writer times every dataset and
+    # gates on the measured running rate, so even the CONTROL arm's continuation is governed by
+    # real measurements (not a zero-cost assumption). Keyed (arm, dataset).
+    dataset_costs = {}
+
+    def _view_cache_capacity():
+        # measured on-disk view-cache capacity + I/O (admission v3 #4 "cache capacity/I/O")
+        files = 0
+        nbytes = 0
+        try:
+            for p in view_dir.glob("*.npy"):
+                files += 1
+                nbytes += p.stat().st_size
+        except Exception:
+            pass
+        return {"disk_view_files": files, "disk_view_bytes": nbytes,
+                "ram_lru_entries": len(_ram_lru), "ram_lru_max": EXP061_RAM_LRU_MAX_VIEWS,
+                "forward_calls": view_stats["forward_calls"], "disk_hits": view_stats["disk_hits"],
+                "ram_hits": view_stats["ram_hits"]}
+
     def _write_arm_submission(arm, out_path):
         _EXP061_ACTIVE_ARM["name"] = arm
         geffs = sorted((Path(g["REPO_DIR"]) / "predictions").glob(f"*/{g['METHOD']}/split_0/*.geff"))
@@ -515,13 +614,17 @@ def run_exp061_deepcenter_tta(g: dict) -> dict:
         row_id = 0
         total_nodes = total_edges = 0
         per_dataset = {}
+        n_ds = len(geffs)
+        budget_aborted = False
+        abort_note = ""
         # write to a temp path then os.replace -> the final arm CSV is created atomically
         # (admission #4); an interrupted arm never leaves a half-written final file.
         tmp_path = Path(str(out_path) + ".tmp")
         with open(tmp_path, "w", newline="") as f:
             writer = csv.DictWriter(f, fieldnames=csv_columns)
             writer.writeheader()
-            for geff_path in geffs:
+            for ds_i, geff_path in enumerate(geffs):
+                ds_t0 = time.time()
                 dataset = geff_path.stem
                 graph = g["graph_from_geff"](geff_path)
                 nodes_by_id = {}
@@ -574,10 +677,76 @@ def run_exp061_deepcenter_tta(g: dict) -> dict:
                     raise AssertionError(f"{dataset}: invalid lineage degree (out-degree > 2)")
                 total_nodes += len(nodes_by_id)
                 total_edges += len(edges)
+                # per-stage counters (admission v3 #2): gap1/gap2/safe-div node+edge additions and
+                # DeepCenter bypass counts, straight from the parent's own stats dict.
+                def _stat(k):
+                    try:
+                        return int(_stats.get(k, 0)) if hasattr(_stats, "get") else int(_stats[k])
+                    except Exception:
+                        return 0
+                stage_stats = {stage: {k: _stat(k) for k in keys}
+                               for stage, keys in EXP061_STAGE_STAT_KEYS.items()}
                 per_dataset[dataset] = {"forks": _forks_with_ids(edges), "edge_set": edge_set,
-                                        "n_edges": len(edges), "n_nodes": len(nodes_by_id)}
+                                        "n_edges": len(edges), "n_nodes": len(nodes_by_id),
+                                        "stage_stats": stage_stats}
+                # MEASURED per-dataset budget gate (admission v3 #4): time this dataset, then use the
+                # measured mean per-dataset cost to project the remaining datasets. If finishing the
+                # arm would breach the 20-min finalization reserve, abort CLEANLY between datasets
+                # (discard the tmp CSV, publish nothing) -- a valid partial result governed by the
+                # measured running rate, NOT a mid-dataset kill. This governs the CONTROL arm too, so
+                # no arm's continuation assumes zero cost.
+                dataset_costs[(arm, dataset)] = time.time() - ds_t0
+                done = ds_i + 1
+                datasets_left = n_ds - done
+                _arm_ds_costs = [c for (a_, _d), c in dataset_costs.items() if a_ == arm]
+                mean_ds = (sum(_arm_ds_costs) / len(_arm_ds_costs)) if _arm_ds_costs else 0.0
+                projected_remaining = mean_ds * datasets_left
+                if datasets_left > 0 and _remaining() < projected_remaining + EXP061_FINALIZATION_RESERVE_SECONDS:
+                    budget_aborted = True
+                    abort_note = (f"arm {arm}: measured budget abort after {done}/{n_ds} datasets "
+                                  f"(remaining {_remaining():.0f}s < projected {projected_remaining:.0f}s "
+                                  f"+ reserve {EXP061_FINALIZATION_RESERVE_SECONDS:.0f}s)")
+                    print(f"[exp061] {abort_note}", flush=True)
+                    break
+        if budget_aborted:
+            # publish nothing for this arm; discard the partial tmp CSV. The caller records the arm
+            # as aborted_budget (a valid partial run), leaving prior completed arms intact.
+            try:
+                tmp_path.unlink()
+            except Exception:
+                pass
+            _EXP061_ACTIVE_ARM["name"] = None
+            return {"budget_aborted": True, "abort_note": abort_note,
+                    "datasets_done": done, "datasets_total": n_ds}
         os.replace(tmp_path, out_path)   # atomic publish of the completed arm CSV (admission #4)
         _EXP061_ACTIVE_ARM["name"] = None
+        # per-arm survival annotation BEFORE the receipt (admission v2 #2/#4 + v3 #2), for BOTH
+        # DeepCenter veto consumers, so a partial run preserves identity-linked survival evidence:
+        #   * safe_div SURVIVES iff the parent is a final fork AND BOTH the candidate daughter AND
+        #     the recorded existing daughter are its children in this arm's final graph.
+        #   * gap SURVIVES iff BOTH bridge edges (left->middle, middle->right) are in the final graph
+        #     (a rejected gap drops its synthetic middle, so its edges are naturally absent).
+        for r in veto_log:
+            if r.get("arm") != arm or not r.get("ids"):
+                continue
+            ds_info = per_dataset.get(r["dataset"], {})
+            if r.get("kind") == "safe_div":
+                forks = ds_info.get("forks", {})
+                pid = r["ids"].get("parent_id")
+                ccid = r["ids"].get("candidate_child_id")
+                ecid = r["ids"].get("existing_child_id")
+                children = forks.get(int(pid), []) if pid is not None else []
+                r["survived_final"] = bool(pid is not None and ccid is not None and ecid is not None
+                                           and int(pid) in forks and int(ccid) in children
+                                           and int(ecid) in children)
+            elif r.get("kind") == "gap":
+                edge_set = ds_info.get("edge_set", set())
+                lid = r["ids"].get("left_id")
+                mid = r["ids"].get("middle_id")
+                rid = r["ids"].get("right_id")
+                r["survived_final"] = bool(lid is not None and mid is not None and rid is not None
+                                           and (int(lid), int(mid)) in edge_set
+                                           and (int(mid), int(rid)) in edge_set)
         effective_config = _capture_effective_config()
         sha = hashlib.sha256(Path(out_path).read_bytes()).hexdigest()
         summary = {"sha256": sha, "rows": row_id, "nodes": total_nodes, "edges": total_edges,
@@ -665,9 +834,12 @@ def run_exp061_deepcenter_tta(g: dict) -> dict:
     arms_started = []
     try:
         for arm in EXP061_ARMS:
-            # budget-gated admission: don't start ANY arm (incl. the control) without margin +
-            # reserve (admission #6: the control also gets a reserve-based admission check). The
-            # control's estimate is bootstrapped from the reserve alone (no prior arm cost yet).
+            # budget-gated admission (admission v3 #4): don't START an arm unless the remaining
+            # budget clears the measured prior-arm cost + the 20-min reserve. For arms 2+ `est` is
+            # the largest MEASURED prior-arm cost (proposal §7 "measured running rate"). The CONTROL
+            # arm (no prior arm cost) is not admitted on a zero-cost assumption: once started it is
+            # governed by the MEASURED per-dataset budget gate inside _write_arm_submission, which
+            # aborts cleanly between datasets if finishing would breach the reserve.
             est = max(arm_costs.values()) if arm_costs else 0.0
             need = est + EXP061_FINALIZATION_RESERVE_SECONDS
             if _remaining() < need:
@@ -680,11 +852,18 @@ def run_exp061_deepcenter_tta(g: dict) -> dict:
             arms_started.append(arm)   # recorded BEFORE running so an interrupted arm is visible
             t0 = time.time()
             try:
-                arm_summaries[arm] = _write_arm_submission(arm, out_dir / f"submission_{arm}.csv")
+                _result = _write_arm_submission(arm, out_dir / f"submission_{arm}.csv")
             except BaseException:
                 arm_status[arm] = "failed"
                 raise
             arm_costs[arm] = time.time() - t0
+            # measured per-dataset budget abort (admission v3 #4): a valid partial run, not a failure.
+            if isinstance(_result, dict) and _result.get("budget_aborted"):
+                arm_status[arm] = "aborted_budget"
+                stop_note = _result.get("abort_note", f"arm {arm}: measured budget abort")
+                print(f"[exp061] {stop_note}", flush=True)
+                break
+            arm_summaries[arm] = _result
             arm_status[arm] = "completed"
             s = arm_summaries[arm]
             print(f"[exp061] arm {arm}: sha={s['sha256'][:16]}... nodes={s['nodes']} "
@@ -776,16 +955,20 @@ def run_exp061_deepcenter_tta(g: dict) -> dict:
     n_missing = sum(1 for r in veto_log if r.get("score_status") == "missing")
     shared_prediction_inputs_unchanged = (pred_fp_before == _predictions_fingerprint())
 
-    # effective-config: every started arm's full config must equal the EXPLICIT frozen-parent
-    # config captured before any arm ran (admission v2 #2) -- a DIRECT live-value comparison, not
-    # transitive via the control CSV. (config_matches_control kept as extra cross-arm consistency.)
+    # effective-config: every started arm's live KNOB config must equal the INDEPENDENT frozen-parent
+    # reference EXP061_FROZEN_PARENT_CONFIG (admission v3 #1) -- a DIRECT comparison to a checked-in,
+    # test-guarded table, not to a value captured from this run. (config_matches_control kept as an
+    # extra cross-arm consistency signal; the up-front live_config_equals_frozen_parent guards the
+    # pinned values BEFORE any arm runs.)
     def _cfg(label):
         return arm_summaries.get(label, {}).get("effective_config", {})
     _canon = _cfg(EXP061_CONTROL_ARM)
     all_config_complete = bool(arm_summaries) and all(s.get("config_complete") for s in arm_summaries.values())
     config_matches_control = bool(_canon) and all(_cfg(a) == _canon for a in arm_summaries)
     all_arm_configs_equal_frozen_parent = (bool(arm_summaries)
-                                           and all(_cfg(a) == expected_parent_config for a in arm_summaries))
+                                           and live_config_equals_frozen_parent
+                                           and all(_knob_config(_cfg(a)) == expected_parent_config
+                                                   for a in arm_summaries))
 
     # cross-arm deltas (full IDs) for attribution
     def _delta(base, arm):
@@ -797,6 +980,13 @@ def run_exp061_deepcenter_tta(g: dict) -> dict:
             a = arm_summaries[arm]["per_dataset"][ds]
             b_forks = {(p, tuple(ch)) for p, ch in b["forks"].items()}
             a_forks = {(p, tuple(ch)) for p, ch in a["forks"].items()}
+            # gap1/gap2/safe-div-SPECIFIC stage-counter deltas (admission v3 #2): attribute the edge
+            # movement to the stage that produced it, which a single global edge delta cannot.
+            b_stage = b.get("stage_stats", {})
+            a_stage = a.get("stage_stats", {})
+            stage_delta = {stage: {k: a_stage.get(stage, {}).get(k, 0) - b_stage.get(stage, {}).get(k, 0)
+                                   for k in keys}
+                           for stage, keys in EXP061_STAGE_STAT_KEYS.items()}
             out[ds] = {
                 "d_forks": len(a_forks) - len(b_forks),
                 "forks_added": [{"parent": p, "children": list(ch)} for p, ch in sorted(a_forks - b_forks)],
@@ -804,6 +994,7 @@ def run_exp061_deepcenter_tta(g: dict) -> dict:
                 "d_edges": a["n_edges"] - b["n_edges"], "d_nodes": a["n_nodes"] - b["n_nodes"],
                 "edges_added": [list(e) for e in sorted(a["edge_set"] - b["edge_set"])],
                 "edges_removed": [list(e) for e in sorted(b["edge_set"] - a["edge_set"])],
+                "stage_stat_delta": stage_delta,
             }
         return out
 
@@ -817,32 +1008,59 @@ def run_exp061_deepcenter_tta(g: dict) -> dict:
     no_nonfinite_heatmaps = (len(nonfinite_heatmap_events) == 0)
     all_arm_configs_equal_parent = bool(all_arm_configs_equal_frozen_parent)  # DIRECT (admission v2 #2)
 
-    # link each safe_div veto record to whether its fork SURVIVED into that arm's final graph
-    # (admission v2 #4): parent is a final fork AND the candidate daughter is one of its children.
-    for r in veto_log:
-        if r.get("kind") != "safe_div" or not r.get("ids"):
-            continue
-        forks = (arm_summaries.get(r["arm"], {}).get("per_dataset", {})
-                 .get(r["dataset"], {}).get("forks", {}))
-        pid = r["ids"].get("parent_id")
-        ccid = r["ids"].get("candidate_child_id")
-        r["survived_final"] = bool(pid is not None and ccid is not None
-                                   and int(pid) in forks and int(ccid) in forks[int(pid)])
+    # (safe_div fork-survival is annotated per-arm inside _write_arm_submission, BEFORE each
+    # receipt, so a partial run preserves survival evidence -- admission v2 #2/#4.)
 
-    # measured feasibility worksheet (admission v2 budget): real per-arm cost + per-frame forward
-    # rate from THIS run, plus the remaining margin -- so the estimate is measured, not assumed.
-    _dframes = max(1, len(view_stats["distinct_frames"]))
+    # MEASURED feasibility worksheet (admission v3 #4): real per-arm AND per-dataset wall costs, the
+    # per-forward rate, and measured view-cache capacity/I/O from THIS run -- so admission is gated
+    # by measurement, not a pre-guessed estimate. Per-dataset costs are what the in-arm budget gate
+    # uses to protect the 20-min reserve (governing the control arm from its first dataset onward).
+    _ds_cost_by_arm = {}
+    for (a_, d_), c_ in dataset_costs.items():
+        _ds_cost_by_arm.setdefault(a_, {})[d_] = round(c_, 2)
+    _all_ds_costs = list(dataset_costs.values())
     feasibility_worksheet = {
+        "measured": True,
         "arm_costs_seconds": arm_costs,
+        "dataset_costs_seconds_by_arm": _ds_cost_by_arm,
+        "mean_seconds_per_dataset": (round(sum(_all_ds_costs) / len(_all_ds_costs), 2)
+                                     if _all_ds_costs else None),
+        "max_seconds_per_dataset": (round(max(_all_ds_costs), 2) if _all_ds_costs else None),
         "distinct_deepcenter_frames": len(view_stats["distinct_frames"]),
         "view_forward_calls": view_stats["forward_calls"],
         "seconds_per_view_forward": (sum(arm_costs.values()) / max(1, view_stats["forward_calls"]))
                                     if view_stats["forward_calls"] else None,
+        "view_cache_capacity_io": _view_cache_capacity(),
         "elapsed_seconds": round(_elapsed(), 1),
         "remaining_seconds": round(_remaining(), 1),
         "finalization_reserve_seconds": EXP061_FINALIZATION_RESERVE_SECONDS,
         "hard_stop_seconds": EXP061_HARD_STOP_SECONDS,
+        "admission_policy": ("arms 2+ START-gated on max measured prior-arm cost + 20-min reserve; "
+                             "every arm (incl. control) governed by the measured per-dataset in-arm "
+                             "budget gate that aborts cleanly between datasets to protect the reserve"),
     }
+
+    # per-arm ABSOLUTE stage counters summed over datasets (admission v3 #2) + identity-linked veto
+    # survival counts for BOTH consumers, so gap and safe-div survival is legible without re-joining.
+    stage_stats_by_arm = {}
+    for a, s in arm_summaries.items():
+        agg = {stage: {k: 0 for k in keys} for stage, keys in EXP061_STAGE_STAT_KEYS.items()}
+        for ds in s.get("per_dataset", {}).values():
+            for stage, keys in EXP061_STAGE_STAT_KEYS.items():
+                for k in keys:
+                    agg[stage][k] += int(ds.get("stage_stats", {}).get(stage, {}).get(k, 0))
+        stage_stats_by_arm[a] = agg
+    veto_survival_summary = {}
+    for a in arm_summaries:
+        rows_a = [r for r in veto_log if r.get("arm") == a]
+        for kind in ("gap", "safe_div"):
+            kr = [r for r in rows_a if r.get("kind") == kind]
+            veto_survival_summary.setdefault(a, {})[kind] = {
+                "records": len(kr),
+                "accepted": sum(1 for r in kr if r.get("accept")),
+                "survived_final": sum(1 for r in kr if r.get("survived_final")),
+                "id_linked": sum(1 for r in kr if r.get("ids")),
+            }
 
     telemetry = {
         "experiment": experiment_id,
@@ -865,8 +1083,15 @@ def run_exp061_deepcenter_tta(g: dict) -> dict:
         "view_cache": view_forward_summary,
         "feasibility_worksheet": feasibility_worksheet,
         "config_equal_frozen_parent": all_arm_configs_equal_parent,
+        "frozen_parent_config_reference": {
+            "source": "EXP061_FROZEN_PARENT_CONFIG (independent, parent-notebook-derived, test-guarded)",
+            "live_pinned_equals_frozen": bool(live_config_equals_frozen_parent),
+            "live_config_snapshot": live_parent_config_snapshot,
+        },
         "veto_counts": {"error": n_error, "nonfinite": n_nonfinite, "missing_bypass": n_missing,
                         "total": len(veto_log)},
+        "stage_stats_by_arm": stage_stats_by_arm,             # gap1/gap2/safe-div absolute counters (#2)
+        "veto_survival_summary": veto_survival_summary,       # gap + safe-div identity-linked survival (#2)
         "arms": {k: {kk: vv for kk, vv in v.items() if kk != "per_dataset"}
                  for k, v in arm_summaries.items()},
         "delta_vs_xyonly": {"zon": _delta("xyonly", "zon"), "xyd4": _delta("xyonly", "xyd4")},
@@ -892,7 +1117,8 @@ def run_exp061_deepcenter_tta(g: dict) -> dict:
         "control_arm_started_first": bool(arms_started) and arms_started[0] == EXP061_CONTROL_ARM,
         "resolved_config_pinned_tight55": pin_ok,
         "config_complete_all_arms": all_config_complete,
-        "all_arm_configs_equal_parent": all_arm_configs_equal_parent,          # admission #5
+        "live_pinned_config_equals_frozen_parent": bool(live_config_equals_frozen_parent),  # v3 #1
+        "all_arm_configs_equal_parent": all_arm_configs_equal_parent,          # admission #5 (v3 #1)
         "experimental_arms_execution_valid": all_started_execution_valid,       # admission v2 #3
         "shared_prediction_inputs_unchanged": shared_prediction_inputs_unchanged,  # content-hash (#5)
         "no_veto_score_errors": n_error == 0,
@@ -928,7 +1154,7 @@ def run_exp061_deepcenter_tta(g: dict) -> dict:
 #        _exp061_log_veto_candidate = (lambda *a, **k: None)  # exp061 stub
 #   2. Inject one line immediately BEFORE the gap1 DeepCenter veto call (close_single_frame_gaps),
 #      passing the in-scope IDs (strippable `# exp061`):
-#        _exp061_log_veto_candidate('gap', dataset, mid_t, {'middle_id': middle_id}, node_point(middle))  # exp061
+#        _exp061_log_veto_candidate('gap', dataset, mid_t, {'middle_id': middle_id, 'left_id': source_id, 'right_id': target_id, 'reused': int(middle_reused)}, node_point(middle))  # exp061
 #   3. Inject one line immediately BEFORE the safe-div DeepCenter veto call
 #      (add_safe_divisions_postlink), passing the in-scope IDs (strippable `# exp061`):
 #        _exp061_log_veto_candidate('safe_div', dataset, int(candidate['t']), {'parent_id': source_id, 'existing_child_id': existing_child_id, 'candidate_child_id': candidate_id}, node_point(candidate))  # exp061

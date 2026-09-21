@@ -72,9 +72,10 @@ def main() -> int:
           and "_e61os_pre.environ.get('BIOHUB_EXP061_ENABLE', '1') != '0'" in big,
           "validator/PP-sweep disabled via strippable BIOHUB_VALIDATOR_ENABLE=0, GATED on the probe flag (admission #6 + v2 #6 rollback)")
     check("_exp061_log_veto_candidate = (lambda" in big, "no-op stub injected (parent-run safe)")
-    check(("_exp061_log_veto_candidate('gap', dataset, mid_t, {'middle_id': middle_id}, "
+    check(("_exp061_log_veto_candidate('gap', dataset, mid_t, {'middle_id': middle_id, "
+           "'left_id': source_id, 'right_id': target_id, 'reused': int(middle_reused)}, "
            "node_point(middle))") in big,
-          "gap1 call-site logger captures middle_id (first DeepCenter consumer)")
+          "gap1 call-site logger captures middle_id + BOTH endpoints + reuse flag (admission v3 #2)")
     check(("_exp061_log_veto_candidate('safe_div', dataset, int(candidate['t']), "
            "{'parent_id': source_id, 'existing_child_id': existing_child_id, "
            "'candidate_child_id': candidate_id}, node_point(candidate))") in big,
@@ -191,15 +192,37 @@ def main() -> int:
     check("non-consecutive-frame edge" in src and "multi-parent (max in-degree > 1)" in src
           and "out-degree > 2" in src,
           "parent submission audits (consecutive-frame + max in-degree<=1 + out-degree<=2) applied per arm (admission v2 #1)")
-    # explicit frozen-parent config comparison, not transitive (admission v2 #2)
-    check("expected_parent_config = _capture_effective_config()" in src
+    # INDEPENDENT frozen-parent config comparison (admission v3 #1): a checked-in, test-guarded
+    # table (NOT captured from this run), asserted against every arm's live knobs + up front.
+    check("EXP061_FROZEN_PARENT_CONFIG = {**EXP061_PARENT_BASE_DEFAULTS, **EXP061_RESOLVED_OVERRIDES}" in src
+          and "expected_parent_config = dict(EXP061_FROZEN_PARENT_CONFIG)" in src
+          and "live_config_equals_frozen_parent" in src
           and "all_arm_configs_equal_frozen_parent" in src,
-          "every arm's config compared DIRECTLY to an explicit frozen-parent config (admission v2 #2)")
+          "every arm's config compared to an INDEPENDENT frozen-parent reference (admission v3 #1)")
+    check("live_pinned_config_equals_frozen_parent" in src,
+          "live pinned config asserted == frozen parent BEFORE any arm runs (admission v3 #1)")
     # telemetry: no per-candidate re-scoring; combined records; fork survival; per-arm receipt rows
     check("no fresh {} re-scoring" in src and "_pending_ids" in src and "candidate_log =" not in src,
           "candidate logger only STASHES ids (no fresh-cache re-scoring); one combined veto record (admission v2 #4)")
     check('"survived_final"' in src and "int(ccid) in children" in src and "int(ecid) in children" in src,
           "safe_div survival requires parent fork + BOTH candidate AND existing daughters, annotated per-arm before receipt (admission v2 #2/#4)")
+    # v3 #2: gap survival (both bridge edges) + per-stage counters + gap1/gap2-specific deltas
+    check('r.get("kind") == "gap"' in src and "(int(lid), int(mid)) in edge_set" in src
+          and "(int(mid), int(rid)) in edge_set" in src,
+          "gap survival = BOTH bridge edges (left->middle, middle->right) in the final graph (admission v3 #2)")
+    check("EXP061_STAGE_STAT_KEYS" in src and '"stage_stats": stage_stats' in src
+          and '"stage_stat_delta": stage_delta' in src,
+          "per-stage gap1/gap2/safe-div counters captured + cross-arm stage-specific deltas (admission v3 #2)")
+    check("deepcenter_gap_bypassed_strong_motion" in src and "deepcenter_gap_bypassed_observed_node" in src,
+          "DeepCenter-bypassed gap candidate counts surfaced in the stage stats (admission v3 #2)")
+    check("veto_survival_summary" in src and "stage_stats_by_arm" in src,
+          "identity-linked gap+safe-div survival + per-arm stage totals summarized (admission v3 #2)")
+    # v3 #4: measured per-dataset budget gate (governs the control) + measured cache capacity/IO
+    check('arm_status[arm] = "aborted_budget"' in src and "budget_aborted = True" in src
+          and "projected_remaining + EXP061_FINALIZATION_RESERVE_SECONDS" in src,
+          "MEASURED per-dataset budget gate aborts cleanly between datasets (governs control, admission v3 #4)")
+    check("view_cache_capacity_io" in src and "disk_view_bytes" in src and '"measured": True' in src,
+          "measured feasibility worksheet records view-cache capacity + I/O (admission v3 #4)")
     check('g["_dc_cache_trim"](heatmap_cache)' in src,
           "parent's bounded per-movie heatmap retention (_dc_cache_trim) preserved (admission v2 #4 memory)")
     check('"veto_rows": arm_veto_rows' in src,
