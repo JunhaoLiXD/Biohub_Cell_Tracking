@@ -1,0 +1,35 @@
+{
+  "created_at": "2026-09-21T04:10:21+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_061_deepcenter_tta/snapshot/config.yaml",
+      "sha256": "b4f2180242ef5bd015642dad8126a9142e3be7de73b5d5115c956a235a228dbe"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_061_deepcenter_tta/snapshot/source/exp061_deepcenter_tta.ipynb",
+      "sha256": "7567601bd3fb1ede57b04aba446e27b5bb0a01deb234aa9acf69cc76a488bd8a"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_deepcenter_tta/snapshot/extra_files/build_exp061_deepcenter_tta.py",
+      "sha256": "1ac539c2d0b032b9b49eb4d99b12961bd5b84277bf8561d8b2ac06938e36c9a7"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_deepcenter_tta/snapshot/extra_files/exp061_deepcenter_tta.py",
+      "sha256": "31e6195cf965a3d3c84b07c6bc91fce22f42681a620a68b4ad18940042995ddf"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_deepcenter_tta/snapshot/extra_files/validate_exp061_notebook.py",
+      "sha256": "d7de2c807a9ade193aba606bf39235885656c64e362ed98f9c3207d28cbce13a"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_deepcenter_tta/snapshot/extra_files/test_exp061_behavioral.py",
+      "sha256": "485c23b364714dd7ae402ce583f92a00cdfda82906c1062cecaf0fde97fd7343"
+    }
+  ]
+}

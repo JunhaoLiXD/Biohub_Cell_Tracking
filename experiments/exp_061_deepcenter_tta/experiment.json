@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_061_deepcenter_tta",
+  "parent": "repro_059_public_0947_exact_copy",
+  "state": "MANUAL_REVIEW_REQUIRED",
+  "hypothesis": "Changing the DeepCenter test-time-augmentation SET (not the accept threshold) perturbs the center-prior heatmap read by the two direct veto consumers (gap1 close_single_frame_gaps and safe-division), and this can move the Public LB off 0.947 at displayed 3-dp precision. On the frozen 0.947 pipeline (repro_059, identical Pilkwang checkpoints) with the resolved post-processing config PINNED (base env + MOTION_RELINK_TIGHT_UM=5.5), produce three test submissions under three pre-registered arms -- xyonly (parent TTA exactly = byte-parity control), zon (add a Z-axis reflection of every view), xyd4 (uniform 8-view D4 = replace the duplicated anti-transpose with the missing anti-diagonal reflection) -- from one inference sharing a view-level cache, and submit the two experimental arms to the Public LB (each a separate user authorization). Honest priors: this may be another sub-precision null, and zon may REGRESS if the DeepCenter checkpoint is not Z-symmetric (an uncertain assumption).\n",
+  "change": {
+    "component": "deepcenter_tta_set_only",
+    "from": "repro_059 postprocessing with the parent XY-only DeepCenter TTA (single submission)",
+    "to": "Purely-additive appended cells that re-run the UNCHANGED filter_output_graph per test movie (which starts BEFORE gap1, reaching both DeepCenter veto consumers) under three DeepCenter-TTA arms sharing a view-level disk-backed prediction cache, writing three submissions + attribution telemetry (per-consumer veto identities/scores/accept, cross-arm fork/edge deltas, heatmap mechanism-active diagnostics) + a controller metrics.json gated on xyonly byte-parity. The parent's own 0.947 prediction path runs byte-unchanged (parity guard).\n",
+    "variables_changed": "deepcenter_tta_set_sweep_only_no_parent_path_change"
+  },
+  "signature": "f12d3bbeb51a54ba5670aac1748c847d118ee0f44039b28b8fe65687d4fe9bcd",
+  "config": "configs/exp_061_deepcenter_tta.yaml",
+  "snapshot_config": "experiments/exp_061_deepcenter_tta/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_061_deepcenter_tta/snapshot/source/exp061_deepcenter_tta.ipynb",
+  "snapshot_manifest": "experiments/exp_061_deepcenter_tta/snapshot/manifest.json",
+  "git_commit": "d3ec2569742cfc29eed8e593d906261d98a5ca19",
+  "validation_protocol": "public_0947_deepcenter_tta_probe_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "CHANGES_REQUESTED",
+    "verdict": "REVISE",
+    "path": "experiments/exp_061_deepcenter_tta/review.md",
+    "completed_at": "2026-09-21T04:12:46+00:00"
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-21T04:10:21+00:00",
+  "updated_at": "2026-09-21T04:12:46+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-21T04:12:46+00:00",
+      "note": "Codex verdict: REVISE"
+    }
+  ]
+}

@@ -1,0 +1,51 @@
+{
+  "local_date": "2026-09-19",
+  "gate_checked_at_utc": "2026-09-19T14:16:59+00:00",
+  "submitted_at_utc": "2026-09-19T14:18:58.437000Z",
+  "competition": "biohub-cell-tracking-during-development",
+  "submission_id": 56361673,
+  "experiment_id": "exp_060_deepcenter_safe_div_threshold_sweep",
+  "arm": "safe_div_threshold_0.18",
+  "kernel": "lingxd/biohub-exp060-safediv018-lb-submit",
+  "kernel_version": 2,
+  "file_name": "submission.csv",
+  "submission_sha256": "41d5fb612d297550edb103eab6a028fc654833d311dcb2b754595697d172bb0f",
+  "status": "COMPLETE",
+  "submit_method": "competition_submit_code (Kaggle notebook/code submission API)",
+  "user_authorized": true,
+  "gate_verdict": {
+    "allowed": true,
+    "cap": 3,
+    "remote_today": 0,
+    "local_today": 0,
+    "used": 0,
+    "remaining": 3,
+    "duplicate": false
+  },
+  "verification_before_submit": {
+    "kernel_status": "COMPLETE",
+    "output_submission_sha256": "41d5fb612d297550edb103eab6a028fc654833d311dcb2b754595697d172bb0f",
+    "byte_identical_to_sweep_thr018_arm": true,
+    "thr020_control_byte_reproduced_parent": "d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60 (real-pipeline proof, from the main sweep run)",
+    "ppsweep_selected": "tight55 (MOTION_RELINK_TIGHT_UM=5.5), same as parent",
+    "ground_truth_accessed": false,
+    "runtime_integrity_status": "complete_label_free_runtime_integrity",
+    "config_drift_guard": "v1 errored ('actual 0.18 expected 0.2'); v2 fixed the expected-value to 0.18 and the guard passed",
+    "checkpoints_match_parent_lineage": true
+  },
+  "change_vs_parent": "Single change on the frozen repro_059 0.947 pipeline: DEEPCENTER_SAFE_DIV_THRESHOLD 0.20 -> 0.18 (plus the notebook's config-drift-guard expected value 0.20 -> 0.18 so it stays fail-closed). Everything else byte-identical to repro_059.",
+  "division_finding": "At 0.18 the safe-division gate accepts 356 candidates vs 316 at 0.20 (+40); FINAL surviving forks 135 vs 124 (+11 net-new divisions, only-added never-removed). Per-movie new forks: 44b6_0113 +1, 44b6_0b24 +6, 6bba_05b6 +0, 6bba_05db +4.",
+  "baseline_for_comparison": {
+    "experiment_id": "repro_059_public_0947_exact_copy",
+    "submission_id": 56313491,
+    "public_score": 0.947
+  },
+  "decision_rule": ">=0.948 adopt safe-div 0.18 as new parent (division gate is an LB lever); ==0.947 the +11 recovered divisions are net-neutral on the LB at this bracket -> pivot to the next division lever (e.g. deferred exp_061 corrected Z-reflection DeepCenter TTA); <=0.946 the recovered divisions are net-false -> revert to 0.20/0.947.",
+  "rationale": "User-authorized Public LB probe (submission count is no longer a research constraint per the 2026-09-18 policy). The main exp_060 sweep already confirmed real-pipeline byte-parity on the 0.20 control arm; this variant notebook re-runs the same pipeline at 0.18 and writes that arm to submission.csv (competition is notebook-only). Tests whether the +11 marginal divisions the 0.20 gate rejected are net-true on the held-out test movies.",
+  "score_source": "authenticated_kaggle_submission_history",
+  "public_score": 0.947,
+  "note": "Public LB 0.947 == repro_059 0.947 (zero displayed-precision delta). Per the decision rule (==0.947) the +11 recovered divisions are net-neutral at the 3-decimal LB in the 0.18 bracket -> pivot. Caveat: division is 0.1-weighted and the change is tiny (+11 forks), so this null cannot distinguish \"division gate is not an LB lever\" from \"the 0.02 bracket is too small to be LB-visible\".",
+  "public_score_precision": 3,
+  "delta_vs_repro_059_lb": 0.0,
+  "verified_at_utc": "2026-09-20T00:00:00+00:00"
+}
