@@ -24,12 +24,10 @@
   "review": {
     "required": true,
     "provider": "codex",
-    "status": "CHANGES_ADDRESSED_PENDING_REREVIEW",
+    "status": "CHANGES_REQUESTED",
     "verdict": "REVISE",
-    "verdict_note": "The recorded verdict is the historical Codex v3 REVISE. The five required changes have since been addressed in the harness (see `revision`); a FRESH Codex admission review is still required before launch and has NOT yet been run.",
     "path": "experiments/exp_061_deepcenter_tta/review.md",
-    "completed_at": "2026-09-21T04:12:46+00:00",
-    "rereview_required": true
+    "completed_at": "2026-09-21T05:03:17+00:00"
   },
   "revision": {
     "revision": "v3-fixes",
@@ -55,7 +53,7 @@
     "status": "PENDING"
   },
   "created_at": "2026-09-21T04:10:21+00:00",
-  "updated_at": "2026-09-21T00:00:00+00:00",
+  "updated_at": "2026-09-21T05:03:17+00:00",
   "state_history": [
     {
       "from": "PROPOSED",

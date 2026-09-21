@@ -1,44 +1,49 @@
 ## Summary
 
-**REVISE.** Explicit strategy **CONSENSUS** is recorded in the [Claude-authored proposal](/E:/Project/Biohub_CellTracking/docs/research/exp061_z_reflection_deepcenter_tta_proposal.md), Codex challenges v1–v5, and revision tables. Implementation still falls short of that agreement.
+**REVISE.** Strategy governance is satisfied: the Claude-authored proposal and five Codex challenge/revision rounds are versioned, and v5 explicitly records `CONSENSUS`.
 
-Read-only verification confirmed all six manifest hashes, notebook syntax, embedded-module equality, and stripped-parent source parity. Behavioral tests reported PASS but skipped NumPy-dependent checks. Git diff was unavailable: this workspace was not recognized as a Git repository.
+All six snapshot hashes match the manifest, the embedded harness matches its snapshotted source, stripped-parent notebook parity holds, and the Git worktree has no current diff. However, the rebuilt implementation still has launch-blocking contract defects.
 
 ## Methodology
 
-The three arms isolate one major variable: DeepCenter TTA composition. Fresh replay from raw graphs reaches both gap1 and safe-division. This differs from exp_060’s threshold change and earlier association-feature TTA experiments.
+The three preregistered arms isolate one major variable: the DeepCenter TTA set. The byte-parity control and replay before gap1 provide a sound causal structure. This is distinct from exp_060’s threshold change and exp_050’s association-feature TTA.
 
-The recorded parent result supports investigating this pipeline; its bundled improvement does **not** establish DeepCenter TTA as the cause.
+The parent’s bundled +0.003 Public-LB improvement does not establish DeepCenter TTA as its cause. Three recent post-processing interventions were displayed-LB nulls, so expected upside is modest but the experiment retains useful information value.
 
-This is an integrity-gated Public-LB probe, not independent biological validation. Disabling validation means no quality comparison across `44b6` and `6bba`. Historical training proxies are optimistic; neither a displayed LB improvement nor a tie establishes cross-domain generalization. No new label-dependent selection was found in the appended harness.
+This is an integrity-gated Public-LB probe, not trustworthy biological validation. It provides no new `44b6`/`6bba` domain-split evidence. No new label leakage was found, but a positive LB result must not be described as cross-domain generalization.
 
 ## Implementation risks
 
-Findings refer to the [snapshotted harness](/E:/Project/Biohub_CellTracking/experiments/exp_061_deepcenter_tta/snapshot/extra_files/exp061_deepcenter_tta.py).
+- **The frozen parent configuration is incorrect.** The harness records fallback defaults such as gap/safe-division thresholds `0.10/0.12`, motion bonus `0.75`, and gap2 disabled ([harness](/E:/Project/Biohub_CellTracking/experiments/exp_061_deepcenter_tta/snapshot/extra_files/exp061_deepcenter_tta.py:110)). The parent environment actually resolves these to `0.25/0.20`, `1.0`, and gap2 enabled, among many other overrides ([notebook](/E:/Project/Biohub_CellTracking/experiments/exp_061_deepcenter_tta/snapshot/source/exp061_deepcenter_tta.ipynb:127)). Consequently, the real run will fail `live_pinned_config_equals_frozen_parent`. Test N only parses declaration fallbacks, so it falsely validates the table.
 
-- **Parent configuration remains self-referential.** `expected_parent_config = _capture_effective_config()` captures the current run after one override. It detects subsequent drift, but cannot verify that initial values equal an independently frozen parent configuration. Control CSV parity does not close that gap.
-- **Attribution remains incomplete.** Gap telemetry records only `middle_id`, omits endpoint identities and bypassed candidates, and never fills gap final survival. Gap1/gap2-specific final edge deltas are absent. Safe-division survival checks the parent and candidate daughter, but not the recorded existing daughter; completion receipts are written before survival annotation.
-- **Behavioral coverage is insufficient.** The [arm-order test](/E:/Project/Biohub_CellTracking/experiments/exp_061_deepcenter_tta/snapshot/extra_files/test_exp061_behavioral.py) compares cache-key sets and includes self-equality assertions. It does not execute reordered arms. Corrupt-cache recovery, interrupted finalization, configuration drift, and valid-zero-response behavior likewise lack executable coverage.
-- **Memory accounting is incomplete.** The replacement heatmap function omits the parent’s `_dc_cache_trim`; complete heatmaps accumulate per movie despite the bounded view-cache LRU.
+- **The configuration coverage is incomplete.** Effective post-processing controls such as adaptive short-track rescue and its thresholds are active in the parent but absent from `EXP061_CONFIG_KEYS`. The experiment therefore cannot prove that every behaviorally relevant replay setting is frozen.
 
-Per-arm topology checks, digest rejection before cache reuse, and separation of valid nulls from execution failures are improvements over the prior review.
+- **Config mismatch does not fail fast.** The harness prints the mismatch but continues into the expensive arms. It should emit failed metrics and return before inference/replay.
+
+- **Partial-run integrity is under-specified.** A started experimental arm that aborts cleanly for budget is excluded from `arm_summaries`; the integrity checks can consequently pass without that started arm producing an artifact. Add an explicit `all_started_arms_completed` contract, or revise the declared contract and controller interpretation for partial runs.
+
+- **Runtime view verification is circular.** Whether square-only views are expected is inferred from whether any such view was observed. If all square-only views silently fail to run, the guard can still pass. Record frame geometry and validate the exact expected view sequence/count per frame.
+
+- **Stage attribution remains weaker than claimed.** Gap1 identity survival is now recorded, but gap1/gap2 stage counters describe edges added during a stage—not stage-specific edges surviving in the final graph. Persist stage edge identities and intersect them with the final graph.
 
 ## Budget
 
-The ledger reports **26.493 hours**, six protected, and no reservation. However, its consumption entries stop at exp_057; reconcile subsequent manual runs before relying on that balance.
+The ledger is now reconciled through exp_060: **24.493 GPU hours remain**, with six protected. A two-hour reservation would leave 22.493 hours, so nominal capacity is sufficient; no reservation currently exists.
 
-Feasibility is not demonstrated. Control admission assumes zero cost; later arms use the largest previous arm duration. The “worksheet” is generated after execution and lacks measured cache capacity/I/O. This does not establish the agreed 20-minute finalization reserve. Separate LB promotion runs also require accounting.
+Feasibility is still not conservative. The control arm starts with a zero estimate, and remaining work is projected using mean observed dataset cost. The first dataset can consume the protected finalization margin, and heterogeneous later datasets can exceed the mean. Use prelaunch parent/timing evidence for initial admission and a conservative maximum or upper-bound projection.
 
 ## Required changes
 
-1. Pin an independently derived parent configuration and assert live values against it.
-2. Complete identity-linked gap/division telemetry and persist survival evidence per completed arm.
-3. Add bounded executable behavioral fixtures; these need not run full GPU inference.
-4. Restore bounded heatmap retention and supply measured prelaunch feasibility with conservative per-arm admission.
-5. Reconcile budget/state descriptions, then obtain fresh snapshot-specific review, smoke evidence, reservation, and launch authorization. Preserve separate LB authorizations, duplicate checks, and promotion gates.
+1. Derive the frozen configuration from the parent’s effective environment assignments plus the recorded `tight55` override—not declaration fallbacks—and include every replay-relevant knob.
+2. Strengthen the config test to evaluate or parse both environment setup and declarations; add negative fixtures for the known `0.25/0.20`, motion-bonus, gap2, and adaptive-rescue overrides.
+3. Fail before arm execution when config or checkpoint provenance is invalid.
+4. Enforce explicit started/completed/skipped/aborted semantics in the metrics gate.
+5. Validate exact per-frame view execution from recorded tensor geometry.
+6. Persist final stage-specific edge identities, and make first-arm/runtime admission conservative.
+7. Rebuild the snapshot, obtain a fresh admission review, then run snapshot smoke, reserve two hours, and obtain explicit launch authorization. Keep each LB submission separately authorized.
 
 ## Recommendation
 
-Retain the agreed strategy, but revise the implementation before proceeding. Fresh GPU byte parity should remain a gate within the authorized experiment, not a prerequisite requiring another full run.
+The strategy consensus is valid, so this is not a governance `BLOCK`. The current snapshot should not advance to smoke or launch because its effective-parent guard is guaranteed to reject the actual parent configuration and several runtime/output contracts remain incomplete.
 
 VERDICT: REVISE
