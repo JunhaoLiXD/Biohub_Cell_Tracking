@@ -1,5 +1,111 @@
 # Project Risk Review & Remediation — Biohub Cell Tracking
 
+**Living document.** Newest review on top; older dated reviews below are preserved as historical
+evidence (they record what was true and what was changed at the time, and are not rewritten).
+
+- **2026-09-21** — refresh after the exp_055→exp_061 post-processing arc (three LB nulls) and the
+  exp_061 launch. Reconciles the 2026-09-06 items and records new process/strategy risks. *(current)*
+- **2026-09-06** — original whole-project hazard scan + remediation (repro_041 / exp_040 era).
+
+---
+
+## 2026-09-21 review — post-processing-null arc + admission-loop + manual launches
+
+**Context shift since 2026-09-06.** The project moved from the repro_041/exp_040 era to a frozen
+public **0.947** parent (`repro_059`) and a run of causally-isolated post-processing probes. The
+controller rails audited in 2026-09-06 (atomic writes, `STATE.json` single-source, `state_lock`,
+submission gate) are **still holding**. The new risks are less about the code rails and more about
+*process discipline, verification that outran its evidence, and scientific direction.*
+
+### Status at a glance (2026-09-21)
+
+| # | Risk | Severity | Status |
+|---|------|----------|--------|
+| 5 | Budget weekly-reset manual; expected-not-actual booking | MED | **Still open — materialized** (exp_061 reserved 2.0h manually, `actual_hours: null`) |
+| 7 | Headline gain may be inside the noise band | MED (sci.) | **Escalated → confirmed**: three straight LB nulls (0.942/0.944/0.947 each == parent) |
+| 8 | Admission-review loop pathology (no-GPU harness proving GPU behaviour) | MED/HIGH | **Mitigated this session** (correctness vs verification-depth split; LB is the truth) |
+| 9 | Launching outside the controller Codex-PASS gate | MED | **Open — accepted** (exp_060 + exp_061 manual pushes, user-authorized + logged) |
+| 10 | Frozen-config derived from wrong resolution layer | MED | **Fixed** (exp_061 v4 #1: effective env-overrides, strengthened `test_N`) |
+| 11 | This arc's records/dev-deps uncommitted on a feature branch | LOW/MED | **Open** (single-disk exposure until committed) |
+| 12 | Strategic exhaustion of the post-processing lever | MED (sci.) | **Open — decision rule pre-committed** |
+
+### 5 (recheck). Budget booking is still expected-not-actual — **materialized**
+The 2026-09-06 fix was deferred. It just bit in a benign way: exp_061 was launched by a manual push
+outside the controller, so I booked a **2.0 h reservation by hand** (`GPU_BUDGET.json.reserved_hours`,
+`consumed[].actual_hours: null`, remaining 24.493 → 22.493). Until the run completes and is
+reconciled to real wall-clock, `remaining_hours` is an estimate, not truth. **Do on completion:**
+replace the null with the kernel's actual runtime; let overruns show rather than clamp at zero.
+
+### 7 (recheck). The noise-band worry is now a confirmed pattern — **escalated**
+2026-09-06 flagged a sub-0.003 gain as possibly variance. Since then three causally-isolated
+post-processing changes each moved **exactly zero** at 3-decimal Public LB: exp_055 edge
+(0.942==0.942), exp_057 EMA (0.944==0.944), exp_060 division-threshold (0.947==0.947). The
+discipline recommendation held; the empirical finding is stronger than a worry now — see #12.
+
+### 8. Admission-review loop pathology — MED/HIGH → **mitigated**
+**What was found.** exp_060 (4 formal REVISE rounds; the standing objection was self-described as
+*circular*) and exp_061 (v1→v4 all REVISE) both stalled for the same structural reason: the admission
+harness is a **zero-GPU local** artifact, but a diligent reviewer legitimately keeps asking it to
+*prove behaviour of the real GPU postprocessing pipeline* — which only the gated GPU run can show. So
+each round produces a new "verify X locally" item and the harness grows without ever going green.
+This burns wall-clock and attention (not GPU) and can masquerade as diligence indefinitely.
+**What was changed / recommended.** This session we separated **genuine correctness/leakage bugs**
+(fix before launch — e.g. #10) from **verification-depth items** (downgrade to fail-closed runtime
+asserts *inside* the authorized run, or accept), and let the **Public LB be the held-out truth**.
+Going forward, scope admission to what is checkable without a GPU (provenance, leakage, graph
+semantics, numerical stability, reproducibility, byte-parity of the control, budget); route
+"does the real pipeline actually do X" into the run's own gates rather than the pre-launch review.
+
+### 9. Launches now bypass the controller's Codex-PASS gate — MED → **open, accepted**
+**What was found.** Both exp_060 and exp_061 were shipped by manual `kaggle kernels push`, outside
+the controller `launch` path that enforces a recorded Codex PASS. Each was explicitly user-authorized
+and logged (exp_061: `STATE.json.exp061_launch`, this file), so it is legitimate — but the *effective*
+launch control is now user discretion, not the programmatic gate. **Risk:** normalization — a later
+launch could skip the gate without the same deliberation, or Claude could drift toward self-certifying
+(which the contract forbids — Claude must never play the Codex reviewer). **Recommendation:** keep
+every bypass (a) explicitly user-authorized and (b) logged with parent/change/hypothesis + open-item
+disclosure in `STATE.json`; treat a manual launch as a deliberate exception, never the default.
+
+### 10. Frozen "independent reference" derived from the wrong resolution layer — MED → **fixed**
+**What was found.** exp_061's frozen parent config (`EXP061_PARENT_BASE_DEFAULTS`) was transcribed
+from the parent notebook's *declaration fallbacks* (`float(os.environ.get('BIOHUB_X','DEFAULT'))`),
+but the parent **sets `os.environ['BIOHUB_X']` overrides before those declarations**, so the effective
+0.947 config differs on **18 knobs** (safe-div 0.12→0.20, gap 0.10→0.25, gap2 off→on, div-weight
+1.0→1.2, the safe-div geometry family, expected-epoch 0→2, …). The runtime `live_config_equals_
+frozen_parent` gate would then have fail-closed the real GPU run; worse, `test_N` parsed only the same
+fallbacks, so it **false-PASSed** (self-consistent with the wrong table). The admission gate did catch
+it before any GPU/LB spend.
+**What was changed.** The frozen table is now the parent-**effective** config, derived programmatically
+from the notebook's env-setup block (`env override if set else declaration fallback`, then the tight55
+ppsweep override); `test_N` was strengthened to parse **both** layers, recompute the effective value,
+and assert it actually consulted the env overrides. Both local gates pass; snapshot rebuilt.
+**Lesson (general).** Any "independent frozen reference" must reproduce the **same resolution order**
+the real pipeline uses, and its guard test must exercise **every layer** or it will agree with its own
+mistake.
+
+### 11. This arc's records and dev-deps are uncommitted — LOW/MED → **open**
+The exp_055→exp_061 records, the fixes above, and the launch ledger live **uncommitted** on branch
+`exp058-v3-doc-reconcile-block2`; test dev-deps (`numpy 2.5.3`, `tzdata`) were installed into `.venv`
+and are not pinned in a tracked requirements file. This is the residual of 2026-09-06 #1: provenance
+exists on one disk until committed. **Recommendation:** commit the records (artifacts stay ignored per
+the existing `.gitignore`) and pin the test deps; publishing to a remote remains a user decision during
+the active competition.
+
+### 12. The post-processing lever may be exhausted — MED (scientific) → **open, rule pre-committed**
+**What was found.** Three straight LB nulls on the frozen 0.947 pipeline, plus recon finding no
+reproducible public checkpoint above 0.947, suggest post-processing tweaks no longer register at
+3-decimal LB. exp_061 is honestly priored as *possibly a fourth null* (division is weighted only 0.1
+in the aggregate; `zon` may even regress if the DeepCenter checkpoint is not Z-symmetric).
+**Recommendation (pre-committed, before seeing the number).** exp_061 arm vs 0.947: **≥0.948 adopt**;
+**==0.947** = sub-precision null → do option **B** (larger 0.15/0.12 safe-div move); **≤0.946** revert.
+If exp_061 **and** B both null, treat the frozen-pipeline post-processing lever as **closed** and
+either step back to a distribution-general lever (model/representation) or accept the 0.947 plateau.
+Competition deadline **2026-09-29** (~8 days) bounds how many more probes are worth the wall-clock.
+
+---
+
+## 2026-09-06 review — original whole-project hazard scan (historical evidence)
+
 **Date:** 2026-09-06
 **Scope:** Whole-project hazard scan (governance, controller code, state/budget handling, reproducibility), followed by remediation of the agreed items.
 **Intent:** Surface plausible latent risks, then record exactly what was changed to address them.

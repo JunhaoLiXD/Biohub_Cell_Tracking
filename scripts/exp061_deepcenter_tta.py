@@ -97,41 +97,47 @@ EXP061_CONFIG_KEYS = (
 )
 
 # ---------------------------------------------------------------------------
-# INDEPENDENTLY-DERIVED frozen parent config (admission v3 #1).
+# INDEPENDENTLY-DERIVED frozen parent config (admission v3 #1; CORRECTED admission v4 #1).
 #
-# These are the repro_059 (0.947) post-processing knob DEFAULTS, transcribed ONCE from the parent
-# notebook's own `KEY = float/int(os.environ.get('BIOHUB_KEY', 'DEFAULT'))` / `... != '0'` lines
-# (the source of truth for the 0.947 pipeline) -- NOT captured from this experiment's live run.
-# scripts/test_exp061_behavioral.py re-parses the parent notebook and asserts this table matches,
-# so it cannot silently drift from the parent. At runtime every started arm's live config is
-# asserted EQUAL to EXP061_FROZEN_PARENT_CONFIG key-by-key (fail-closed), which is this table with
-# the documented tight55 override applied -- so the gate verifies the STARTING values equal an
+# These are the repro_059 (0.947) post-processing knob values as the 0.947 pipeline EFFECTIVELY
+# resolves them. CRITICAL (v4 #1 bug fix): the parent notebook SETS `os.environ['BIOHUB_KEY']='V'`
+# overrides in its env-setup block BEFORE the `KEY = float/int(os.environ.get('BIOHUB_KEY',
+# 'DEFAULT'))` / `... != '0'` declarations, so the EFFECTIVE value is the env override when present,
+# and only the declaration fallback for knobs the env never sets. The earlier table used the bare
+# declaration fallbacks -> it disagreed with the real pipeline on 18 knobs, which would have
+# fail-closed the real GPU run. This table now stores, per key, `env_override if set else
+# declaration_fallback` (see scripts/test_exp061_behavioral.py::test_N, which re-parses BOTH the
+# env-setup block AND the declarations and recomputes the effective value, so this table cannot
+# silently drift from the parent). At runtime every started arm's live config is asserted EQUAL to
+# EXP061_FROZEN_PARENT_CONFIG key-by-key (fail-closed), which is this table with the documented
+# tight55 ppsweep override applied -- so the gate verifies the STARTING values equal an
 # independently frozen reference, not merely that they stay constant across arms.
+# ("# env" = set in the parent env-setup block; "# default" = never set in env, declaration fallback.)
 EXP061_PARENT_BASE_DEFAULTS = {
-    "ILP_EDGE_WEIGHT": -1.0, "ILP_APPEARANCE_WEIGHT": 0.1, "ILP_DISAPPEARANCE_WEIGHT": 0.1,
-    "ILP_DIVISION_WEIGHT": 1.0, "OUTPUT_EDGE_MAX_UM": 14.0, "OUTPUT_ENFORCE_NEXT_FRAME": True,
+    "ILP_EDGE_WEIGHT": -1.0, "ILP_APPEARANCE_WEIGHT": 0.0, "ILP_DISAPPEARANCE_WEIGHT": 2.0,  # env
+    "ILP_DIVISION_WEIGHT": 1.2, "OUTPUT_EDGE_MAX_UM": 14.0, "OUTPUT_ENFORCE_NEXT_FRAME": True,  # env
     "OUTPUT_SINGLE_PARENT_REPAIR": True, "OUTPUT_SINGLE_CHILD_REPAIR": False,
     "OUTPUT_PRUNE_ISOLATED": True, "OUTPUT_MOTION_RELINK": True, "MOTION_RELINK_TIGHT_UM": 6.0,
     "MOTION_RELINK_RELAXED_UM": 10.0, "MOTION_RELINK_VELOCITY_WEIGHT": 0.5,
-    "MOTION_RELINK_LEARNED_BONUS": 0.75, "MOTION_RELINK_MAX_FRAME_NODES": 2600,
+    "MOTION_RELINK_LEARNED_BONUS": 1.0, "MOTION_RELINK_MAX_FRAME_NODES": 2600,  # env: bonus 1.0
     "OUTPUT_DIVISION_GEOMETRY_FILTER": False, "DIV_PARENT_MAX_UM": 10.5, "DIV_SISTER_MAX_UM": 8.0,
-    "DIV_DROP_TO_SINGLE_IF_BAD": True, "OUTPUT_GAP_CLOSE": True, "GAP_CLOSE_MAX_GAP": 1,
-    "GAP_CLOSE_UM": 6.0, "GAP_DENSITY_ADAPTIVE": False, "GAP_DENSITY_REFERENCE_UM": 6.5,
+    "DIV_DROP_TO_SINGLE_IF_BAD": True, "OUTPUT_GAP_CLOSE": True, "GAP_CLOSE_MAX_GAP": 2,  # env: gap 2
+    "GAP_CLOSE_UM": 5.0, "GAP_DENSITY_ADAPTIVE": True, "GAP_DENSITY_REFERENCE_UM": 6.5,  # env
     "GAP_DENSITY_GAIN": 0.04, "GAP_DENSITY_MAX_STEP_DELTA_UM": 0.125, "GAP_DENSITY_NEIGHBORS": 3,
     "GAP_CLOSE_REUSE_EXISTING": True, "GAP_CLOSE_REUSE_UM": 3.2, "GAP_CLOSE_MAX_ADDED_FRAC": 0.05,
     "GAP_CLOSE_MAX_ADDED_ABS": 2000, "GAP_REFINE_SYNTHETIC": True, "GAP_REFINE_WIN_Z": 1,
     "GAP_REFINE_WIN_YX": 3, "GAP_REFINE_MAX_SHIFT_UM": 3.2, "OUTPUT_FILTER_SHORT_TRACKS": True,
     "OUTPUT_MIN_TRACK_LEN": 6, "OUTPUT_KEEP_DIVISION_COMPONENTS": True, "OUTPUT_LINEFIT_SMOOTH": True,
-    "OUTPUT_LINEFIT_WEIGHT": 0.8, "OUTPUT_LINEFIT_WINDOW": 2, "OUTPUT_GAP2_RECOVERY": False,
+    "OUTPUT_LINEFIT_WEIGHT": 0.8, "OUTPUT_LINEFIT_WINDOW": 2, "OUTPUT_GAP2_RECOVERY": True,  # env: True
     "GAP2_MAX_TOTAL_UM": 10.2, "GAP2_MAX_STEP_UM": 4.4, "GAP2_MAX_LINKS_FRAC": 0.0045,
     "GAP2_MAX_LINKS_ABS": 180, "GAP2_REQUIRE_CONTEXT": True, "GAP2_FRAME_FRAC_CAP": 0.006,
-    "OUTPUT_SAFE_DIVISIONS": True, "SAFE_DIV_MAX_UM": 4.7, "SAFE_DIV_SISTER_MAX_UM": 7.2,
-    "SAFE_DIV_SISTER_SYMMETRY_TAU": 0.0, "SAFE_DIV_EXISTING_CHILD_MAX_UM": 7.8,
-    "SAFE_DIV_FRAME_FRAC_CAP": 0.008, "SAFE_DIV_GLOBAL_FRAC_CAP": 0.004, "SAFE_DIV_DIVERGE_UM": 2.25,
+    "OUTPUT_SAFE_DIVISIONS": True, "SAFE_DIV_MAX_UM": 9.0, "SAFE_DIV_SISTER_MAX_UM": 14.0,  # env
+    "SAFE_DIV_SISTER_SYMMETRY_TAU": 0.6, "SAFE_DIV_EXISTING_CHILD_MAX_UM": 10.0,  # env
+    "SAFE_DIV_FRAME_FRAC_CAP": 0.0076, "SAFE_DIV_GLOBAL_FRAC_CAP": 0.00375, "SAFE_DIV_DIVERGE_UM": 2.25,  # env
     "SAFE_DIV_REQUIRE_DIVERGENCE": True, "SAFE_DIV_REQUIRE_MUTUAL_NN": True,
     "USE_DEEPCENTER_VETO": True, "REQUIRE_DEEPCENTER_VETO": True, "DEEPCENTER_GAP_VETO": True,
-    "DEEPCENTER_SAFE_DIV_VETO": True, "DEEPCENTER_GAP_THRESHOLD": 0.10, "DEEPCENTER_EXPECTED_EPOCH": 0,
-    "DEEPCENTER_GAP_CONFIRM_MIN_SPAN_UM": 0.0, "DEEPCENTER_SAFE_DIV_THRESHOLD": 0.12,
+    "DEEPCENTER_SAFE_DIV_VETO": True, "DEEPCENTER_GAP_THRESHOLD": 0.25, "DEEPCENTER_EXPECTED_EPOCH": 2,  # env
+    "DEEPCENTER_GAP_CONFIRM_MIN_SPAN_UM": 8.5, "DEEPCENTER_SAFE_DIV_THRESHOLD": 0.20,  # env
     "DEEPCENTER_SCORE_WIN_Z": 1, "DEEPCENTER_SCORE_WIN_YX": 2,
 }
 # The resolved 0.947 config = the parent defaults with ONLY the documented tight55 override. Built
