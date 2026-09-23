@@ -1,0 +1,115 @@
+schema_version: 1
+experiment_id: exp_061_zon_lb_submission_repair
+parent: exp_061_deepcenter_tta
+hypothesis: A full current-input exp061 zon inference notebook fixes the static-CSV
+  code-submission failure without changing the inference strategy.
+change:
+  component: code_submission_adapter
+  from: Static development CSV promotion and fixed development parity hash
+  to: Full unchanged exp061 inference, original-XY current-input parity, fail-closed
+    current-run zon publication
+  variables_changed: Submission transport and input-relative validation only; no prediction
+    policy edits
+source_notebook: .private/exp061_lb_repair/build/exp061_zon_lb_repair.ipynb
+substrate_note: 'Full re-run of the frozen repro_059 (0.947) notebook (same three
+  Pilkwang checkpoints). The parent notebook is copied byte-for-byte; two cells are
+  appended (exp061_deepcenter_tta.py source + a guarded top-level call) and four strippable
+  `# exp061` lines are injected (a 2.0h watchdog, a veto-candidate stub, and gap1
+  + safe-div call-site loggers). Stripping every `# exp061` line + the appended cells
+  reproduces the parent notebook exactly (parity guard). ONE inference dominates;
+  DeepCenter view forwards are computed once per (dataset,t,view) and reused across
+  arms (~17 distinct forwards/frame union). Three CPU replays are cheap. The adaptive
+  PP-sweep is the parent''s own byte-frozen path. Feasibility is CONDITIONAL on the
+  build-time timing telemetry; arm admission is gated by measured running rate + a
+  20-min finalization reserve; a partial run (e.g. xyd4 not started) is a valid recorded
+  result. ~1.4-1.8 GPU hr provisional; 2.0 hr hard-stop reservation.
+
+  '
+validation:
+  protocol: public_0947_deepcenter_tta_probe_v1
+  primary_metric: binary_integrity_gate
+  warning: 'Integrity gate only; decides NOTHING about quality. The controller checks:
+    (a) build-time purely-additive parity guard (stripping the appended cells + `#
+    exp061` lines reproduces the parent cells byte-for-byte); (b) runtime -- the xyonly
+    arm submission SHA256 == d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60
+    (parent 0.947), computed FRESH through the SAME cached accumulation path the experimental
+    arms use; every started arm produced; resolved config pinned to MOTION_RELINK_TIGHT_UM=5.5;
+    parent DeepCenter TTA env ON; each started experimental arm mechanism-active (heatmap
+    differs from xyonly) or a recorded verified-null; finite telemetry; within the
+    2.0h budget. The zon/xyd4 arms are scored by the Public LB in SEPARATE user-authorized
+    submission steps; a tie at 0.947 is unresolved below displayed precision, not
+    "no change"; conclusions are limited to the two interventions.
+
+    '
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: exp061_deepcenter_tta_integrity_passed
+admission:
+  require_claude_review: true
+  require_codex_review: true
+  reviewer_provider: codex
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+local:
+  smoke_test:
+  - '{python}'
+  - scripts/validate_exp061_lb_repair.py
+  - '{source_notebook}'
+provenance:
+  base_notebook: experiments/repro_059_public_0947_exact_copy/snapshot/source/biohub-repro059-public-0947-exact-copy.ipynb
+  base_experiment: repro_059_public_0947_exact_copy
+  builder: scripts/build_exp061_lb_repair.py
+  appended_module: scripts/exp061_deepcenter_tta.py
+  instrumented_functions:
+  - deepcenter_heatmap_for_frame
+  - deepcenter_accept_repair_point
+  - filter_output_graph
+  strategy_proposal: docs/research/exp061_z_reflection_deepcenter_tta_proposal.md
+  strategy_status: CONSENSUS
+  codex_challenges:
+  - docs/research/exp061_codex_challenge_v1.md
+  - docs/research/exp061_codex_challenge_v2.md
+  - docs/research/exp061_codex_challenge_v3.md
+  - docs/research/exp061_codex_challenge_v4.md
+  - docs/research/exp061_codex_challenge_v5.md
+  resolved_config_source: experiments/repro_059_public_0947_exact_copy/artifacts/ppsweep_selected.json
+  pinned_overrides:
+    MOTION_RELINK_TIGHT_UM: 5.5
+  expected_parent_submission_sha256: d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60
+  arms:
+  - xyonly
+  - zon
+  - xyd4
+  submission_repair: docs/research/exp061_lb_submission_repair.md
+authorization:
+  scope: User requested diagnosis, submission-only repair and resubmission; no algorithm
+    strategy changes. Existing exp061 strategy CONSENSUS retained. Fresh admission
+    PASS, smoke and 2h reservation required.
+submission:
+  user_authorized_count: 1
+kaggle:
+  owner: lingxd
+  slug: biohub-exp061-zon-lb-repair
+  title: biohub-exp061-zon-lb-repair
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: true
+  competition_sources:
+  - biohub-cell-tracking-during-development
+  dataset_sources:
+  - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+  - pilkwang/biohub-temporal-unet3d-seed314159-v1
+  - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+  - scripts/build_exp061_lb_repair.py
+  - scripts/validate_exp061_lb_repair.py

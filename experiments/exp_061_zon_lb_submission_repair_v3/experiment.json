@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_061_zon_lb_submission_repair_v3",
+  "parent": "exp_061_zon_lb_submission_repair_v2",
+  "state": "MANUAL_REVIEW_REQUIRED",
+  "hypothesis": "Removing the current-input XY reference and xyonly/xyd4 development replays from the scoring path will reduce deployment work while preserving the exact zon output for a fixed input; the hidden failure cause remains unknown.",
+  "change": {
+    "component": "zon_only_code_competition_deployment",
+    "from": "v2 full parent pipeline plus current-input XY reference and xyonly/zon/xyd4 replay",
+    "to": "same parent pipeline plus exactly one zon replay and fail-closed current-run publication",
+    "variables_changed": "deployment execution and validation contract only; no model or prediction-policy changes"
+  },
+  "signature": "70b6986c9335dc4a8c05cdccbac513e093a9a3ff6a80c4d56c2deea5dcd79026",
+  "config": "configs/exp_061_zon_lb_submission_repair_v3.yaml",
+  "snapshot_config": "experiments/exp_061_zon_lb_submission_repair_v3/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_061_zon_lb_submission_repair_v3/snapshot/source/exp061_zon_submission_repair_v3.ipynb",
+  "snapshot_manifest": "experiments/exp_061_zon_lb_submission_repair_v3/snapshot/manifest.json",
+  "git_commit": "cac8a099942a93d98e1442da8bd6b8928bc25226",
+  "validation_protocol": "exp061_zon_only_deployment_v3",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "CHANGES_REQUESTED",
+    "verdict": "BLOCK",
+    "path": "experiments/exp_061_zon_lb_submission_repair_v3/review.md",
+    "completed_at": "2026-09-23T01:35:53+00:00"
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-23T01:20:53+00:00",
+  "updated_at": "2026-09-23T01:35:53+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-23T01:21:12+00:00",
+      "note": "Required Codex review is missing before smoke test"
+    }
+  ]
+}

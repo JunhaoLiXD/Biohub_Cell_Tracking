@@ -1,0 +1,25 @@
+{
+  "created_at": "2026-09-22T03:50:03+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_061_zon_lb_submission_repair/snapshot/config.yaml",
+      "sha256": "e86bd95a84ac26e6eb18d7b1893a369d1674a5e7d637b4dbe8df5365d7c502f5"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_061_zon_lb_submission_repair/snapshot/source/exp061_zon_lb_repair.ipynb",
+      "sha256": "ed181e50daa7dbaffc008aff520a5ebb782350abf907fbf3ed4930f0fd3e941d"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair/snapshot/extra_files/build_exp061_lb_repair.py",
+      "sha256": "2f8a2664457a058dcfa3bae97f78be43c2dad5fd8f398e09b3c1a9196472ca13"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair/snapshot/extra_files/validate_exp061_lb_repair.py",
+      "sha256": "e25a6cbc39d193728b5fd25a0e9411ecb5200f3e7168b6e7ac92ede11a8040dd"
+    }
+  ]
+}

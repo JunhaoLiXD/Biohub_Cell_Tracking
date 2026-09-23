@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_061_zon_lb_submission_repair_v5",
+  "parent": "exp_061_zon_lb_submission_repair_v4",
+  "state": "SUBMITTED",
+  "hypothesis": "The v4 hidden-rerun outcome is gated by deployment-scale limits, not by the zon prediction policy: a fixed 2.0h watchdog and a 4.48 GB view cache inside the collected output directory both fail on a sufficiently larger hidden dataset. Removing both limits without touching any predicted value lets the rerun finish. The exact v2/v4 hidden failure cause remains unproven.",
+  "change": {
+    "component": "zon_only_submission_transport_v5",
+    "from": "v4: hardcoded signal.alarm(7200) and view cache under WORKING_DIR",
+    "to": "rerun-aware deadline (2.0h visible / 8.5h hidden rerun) and view cache on a non-output scratch root",
+    "variables_changed": "deployment resource limits and cache location only; frozen zon prediction policy"
+  },
+  "signature": "f5a1196951fb01d5bd8b8d0b5ebd05ce74d68f65306dc03ec7a5f22bdccee63e",
+  "config": "configs/exp_061_zon_lb_submission_repair_v5.yaml",
+  "snapshot_config": "experiments/exp_061_zon_lb_submission_repair_v5/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_061_zon_lb_submission_repair_v5/snapshot/source/exp061_zon_submission_repair_v5.ipynb",
+  "snapshot_manifest": "experiments/exp_061_zon_lb_submission_repair_v5/snapshot/manifest.json",
+  "git_commit": "cac8a099942a93d98e1442da8bd6b8928bc25226",
+  "validation_protocol": "exp061_zon_only_deployment_v5",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": true
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "WAIVED_BY_USER_FOR_ONE_V5_KERNEL_RUN",
+    "verdict": "NO_PASS",
+    "reason": "User asked for the corrected v5 build to be pushed immediately as a fallback for the pending v4 LB submission 56481730.",
+    "at_utc": "2026-09-23T04:08:49+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "type": "direct_immutable_snapshot_validation_with_review_waiver",
+    "receipt": "experiments/exp_061_zon_lb_submission_repair_v5/user-waiver-smoke.json",
+    "at_utc": "2026-09-23T04:08:49+00:00"
+  },
+  "created_at": "2026-09-23T04:06:28+00:00",
+  "updated_at": "2026-09-23T04:08:52+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-23T04:08:49+00:00",
+      "note": "One-time user waiver; formal Codex PASS absent"
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-23T04:08:49+00:00",
+      "note": "Direct immutable snapshot smoke passed"
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-23T04:08:49+00:00",
+      "note": "Ready for one manually tracked Kaggle push"
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-23T04:08:52+00:00",
+      "note": "One-time user-authorized kernel run; no LB submission"
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp061-zon-deploy-v5",
+    "submitted_at": "2026-09-23T04:08:52+00:00",
+    "status": "SUBMITTED",
+    "last_checked_at": null,
+    "launch_mode": "one_time_user_waiver_no_codex_pass"
+  }
+}

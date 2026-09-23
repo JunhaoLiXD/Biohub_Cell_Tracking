@@ -1,0 +1,109 @@
+schema_version: 1
+experiment_id: exp_061_zon_lb_submission_repair_v2
+parent: exp_061_deepcenter_tta
+hypothesis: A full current-input exp061 zon inference notebook fixes the static-CSV
+  code-submission failure without changing the inference strategy.
+change:
+  component: code_submission_adapter
+  from: Static development CSV promotion and fixed development parity hash
+  to: Full unchanged exp061 inference, original-XY current-input parity, fail-closed
+    current-run zon publication
+  variables_changed: Submission transport and input-relative validation only; no prediction
+    policy edits
+source_notebook: .private/exp061_lb_repair/build/exp061_zon_lb_repair.ipynb
+substrate_note: Full unchanged executed exp061 inference; only experiment identity,
+  current-input reference validation and fail-closed zon output publication are adapted.
+  Three arms and all policies remain frozen. Additional original-XY replay is timed
+  separately within the existing two-hour watchdog.
+validation:
+  protocol: exp061_zon_submission_transport_repair_v2
+  primary_metric: binary_integrity_gate
+  warning: 'Integrity only: cached xyonly must match an independent original-XY replay
+    on current input; all existing graph/config/cache/finite/budget gates retained.
+    Full development-run output must additionally match historical xyonly d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60
+    and zon 2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1 before
+    LB submission. Historical CSV hashes do not apply to hidden scoring input. No
+    quality inference from this gate.'
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: exp061_deepcenter_tta_integrity_passed
+admission:
+  require_claude_review: true
+  require_codex_review: true
+  reviewer_provider: codex
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+local:
+  smoke_test:
+  - '{python}'
+  - scripts/validate_exp061_lb_repair.py
+  - '{source_notebook}'
+provenance:
+  base_notebook: experiments/repro_059_public_0947_exact_copy/snapshot/source/biohub-repro059-public-0947-exact-copy.ipynb
+  base_experiment: repro_059_public_0947_exact_copy
+  builder: scripts/build_exp061_lb_repair.py
+  appended_module: scripts/exp061_deepcenter_tta.py
+  instrumented_functions:
+  - deepcenter_heatmap_for_frame
+  - deepcenter_accept_repair_point
+  - filter_output_graph
+  strategy_proposal: docs/research/exp061_z_reflection_deepcenter_tta_proposal.md
+  strategy_status: CONSENSUS
+  codex_challenges:
+  - docs/research/exp061_codex_challenge_v1.md
+  - docs/research/exp061_codex_challenge_v2.md
+  - docs/research/exp061_codex_challenge_v3.md
+  - docs/research/exp061_codex_challenge_v4.md
+  - docs/research/exp061_codex_challenge_v5.md
+  resolved_config_source: experiments/repro_059_public_0947_exact_copy/artifacts/ppsweep_selected.json
+  pinned_overrides:
+    MOTION_RELINK_TIGHT_UM: 5.5
+  arms:
+  - xyonly
+  - zon
+  - xyd4
+  submission_repair: docs/research/exp061_lb_submission_repair.md
+  repair_upstream_notebook: .private/exp061_lb_repair/upstream/biohub-exp061-deepcenter-tta.ipynb
+  repair_dependency_sha256:
+    .private/exp061_lb_repair/upstream/biohub-exp061-deepcenter-tta.ipynb: bb60ffe996a81bfaad7a3f8c53b1282d5772a68fb12536c58bfa24c483f16aae
+    scripts/build_exp061_lb_repair.py: 1319d07762a1ff3949d4eabd3994249b05e7bab68d0372a1a3f486684cc2bff3
+    scripts/validate_exp061_lb_repair.py: dc47e73d7dd51e580497d451785bef2ac69a4d042ef2a73cc366c53ad7d17686
+    scripts/test_exp061_behavioral.py: 166c7b5c0bc035529dcc795d5cfface19affd192141a552432aa80cf215e5aaa
+    scripts/exp061_deepcenter_tta.py: 45d756b7585f171e4f590eec04be54277ef525c3b63790f04f025f7d0c548178
+  historical_development_xyonly_submission_sha256: d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60
+  historical_development_zon_submission_sha256: 2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1
+authorization:
+  scope: User requested diagnosis, submission-only repair and resubmission; no algorithm
+    strategy changes. Existing exp061 strategy CONSENSUS retained. Fresh admission
+    PASS, smoke and 2h reservation required.
+submission:
+  user_authorized_count: 1
+kaggle:
+  owner: lingxd
+  slug: biohub-exp061-zon-lb-repair
+  title: biohub-exp061-zon-lb-repair
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: true
+  competition_sources:
+  - biohub-cell-tracking-during-development
+  dataset_sources:
+  - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+  - pilkwang/biohub-temporal-unet3d-seed314159-v1
+  - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+  - scripts/build_exp061_lb_repair.py
+  - scripts/validate_exp061_lb_repair.py
+  - scripts/test_exp061_behavioral.py
+  - scripts/exp061_deepcenter_tta.py
+  - .private/exp061_lb_repair/upstream/biohub-exp061-deepcenter-tta.ipynb

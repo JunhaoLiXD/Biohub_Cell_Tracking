@@ -1,8 +1,3 @@
-# Latest Codex Review
-
-Experiment: `exp_061_zon_lb_submission_repair_v3`  
-Captured: 2026-09-23T01:35:53+00:00
-
 ## Summary
 
 The supplied versioned record describes Claude’s strategy, Codex’s objections, revisions, and an explicit `CONSENSUS`. I could not verify those files independently: the read-only shell failed before opening them. The snapshot manifest, git diff, and remaining budget are likewise unverified. The earlier formal `BLOCK` remains in force.

@@ -1,0 +1,11 @@
+{
+  "submission_id": 56454236,
+  "status": "COMPLETE",
+  "public_score": null,
+  "total_bytes": 0,
+  "error_description": "Your notebook hit an unhandled error while rerunning your code. Note that the hidden dataset can be larger/smaller/different than the public dataset",
+  "kernel": "lingxd/biohub-exp061-zon-lb-repair",
+  "kernel_version": 1,
+  "script_version_id": 351748008,
+  "evidence_source": "Authenticated one-time Kaggle API retrieval after the user reported completion."
+}
