@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_061_zon_lb_submission_repair_v5",
+  "competition": "biohub-cell-tracking-during-development",
+  "submission_id": 56493252,
+  "submitted_at_utc": "2026-09-23T12:35:37.380000Z",
+  "kernel": "lingxd/biohub-exp061-zon-deploy-v5",
+  "kernel_version": 1,
+  "file_name": "submission.csv",
+  "submit_method": "competition_submit_code",
+  "submit_message": "exp_061 zon (Z-reflection DeepCenter TTA) v5 - rerun-aware deadline + view cache off /kaggle/working",
+  "status": "PENDING",
+  "public_score": null,
+  "score_source": "authenticated_kaggle_submission_history",
+  "arm": "zon (DeepCenter Z-reflection TTA)",
+  "submission_sha256": "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1",
+  "user_authorized": true,
+  "user_authorization_note": "User instruction 2026-09-23: the v5 run had finished, push it to the LB, and abandon the repeatedly failing v4 submission.",
+  "review_status": "NO_CODEX_PASS. The v5 kernel was built and run under a one-time user waiver of the Codex admission gate; this LB submission was authorized by the user after the read-only collection audit. Not a Codex PASS.",
+  "attempt_number": 5,
+  "gate_verdict": {
+    "allowed": true,
+    "cap": 5,
+    "cap_source": "authenticated competitions_list max_daily_submissions (the repo previously recorded 3; corrected 2026-09-23)",
+    "remote_last_24h": 1,
+    "remaining_before_submit": 4,
+    "duplicate": false,
+    "duplicate_note": "The submission CONTENT hash equals the failed 56454236/56481730 attempts, but neither returned a score, so this is a transport retry rather than a duplicate scored probe.",
+    "submissions_disabled": false,
+    "competition_deadline": "2026-09-29 23:59:00"
+  },
+  "visible_run_audit": "experiments/exp_061_zon_lb_submission_repair_v5/collect-audit.json (verdict PASS; 19/19 integrity checks, zon sha 2593a543 byte-identical, both scale fixes confirmed on the real pipeline, output 58.75 MB vs v4's ~4.5 GB)",
+  "what_changed_vs_the_failed_v4_submission": {
+    "predictions": "nothing - byte-identical submission.csv (sha 2593a543)",
+    "rerun_deadline": "v4 armed a hardcoded signal.alarm(7200); v5 uses 7200 s on a visible run and 30600 s when KAGGLE_IS_COMPETITION_RERUN is set, with cell 2 and the module required to agree or publication is refused",
+    "view_cache_location": "v4 wrote 4272 files / 4.48 GB into WORKING_DIR (collected as output, charged against the 20 GB cap); v5 writes to /kaggle/temp/exp061_viewcache, outside the collected path"
+  },
+  "honest_prior": "The scale hypothesis is NOT established. v4's visible run finished in 32.5 min with ~3.7x watchdog headroom and ~4.5x disk headroom, yet its hidden rerun still failed with the same generic error. If the hidden dataset is less than ~3.7x the public one, neither removed hazard explains that failure and a third unknown cause remains. v5 is strictly safer than v4, not proven sufficient.",
+  "baseline_for_comparison": {
+    "experiment_id": "repro_059_public_0947_exact_copy",
+    "submission_id": 56313491,
+    "public_score": 0.947
+  },
+  "decision_rule": ">=0.948 adopt zon Z-reflection TTA as the new parent; ==0.947 sub-precision null -> fire the ARMED option B (larger 0.15/0.12 safe-div move) and treat frozen-pipeline post-processing as near-exhausted; <=0.946 revert and keep repro_059 0.947. A rerun error is not a score and leaves the rule unresolved.",
+  "on_error_next_step": "If this errors too, STOP resubmitting the zon transport. Five attempts across three distinct mechanisms would then have failed, and the remaining hypotheses (hidden-set shape, memory, a dependency unavailable in the rerun sandbox) are not addressable by another blind retry. Return the question to the user with the option of a minimal instrumented probe kernel rather than a fifth full-inference rebuild.",
+  "prior_failed_attempts": [
+    {"submission_id": 56442230, "kernel": "lingxd/biohub-exp061-zon-promote", "failure": "incorrect format (static copy kernel)"},
+    {"submission_id": 56447637, "kernel": "lingxd/biohub-exp061-xyonly-promote", "failure": "incorrect format (static copy kernel, known-good 0.947 content) - proves the copy mechanism, not zon content, was that failure"},
+    {"submission_id": 56454236, "kernel": "lingxd/biohub-exp061-zon-lb-repair", "failure": "unhandled error during hidden rerun, totalBytes=0 (v2 full inference, ~2h visible run)"},
+    {"submission_id": 56481730, "kernel": "lingxd/biohub-exp061-zon-deploy-v4", "failure": "unhandled error during hidden rerun (v4 zon-only, 32.5 min visible run) - ABANDONED by user decision 2026-09-23"}
+  ]
+}

@@ -1,4 +1,4 @@
-# Session Handout — updated 2026-09-23 (v4 LB submitted + PENDING; v5 fallback built & RUNNING)
+# Session Handout — updated 2026-09-23 (v4 LB ERRORED & abandoned; v5 collected, audited, LB-submitted)
 
 Purpose: hand the current state to the next session AND to the user. Read this FIRST, then the
 deeper authority in order: `STATE.json`, the active `experiments/exp_061_zon_lb_submission_repair_v5/`
@@ -11,12 +11,13 @@ summary; `STATE.json` is the machine source of truth).
 
 ## >>> NEXT SESSION: START HERE <<<
 
-**Two things are in flight. Neither may be polled — the user reports both.**
+**One thing is in flight and it may NOT be polled — the user reports it.**
 
-### 1. Public LB submission `56481730` (v4 zon) — PENDING
+### Public LB submission `56493252` (v5 zon) — PENDING
 
-Submitted 2026-09-23T03:47:28Z from kernel `lingxd/biohub-exp061-zon-deploy-v4` v1 via
-`competition_submit_code`. This is the **fourth** attempt to get any score back for the zon arm.
+Submitted 2026-09-23T12:35:37Z from kernel `lingxd/biohub-exp061-zon-deploy-v5` v1 via
+`competition_submit_code`. This is the **fifth** attempt to get any score back for the zon arm, and
+it carries **byte-identical predictions** to the failed v4 one (`2593a543…`).
 
 When the user reports it:
 
@@ -27,57 +28,87 @@ python -c "from kaggle.api.kaggle_api_extended import KaggleApi; a=KaggleApi(); 
  a.competition_submissions('biohub-cell-tracking-during-development')[:2]]"
 ```
 
-Record the outcome in **`SUBMISSION_BUDGET.json`** (entry 56481730, status PENDING → final),
-**`STATE.json.exp061_v4_deploy.lb_submission`**, and
-**`experiments/exp_061_zon_lb_submission_repair_v4/leaderboard-submission.json`**. Then:
+Record the outcome in **`SUBMISSION_BUDGET.json`** (entry 56493252, status PENDING → final),
+**`STATE.json.exp061_v5_deploy.lb_submission`**, and
+**`experiments/exp_061_zon_lb_submission_repair_v5/leaderboard-submission.json`**. Then:
 
 | result | action |
 |---|---|
-| **≥0.948** | Z-reflection DeepCenter TTA is a real gain → adopt zon as the new parent, record it, probe a neighbour. **v5 becomes unnecessary** for scoring. |
+| **≥0.948** | Z-reflection DeepCenter TTA is a real gain → adopt zon as the new parent, record it, probe a neighbour. |
 | **==0.947** | a **fourth** sub-precision null → fire the ARMED **option B** (larger 0.15/0.12 safe-div move) and treat frozen-pipeline post-processing as near-exhausted. |
 | **≤0.946** | zon's division changes are net-harmful → revert, keep repro_059 0.947. |
-| **errors again** | **do NOT resubmit v4.** Go to §2 — v5 exists precisely for this. |
+| **errors again** | **STOP.** Do not build a v6 and do not resubmit — see "If v5 errors too" below. |
 
-### 2. v5 fallback kernel — RUNNING
+### If v5 errors too
 
-`lingxd/biohub-exp061-zon-deploy-v5` v1, pushed 2026-09-23T04:08:52Z, 2.0 GPU-h reserved.
-When the user says it finished, **collect once** and verify:
-
-```bash
-kaggle kernels status lingxd/biohub-exp061-zon-deploy-v5
-kaggle kernels output lingxd/biohub-exp061-zon-deploy-v5 -p <scratchpad-dir>
-```
-
-- current-run zon CSV sha256 still `2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1`
-- `feasibility_worksheet.view_cache_outside_working_dir == true`
-- `feasibility_worksheet.is_competition_rerun == false` and `hard_stop_seconds == 7200` on this visible run
-- **the kernel output is no longer multi-GB** (that is the whole point of fix #2)
-- reconcile actual GPU hours into `GPU_BUDGET.json`
-
-**If `56481730` scored, v5 is a spare — do not submit it.** If `56481730` errored, v5 is the next
-LB candidate and needs its **own explicit user authorization + a daily-cap check** before submitting.
+Five attempts across **three distinct transport mechanisms** would have failed. The remaining
+hypotheses — hidden-set shape, memory, a dependency missing from the rerun sandbox — are **not
+addressable by another blind rebuild**, and each rebuild costs a verification run. Return the
+question to the user. The only cheap next option is a **minimal instrumented probe kernel**: strip
+the pipeline down and submit something that answers *where* the rerun dies, rather than guessing
+again. Note also that the competition deadline is **2026-09-29 23:59**.
 
 ---
 
-## What happened this session (2026-09-23)
+## What happened this session (2026-09-23, later)
 
-### v4 ran, was audited, and went to the LB
+### v4's submission errored; v4 is abandoned
 
-`lingxd/biohub-exp061-zon-deploy-v4` v1 ran **COMPLETE in 32.5 min** (1947.5 s). Claude audited it
-**read-only** and found **no defect that could produce a wrong score**:
+`56481730` resolved as `COMPLETE_WITH_ERROR` — the *same* generic message as v2's `56454236`
+("notebook hit an unhandled error while rerunning your code"), no score. **User decision: drop v4,
+do not resubmit it.**
+
+**This weakens the scale hypothesis that motivated v5.** v4's visible run finished in 32.5 min using
+**27%** of its watchdog and **22%** of the 20 GB `/kaggle/working` cap. Unless the hidden dataset is
+**≥3.7×** the public one, *neither* hazard v5 removes can explain that failure — so a third unknown
+cause may well remain. The pre-submit audit found no defect capable of producing a wrong score, so
+the failure lies in the rerun environment or its scale, not in the zon prediction policy.
+
+### v5 ran, was collected and audited, and went to the LB
+
+`lingxd/biohub-exp061-zon-deploy-v5` v1 ran **COMPLETE in 1992.12 s (33.2 min)**. Collected once
+(no polling) and audited read-only — receipt:
+`experiments/exp_061_zon_lb_submission_repair_v5/collect-audit.json`. **Verdict PASS.**
 
 | check | result |
 |---|---|
-| zon CSV sha256 | `2593a543…6c840a1` — **exactly** the historical development hash |
+| integrity gate | `exp061_zon_deployment_integrity_passed` true — **19/19** checks true |
+| zon CSV sha256 | `2593a543…6c840a1` — byte-identical to the historical hash **and** to v4's current run |
 | size | 241365 rows / 122813 nodes / 118552 edges |
 | `config_equal_frozen_parent` | true (tight55 pinned) |
 | checkpoint provenance | verified, deepcenter `8040999a…` |
-| views/frame | 16 incl. 8 Z-reflected (`ZV0…ZTa`) |
-| numerical health | no nonfinite heatmaps/logits, 0 cache-integrity failures, `run_exception` null, 845 veto records all accounted |
-| test discovery | dynamic `TEST_DIR.iterdir()` over `*.zarr` — **no hardcoded movie names** |
-| pushed vs snapshot | identical except the one-line `EXPERIMENT_ID` injection |
+| views/frame | 16 incl. 8 Z-reflected (`ZV0…ZTa`), 267 distinct frames, 4272 forwards @ 0.1023 s |
+| numerical health | 0 nonfinite heatmaps/logits, 0 cache-integrity failures, `run_exception` null, 845 veto records accounted |
+| **fix #1** deadline | `is_competition_rerun` false, `hard_stop_seconds` 7200, elapsed 1992.1 s, 5207.9 s left — visible-run branch chosen correctly, consistency guard did not refuse publication |
+| **fix #2** cache | root `/kaggle/temp/exp061_viewcache`, `view_cache_outside_working_dir` true, no fallback; **collected output 58.75 MB / 182 files** vs v4's ~4.5 GB, **0** viewcache entries |
 
-On that audit the user authorized one LB submission → `56481730`.
+The identical hash is the point: v5's changes are resource-only and moved no predicted value.
+**Caveat:** a *visible* run cannot exercise the 30600 s rerun branch — only the local executable
+deadline matrix does.
+
+On that audit, and on the user's instruction, v5 went to the LB → `56493252` (cap 5/day, 1 used in
+the rolling 24 h, allowed).
+
+### GPU ledger reconciled
+
+Three stale 2.0 h reservations (v2, v4, v5) released and replaced with actuals: v2 **2.0 h**
+(conservative upper bound — wall-clock was never captured), v4 **0.541 h** (1947.5 s), v5 **0.553 h**
+(1992.12 s). Net draw 3.094 h; **2.906 h returned to the pool**. `remaining_hours` 23.493 →
+**20.399**, `reserved_hours` now empty — no GPU work outstanding.
+
+Also corrected: the authenticated daily submission cap is **5**, not the 3 recorded in older entries
+(no past verdict changes under the true cap).
+
+---
+
+## Earlier this session: the v4 audit that produced v5
+
+`lingxd/biohub-exp061-zon-deploy-v4` v1 ran **COMPLETE in 32.5 min** (1947.5 s). Claude audited it
+**read-only** and found **no defect that could produce a wrong score** (same check table as v5's
+above, plus: test discovery is a dynamic `TEST_DIR.iterdir()` over `*.zarr` with no hardcoded movie
+names, and the pushed code matched the snapshot except the one-line `EXPERIMENT_ID` injection).
+
+On that audit the user authorized one LB submission → `56481730`, since errored and abandoned.
 
 ### The audit found two scale hazards — hence v5
 
@@ -152,7 +183,8 @@ reviewer role.** External evidence for v5 = local gates only.
      notebook** at scoring.
   3. `56454236` v2 **full-inference** notebook → visible run COMPLETE and audited, but the hidden rerun
      hit an unhandled error, `totalBytes=0`. ⇒ motivated the zon-only v3/v4 redesign.
-  4. `56481730` v4 zon-only, 32.5 min → **PENDING** (this session).
+  4. `56481730` v4 zon-only, 32.5 min → **same unhandled rerun error**, no score ⇒ **abandoned**.
+  5. `56493252` v5 (same predictions, both scale hazards removed) → **PENDING**.
 - **Admission-loop lesson:** exp_060 and exp_061 each went 4+ formal REVISE rounds. Root cause is
   structural — a zero-GPU local harness cannot prove real-GPU-pipeline behaviour, so a diligent reviewer
   always finds another "verify X locally" item. Policy: split genuine correctness bugs from
@@ -167,18 +199,21 @@ reviewer role.** External evidence for v5 = local gates only.
   fail-fast-before-arms ordering (#3), partial-run `all_started_arms_completed` gate (#4), per-frame
   view-geometry validation (#5), stage edge identities-not-counts (#6). Detail:
   `experiments/exp_061_deepcenter_tta/review.md`. The runtime config gate already fails closed on drift.
-- **v5 does not prove the scale hypothesis.** The v2 and v4 hidden tracebacks are unavailable. v5 removes
-  two ways a rerun can abort; a third unknown cause may remain.
+- **v5 does not prove the scale hypothesis — and v4's failure argues against it.** The v2 and v4 hidden
+  tracebacks are unavailable. v5 removes two ways a rerun can abort, but v4 died from a 32.5-min run with
+  3.7× watchdog and 4.5× disk headroom, so unless the hidden set is ≥3.7× the public one a third unknown
+  cause remains.
 - **B reminder still ARMED** (`STATE.json.pending_followup`): after the zon LB result, remind the user to
   do option **B** (larger 0.15/0.12 safe-div threshold move).
 - **Submission count is not a research constraint** (user, 2026-09-18) — the Public LB is a usable
   held-out signal. Still record every submission in `SUBMISSION_BUDGET.json`; **never auto-submit without
-  the user asking**. Kaggle's own 3/day cap is a platform fact — check remote history before submitting.
+  the user asking**. Kaggle's own cap is a platform fact — **5/day**, authenticated 2026-09-23 (older
+  entries recorded 3) — check remote history before submitting. Competition deadline **2026-09-29 23:59**.
 - **Transfer lesson:** train16 proxy gains twice failed to transfer (exp_055, exp_057). Prefer
   distribution-general levers; validate on the LB, not train16.
-- **Budget:** remaining **23.493 h**, six protected hours preserved; reservations outstanding for v2/v4/v5
-  (2.0 h each). v4's actual was ~0.54 h — **reconcile v4 and v5 actuals** when collecting. Every inference
-  policy stays ground-truth-free and specimen/video-blind. Never `git add -f` `.kaggle/` or `.private/`.
+- **Budget:** remaining **20.399 h**, six protected hours preserved; **no reservations outstanding**
+  (v2/v4/v5 reconciled 2026-09-23 — v2 2.0 h upper bound, v4 0.541 h, v5 0.553 h). Every inference policy
+  stays ground-truth-free and specimen/video-blind. Never `git add -f` `.kaggle/` or `.private/`.
 - **Launch governance:** the controller `launch` gate enforces a Codex-PASS review; exp_060, exp_061 and
   both v4/v5 runs were launched OUTSIDE it by explicit user authorization (documented). Do not silently
   bypass the gate without the user's explicit call. (Risk #9 in `PROJECT_RISK_REVIEW.md`.)
@@ -188,12 +223,14 @@ reviewer role.** External evidence for v5 = local gates only.
 
 ## Key files / pointers
 
-- **Active (v5):** `experiments/exp_061_zon_lb_submission_repair_v5/` — `experiment.json`,
+- **Active (v5, LB-pending):** `experiments/exp_061_zon_lb_submission_repair_v5/` — `experiment.json`,
+  `collect-audit.json` (the read-only run audit), `leaderboard-submission.json` (56493252),
+  `artifacts/` (metrics, telemetry, receipt — CSVs and the scratch cache are not committed),
   `strategy_amendment_v1.md`, `snapshot/` (nb sha `da4d933b…`), `user-waiver-smoke.json`,
   `kaggle-launch.log`. Implementation: `scripts/build_exp061_zon_submission_repair_v5.py`,
   `scripts/exp061_zon_deployment_v5.py`, `scripts/validate_exp061_zon_deployment_v5.py`,
   `scripts/launch_exp061_v5_user_waiver.py`.
-- **v4 (LB-pending):** `experiments/exp_061_zon_lb_submission_repair_v4/` — `experiment.json`,
+- **v4 (errored, abandoned):** `experiments/exp_061_zon_lb_submission_repair_v4/` — `experiment.json`,
   `leaderboard-submission.json` (full pre-submit audit + the two scale hazards), `snapshot/`
   (nb sha `39eba1b9…`). Same four script roles with `_v4` suffixes.
 - **Diagnosis:** `docs/research/exp061_three_submission_failure_diagnosis.md`,

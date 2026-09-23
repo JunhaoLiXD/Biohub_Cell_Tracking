@@ -2,7 +2,7 @@
   "schema_version": 1,
   "experiment_id": "exp_061_zon_lb_submission_repair_v5",
   "parent": "exp_061_zon_lb_submission_repair_v4",
-  "state": "SUBMITTED",
+  "state": "COLLECTING",
   "hypothesis": "The v4 hidden-rerun outcome is gated by deployment-scale limits, not by the zon prediction policy: a fixed 2.0h watchdog and a 4.48 GB view cache inside the collected output directory both fail on a sufficiently larger hidden dataset. Removing both limits without touching any predicted value lets the rerun finish. The exact v2/v4 hidden failure cause remains unproven.",
   "change": {
     "component": "zon_only_submission_transport_v5",
@@ -36,7 +36,22 @@
     "at_utc": "2026-09-23T04:08:49+00:00"
   },
   "created_at": "2026-09-23T04:06:28+00:00",
-  "updated_at": "2026-09-23T04:08:52+00:00",
+  "updated_at": "2026-09-23T12:42:00+00:00",
+  "collect_audit": {
+    "receipt": "experiments/exp_061_zon_lb_submission_repair_v5/collect-audit.json",
+    "verdict": "PASS",
+    "at_utc": "2026-09-23T12:35:00+00:00",
+    "runtime_seconds": 1992.1196377277374,
+    "zon_sha256": "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1",
+    "both_scale_fixes_confirmed": true
+  },
+  "leaderboard_submission": {
+    "receipt": "experiments/exp_061_zon_lb_submission_repair_v5/leaderboard-submission.json",
+    "submission_id": 56493252,
+    "status": "PENDING",
+    "at_utc": "2026-09-23T12:35:37.380000Z",
+    "user_authorized": true
+  },
   "state_history": [
     {
       "from": "PROPOSED",
@@ -61,13 +76,20 @@
       "to": "SUBMITTED",
       "at": "2026-09-23T04:08:52+00:00",
       "note": "One-time user-authorized kernel run; no LB submission"
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-23T12:42:00+00:00",
+      "note": "Kernel COMPLETE in 1992.12 s; collected once and audited read-only (19/19 checks, zon sha 2593a543, both scale fixes confirmed). v4's LB submission 56481730 errored and was abandoned by the user, so v5 became the LB candidate and was submitted as 56493252 (PENDING) on user instruction. Awaiting the score."
     }
   ],
   "remote": {
     "kernel_id": "lingxd/biohub-exp061-zon-deploy-v5",
     "submitted_at": "2026-09-23T04:08:52+00:00",
-    "status": "SUBMITTED",
-    "last_checked_at": null,
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-23T12:35:00+00:00",
+    "runtime_seconds": 1992.1196377277374,
     "launch_mode": "one_time_user_waiver_no_codex_pass"
   }
 }

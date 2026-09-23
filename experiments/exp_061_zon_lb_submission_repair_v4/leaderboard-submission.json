@@ -8,9 +8,13 @@
   "kernel_version": 1,
   "file_name": "submission.csv",
   "submit_method": "competition_submit_code",
-  "status": "PENDING",
+  "status": "COMPLETE_WITH_ERROR",
   "public_score": null,
   "score_source": "authenticated_kaggle_submission_history",
+  "resolved_at_utc": "2026-09-23T12:34:55+00:00",
+  "error_description": "Your notebook hit an unhandled error while rerunning your code. Note that the hidden dataset can be larger/smaller/different than the public dataset",
+  "outcome": "ABANDONED. Identical hidden-rerun failure to the v2 submission 56454236, from a run 4x cheaper. Per the user's decision on 2026-09-23 ('that version seems to always fail, drop it'), v4 is retired as an LB route and NOT resubmitted. The fallback v5 (kernel lingxd/biohub-exp061-zon-deploy-v5, submission 56493252) carries the identical zon predictions forward.",
+  "post_mortem": "v4's visible run finished in 1947.5 s with ~3.7x watchdog headroom and ~4.5x /kaggle/working headroom, yet the hidden rerun still failed. That WEAKENS the scale hypothesis that motivated v5: unless the hidden dataset is roughly 3.7x the public one, neither of the two hazards found in the audit explains this failure, and a third unknown cause remains. The v4 visible-run audit below found no defect that could produce a wrong score, so the failure is in the rerun environment or its scale, not in the zon prediction policy.",
   "arm": "zon",
   "submission_sha256": "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1",
   "user_authorized": true,
@@ -18,6 +22,7 @@
   "gate_verdict": {
     "allowed": true,
     "cap": 3,
+    "cap_correction": "The authenticated competition record says max_daily_submissions = 5, not 3. The cap was recorded too conservatively at submit time; it did not change the verdict.",
     "remote_last_24h": 1,
     "remaining": 2,
     "duplicate": false
