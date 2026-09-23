@@ -182,6 +182,49 @@
       "user_authorized": true,
       "provenance": "manual_backfill_external_submission_not_controller_run",
       "note_lb": "NEW BEST Public LB 0.947 (+0.003 vs repro_048 0.944). Verbatim copy of a public 0.947 notebook; documented upstream = raykkretzschmar/biohub-bidirectional-primary-union13-diagnostic-v1 (source_notebook_sha256 3e65ca69...). SAME three Pilkwang checkpoints as our 0.944 (deepcenter-unet3d-center-prior-v1, temporal-unet3d-seed314159-v1, tracking-support-pack-50ep-v1) => the +0.003 is 100% post-processing/TTA, model byte-identical. Prediction-affecting deltas vs 0.944: (A) DeepCenter TTA OFF->ON; (B) secondary edge-feature TTA OFF->ON w=0.75; (C) DeepCenter safe-div threshold 0.25->0.20; (D) embedded held-out PP-sweep selected tight55 = MOTION_RELINK_TIGHT_UM 6.0->5.5. Notebook self-attests metric_hack_used=False, public_output_used=False, organizer_labels_used=False, leaderboard_feedback_used=True. Submitted 2026-09-17 outside the experiment-controller flow; this is a backfilled provenance record."
+    },
+    {
+      "local_date": "2026-09-19",
+      "gate_checked_at_utc": "2026-09-19T14:16:59+00:00",
+      "submitted_at_utc": "2026-09-19T14:18:58.437000Z",
+      "competition": "biohub-cell-tracking-during-development",
+      "submission_id": 56361673,
+      "experiment_id": "exp_060_deepcenter_safe_div_threshold_sweep",
+      "kernel": "lingxd/biohub-exp060-safediv018-lb-submit",
+      "kernel_version": 2,
+      "file_name": "submission.csv",
+      "submission_sha256": "41d5fb612d297550edb103eab6a028fc654833d311dcb2b754595697d172bb0f",
+      "status": "COMPLETE",
+      "submit_method": "competition_submit_code (Kaggle notebook/code submission API)",
+      "gate_verdict": {
+        "allowed": true,
+        "cap": 3,
+        "remote_today": 0,
+        "local_today": 0,
+        "used": 0,
+        "remaining": 3,
+        "duplicate": false
+      },
+      "remote_history_checked_before_submit": true,
+      "remote_local_day_count_before_submit": 0,
+      "duplicate_probe": false,
+      "user_authorized": true,
+      "arm": "safe_div_threshold_0.18",
+      "byte_parity": "output submission.csv byte-identical to exp_060 sweep thr018 arm (SHA 41d5fb61); thr020 control arm previously byte-reproduced parent d3453380 (real-pipeline proof)",
+      "division_finding": "0.18 gate accepts 356 vs 316 at 0.20 (+40 candidates); +11 net-new final surviving forks vs 0.947 parent (only-added, never-removed)",
+      "baseline_for_comparison": {
+        "experiment_id": "repro_059_public_0947_exact_copy",
+        "submission_id": 56313491,
+        "public_score": 0.947
+      },
+      "decision_rule": ">=0.948 adopt safe-div 0.18 as new parent; ==0.947 division gate LB-neutral at this bracket -> pivot; <=0.946 revert to 0.20/0.947",
+      "rationale": "User-authorized LB probe of the exp_060 safe-div 0.18 arm on the frozen 0.947 pipeline (single change: DEEPCENTER_SAFE_DIV_THRESHOLD 0.20->0.18). Tests whether the +11 recovered marginal divisions are net-true on held-out test. Competition is notebook-only; the lb-submit variant notebook writes the 0.18 arm to submission.csv (config-drift guard expected-value also set to 0.18).",
+      "public_score": 0.947,
+      "public_score_precision": 3,
+      "score_source": "authenticated_kaggle_submission_history",
+      "verified_at_utc": "2026-09-20T00:00:00+00:00",
+      "delta_vs_repro_059_lb": 0.0,
+      "note_lb": "Public LB 0.947 == repro_059 0.947, zero displayed-precision movement. Third consecutive causally-isolated post-processing change with 0.000 LB delta (exp_055 edge, exp_057 EMA, exp_060 division-threshold). The +11 net-new divisions did not register at 3-decimal LB; note division is weighted only 0.1 in the aggregate so a 0.02 threshold move / +11 forks is likely too small to be LB-visible regardless of TP/FP split."
     }
   ]
 }

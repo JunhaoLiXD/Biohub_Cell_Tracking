@@ -1,8 +1,3 @@
-# Latest Codex Review
-
-Experiment: `exp_061_deepcenter_tta`  
-Captured: 2026-09-21T05:03:17+00:00
-
 ## Summary
 
 **REVISE.** Strategy governance is satisfied: the Claude-authored proposal and five Codex challenge/revision rounds are versioned, and v5 explicitly records `CONSENSUS`.

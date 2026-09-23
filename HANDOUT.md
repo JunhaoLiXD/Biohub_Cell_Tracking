@@ -1,14 +1,83 @@
-# Session Handout — updated 2026-09-18
+# Session Handout — updated 2026-09-21
 
 Purpose: hand this session's work to the next session AND to the user. Read this FIRST,
-then the deeper authority in order: `STATE.json`, `experiments/exp_060_deepcenter_safe_div_threshold_sweep/`
-(build_status.md, formal_admission_status.md), `.private/current/CONTINUATION.md`,
+then the deeper authority in order: `STATE.json`, `experiments/exp_061_deepcenter_tta/`
+(experiment.json, review.md), `.private/current/CONTINUATION.md`,
 `docs/research/PROJECT_HANDOFF.md`.
 
 If anything here disagrees with `STATE.json`, **`STATE.json` wins** (this file is a
 human-readable summary; `STATE.json` is the machine source of truth).
 
 ---
+
+## ⏸️ CURRENT (2026-09-21): exp_061 admission v4 = REVISE — fixes DEFERRED to next session
+
+User decision 2026-09-21: **record the v4 findings here and fix them NEXT session** (do not fix now).
+
+**Where exp_061 stands.** Strategy is CONSENSUS. Best Public LB still **0.947** (repro_059). exp_061 =
+DeepCenter repair-heatmap TTA probe, 3 arms xyonly/zon/xyd4. This session addressed the Codex **v3**
+REVISE (5 items) and ran a FRESH Codex admission review — which returned **v4 = REVISE** (round 4).
+Nothing is launched; nothing on Kaggle. Local gates (build parity / validator / behavioral A–N) all PASS,
+but Codex found a **real bug in the v3 #1 fix** plus 5 contract-hardening items. The admission gate caught
+the bug BEFORE any GPU/LB spend (working as intended).
+
+Review record: `experiments/exp_061_deepcenter_tta/review.md` (== `CODEX_REVIEW.md`); verdict logged in
+`experiments/exp_061_deepcenter_tta/experiment.json` (review.status=CHANGES_REQUESTED, verdict=REVISE).
+
+### >>> NEXT SESSION: the 6 v4 fixes (in priority order) <<<
+
+1. **[REAL BUG — hard blocker] Frozen parent config was built from the WRONG source.**
+   `EXP061_PARENT_BASE_DEFAULTS` in `scripts/exp061_deepcenter_tta.py` (~line 100) used the parent's
+   DECLARATION FALLBACKS (`= float(os.environ.get('BIOHUB_X','DEFAULT'))`). But the parent notebook SETS
+   `os.environ['BIOHUB_*']` overrides **before** those declarations (env-setup block, notebook code-cell
+   lines ~35–90), so the EFFECTIVE config differs. Confirmed mismatches (mine → parent-effective):
+   `DEEPCENTER_SAFE_DIV_THRESHOLD 0.12→0.20`, `DEEPCENTER_GAP_THRESHOLD 0.10→0.25`,
+   `MOTION_RELINK_LEARNED_BONUS 0.75→1.0`, `OUTPUT_GAP2_RECOVERY False→True`, `GAP_CLOSE_MAX_GAP 1→2`,
+   `GAP_CLOSE_UM 6.0→5.0`, `GAP_DENSITY_ADAPTIVE False→True`, `ILP_APPEARANCE_WEIGHT 0.1→0.0`,
+   `ILP_DISAPPEARANCE_WEIGHT 0.1→2`, `ILP_DIVISION_WEIGHT 1.0→1.2`, `SAFE_DIV_MAX_UM 4.7→9.0`,
+   `SAFE_DIV_SISTER_MAX_UM 7.2→14.0`, `SAFE_DIV_SISTER_SYMMETRY_TAU 0.0→0.6`,
+   `SAFE_DIV_EXISTING_CHILD_MAX_UM 7.8→10.0`, `SAFE_DIV_FRAME_FRAC_CAP 0.008→0.0076`,
+   `SAFE_DIV_GLOBAL_FRAC_CAP 0.004→0.00375`, `DEEPCENTER_EXPECTED_EPOCH 0→2`,
+   `DEEPCENTER_GAP_CONFIRM_MIN_SPAN_UM 0.0→8.5`. (`MOTION_RELINK_TIGHT_UM`: env sets 6.0 then the
+   ppsweep selects **5.5** — the tight55 override is still correct.)
+   FIX: derive the frozen table by parsing the env-setup assignments (`os.environ['BIOHUB_X']='V'`) first,
+   fall back to the declaration default only for knobs never set in env, then apply the tight55 override.
+   Then **strengthen `test_N`** to parse BOTH the env-setup block AND the declarations (it currently only
+   reads fallbacks → gave a FALSE PASS), and add negative fixtures for the 0.25/0.20/motion-bonus/gap2/
+   adaptive-rescue overrides.
+2. **Config coverage incomplete.** `EXP061_CONFIG_KEYS` omits parent-active knobs, notably the adaptive
+   short-track rescue family (`BIOHUB_ADAPTIVE_SHORT_TRACK_RESCUE`, `SHORT_TRACK_RESCUE_MIN_LEN`,
+   `..._MIN_MEAN_EDGE_PROB`, `..._MAX_MEAN_EDGE_DIST_UM`, `..._MAX_NODES_FRAC`, `..._MAX_NODES_ABS`) and
+   others set in the env block. Add every behaviorally-relevant replay knob so the freeze is complete.
+3. **Fail fast BEFORE arm execution.** On `live_config_equals_frozen_parent` False (or checkpoint
+   provenance invalid) the harness currently only prints and continues into the arms. Make it write
+   fail-closed metrics.json and RETURN before any inference/replay.
+4. **Partial-run metrics contract.** A started experimental arm that budget-aborts is excluded from
+   `arm_summaries`, so the gate can pass without that started arm producing an artifact. Add an explicit
+   `all_started_arms_completed` gate (or formally declare + interpret partial-run semantics).
+5. **Per-frame view-execution validation.** `_expected_views` infers "square-only expected" from whether
+   any square-only view was observed (circular: if all silently fail, the guard still passes). Record each
+   frame's geometry (square vs not) and validate the EXACT expected view sequence/count per frame.
+6. **Stage edge IDENTITIES (not just counts) + conservative first-arm admission.** gap1/gap2 stage
+   counters describe edges ADDED during a stage, not stage-specific edges SURVIVING in the final graph.
+   Persist per-stage edge identities and intersect with the final edge_set. Also make the FIRST-arm/runtime
+   admission conservative (control still starts at a zero estimate + mean-cost projection; use a
+   prelaunch/parent timing estimate for initial admission and an upper-bound, not mean, projection).
+
+After fixing: rebuild notebook+snapshot+manifest (`python scripts/build_exp061_deepcenter_tta.py` then
+copy into `snapshot/` + regenerate `manifest.json`), re-run `scripts/test_exp061_behavioral.py` +
+`scripts/validate_exp061_notebook.py`, then a FRESH `scripts/request_codex_review.py exp_061_deepcenter_tta`.
+Honest note: Codex flagged that some items (byte-parity, feasibility) arguably belong INSIDE the authorized
+run; a leaner pass may still REVISE. Consider whether continued no-GPU iteration is worth it vs. option B.
+
+**Dev note:** local test run requires numpy — installed into `.venv` this session (numpy 2.5.3, not committed).
+
+**B reminder still ARMED** (`STATE.json.pending_followup`): after exp_061's LB result, remind the user to
+do option B (larger 0.15/0.12 safe-div threshold move).
+
+---
+
+## (SUPERSEDED 2026-09-18 content below — exp_060 has since completed: Public LB 0.947 == parent, a null)
 
 ## TL;DR — where the project is right now
 
