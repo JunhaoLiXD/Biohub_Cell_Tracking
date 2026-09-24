@@ -1,8 +1,8 @@
 {
-  "id": "haideptry/biohub-0-951-sota-deepcenter-fast-ilp-19m",
-  "id_no": 135266818,
-  "title": "Biohub 0 951 SOTA DeepCenter Fast ILP 19m",
-  "code_file": "biohub-0-951-sota-deepcenter-fast-ilp-19m.ipynb",
+  "id": "anvithpothula/biohub-x138",
+  "id_no": 135218473,
+  "title": "biohub x138",
+  "code_file": "biohub-x138.ipynb",
   "language": "python",
   "kernel_type": "notebook",
   "is_private": false,
@@ -10,14 +10,13 @@
   "enable_tpu": false,
   "enable_internet": false,
   "keywords": [
-    "biology",
     "gpu"
   ],
   "dataset_sources": [
     "pilkwang/biohub-deepcenter-unet3d-center-prior-v1",
     "pilkwang/biohub-temporal-unet3d-seed314159-v1",
     "pilkwang/biohub-tracking-support-pack-50ep-v1",
-    "giorgosi/biohub-divnet-v2"
+    "anvithpothula/biohub-v1284-head-s075"
   ],
   "kernel_sources": [],
   "competition_sources": [
