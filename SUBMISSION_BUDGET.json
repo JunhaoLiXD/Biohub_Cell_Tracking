@@ -404,7 +404,7 @@
                             "kernel_version":  1,
                             "file_name":  "submission.csv",
                             "submission_sha256":  "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1",
-                            "status":  "PENDING",
+                            "status":  "COMPLETE_WITH_ERROR",
                             "submit_method":  "competition_submit_code (kernel=lingxd/biohub-exp061-zon-deploy-v5, kernel_version=1, file_name=submission.csv)",
                             "gate_verdict":  {
                                                  "allowed":  true,
@@ -449,7 +449,11 @@
                             "honest_prior":  "The scale hypothesis remains UNPROVEN: v4 failed from a 32.5-min visible run with 3.7x watchdog and 4.5x disk headroom, so unless the hidden set is >=3.7x the public one, neither removed hazard explains it and a third unknown cause may remain. v5 is strictly safer than v4, not proven sufficient.",
                             "on_error_next_step":  "STOP resubmitting the zon transport. Five attempts across three distinct mechanisms would have failed; return the question to the user with the option of a minimal instrumented probe kernel rather than another full-inference rebuild.",
                             "score_source":  "authenticated_kaggle_submission_history",
-                            "public_score":  null
+                            "public_score":  null,
+                            "status_final":  "COMPLETE_WITH_ERROR",
+                            "resolved_at_utc":  "2026-09-23T13:10:00+00:00",
+                            "error_description":  "Your notebook hit an unhandled error while rerunning your code. Note that the hidden dataset can be larger/smaller/different than the public dataset",
+                            "note_lb":  "FAILED identically to v4 (56481730) and v2 (56454236). The pre-registered stop rule fired: no v6 was built and nothing was resubmitted. USER DECISION 2026-09-23: the zon LB path is ABANDONED. Because v5's two scale fixes were confirmed active on the real pipeline and its predictions were byte-identical to v4's, neither the 7200 s watchdog nor the 20 GB /kaggle/working cap was the cause; a third, unidentified property of the hidden rerun environment is responsible. The zon Z-reflection TTA is therefore UNRESOLVED, not falsified -- it was never scored. Five submissions, zero scores, 3.094 GPU-h spent on the arc."
                         }
                     ]
 }

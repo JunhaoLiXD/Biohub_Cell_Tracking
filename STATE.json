@@ -1,6 +1,7 @@
 {
   "schema_version": 1,
-  "active_experiment": "exp_061_zon_lb_submission_repair_v5",
+  "active_experiment": null,
+  "active_experiment_note": "No active experiment. The exp_061 arc (deepcenter_tta + zon LB repair v1-v5) was ABANDONED by user decision on 2026-09-23 after five consecutive failed LB transports. The project is back on the exp_060 footing: working parent repro_059 = Public LB 0.947, and exp_060's single-config variant-notebook deployment pattern (the only transport in this project with a proven hidden-rerun record, submission 56361673 COMPLETE) is the template for any successor. Candidate next levers are recorded in docs/research/public_frontier_recon_2026-09-23.md; none is authorized.",
   "working_parent": "repro_059_public_0947_exact_copy",
   "best_public_lb": {
     "experiment_id": "repro_059_public_0947_exact_copy",
@@ -10,7 +11,7 @@
     "verified_at_utc": "2026-09-18T00:00:00+00:00"
   },
   "submission_policy": "UPDATED 2026-09-18 by user: Public LB submission COUNT is no longer a research constraint -- multiple submissions are fine. The LB may now be used directly as the real held-out validation signal (Family-2 / distribution-general validation). Still record every submission in SUBMISSION_BUDGET.json with authenticated score_source; still no auto-submit without the user asking; Kaggle's own daily cap (max_submissions_per_day) remains a platform fact, not a scarcity to conserve.",
-  "phase": "EXP061_V4_ABANDONED_AND_V5_LB_PENDING",
+  "phase": "EXP061_ARC_ABANDONED_REVERTED_TO_EXP060_FOOTING_AWAITING_DIRECTION",
   "exp060_0p18_lb": {
     "kernel": "lingxd/biohub-exp060-safediv018-lb-submit",
     "url": "https://www.kaggle.com/code/lingxd/biohub-exp060-safediv018-lb-submit",
@@ -77,8 +78,8 @@
     "deferred_successor": "exp_061 corrected Z-reflection DeepCenter TTA (8 eval/7 unique XY -> +Z = 16 eval/14 unique; separate per-arm heatmap caches; Z-on vs XY-only guard). Run only if exp_060 shows the division gate is LB-movable, or as an independent representation probe.",
     "not_authorized": "implementation/launch not yet authorized; CONSENSUS is strategy-level only. Fresh Codex admission PASS + smoke + reservation required first."
   },
-  "summary": "Public LB submission 56481730 (v4 zon) resolved on 2026-09-23 as COMPLETE_WITH_ERROR with the same generic hidden-rerun message as v2's 56454236, and no score. On the user's instruction it is ABANDONED and will not be resubmitted. The v5 fallback kernel (lingxd/biohub-exp061-zon-deploy-v5 version 1) then ran COMPLETE in 1992.12 s and was collected once and audited read-only: 19 of 19 integrity checks true, the zon CSV reproduces 2593a543 byte-for-byte (241365 rows / 122813 nodes / 118552 edges, identical to v4's current-run output), config_equal_frozen_parent true with tight55 pinned, checkpoint provenance verified, 16 views per frame including 8 Z-reflected, zero nonfinite and zero cache-integrity events. Both v5 fixes are confirmed on the real pipeline: the deadline resolved to the visible-run 7200 s branch (is_competition_rerun false) and the view cache moved to /kaggle/temp, cutting collected output from about 4.5 GB to 58.75 MB. On that audit the user authorized the fifth zon LB attempt, submitted at 2026-09-23T12:35:37Z as 56493252, now PENDING. Neither the v5 kernel run nor this submission carries a Codex PASS; both stand on one-time user waivers. The GPU ledger was reconciled: the v2, v4 and v5 reservations are released and remaining_hours is 20.398674.",
-  "next_action": "One thing is outstanding and it must not be polled. Public LB submission 56493252 (v5 zon): wait for the user notice, then query the authenticated history once and apply the decision rule against repro_059 0.947 (>=0.948 adopt zon as the new parent; ==0.947 sub-precision null, which fires the ARMED option-B reminder for the larger 0.15/0.12 safe-div move; <=0.946 revert). Record the outcome in SUBMISSION_BUDGET.json, STATE.json.exp061_v5_deploy.lb_submission and experiments/exp_061_zon_lb_submission_repair_v5/leaderboard-submission.json. If it errors as well, do NOT build a v6 or resubmit: five attempts across three distinct transport mechanisms will have failed, the remaining hypotheses are not addressable by a blind retry, and the question returns to the user, with a minimal instrumented probe kernel as the only cheap next option. Do not change the frozen inference strategy.",
+  "summary": "The exp_061 arc is CLOSED. Submission 56493252 (v5 zon) failed exactly like 56481730 (v4) and 56454236 (v2): 'notebook hit an unhandled error while rerunning your code', no score. That is five consecutive failed LB transports for the zon arm across three distinct mechanisms (two static-copy kernels -> incorrect format; v2/v4/v5 full-inference -> hidden-rerun error), so the stop rule fired and the user abandoned the path. The zon Z-reflection TTA was never scored and its decision rule is permanently UNRESOLVED, not falsified. A fresh public-frontier recon (docs/research/public_frontier_recon_2026-09-23.md) then established: our 0.947 is now OUTSIDE the top 200 (rank-200 cutoff 0.949, LB top 0.975, deadline 2026-09-29); no verified public notebook beats 0.947, every candidate sharing the same three Pilkwang checkpoints; but three concrete, portable, specimen-blind levers are now public on our exact 0.947 base, the most promising being mutual-best/relative-rank EDGE association -- the first shared lever that targets the ~85-90%-weighted edge term rather than the 0.1-weighted division term that produced all of our recent nulls. The project is back on the exp_060 footing with working parent repro_059 = 0.947. GPU remaining 20.398674 h, no reservations outstanding.",
+  "next_action": "AWAITING USER DIRECTION. Nothing is authorized, nothing is running, nothing is pending on the LB. Present the recon (docs/research/public_frontier_recon_2026-09-23.md) and let the user choose a lever. Recommended order, cheapest and highest-leverage first: (1) mutual-best association (BIOHUB_LB_SCORING_MODE=mutual_best, beta 0.20 then 0.12) -- edge-side, tiny patch, targets the heavy metric term; (2) density-adaptive grouped overrides (measured cells/frame -> tight_um/relaxed_um/velocity_weight/learned_bonus), which generalizes the single global tight55 we froze and is verified specimen-blind; (3) the DivNet 3D mitosis gate (giorgosi/biohub-divnet-v2), model-level but division-weighted and therefore least likely to register. The ARMED option B (larger 0.15/0.12 safe-div move) is still outstanding but is division-side and now ranks BELOW levers 1 and 2. Any successor uses exp_060's single-config variant-notebook deployment pattern, the only transport here with a proven hidden-rerun record, and goes through the normal propose/challenge/CONSENSUS + fresh admission workflow before any launch or submission.",
   "leaderboard_submission_authorized": false,
   "leaderboard_submission_note": "The user authorized the v5 submission on 2026-09-23 ('push it to the LB'); it was consumed by 56493252 at 12:35:37Z. Any further submission needs fresh authorization and a remote cap check. The authenticated daily cap is 5, not the 3 recorded in older entries.",
   "exp061_submission_repair": {
@@ -155,6 +156,63 @@
       "evidence_path": "experiments/exp_061_zon_lb_submission_repair_v4/leaderboard-submission.json"
     }
   },
+  "exp061_arc_abandoned": {
+    "decided_at_utc": "2026-09-23T13:10:00+00:00",
+    "decided_by": "user",
+    "scope": "The entire exp_061 arc: exp_061_deepcenter_tta and the LB-transport repairs v1-v5.",
+    "reason": "Five consecutive Public LB submissions for the zon arm failed to return a score, across three distinct transport mechanisms.",
+    "attempts": [
+      {"submission_id": 56442230, "mechanism": "static-copy kernel (zon)", "failure": "incorrect submission format"},
+      {"submission_id": 56447637, "mechanism": "static-copy kernel (xyonly control, known-good 0.947 content)", "failure": "incorrect submission format -- proved the copy mechanism, not zon content, was that failure"},
+      {"submission_id": 56454236, "mechanism": "v2 full inference (~2 h visible run)", "failure": "unhandled error in hidden rerun, totalBytes=0"},
+      {"submission_id": 56481730, "mechanism": "v4 zon-only deployment (32.5 min visible run)", "failure": "unhandled error in hidden rerun"},
+      {"submission_id": 56493252, "mechanism": "v5 = v4 + rerun-aware deadline + view cache off /kaggle/working", "failure": "unhandled error in hidden rerun"}
+    ],
+    "what_was_ruled_out": "v4 and v5 both ran clean visible runs with full integrity gates and byte-identical predictions (2593a543). v5 confirmed both scale fixes active on the real pipeline, so neither the 7200 s watchdog nor the 20 GB /kaggle/working cap caused the failure. v4's 32.5-min run with 3.7x watchdog and 4.5x disk headroom already argued against the scale hypothesis; v5 settled it.",
+    "what_remains_unknown": "The hidden tracebacks were never available. A third property of the rerun environment (hidden-set shape, memory, a dependency absent from the rerun sandbox) is responsible and was never identified.",
+    "scientific_status": "The zon Z-reflection DeepCenter TTA is UNRESOLVED, not falsified. It was measured as mechanically active in the visible run (heatmap max_abs_delta 0.142, safe-div accepted 316->318, +9 rows vs parent) but never scored on held-out data.",
+    "cost": "GPU: v2 2.0 h (upper bound) + v4 0.541 h + v5 0.553 h = 3.094 h. LB: 5 submissions, 0 scores.",
+    "lesson": "The only transport in this project with a proven hidden-rerun record is exp_060's single-config variant notebook (submission 56361673, COMPLETE at 0.947). Any successor should use that pattern rather than a bespoke deployment adapter. Recorded as a risk-register item.",
+    "recon_after_abandonment": "docs/research/public_frontier_recon_2026-09-23.md"
+  },
+  "public_frontier_recon_2026_09_23": {
+    "document": "docs/research/public_frontier_recon_2026-09-23.md",
+    "performed_at_utc": "2026-09-23T13:00:00+00:00",
+    "method": "zero-GPU: authenticated leaderboard query + kaggle kernels list/pull + source inspection of 8 public notebooks",
+    "supersedes": "experiments/repro_059_public_0947_exact_copy/PROVENANCE.md section 4 (2026-09-18)",
+    "standing": {
+      "our_best_public_lb": 0.947,
+      "lb_rank_200_cutoff": 0.949,
+      "lb_top": 0.975,
+      "note": "0.947 is now OUTSIDE the top 200. On 2026-09-18 the frontier was ~0.970; it is 0.975 now with a thick 0.955-0.966 band.",
+      "competition_deadline": "2026-09-29 23:59",
+      "daily_submission_cap": 5
+    },
+    "is_there_a_verified_public_notebook_above_0947": "NO. Same finding as 2026-09-18. Every inspected notebook resolves to the same lineage and the same three Pilkwang checkpoints. The four new high-vote notebooks (amanatar/biohub-geometric-fusion 161 votes, evgendvorkin/biohub-0-947-lb-proxy-score-0-9490 131, flexonafft/biohub-lineage-forge-precision-tracking 106, anvithpothula/biohub-x138 104) claim nothing above 0.947; evgendvorkin's is explicitly 0.947. The haideptry 'SOTA 0.948+' titles are UNVERIFIED -- that author does not appear in the top 200.",
+    "unexplained": "The 0.955-0.966 band is not accounted for by any public notebook found. Either those teams hold unshared work or they combine the public micro-levers more aggressively than anyone has published. Not established; not guessed at.",
+    "levers_found": {
+      "note": "All three sit on OUR exact 0.947 base: haideptry's notebooks self-report source_notebook_sha256 3e65ca69..., the documented upstream of repro_059, with metric_hack_used false. Directly portable.",
+      "1_mutual_best_association": {
+        "rank": "RECOMMENDED FIRST",
+        "mechanism": "rank bonus on the edge logits: beta*col_best + 0.5*beta*row_best + 0.5*beta*mutual - 0.20*beta*(not mutual), via BIOHUB_LB_SCORING_MODE=mutual_best and BIOHUB_LB_SCORING_BETA (0.20 in haideptry, 0.12 mentioned elsewhere)",
+        "why": "It perturbs EDGE ASSOCIATION, ~85-90% of the aggregate metric. Every recent probe of ours (exp_055, exp_057, exp_060, exp_061) moved DIVISION, weighted only 0.1 -- the structural reason they were sub-precision nulls. This is the first shared lever aimed at the heavy term.",
+        "provenance": "yudaiyamauchi published a systematic A-E series on this axis (A hard-negative margin, B hard-negative strong, C disagreement-adaptive, D relative rank, E mutual-best). haideptry carries BIOHUB_LB_EXPLORATION_ID='e-mutual-best', i.e. E is the survivor. The A-E notebooks have 0-2 votes, so this is not priced in."
+      },
+      "2_density_adaptive_overrides": {
+        "rank": "SECOND",
+        "mechanism": "determine_density_group() measures avg cells/frame and selects tight_um/relaxed_um/velocity_weight/learned_bonus: low(<120) 7.25/11.0/0.5/3.0, middle 6.5/9.0/0.0/6.0, high 5.5/10.0/0.5/1.0",
+        "why": "Generalizes the single global tight55 we froze. Cell density varies ~11x across embryos (61 to 703 cells/frame), so one global value is plausibly mis-set for three of the four movies.",
+        "specimen_blind_verified": "YES -- checked explicitly: the four public test movie names appear ZERO times in the notebook's code (prose only), the group is decided by measurement, and test discovery is a dynamic TEST_DIR.iterdir() scan. Satisfies our ground-truth-free / specimen-blind rule."
+      },
+      "3_divnet_mitosis_gate": {
+        "rank": "THIRD",
+        "mechanism": "BIOHUB_DIVNET_VERIFY=1, BIOHUB_DIV_MIN_PROB=0.50, weights from the public dataset giorgosi/biohub-divnet-v2 (5.2 MB, 455 downloads, available)",
+        "why_last": "It is the first MODEL-level addition available to us, but it acts on division, the 0.1-weighted term -- on our own repeated evidence the least likely of the three to register at 3-decimal LB."
+      }
+    },
+    "caveat": "All three headline numbers are self-reported by an author absent from the top 200. Treat them as hypotheses worth one cheap LB probe each, not as known gains.",
+    "authorizes": "NOTHING. Evidence gathering only."
+  },
   "resolved_leaderboard_submission": {
     "submission_id": 56261282,
     "experiment_id": "exp_055_original_score_joint_bootstrap_smoke_fix",
@@ -178,7 +236,7 @@
     "verified_at_utc": "2026-09-16T14:40:00+00:00",
     "note": "Public LB 0.944 == repro_048 0.944, zero gain despite 3714-edge graph diff. EMA-off replay byte-identical to 0.944, so isolated to the EMA edit: motion EMA is redundant/neutral on top of the edge-feature-TTA bundle. Branch 'EMA on 0.944' closed."
   },
-  "updated_at": "2026-09-23T12:42:00+00:00",
+  "updated_at": "2026-09-23T13:12:00+00:00",
   "active_local_experiment": "local_054_original_score_final_stage_parity",
   "exp057_a0_part1": {
     "status": "DONE_ZERO_GPU",
@@ -214,9 +272,11 @@
   },
   "pending_followup": {
     "created_utc": "2026-09-20T00:00:00+00:00",
-    "trigger": "After exp_061 (option A) reaches its Public LB result",
+    "trigger": "After exp_061 (option A) reaches its Public LB result -- FIRED 2026-09-23 without a score",
     "action": "REMIND THE USER to run option B: a LARGER safe-div threshold move (e.g. 0.15 / 0.12) to clear the 3-decimal LB display grain, since the 0.20->0.18 bracket was sub-precision. This is a user-requested standing reminder (2026-09-20): user chose to do A (exp_061) first and explicitly asked to be reminded to do B after A completes.",
-    "status": "ARMED"
+    "status": "DELIVERED_AND_DEPRIORITISED",
+    "delivered_at_utc": "2026-09-23T13:10:00+00:00",
+    "resolution": "exp_061 never returned a score, so the trigger condition was met by abandonment rather than by a result. The reminder is hereby delivered. However, the 2026-09-23 public-frontier recon reprioritised it: option B is a DIVISION-side move (0.1 aggregate weight), the same class that produced exp_055, exp_057 and exp_060's three consecutive nulls, whereas two newly public and portable EDGE-side levers (mutual-best association; density-adaptive overrides) target the ~85-90%-weighted term. Option B remains available and is not withdrawn, but it now ranks BELOW those two. The choice is the user's."
   },
   "exp061": {
     "title": "exp_061 corrected Z-reflection DeepCenter division TTA",
@@ -361,7 +421,11 @@
     "lb_submission": {
       "submission_id": 56493252,
       "submitted_at_utc": "2026-09-23T12:35:37.380000Z",
-      "status": "PENDING",
+      "status": "COMPLETE_WITH_ERROR",
+      "resolved_at_utc": "2026-09-23T13:10:00+00:00",
+      "error_description": "Your notebook hit an unhandled error while rerunning your code. Note that the hidden dataset can be larger/smaller/different than the public dataset",
+      "outcome": "FAILED, identical to v4 and v2. The stop rule recorded before submitting fired: no v6 was built and nothing was resubmitted. User decision 2026-09-23: abandon the zon LB path entirely.",
+      "conclusion": "Both v5 scale fixes were confirmed active on the real pipeline and the predictions were byte-identical to v4, so neither the deadline nor the /kaggle/working cap was the cause. The failure is a third, unidentified property of the hidden rerun environment. The zon Z-reflection TTA decision rule against 0.947 is permanently UNRESOLVED -- it was never scored, so zon is neither confirmed nor falsified.",
       "public_score": null,
       "submit_method": "competition_submit_code (kernel_version=1, file_name=submission.csv)",
       "submission_sha256": "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1",

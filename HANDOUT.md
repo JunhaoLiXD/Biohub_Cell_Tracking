@@ -1,4 +1,4 @@
-# Session Handout — updated 2026-09-23 (v4 LB ERRORED & abandoned; v5 collected, audited, LB-submitted)
+# Session Handout — updated 2026-09-23 (exp_061 arc ABANDONED after 5 failed transports; recon done; awaiting direction)
 
 Purpose: hand the current state to the next session AND to the user. Read this FIRST, then the
 deeper authority in order: `STATE.json`, the active `experiments/exp_061_zon_lb_submission_repair_v5/`
@@ -11,42 +11,67 @@ summary; `STATE.json` is the machine source of truth).
 
 ## >>> NEXT SESSION: START HERE <<<
 
-**One thing is in flight and it may NOT be polled — the user reports it.**
+**Nothing is running. Nothing is pending on the LB. Nothing is authorized. Awaiting the user's
+choice of the next lever.**
 
-### Public LB submission `56493252` (v5 zon) — PENDING
+### Where we stand — read this first
 
-Submitted 2026-09-23T12:35:37Z from kernel `lingxd/biohub-exp061-zon-deploy-v5` v1 via
-`competition_submit_code`. This is the **fifth** attempt to get any score back for the zon arm, and
-it carries **byte-identical predictions** to the failed v4 one (`2593a543…`).
-
-When the user reports it:
-
-```bash
-# one authenticated query, no loop
-python -c "from kaggle.api.kaggle_api_extended import KaggleApi; a=KaggleApi(); a.authenticate(); \
-[print(s.ref, s.status, s.public_score, s.error_description) for s in \
- a.competition_submissions('biohub-cell-tracking-during-development')[:2]]"
-```
-
-Record the outcome in **`SUBMISSION_BUDGET.json`** (entry 56493252, status PENDING → final),
-**`STATE.json.exp061_v5_deploy.lb_submission`**, and
-**`experiments/exp_061_zon_lb_submission_repair_v5/leaderboard-submission.json`**. Then:
-
-| result | action |
+| fact | value |
 |---|---|
-| **≥0.948** | Z-reflection DeepCenter TTA is a real gain → adopt zon as the new parent, record it, probe a neighbour. |
-| **==0.947** | a **fourth** sub-precision null → fire the ARMED **option B** (larger 0.15/0.12 safe-div move) and treat frozen-pipeline post-processing as near-exhausted. |
-| **≤0.946** | zon's division changes are net-harmful → revert, keep repro_059 0.947. |
-| **errors again** | **STOP.** Do not build a v6 and do not resubmit — see "If v5 errors too" below. |
+| our best Public LB | **0.947** (repro_059, submission 56313491) |
+| **LB rank-200 cutoff** | **0.949** — our 0.947 is *outside the top 200* |
+| LB top / top-3 | 0.975 / 0.975-0.973-0.970 |
+| **deadline** | **2026-09-29 23:59** — about 6 days |
+| daily submission cap | **5** (authenticated; older records said 3) |
+| GPU remaining | **20.399 h**, no reservations outstanding |
+| working parent | `repro_059_public_0947_exact_copy` — unchanged |
 
-### If v5 errors too
+### exp_061 is closed
 
-Five attempts across **three distinct transport mechanisms** would have failed. The remaining
-hypotheses — hidden-set shape, memory, a dependency missing from the rerun sandbox — are **not
-addressable by another blind rebuild**, and each rebuild costs a verification run. Return the
-question to the user. The only cheap next option is a **minimal instrumented probe kernel**: strip
-the pipeline down and submit something that answers *where* the rerun dies, rather than guessing
-again. Note also that the competition deadline is **2026-09-29 23:59**.
+Submission `56493252` (v5) failed with the same hidden-rerun error as v4 and v2. That is **five
+consecutive failed LB transports across three distinct mechanisms**, zero scores, 3.094 GPU-h.
+The user abandoned the whole arc. v5 had *confirmed* both scale fixes active on the real pipeline
+with byte-identical predictions, so **neither the watchdog nor the 20 GB cap was the cause** — a
+third, unidentified property of the hidden rerun is, and the tracebacks are not exposed to us.
+
+**The zon Z-reflection TTA is UNRESOLVED, not falsified.** It was never scored.
+
+**Transport lesson (important):** the only deployment pattern in this project with a *proven*
+hidden-rerun record is **exp_060's single-config variant notebook** (submission 56361673, COMPLETE
+at 0.947). Use that pattern for any future LB run. Do not build another bespoke deployment adapter.
+
+### The recon — and the three levers now available
+
+Full record: **`docs/research/public_frontier_recon_2026-09-23.md`**. Headlines:
+
+- **No verified public notebook beats 0.947.** Same conclusion as 09-18. Every candidate shares the
+  same three Pilkwang checkpoints. The four new high-vote notebooks claim nothing above 0.947
+  (`evgendvorkin/...0-947...` is explicitly 0.947). The `haideptry` "SOTA 0.948+" titles are
+  **unverified** — that author is not in the top 200.
+- **But three concrete, portable levers are now public on our exact 0.947 base** (they self-report
+  `source_notebook_sha256 3e65ca69…`, the documented upstream of repro_059, `metric_hack_used:
+  false`):
+
+| # | lever | why | rank |
+|---|---|---|---|
+| 1 | **Mutual-best / relative-rank edge association** (`BIOHUB_LB_SCORING_MODE=mutual_best`, β 0.20→0.12) | Perturbs **edge association, ~85–90% of the metric**. Every probe we ran (exp_055/057/060/061) moved **division, weight 0.1** — the structural reason they were sub-precision nulls. First shared lever aimed at the heavy term. | **FIRST** |
+| 2 | **Density-adaptive overrides** (measured cells/frame → tight/relaxed/velocity/bonus) | Generalizes the single global `tight55` we froze; density varies ~11× across embryos. **Verified specimen-blind** — zero movie names in code, dynamic test discovery. | SECOND |
+| 3 | **DivNet 3D mitosis gate** (`giorgosi/biohub-divnet-v2`, public, 5.2 MB) | First **model-level** addition available to us — but division-weighted, so least likely to register. | THIRD |
+
+Lever 1 has a published pedigree: `yudaiyamauchi` ran a systematic **A–E** series on this axis
+(A hard-negative margin, B hard-negative strong, C disagreement-adaptive, D relative rank,
+E mutual-best); `haideptry` carries `BIOHUB_LB_EXPLORATION_ID="e-mutual-best"`, so **E is the
+survivor**. Those notebooks have 0–2 votes — not priced in.
+
+**Honest caveat:** all three headline numbers are self-reported by an author absent from the top
+200. They are hypotheses worth one cheap LB probe each, not known gains. And the 0.955–0.966 band
+is **not explained** by anything public I could find.
+
+### The ARMED option-B reminder — delivered, and deprioritised
+
+It is hereby delivered: option B = a larger safe-div move (0.15/0.12). But it is **division-side**,
+the same 0.1-weighted class that produced three straight nulls, so on the recon evidence it now
+ranks **below levers 1 and 2**. Not withdrawn; the choice is the user's.
 
 ---
 

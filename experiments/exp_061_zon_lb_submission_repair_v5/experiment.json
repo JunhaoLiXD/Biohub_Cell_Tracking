@@ -2,7 +2,7 @@
   "schema_version": 1,
   "experiment_id": "exp_061_zon_lb_submission_repair_v5",
   "parent": "exp_061_zon_lb_submission_repair_v4",
-  "state": "COLLECTING",
+  "state": "ABANDONED",
   "hypothesis": "The v4 hidden-rerun outcome is gated by deployment-scale limits, not by the zon prediction policy: a fixed 2.0h watchdog and a 4.48 GB view cache inside the collected output directory both fail on a sufficiently larger hidden dataset. Removing both limits without touching any predicted value lets the rerun finish. The exact v2/v4 hidden failure cause remains unproven.",
   "change": {
     "component": "zon_only_submission_transport_v5",
@@ -48,9 +48,19 @@
   "leaderboard_submission": {
     "receipt": "experiments/exp_061_zon_lb_submission_repair_v5/leaderboard-submission.json",
     "submission_id": 56493252,
-    "status": "PENDING",
+    "status": "COMPLETE_WITH_ERROR",
     "at_utc": "2026-09-23T12:35:37.380000Z",
+    "resolved_at_utc": "2026-09-23T13:10:00+00:00",
+    "public_score": null,
     "user_authorized": true
+  },
+  "abandonment": {
+    "decided_at_utc": "2026-09-23T13:10:00+00:00",
+    "decided_by": "user",
+    "scope": "the whole exp_061 arc (exp_061_deepcenter_tta and LB-transport repairs v1-v5)",
+    "reason": "Five consecutive LB submissions across three distinct transport mechanisms returned no score. v5 confirmed that neither known scale hazard was the cause, so further blind rebuilds have no defensible hypothesis to test.",
+    "hypothesis_status": "zon Z-reflection TTA UNRESOLVED (never scored), not falsified",
+    "recon_after": "docs/research/public_frontier_recon_2026-09-23.md"
   },
   "state_history": [
     {
@@ -82,6 +92,12 @@
       "to": "COLLECTING",
       "at": "2026-09-23T12:42:00+00:00",
       "note": "Kernel COMPLETE in 1992.12 s; collected once and audited read-only (19/19 checks, zon sha 2593a543, both scale fixes confirmed). v4's LB submission 56481730 errored and was abandoned by the user, so v5 became the LB candidate and was submitted as 56493252 (PENDING) on user instruction. Awaiting the score."
+    },
+    {
+      "from": "COLLECTING",
+      "to": "ABANDONED",
+      "at": "2026-09-23T13:10:00+00:00",
+      "note": "Submission 56493252 failed with the same hidden-rerun error as v4 and v2. Fifth consecutive failed transport; the pre-registered stop rule fired and the user abandoned the entire exp_061 arc. No v6 built, nothing resubmitted. Project reverted to the exp_060 footing (working parent repro_059 = 0.947)."
     }
   ],
   "remote": {
