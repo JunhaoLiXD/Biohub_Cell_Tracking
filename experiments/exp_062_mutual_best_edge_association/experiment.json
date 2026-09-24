@@ -2,7 +2,7 @@
   "schema_version": 1,
   "experiment_id": "exp_062_mutual_best_edge_association",
   "parent": "repro_059_public_0947_exact_copy",
-  "state": "BUILT",
+  "state": "MANUAL_REVIEW_REQUIRED",
   "hypothesis": "A mutual-best rank prior on the edge logits of the frozen 0.947 pipeline, at the published beta = 0.20 with everything else byte-identical to repro_059, changes the Public LB by at least +0.001 vs 0.947. H1 is an OPERATIONAL hypothesis about the displayed score. The intervention is inserted UPSTREAM of the ILP solve, unlike every prior probe in this arc. Honest prior: it reinforces the parent's existing fused ranking rather than adding independent evidence, and a null is genuinely likely.",
   "change": {
     "component": "edge_association_rank_prior_only",
@@ -39,9 +39,10 @@
   "review": {
     "required": true,
     "provider": "codex",
-    "status": "PENDING",
-    "verdict": null,
-    "note": "Strategy CONSENSUS is NOT an admission PASS. A fresh experiment-specific Codex admission review against this snapshot is required before launch, under the bounded-gate contract Codex accepted."
+    "status": "CHANGES_REQUESTED",
+    "verdict": "BLOCK",
+    "path": "experiments/exp_062_mutual_best_edge_association/review.md",
+    "completed_at": "2026-09-24T04:30:35+00:00"
   },
   "local_gates": {
     "builder_parity_guard": "PASS (both variants; 15 control / 16 candidate injected lines strip back to the parent byte-for-byte)",
@@ -57,14 +58,21 @@
   },
   "key_defect_closed": "Codex round 2 found, and Claude verified in the parent, that _inference_resume_env_keys (cell 2 line 1669) is a fixed 13-key list containing neither exp_062 variable while _test_prediction_signature (line 1670) hashes exactly those keys. A candidate run could therefore compute the SAME resume signature as the control, skip inference (lines 1672-1680) and replay the control's predictions with every gate green -- burning an LB slot on a duplicate 0.947. Closed by extending the key list between lines 1669 and 1670 (Codex traced propagation to 3171-3172, 3290, 3686, 3723, 3783) plus a measured-wall-clock cache alarm, because parent line 1675 restores the historical predict_seconds on a hit.",
   "created_at": "2026-09-24T00:00:00+00:00",
-  "updated_at": "2026-09-24T00:00:00+00:00",
+  "updated_at": "2026-09-24T04:30:35+00:00",
   "state_history": [
     {
       "from": "PROPOSED",
-      "to": "BUILT",
+      "to": "PROPOSED",
       "at": "2026-09-24T00:00:00+00:00",
-      "note": "Strategy CONSENSUS (Codex PASS round 3). Built purely-additive on the repro_059 snapshot; all local gates pass. NOT reviewed for admission, NOT reserved, NOT launched, NOT submitted."
+      "note": "Strategy CONSENSUS (Codex PASS round 3). Built purely-additive on the repro_059 snapshot; all local gates pass. State is the controller's PROPOSED = built and awaiting the independent admission review. NOT reviewed, NOT reserved, NOT launched, NOT submitted."
+    },
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-24T04:30:35+00:00",
+      "note": "Codex verdict: BLOCK"
     }
   ],
-  "not_authorized": "No admission review, no budget reservation, no launch, no leaderboard submission. Strategy CONSENSUS authorizes the build only."
+  "not_authorized": "No admission review, no budget reservation, no launch, no leaderboard submission. Strategy CONSENSUS authorizes the build only.",
+  "snapshot_source": "experiments/exp_062_mutual_best_edge_association/snapshot/source/exp062_mutual_best_candidate.ipynb"
 }

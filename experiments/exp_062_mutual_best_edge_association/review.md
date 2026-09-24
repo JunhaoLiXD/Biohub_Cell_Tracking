@@ -1,8 +1,3 @@
-# Latest Codex Review
-
-Experiment: `exp_062_mutual_best_edge_association`  
-Captured: 2026-09-24T04:30:35+00:00
-
 ## Summary
 
 I cannot complete the admission review. The local read-only command tool stopped opening processes before I could inspect the requested files or notebook cells. I therefore cannot verify the implementation or the versioned strategy record.
