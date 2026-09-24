@@ -43,6 +43,7 @@ A_PATCH = "predict_cmd = [sys.executable"                        # before (line 
 A_RESUME = "_inference_resume_env_keys = ["                      # after  (line 1669)
 A_TIMER = "if _test_prediction_ready:"                           # before (line 1674)
 A_AFTER = "import tracksdata as td"                              # before (line 1735)
+A_VAL = "predict_val_cmd = [sys.executable"                      # before (line 3286, indent 4)
 
 
 def _env_lines(variant):
@@ -70,6 +71,7 @@ def _env_lines(variant):
 
 
 PATCH_LINES = [
+    "os.environ['BIOHUB_EXP062_STAGE'] = 'test'  # exp062",
     "# truncate stale stats and bind this run's id BEFORE any subprocess writes  # exp062",
     "_EXP062_RESET = reset_stats(os.environ['BIOHUB_EXP062_STATS_PATH'], _EXP062_RUN_ID)  # exp062",
     "# insert the rank prior into the ALREADY-PARENT-PATCHED predict script  # exp062",
@@ -91,7 +93,17 @@ TIMER_LINES = [
 
 # Parent line 1675 restores the historical predict_seconds on a cache hit, so only an
 # independently MEASURED elapsed time can detect one.
+# The parent runs the patched predict script AGAIN for validation; both append to the same
+# telemetry file. Marking the stage keeps validation activity from standing in for the test
+# inference that actually produces the submission (admission round-3 finding).
+VAL_LINES = [
+    "    os.environ['BIOHUB_EXP062_STAGE'] = 'validation'  # exp062",
+]
+
 AFTER_LINES = [
+    "_EXP062_EXPECT_SHARDS = ([('%d/%d' % (_i, worker_count)) for _i in range(worker_count)]  # exp062",
+    "                         if ('worker_count' in globals() and worker_count >= 2 and not SLICE)  # exp062",
+    "                         else ['single'])  # exp062",
     "_EXP062_CACHE = check_cache_hit(_test_prediction_ready, time.time() - _EXP062_T0)  # exp062",
     "print('exp062 cache check:', _EXP062_CACHE, flush = True)  # exp062",
 ]
@@ -106,7 +118,9 @@ _exp062_tel['resume_signature_inputs_include_exp062_keys'] = all(
 _exp062_tel.update(read_stats(os.environ['BIOHUB_EXP062_STATS_PATH'],
                               run_id = _EXP062_RUN_ID,
                               expect_mode = os.environ['BIOHUB_LB_SCORING_MODE'],
-                              expect_beta = os.environ['BIOHUB_LB_SCORING_BETA']))
+                              expect_beta = os.environ['BIOHUB_LB_SCORING_BETA'],
+                              expect_shards = _EXP062_EXPECT_SHARDS,
+                              require_stage = 'test'))
 _exp062_tel['runtime_seconds'] = time.time() - _EXP062_RUN_START
 _exp062_tel['run_id'] = _EXP062_RUN_ID
 _exp062_metrics = finalize(WORKING_DIR, _exp062_tel, SUBMISSION_PATH)
@@ -144,11 +158,14 @@ def _inject(cell, variant):
     i_resume = _one(lines, A_RESUME)
     i_timer = _one(lines, A_TIMER)
     i_after = _one(lines, A_AFTER)
-    if not (i_env < i_patch < i_resume < i_timer < i_after):
-        raise SystemExit("unexpected anchor ordering: %s" % [i_env, i_patch, i_resume, i_timer, i_after])
+    i_val = _one(lines, A_VAL, strip=True)
+    if not (i_env < i_patch < i_resume < i_timer < i_after < i_val):
+        raise SystemExit("unexpected anchor ordering: %s"
+                         % [i_env, i_patch, i_resume, i_timer, i_after, i_val])
 
     out = list(lines)
     # Insert at DECREASING indices so earlier indices stay valid.
+    out[i_val:i_val] = VAL_LINES
     out[i_after:i_after] = AFTER_LINES
     out[i_timer:i_timer] = TIMER_LINES
     out[i_resume + 1:i_resume + 1] = RESUME_LINES
@@ -191,7 +208,8 @@ def build(variant, check_only=False):
                 raise SystemExit("PARITY GUARD FAILED at cell %d" % k)
         raise SystemExit("PARITY GUARD FAILED: cell count %d != %d" % (len(rebuilt), len(ref)))
 
-    all_injected = _env_lines(variant) + PATCH_LINES + RESUME_LINES + TIMER_LINES + AFTER_LINES
+    all_injected = (_env_lines(variant) + PATCH_LINES + RESUME_LINES + TIMER_LINES
+                    + AFTER_LINES + VAL_LINES)
     unmarked = [l for l in all_injected if MARK not in l]
     if unmarked:
         raise SystemExit("injected lines missing the %r marker: %r" % (MARK, unmarked))

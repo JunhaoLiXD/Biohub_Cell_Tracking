@@ -1,42 +1,33 @@
 ## Summary
 
-**REVISE.** Explicit strategy **CONSENSUS** is verified in the [Claude-authored v3 proposal](E:/Project/Biohub_CellTracking/docs/research/exp062_mutual_best_edge_association_proposal_v3.md), supported by Codex objections and revisions across rounds 1–3.
-
-All seven snapshot hashes match. Removing marked injections reproduces the parent code exactly. Review remained read-only; targeted checks executed in memory. Git diff was unavailable: Git reported no repository.
+**REVISE.** Strategy consensus is verified in the Claude-authored v3 proposal and Codex challenge records v1–v3. The snapshot preserves the parent code after removing marked injections, and all seven manifest hashes match. One concrete admission defect remains.
 
 ## Methodology
 
-The fixed β=0.20 upstream rank prior is testable and sufficiently isolated. Previous downstream failures do not directly contradict it, but the parent’s 0.947 establishes a baseline—not evidence that this intervention will improve it.
+The fixed mutual-best β=0.20 intervention is testable and distinct from previous downstream repairs. Prior null results weaken expected benefit but do not contradict this upstream intervention.
 
-The inherited division-prioritized training selection covers both 44b6 and 6bba but is **not specimen-disjoint validation**. Frozen-model exposure and adaptive postprocessing selection prevent treating its scores as independent generalization evidence. The experiment appropriately labels its controller metric as integrity only and uses separately authorized Public LB scoring for quality.
-
-Retaining adaptive postprocessing means the measured effect includes any resulting change in selected postprocessing configuration.
+The inherited validator selects division-prioritized training videos within both 44b6 and 6bba; it is **not specimen-disjoint validation**. Training exposure and adaptive postprocessing selection prevent independent generalization claims. The integrity-only gate and separately authorized LB endpoint acknowledge this limitation. The experiment measures the intervention through the retained adaptive pipeline.
 
 ## Implementation risks
 
-The config fields, manifest schema, final-cell metrics marker, telemetry reset, and parent-versus-candidate quality distinction have been corrected. Rank axes, bonus formula, resume-signature extension, checkpoint hashes, and inherited graph checks are preserved.
+**Expected subprocess coverage is implemented but never enforced.** The final notebook cell calls `read_stats()` without `expect_shards`. Test and validation subprocesses share the telemetry file, and finalization accepts aggregate activity.
 
-Two concrete issues remain:
+I executed the frozen functions using memory-only filesystem substitutes: a single `val_single` record, with **no test-inference telemetry**, passed `read_stats()` and produced `exp062_mutual_best_integrity_passed: true`. Thus validation activity can substitute for missing candidate execution evidence. This leaves the earlier coverage finding unresolved.
 
-- **Telemetry still accepts invalid evidence.** Memory-only tests of the frozen [`read_stats()`](E:/Project/Biohub_CellTracking/experiments/exp_062_mutual_best_edge_association/snapshot/scripts/exp062_mutual_best.py:227) accepted a wrong β, missing numeric fields, and a zero-frame record alongside a valid record. It also accepted `raw_absmax=NaN`: `max()` masked it before the aggregate finite check. Recorded subprocess identities are not checked against expected coverage.
-- **Standard snapshot smoke still fails.** Executing the controller’s read-only validation functions against the candidate reproduced the “environment keys not explicitly assigned in an earlier code cell” error. This is inherited, but documenting it does not satisfy the smoke gate or extend previous experiments’ waivers.
-
-The NumPy shim establishes logic, not PyTorch numerical parity. GPU parity remains appropriately assigned to k1.
+The rank formula, axes, signature extension, and candidate historical-SHA clearing are present. PyTorch numerical parity remains unverified locally. Git diff was unavailable because the directory is not a Git working tree.
 
 ## Budget
 
-The recorded **20.398674 hours** supports a **3-hour reservation**, leaving **17.398674 hours**, including the protected six. One bounded probe offers reasonable information value; no automatic β escalation is justified.
-
-Preserve the project limit of **three submissions per New York day**, separate submission authorization, and the byte-identical-output stop rule.
+The ledger records **20.398674 GPU hours**, with no reservations. Reserving 3.0 hours preserves the six-hour floor and leaves **11.398674 unprotected hours**. One bounded probe is reasonable; no automatic sweep is justified. Submission remains separately authorized under the three-per-day project limit.
 
 ## Required changes
 
-1. Validate required telemetry fields, finiteness, counts, effective β, and expected subprocess coverage **before aggregation**. Add negative checks for the accepted cases above.
-2. Resolve the smoke incompatibility through a reviewed validation correction that checks assignment-before-guard execution without duplicating configuration. Do not bypass it based on inherited behavior.
-3. Preserve prior review/snapshot evidence, freeze the corrections, and obtain a scoped re-review. Keep reservation, launch, submission, and promotion gates separate.
+- Pass expected identities from the actual launched subprocesses into telemetry validation; distinguish test and validation coverage.
+- Require test-only execution evidence: candidate bonus activity and control inactivity must hold independently of validation records.
+- Add negative checks for missing test telemetry and missing individual shards. Rebuild the snapshot, then perform scoped re-review and snapshot smoke.
 
 ## Recommendation
 
-Retain the agreed strategy, but do not advance this snapshot. The remaining findings concern execution evidence and a reproducible controller failure, not speculative efficacy.
+Retain strategy CONSENSUS, but withhold admission PASS until the demonstrated evidence gap is closed. No files were changed, and no remote work was launched.
 
 VERDICT: REVISE

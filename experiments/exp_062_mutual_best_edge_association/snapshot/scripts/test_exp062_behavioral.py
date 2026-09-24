@@ -360,7 +360,8 @@ def _rec(**kw):
     base = {"frames": 1, "frames_with_bonus": 1, "activation": "softmax",
             "raw_absmax": 2.0, "raw_std_sum": 1.0,
             "pre_raw_absmax": 1.5, "pre_raw_std_sum": 0.8,
-            "run_id": "R1", "mode": "mutual_best", "beta": "0.20", "shard": "0/2", "pid": 1}
+            "run_id": "R1", "mode": "mutual_best", "beta": "0.20", "shard": "0/2", "pid": 1,
+            "stage": "test"}
     base.update(kw)
     return _j.dumps(base)
 
@@ -379,6 +380,17 @@ def test_read_stats_merges(tmp="exp062_stats_test.jsonl"):
         check("stats merge: final-raw std mean computed", abs(s["raw_std_mean"] - 0.4) < 1e-9)
         check("stats merge: pre-bonus stats kept separate", "pre_raw_std_mean" in s)
         check("stats merge: shards recorded", sorted(s["stats_shards"]) == ["0/2", "1/2"])
+
+        # Validation records are counted and reported but must NEVER substitute for test evidence.
+        p.write_text(_rec(shard="0/2") + "\n"
+                     + _rec(stage="validation", shard="val_single", frames=99,
+                            frames_with_bonus=99) + "\n", encoding="utf-8")
+        s2 = M.read_stats(p, run_id="R1", expect_mode="mutual_best", expect_beta="0.20",
+                          require_stage="test")
+        check("stats: test frames exclude validation records", s2["frames"] == 1,
+              "frames=%s" % s2["frames"])
+        check("stats: other-stage records reported separately", s2["other_stage_records"] == 1)
+        check("stats: stage counts recorded", s2["stage_counts"].get("validation") == 1)
 
         # Fail-closed negatives -- each of these used to pass silently as a valid null.
         import json as _j
@@ -402,6 +414,11 @@ def test_read_stats_merges(tmp="exp062_stats_test.jsonl"):
             "duplicate shard": (_rec(shard="0/2") + "\n" + _rec(shard="0/2"), base_kw),
             "shard coverage mismatch": (_rec(shard="0/2"),
                                         dict(base_kw, expect_shards=["0/2", "1/2"])),
+            # Admission round 3: Codex DEMONSTRATED that a lone validation record, with no test
+            # telemetry at all, passed and produced a green gate.
+            "validation-only telemetry (no test stage)": (_rec(stage="validation", shard="val_single"),
+                                                          base_kw),
+            "missing stage marker": (_rec(stage="unknown"), base_kw),
         }
         for name, (body, kw) in cases.items():
             p.write_text(body + "\n", encoding="utf-8")

@@ -16,8 +16,8 @@
   "snapshot_source_candidate": "experiments/exp_062_mutual_best_edge_association/snapshot/source/exp062_mutual_best_candidate.ipynb",
   "snapshot_manifest": "experiments/exp_062_mutual_best_edge_association/snapshot/manifest.json",
   "notebook_sha256": {
-    "source": "386270572d2ee450c79c224670e0cd32f3fbd67b387e10c3b3710cc6922fef41",
-    "control": "7d5106ef990ab51d645850a97d7b871f052fc735f7b5fb549c14a2c6efe8c054"
+    "source": "1a135feb4def1db66dfc5e6cc0d180b7d0511c2f468af734332c2637e55d3390",
+    "control": "d09027b677d8930902f937995d2851774f6a3c2852a8dc19319ce48f109f86be"
   },
   "validation_protocol": "public_0947_mutual_best_edge_association_v1",
   "gate": "exp062_mutual_best_integrity_passed",
@@ -42,7 +42,7 @@
     "status": "CHANGES_REQUESTED",
     "verdict": "REVISE",
     "path": "experiments/exp_062_mutual_best_edge_association/review.md",
-    "completed_at": "2026-09-24T04:42:57+00:00"
+    "completed_at": "2026-09-24T04:49:38+00:00"
   },
   "local_gates": {
     "builder_parity_guard": "PASS (both variants; 15 control / 16 candidate injected lines strip back to the parent byte-for-byte)",
@@ -58,7 +58,7 @@
   },
   "key_defect_closed": "Codex round 2 found, and Claude verified in the parent, that _inference_resume_env_keys (cell 2 line 1669) is a fixed 13-key list containing neither exp_062 variable while _test_prediction_signature (line 1670) hashes exactly those keys. A candidate run could therefore compute the SAME resume signature as the control, skip inference (lines 1672-1680) and replay the control's predictions with every gate green -- burning an LB slot on a duplicate 0.947. Closed by extending the key list between lines 1669 and 1670 (Codex traced propagation to 3171-3172, 3290, 3686, 3723, 3783) plus a measured-wall-clock cache alarm, because parent line 1675 restores the historical predict_seconds on a hit.",
   "created_at": "2026-09-24T00:00:00+00:00",
-  "updated_at": "2026-09-24T04:42:57+00:00",
+  "updated_at": "2026-09-24T04:49:38+00:00",
   "state_history": [
     {
       "from": "PROPOSED",
@@ -89,6 +89,24 @@
       "to": "PROPOSED",
       "at": "2026-09-24T06:00:00+00:00",
       "note": "Admission round 2 = REVISE. Both findings fixed: read_stats now validates every record before aggregating (six new negative tests), and the controller's notebook smoke check was corrected to honour assignment-before-guard execution order. All local gates plus controller verify_snapshot/load_config/validate_notebook now pass. Re-submitting for the scoped re-review."
+    },
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-24T04:46:42+00:00",
+      "note": "Codex verdict: BLOCK"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-24T04:49:38+00:00",
+      "note": "Codex verdict: REVISE"
+    },
+    {
+      "from": "MANUAL_REVIEW_REQUIRED",
+      "to": "PROPOSED",
+      "at": "2026-09-24T07:00:00+00:00",
+      "note": "Admission round 3 = REVISE on a demonstrated evidence gap (validation telemetry could stand in for absent test telemetry). Fixed by end-to-end stage separation plus actual-shard coverage. Note rounds 1 and 4 of the review tool returned BLOCK for tool-access reasons only ('helper_unknown_error: setup refresh had errors'), which Codex itself labelled evidence-access blocks, not findings."
     }
   ],
   "not_authorized": "No admission review, no budget reservation, no launch, no leaderboard submission. Strategy CONSENSUS authorizes the build only.",
@@ -120,5 +138,11 @@
       "2_snapshot_smoke_incompatibility": "Codex rejected documenting this as inherited: 'documenting it does not satisfy the smoke gate or extend previous experiments' waivers', and directed a reviewed validation correction that checks assignment-before-guard EXECUTION without duplicating configuration. FIXED in experiment_controller/core.py: _environment_assignments_before_guard() uses the AST line number of the first _EXPECTED_NUMERIC/_EXPECTED_TEXT assignment and counts environ[...] assignments appearing before it in the SAME cell, in addition to earlier cells. Assignments AFTER the guard still do not count. Verified: the parent repro_059, exp_060, exp_061 and both exp_062 variants now pass, while a synthetic guard-before-assignment notebook and a never-assigned-key notebook are still REJECTED. The rejected alternative -- emitting duplicate env assignments in an earlier cell -- would have created a second source of truth for the frozen config, the defect class behind the exp_061 v4 BLOCK."
     },
     "note": "This was a correction to shared controller infrastructure, not to exp_062 alone; it unblocks the smoke gate for every experiment in this notebook lineage rather than waiving it."
+  },
+  "admission_round_3": {
+    "verdict": "REVISE",
+    "finding": "DEMONSTRATED EXPLOIT, not a theoretical risk. The parent runs the patched predict script TWICE -- once for test inference (predict_cmd, the run that produces the submission) and once for validation (predict_val_cmd) -- and both append to the same telemetry file. Codex executed the frozen functions with memory-only filesystem substitutes and showed that a single 'val_single' validation record, with NO test-inference telemetry at all, passed read_stats() and produced exp062_mutual_best_integrity_passed: true. Validation activity could therefore substitute for missing candidate execution evidence.",
+    "fix": "Stage separation end to end. BIOHUB_EXP062_STAGE is set to 'test' before predict_cmd and to 'validation' before predict_val_cmd; every telemetry record carries the stage, and an 'unknown' stage is rejected outright. read_stats(require_stage='test') counts frames and frames_with_bonus for the REQUIRED STAGE ONLY, reports other stages separately in stage_counts/other_stage_records, and raises if no test-stage record exists. The finalize cell now passes require_stage='test' and expect_shards computed from the parent's ACTUAL launched shard set (worker_count/SLICE at the convergence point), so missing individual shards are caught too. Four new negative tests: validation-only telemetry, missing stage marker, duplicate shard, shard coverage mismatch.",
+    "also_recorded": "[VERIFICATION-DEPTH] PyTorch numerical parity of the numpy shim remains unverified locally; the shim establishes logic, not float-level parity. [VERIFICATION-DEPTH] The inherited validator is not specimen-disjoint and must never be presented as independent generalization evidence; the config already states this."
   }
 }

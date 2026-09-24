@@ -34,12 +34,13 @@ BETA_KEY = "BIOHUB_LB_SCORING_BETA"
 EXPECT_SHA_KEY = "BIOHUB_EXP062_EXPECT_PARENT_SHA"
 STATS_PATH_KEY = "BIOHUB_EXP062_STATS_PATH"
 RUN_ID_KEY = "BIOHUB_EXP062_RUN_ID"
+STAGE_KEY = "BIOHUB_EXP062_STAGE"
 EXP062_ENV_KEYS = (MODE_KEY, BETA_KEY)
 
 # Every stats record must carry all of these; a missing field is rejected, never defaulted.
 REQUIRED_STAT_FIELDS = ("frames", "frames_with_bonus", "activation", "raw_absmax", "raw_std_sum",
                         "pre_raw_absmax", "pre_raw_std_sum", "run_id", "mode", "beta", "shard",
-                        "pid")
+                        "pid", "stage")
 NUMERIC_STAT_FIELDS = ("frames", "frames_with_bonus", "raw_absmax", "raw_std_sum",
                        "pre_raw_absmax", "pre_raw_std_sum")
 VALID_MODES = ("none", "relative_rank", "mutual_best")
@@ -111,6 +112,7 @@ STATS_PREAMBLE = (
     '    _rec["mode"] = _exp062_os.environ.get("BIOHUB_LB_SCORING_MODE", "none")\n'
     '    _rec["beta"] = _exp062_os.environ.get("BIOHUB_LB_SCORING_BETA", "0")\n'
     '    _rec["shard"] = _exp062_os.environ.get("BIOHUB_GPU_SHARD", "single")\n'
+    '    _rec["stage"] = _exp062_os.environ.get("BIOHUB_EXP062_STAGE", "unknown")\n'
     '    _rec["pid"] = _exp062_os.getpid()\n'
     '    with open(_p, "a") as _f:\n'
     '        _f.write(_exp062_json.dumps(_rec, sort_keys=True) + chr(10))\n'
@@ -240,18 +242,26 @@ def _beta_equal(recorded, expected, tol=1e-12):
 
 
 def read_stats(stats_path, run_id=None, expect_mode=None, expect_beta=None,
-               expect_shards=None):
+               expect_shards=None, require_stage="test"):
     """Merge the per-subprocess stats records, FAIL-CLOSED on anything unreliable.
 
-    Rejects rather than skips: malformed JSON, records from another run/mode, conflicting
-    activation branches, and nonfinite aggregates. A skipped record is indistinguishable from an
-    absent one, and this project has already been burned twice by evidence that quietly degraded
-    into a passing null.
+    Rejects rather than skips: malformed JSON, records from another run/mode/beta, missing or
+    nonfinite fields, zero-frame records, duplicate shards, conflicting activation branches.
+    A skipped record is indistinguishable from an absent one, and this project has already been
+    burned repeatedly by evidence that quietly degraded into a passing null.
+
+    `require_stage` closes the gap Codex demonstrated at admission round 3: the parent runs the
+    patched predict script TWICE -- once for test inference (the run that produces the
+    submission) and once for validation -- and both append here. Without stage separation a
+    single validation record, with NO test-inference telemetry at all, satisfied every aggregate
+    check and produced a passing gate. The returned `frames`/`frames_with_bonus` therefore count
+    the REQUIRED STAGE ONLY; other stages are reported separately and never substitute for it.
     """
     merged = {"frames": 0, "frames_with_bonus": 0, "activation": None,
               "raw_absmax": 0.0, "raw_std_sum": 0.0,
               "pre_raw_absmax": 0.0, "pre_raw_std_sum": 0.0,
-              "stats_records": 0, "stats_shards": []}
+              "stats_records": 0, "stats_shards": [],
+              "required_stage": require_stage, "stage_counts": {}, "other_stage_records": 0}
     p = Path(stats_path)
     if not p.is_file():
         raise Exp062Error("stats file %s is missing; the patched subprocess never ran" % p)
@@ -303,25 +313,39 @@ def read_stats(stats_path, run_id=None, expect_mode=None, expect_beta=None,
             raise Exp062Error(
                 "conflicting activation branches across shards: %r vs %r"
                 % (merged["activation"], act))
-        shard = rec["shard"]
-        if shard in merged["stats_shards"]:
+        stage = rec["stage"]
+        if stage == "unknown":
             raise Exp062Error(
-                "stats %s line %d duplicates shard %r; subprocess coverage is ambiguous"
-                % (p, lineno, shard))
+                "stats %s line %d has no stage marker; test and validation telemetry would be "
+                "indistinguishable" % (p, lineno))
+        shard = rec["shard"]
 
         # --- only now aggregate -------------------------------------------------------------
         merged["activation"] = act
+        merged["stage_counts"][stage] = merged["stage_counts"].get(stage, 0) + 1
+        if stage != require_stage:
+            merged["other_stage_records"] += 1
+            continue  # counted, reported, but NEVER allowed to stand in for the required stage
+
+        if shard in merged["stats_shards"]:
+            raise Exp062Error(
+                "stats %s line %d duplicates %s shard %r; subprocess coverage is ambiguous"
+                % (p, lineno, stage, shard))
         merged["stats_records"] += 1
         merged["stats_shards"].append(shard)
         merged["frames"] += int(rec["frames"])
         merged["frames_with_bonus"] += int(rec["frames_with_bonus"])
-        for key in ("raw_absmax", "pre_raw_absmax"):
-            merged[key] = max(merged[key], float(rec[key]))
-        for key in ("raw_std_sum", "pre_raw_std_sum"):
-            merged[key] += float(rec[key])
+        for fld in ("raw_absmax", "pre_raw_absmax"):
+            merged[fld] = max(merged[fld], float(rec[fld]))
+        for fld in ("raw_std_sum", "pre_raw_std_sum"):
+            merged[fld] += float(rec[fld])
 
     if merged["stats_records"] == 0:
-        raise Exp062Error("stats file %s has no records; the patched block never executed" % p)
+        raise Exp062Error(
+            "stats file %s has NO %r-stage records (stages seen: %r). The %r stage is the run "
+            "that produces the submission; telemetry from any other stage must never substitute "
+            "for it."
+            % (p, require_stage, merged["stage_counts"], require_stage))
     if merged["frames"] <= 0:
         raise Exp062Error("stats recorded 0 frames; the patched block never saw an edge batch")
     for key in ("raw_absmax", "raw_std_sum", "pre_raw_absmax", "pre_raw_std_sum"):
