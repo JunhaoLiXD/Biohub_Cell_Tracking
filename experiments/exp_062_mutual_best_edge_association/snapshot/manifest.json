@@ -1,13 +1,41 @@
 {
   "experiment_id": "exp_062_mutual_best_edge_association",
-  "files": {
-    "snapshot/config.yaml": "ea7f4755fdce556f0711f9ed6c50f7b88398c66715afa30707bb3d556fa9bab7",
-    "snapshot/scripts/build_exp062_mutual_best.py": "a9323bd2205924c86f27134b8d4fb032cadca20ca79dec857f7f6e5e532af9f9",
-    "snapshot/scripts/exp062_mutual_best.py": "eebeae8fedb82ef27d2a2b6c34ad0fee21a1d20568ee3f5450983c7e132079f4",
-    "snapshot/scripts/test_exp062_behavioral.py": "d362708513e08da55f6a7d2245939fe707f4698c01acfd17fc78399248bad0ab",
-    "snapshot/scripts/validate_exp062_notebook.py": "b8ca211dbbc5a123edde796e58bcb60f7109c817339cbf2a40c036a3208d1b8d",
-    "snapshot/source/exp062_mutual_best_candidate.ipynb": "b8ee7f312b94cb627b6b21c4d35ad6c2b554b7154a70cb8028ead6810e6ea20e",
-    "snapshot/source/exp062_mutual_best_control.ipynb": "1ba46d6baa465b35911d0f5f8794803b21152a903cb13a1679f213d55d481a88"
-  },
+  "files": [
+    {
+      "path": "experiments/exp_062_mutual_best_edge_association/snapshot/config.yaml",
+      "role": "config",
+      "sha256": "5499fdad9774948018ce98567779275cb9a49906f7e980ee9e07de918d1c7dcf"
+    },
+    {
+      "path": "experiments/exp_062_mutual_best_edge_association/snapshot/scripts/build_exp062_mutual_best.py",
+      "role": "extra_file",
+      "sha256": "3f4de8dda30d6a06826f35c546f0791f370c42d10137f2ccc50187ad43f5b181"
+    },
+    {
+      "path": "experiments/exp_062_mutual_best_edge_association/snapshot/scripts/exp062_mutual_best.py",
+      "role": "extra_file",
+      "sha256": "5eaaf95e68766ff97157460004f255e48b117dcf9f7109e9c3781c59a54699b8"
+    },
+    {
+      "path": "experiments/exp_062_mutual_best_edge_association/snapshot/scripts/test_exp062_behavioral.py",
+      "role": "extra_file",
+      "sha256": "8b0f44ff951cca6b30bcd2c7a7f577d6842109fdbe59ff04e5e2797e5407f8da"
+    },
+    {
+      "path": "experiments/exp_062_mutual_best_edge_association/snapshot/scripts/validate_exp062_notebook.py",
+      "role": "extra_file",
+      "sha256": "02f1407c08240fe83af636a6a59d7c2b01b586c0d41b5bbd6101e1b5f08f531e"
+    },
+    {
+      "path": "experiments/exp_062_mutual_best_edge_association/snapshot/source/exp062_mutual_best_candidate.ipynb",
+      "role": "source_notebook",
+      "sha256": "c7b0765f7425717db31144a5de275cf67ce2abbfba10a0cb77fde0686132ab2c"
+    },
+    {
+      "path": "experiments/exp_062_mutual_best_edge_association/snapshot/source/exp062_mutual_best_control.ipynb",
+      "role": "control_notebook",
+      "sha256": "bf8ac60100b918686b7dd7d47f134f257124c0a50b4a72717c251d2736ae8e7f"
+    }
+  ],
   "schema_version": 1
 }

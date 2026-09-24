@@ -148,7 +148,8 @@ def run_block(raw_np, mode, beta, activation="softmax"):
     ns = {}
     exec(compile(src, "<mutual_best_block>", "exec"), ns)  # noqa: S102
     stats = {"frames": 0, "frames_with_bonus": 0, "activation": None,
-             "raw_absmax": 0.0, "raw_std_sum": 0.0}
+             "raw_absmax": 0.0, "raw_std_sum": 0.0,
+             "pre_raw_absmax": 0.0, "pre_raw_std_sum": 0.0}
     env = {M.MODE_KEY: mode, M.BETA_KEY: str(beta)}
     cfg = types.SimpleNamespace(edge_activation=activation)
     raw, probs = ns["_run"](T(np.asarray(raw_np, dtype=np.float64))[None],
@@ -354,19 +355,73 @@ def test_cache_hit_alarm():
           ready["cache_hit_suspected"] is True)
 
 
+def _rec(**kw):
+    import json as _j
+    base = {"frames": 1, "frames_with_bonus": 1, "activation": "softmax",
+            "raw_absmax": 2.0, "raw_std_sum": 1.0,
+            "pre_raw_absmax": 1.5, "pre_raw_std_sum": 0.8,
+            "run_id": "R1", "mode": "mutual_best", "beta": "0.20", "shard": "0/2", "pid": 1}
+    base.update(kw)
+    return _j.dumps(base)
+
+
 def test_read_stats_merges(tmp="exp062_stats_test.jsonl"):
     p = Path(tmp)
-    p.write_text('{"frames": 3, "frames_with_bonus": 3, "activation": "softmax", '
-                 '"raw_absmax": 2.0, "raw_std_sum": 1.5}\n'
-                 '{"frames": 2, "frames_with_bonus": 1, "activation": "softmax", '
-                 '"raw_absmax": 5.0, "raw_std_sum": 0.5}\n', encoding="utf-8")
-    s = M.read_stats(p)
-    check("stats merge: frames summed", s["frames"] == 5)
-    check("stats merge: bonus frames summed", s["frames_with_bonus"] == 4)
-    check("stats merge: absmax is a max", s["raw_absmax"] == 5.0)
-    check("stats merge: final-raw std mean computed", abs(s["raw_std_mean"] - 0.4) < 1e-9)
-    p.unlink()
-    check("stats merge: missing file is empty, not an error", M.read_stats(p)["frames"] == 0)
+    try:
+        p.write_text(_rec(frames=3, frames_with_bonus=3, raw_absmax=2.0, raw_std_sum=1.5) + "\n"
+                     + _rec(frames=2, frames_with_bonus=1, raw_absmax=5.0, raw_std_sum=0.5,
+                            shard="1/2") + "\n", encoding="utf-8")
+        s = M.read_stats(p, run_id="R1", expect_mode="mutual_best")
+        check("stats merge: frames summed", s["frames"] == 5)
+        check("stats merge: bonus frames summed", s["frames_with_bonus"] == 4)
+        check("stats merge: absmax is a max", s["raw_absmax"] == 5.0)
+        check("stats merge: final-raw std mean computed", abs(s["raw_std_mean"] - 0.4) < 1e-9)
+        check("stats merge: pre-bonus stats kept separate", "pre_raw_std_mean" in s)
+        check("stats merge: shards recorded", sorted(s["stats_shards"]) == ["0/2", "1/2"])
+
+        # Fail-closed negatives -- each of these used to pass silently as a valid null.
+        cases = {
+            "stale run id": (_rec(run_id="R0"), {"run_id": "R1", "expect_mode": "mutual_best"}),
+            "wrong mode": (_rec(mode="none"), {"run_id": "R1", "expect_mode": "mutual_best"}),
+            "malformed json": ("{not json", {"run_id": "R1", "expect_mode": "mutual_best"}),
+            "conflicting activation": (_rec() + "\n" + _rec(activation="sigmoid"),
+                                       {"run_id": "R1", "expect_mode": "mutual_best"}),
+            "zero frames": (_rec(frames=0, frames_with_bonus=0),
+                            {"run_id": "R1", "expect_mode": "mutual_best"}),
+        }
+        for name, (body, kw) in cases.items():
+            p.write_text(body + "\n", encoding="utf-8")
+            try:
+                M.read_stats(p, **kw)
+                check("stats REJECTS %s" % name, False, "did not raise")
+            except M.Exp062Error:
+                check("stats REJECTS %s" % name, True)
+
+        p.write_text("", encoding="utf-8")
+        try:
+            M.read_stats(p, run_id="R1")
+            check("stats REJECTS an empty file", False, "did not raise")
+        except M.Exp062Error:
+            check("stats REJECTS an empty file", True)
+    finally:
+        p.unlink(missing_ok=True)
+    try:
+        M.read_stats(p, run_id="R1")
+        check("stats REJECTS a missing file", False, "did not raise")
+    except M.Exp062Error:
+        check("stats REJECTS a missing file", True)
+
+
+def test_reset_stats_clears_stale(tmp="exp062_stats_reset.jsonl"):
+    p = Path(tmp)
+    try:
+        p.write_text(_rec(run_id="OLD") + "\n", encoding="utf-8")
+        M.reset_stats(p, "R2")
+        check("reset: file truncated", p.read_text(encoding="utf-8") == "")
+        check("reset: run id bound to the environment", os.environ[M.RUN_ID_KEY] == "R2")
+    finally:
+        p.unlink(missing_ok=True)
+        os.environ.pop(M.RUN_ID_KEY, None)
 
 
 def main():
@@ -376,7 +431,7 @@ def main():
                test_axis_semantics_ties, test_activation_branch_recorded, test_stats_counters,
                test_anchor_fail_closed, test_mode_beta_validation,
                test_resume_signature_discriminates, test_parent_sha_guard_cleared,
-               test_cache_hit_alarm, test_read_stats_merges):
+               test_cache_hit_alarm, test_read_stats_merges, test_reset_stats_clears_stale):
         print("\n[%s]" % fn.__name__)
         fn()
     print("\n%s" % ("ALL PASS" if not FAILURES else "FAILURES: %s" % FAILURES))

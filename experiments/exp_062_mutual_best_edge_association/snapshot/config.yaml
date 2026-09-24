@@ -36,7 +36,7 @@ substrate_note: >
   (mode=mutual_best, beta=0.20, EXPECT_PARENT_SHA actively popped and asserted unset, submitted
   once). Two cells are added (the exp062_mutual_best.py module, placed BEFORE the parent cell so
   the patch is applied mid-parent-cell and before any inference subprocess, and a gated finalize
-  cell); 15 (control) / 16 (candidate) `# exp062` lines are injected. Stripping all of them
+  cell); 18 (control) / 19 (candidate) `# exp062` lines are injected. Stripping all of them
   reproduces the parent cells byte-for-byte. The parent's adaptive PP-sweep is RETAINED, as in
   exp_060's lb-submit kernel, which ran it and re-selected tight55. ~1.3 GPU hr per version.
 validation:
@@ -68,12 +68,18 @@ budget:
   note: ~1.3 h per kernel version, two versions, reserved at 3.0 h.
 success:
   minimum_improvement: 0.0
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: exp062_mutual_best_integrity_passed
 gate: exp062_mutual_best_integrity_passed
 leaderboard:
   authorized: false
   plan: >
-    Exactly ONE submission, the candidate (k2), separately authorized, remote cap checked first
-    (authenticated cap 5/day). Decision rule vs repro_059 0.947: >=0.948 adopt as new parent;
+    Exactly ONE submission, the candidate (k2), separately authorized, remote cap checked first.
+    The governing limit is the PROJECT rule of THREE submissions per America/New_York calendar day
+    (AGENTS.md), which is stricter than and therefore overrides the platform's authenticated
+    max_daily_submissions of 5. Decision rule vs repro_059 0.947: >=0.948 adopt as new parent;
     ==0.947 CLOSE the probe (equality cannot distinguish cancellation, unannotated changes or
     rounding, so it does not license a larger beta); <=0.946 revert. If k2's output is
     byte-identical to the control, do NOT submit -- it would duplicate a known 0.947. Designated

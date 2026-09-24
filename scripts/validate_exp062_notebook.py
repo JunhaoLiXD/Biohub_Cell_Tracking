@@ -130,10 +130,10 @@ def group3_variant_diff():
     tb = cell_text(b["cells"][3]).split("\n")
     diff = [l for l in difflib.unified_diff(ta, tb, lineterm="", n=0)
             if l.startswith(("+", "-")) and not l.startswith(("+++", "---"))]
-    check("only env lines differ", all(
-        ("BIOHUB_LB_SCORING" in l or "BIOHUB_EXP062_EXPECT_PARENT_SHA" in l) for l in diff),
-        "\n".join(diff[:8]))
-    check("diff is small and env-only", 0 < len(diff) <= 8, "%d lines" % len(diff))
+    allowed = ("BIOHUB_LB_SCORING", "BIOHUB_EXP062_EXPECT_PARENT_SHA", "_EXP062_RUN_ID")
+    check("only env/identity lines differ",
+          all(any(a in l for a in allowed) for l in diff), "\n".join(diff[:10]))
+    check("diff is small and env-only", 0 < len(diff) <= 10, "%d lines" % len(diff))
     # Everything outside the parent cell must be byte-identical.
     for i in (0, 1, 2, 4):
         check("cell %d identical across variants" % i,

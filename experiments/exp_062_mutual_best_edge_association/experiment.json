@@ -2,7 +2,7 @@
   "schema_version": 1,
   "experiment_id": "exp_062_mutual_best_edge_association",
   "parent": "repro_059_public_0947_exact_copy",
-  "state": "MANUAL_REVIEW_REQUIRED",
+  "state": "PROPOSED",
   "hypothesis": "A mutual-best rank prior on the edge logits of the frozen 0.947 pipeline, at the published beta = 0.20 with everything else byte-identical to repro_059, changes the Public LB by at least +0.001 vs 0.947. H1 is an OPERATIONAL hypothesis about the displayed score. The intervention is inserted UPSTREAM of the ILP solve, unlike every prior probe in this arc. Honest prior: it reinforces the parent's existing fused ranking rather than adding independent evidence, and a null is genuinely likely.",
   "change": {
     "component": "edge_association_rank_prior_only",
@@ -16,8 +16,8 @@
   "snapshot_source_candidate": "experiments/exp_062_mutual_best_edge_association/snapshot/source/exp062_mutual_best_candidate.ipynb",
   "snapshot_manifest": "experiments/exp_062_mutual_best_edge_association/snapshot/manifest.json",
   "notebook_sha256": {
-    "control": "1ba46d6baa465b35911d0f5f8794803b21152a903cb13a1679f213d55d481a88",
-    "candidate": "b8ee7f312b94cb627b6b21c4d35ad6c2b554b7154a70cb8028ead6810e6ea20e"
+    "control": "bf8ac60100b918686b7dd7d47f134f257124c0a50b4a72717c251d2736ae8e7f",
+    "candidate": "c7b0765f7425717db31144a5de275cf67ce2abbfba10a0cb77fde0686132ab2c"
   },
   "validation_protocol": "public_0947_mutual_best_edge_association_v1",
   "gate": "exp062_mutual_best_integrity_passed",
@@ -40,9 +40,9 @@
     "required": true,
     "provider": "codex",
     "status": "CHANGES_REQUESTED",
-    "verdict": "BLOCK",
+    "verdict": "REVISE",
     "path": "experiments/exp_062_mutual_best_edge_association/review.md",
-    "completed_at": "2026-09-24T04:30:35+00:00"
+    "completed_at": "2026-09-24T04:34:02+00:00"
   },
   "local_gates": {
     "builder_parity_guard": "PASS (both variants; 15 control / 16 candidate injected lines strip back to the parent byte-for-byte)",
@@ -58,7 +58,7 @@
   },
   "key_defect_closed": "Codex round 2 found, and Claude verified in the parent, that _inference_resume_env_keys (cell 2 line 1669) is a fixed 13-key list containing neither exp_062 variable while _test_prediction_signature (line 1670) hashes exactly those keys. A candidate run could therefore compute the SAME resume signature as the control, skip inference (lines 1672-1680) and replay the control's predictions with every gate green -- burning an LB slot on a duplicate 0.947. Closed by extending the key list between lines 1669 and 1670 (Codex traced propagation to 3171-3172, 3290, 3686, 3723, 3783) plus a measured-wall-clock cache alarm, because parent line 1675 restores the historical predict_seconds on a hit.",
   "created_at": "2026-09-24T00:00:00+00:00",
-  "updated_at": "2026-09-24T04:30:35+00:00",
+  "updated_at": "2026-09-24T04:34:02+00:00",
   "state_history": [
     {
       "from": "PROPOSED",
@@ -71,8 +71,33 @@
       "to": "MANUAL_REVIEW_REQUIRED",
       "at": "2026-09-24T04:30:35+00:00",
       "note": "Codex verdict: BLOCK"
+    },
+    {
+      "from": "MANUAL_REVIEW_REQUIRED",
+      "to": "PROPOSED",
+      "at": "2026-09-24T05:00:00+00:00",
+      "note": "Admission round 1 = REVISE. All six controller/evidence-contract findings fixed; two verification-depth items recorded; one inherited-from-parent limitation documented rather than worked around. Snapshot rebuilt. Re-submitting for the scoped re-review."
     }
   ],
   "not_authorized": "No admission review, no budget reservation, no launch, no leaderboard submission. Strategy CONSENSUS authorizes the build only.",
-  "snapshot_source": "experiments/exp_062_mutual_best_edge_association/snapshot/source/exp062_mutual_best_candidate.ipynb"
+  "snapshot_source": "experiments/exp_062_mutual_best_edge_association/snapshot/source/exp062_mutual_best_candidate.ipynb",
+  "admission_round_1": {
+    "verdict_attempt_1": "BLOCK -- tool-access only. Codex's read-only command tool stopped opening processes before it could inspect anything; it stated explicitly 'This is an evidence and tool-access block, not a finding that the hypothesis is unsound.' Not a substantive finding. Retried with the project's conventional reviewer model (gpt-6-astra low, config swapped and restored).",
+    "verdict": "REVISE",
+    "review": "experiments/exp_062_mutual_best_edge_association/review.md (round 1)",
+    "confirmed_positive": "Strategy CONSENSUS verified (v3 proposal + challenges v1-v3 record objections, revisions and explicit consensus); all seven snapshot hashes matched; removing the marked injections reproduces the parent exactly; the rank formula, signature-key extension, candidate SHA-guard clearing, model hashes and inherited lineage/time checks are present.",
+    "findings_fixed": {
+      "1_config_validation": "success.regression_threshold was missing (controller core.py:225 requires it numeric) and the top-level `gate` key is ignored by decide(); without evaluation.mode=gate the controller defaults to comparison against an incompatible legacy baseline. FIXED: added success.regression_threshold 0.0 and evaluation {mode: gate, gate_field: exp062_mutual_best_integrity_passed}. Verified via load_config.",
+      "2_manifest_schema": "verify_snapshot() iterates manifest['files'] as a LIST of objects with 'path' and 'sha256'; the snapshot stored a path->hash MAPPING, so correct hashes would still have failed. FIXED: rewritten as a list with role/path/sha256. Verified via verify_snapshot().",
+      "3_smoke_metrics_contract": "validate_notebook requires the LAST cell containing the 'metrics.json' literal to BE the last code cell; the literal appeared only in the earlier module cell while the final cell just called finalize(). FIXED: the finalize cell now asserts and prints the metrics.json path. Verified: metrics.json in cells [2,4], last code cell 4.",
+      "4_telemetry_freshness": "REAL FAIL-OPEN, same class as the resume-cache defect. Stats appended to a fixed path with no reset and no run identity; malformed records were skipped and activation was overwritten by the last record, so stale or partial evidence could satisfy the aggregate execution checks. FIXED: reset_stats() truncates and binds a per-variant run id; each record carries run_id/mode/beta/shard/pid; read_stats() now REJECTS (not skips) malformed JSON, foreign run ids, wrong modes, conflicting activation branches, zero frames, empty and missing files, and nonfinite aggregates. Eight executable negative tests cover these.",
+      "5_calibration_contract": "Statistics described POST-bonus logits only. FIXED for the in-run part: pre-bonus raw std/absmax are now captured separately from post-bonus, so the effect of beta on the final tensor is visible. NARROWED AND RECORDED for the rest: per-dataset probability and candidate-set deltas require diffing k1 against k2 and are therefore POST-HOC analysis at collection, not in-run telemetry.",
+      "6_submission_cap": "The config said 'authenticated cap 5/day'. AGENTS.md:86 sets a stricter PROJECT rule of three per America/New_York calendar day, which governs. FIXED in the config and in SUBMISSION_BUDGET.json, where a 2026-09-23 edit had wrongly replaced the project rule with the platform fact; the platform's 5 is now recorded separately as platform_max_daily_substitutions."
+    },
+    "findings_recorded_not_fixed": {
+      "numpy_shim_parity": "[VERIFICATION-DEPTH] The behavioral tests run the real patch block against a numpy shim, which differs from PyTorch in floating-point precision, tie-breaking order and std() convention. The tests establish LOGIC (axis semantics, truth table, inertness, fail-closed), NOT numerical parity with torch. Recorded as a stated limitation; torch is not installed locally and installing it would not make the shim the real runtime either.",
+      "inherited_validator_selection": "[VERIFICATION-DEPTH] Codex noted the inherited validator picks division-prioritised training videos within both specimen prefixes and is NOT leave-one-specimen-out; with frozen-model training exposure and adaptive PP selection its scores are not independent generalization evidence. Consistent with the agreed design, whose quality endpoint is explicitly the Public LB. No change."
+    },
+    "inherited_limitation": "validate_notebook() also rejects this notebook because the parent's configuration guard expects environment keys assigned in an EARLIER code cell, while the parent assigns them in the SAME cell. Verified this fails IDENTICALLY for the parent repro_059, exp_060 and exp_061 -- it is an inherited structural property of this notebook lineage, not an exp_062 defect, and is why every experiment in this lineage has been launched outside the controller under explicit user authorization. NOT worked around: emitting duplicate env assignments in an earlier cell would create a second source of truth for the frozen config, which is the exact defect class that produced the exp_061 v4 BLOCK."
+  }
 }

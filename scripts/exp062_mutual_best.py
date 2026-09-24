@@ -21,6 +21,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import os
 from pathlib import Path
 
@@ -32,6 +33,7 @@ MODE_KEY = "BIOHUB_LB_SCORING_MODE"
 BETA_KEY = "BIOHUB_LB_SCORING_BETA"
 EXPECT_SHA_KEY = "BIOHUB_EXP062_EXPECT_PARENT_SHA"
 STATS_PATH_KEY = "BIOHUB_EXP062_STATS_PATH"
+RUN_ID_KEY = "BIOHUB_EXP062_RUN_ID"
 EXP062_ENV_KEYS = (MODE_KEY, BETA_KEY)
 VALID_MODES = ("none", "relative_rank", "mutual_best")
 
@@ -55,6 +57,8 @@ MUTUAL_BEST_BLOCK = (
     '            _lb_mode = os.environ.get("BIOHUB_LB_SCORING_MODE", "none")\n'
     '            _lb_beta = float(os.environ.get("BIOHUB_LB_SCORING_BETA", "0"))\n'
     '            _lb_applied = 0\n'
+    '            _lb_pre_std = float(raw.float().std().item())\n'
+    '            _lb_pre_absmax = float(raw.abs().max().item())\n'
     '            if _lb_mode in {"relative_rank", "mutual_best"}:\n'
     '                _lb_col_prob = torch.softmax(raw.float(), dim=0)\n'
     '                _lb_row_prob = torch.softmax(raw.float(), dim=1)\n'
@@ -75,6 +79,8 @@ MUTUAL_BEST_BLOCK = (
     '            _EXP062_STATS["activation"] = cfg.edge_activation\n'
     '            _EXP062_STATS["raw_absmax"] = max(_EXP062_STATS["raw_absmax"], float(raw.abs().max().item()))\n'
     '            _EXP062_STATS["raw_std_sum"] += float(raw.float().std().item())\n'
+    '            _EXP062_STATS["pre_raw_std_sum"] += _lb_pre_std\n'
+    '            _EXP062_STATS["pre_raw_absmax"] = max(_EXP062_STATS["pre_raw_absmax"], _lb_pre_absmax)\n'
     '            if cfg.edge_activation == "softmax":\n'
     '                probs = torch.softmax(raw, dim=0).cpu().numpy()\n'
     '            else:\n'
@@ -86,17 +92,21 @@ MUTUAL_BEST_BLOCK = (
 # beta acts on final `raw` and conflating the two was the defect Codex found in proposal v2.
 STATS_PREAMBLE = (
     '_EXP062_STATS = {"frames": 0, "frames_with_bonus": 0, "activation": None,\n'
-    '                 "raw_absmax": 0.0, "raw_std_sum": 0.0}\n'
+    '                 "raw_absmax": 0.0, "raw_std_sum": 0.0,\n'
+    '                 "pre_raw_absmax": 0.0, "pre_raw_std_sum": 0.0}\n'
     'import atexit as _exp062_atexit, json as _exp062_json, os as _exp062_os\n'
     'def _exp062_dump_stats():\n'
     '    _p = _exp062_os.environ.get("BIOHUB_EXP062_STATS_PATH")\n'
     '    if not _p:\n'
     '        return\n'
-    '    try:\n'
-    '        with open(_p, "a") as _f:\n'
-    '            _f.write(_exp062_json.dumps(_EXP062_STATS) + chr(10))\n'
-    '    except Exception:\n'
-    '        pass\n'
+    '    _rec = dict(_EXP062_STATS)\n'
+    '    _rec["run_id"] = _exp062_os.environ.get("BIOHUB_EXP062_RUN_ID", "")\n'
+    '    _rec["mode"] = _exp062_os.environ.get("BIOHUB_LB_SCORING_MODE", "none")\n'
+    '    _rec["beta"] = _exp062_os.environ.get("BIOHUB_LB_SCORING_BETA", "0")\n'
+    '    _rec["shard"] = _exp062_os.environ.get("BIOHUB_GPU_SHARD", "single")\n'
+    '    _rec["pid"] = _exp062_os.getpid()\n'
+    '    with open(_p, "a") as _f:\n'
+    '        _f.write(_exp062_json.dumps(_rec, sort_keys=True) + chr(10))\n'
     '_exp062_atexit.register(_exp062_dump_stats)\n'
 )
 
@@ -198,30 +208,79 @@ def check_cache_hit(prediction_ready, measured_seconds, min_seconds=60.0):
     }
 
 
-def read_stats(stats_path):
-    """Merge the per-subprocess stats lines the injected block appended."""
+def reset_stats(stats_path, run_id):
+    """Truncate the stats file and bind this run's id.
+
+    Without this, records from an EARLIER run (or the other kernel version) persist in the file
+    and can satisfy the aggregate execution checks -- stale evidence passing as fresh. That is the
+    same fail-open class as the resume-cache defect, so it is closed the same way: at the source.
+    """
+    p = Path(stats_path)
+    p.parent.mkdir(parents=True, exist_ok=True)
+    if p.exists():
+        p.unlink()
+    p.write_text("", encoding="utf-8")
+    os.environ[RUN_ID_KEY] = str(run_id)
+    return {"stats_path": str(p), "run_id": str(run_id)}
+
+
+def read_stats(stats_path, run_id=None, expect_mode=None):
+    """Merge the per-subprocess stats records, FAIL-CLOSED on anything unreliable.
+
+    Rejects rather than skips: malformed JSON, records from another run/mode, conflicting
+    activation branches, and nonfinite aggregates. A skipped record is indistinguishable from an
+    absent one, and this project has already been burned twice by evidence that quietly degraded
+    into a passing null.
+    """
     merged = {"frames": 0, "frames_with_bonus": 0, "activation": None,
-              "raw_absmax": 0.0, "raw_std_sum": 0.0, "stats_records": 0}
+              "raw_absmax": 0.0, "raw_std_sum": 0.0,
+              "pre_raw_absmax": 0.0, "pre_raw_std_sum": 0.0,
+              "stats_records": 0, "stats_shards": []}
     p = Path(stats_path)
     if not p.is_file():
-        return merged
-    for line in p.read_text(encoding="utf-8").splitlines():
+        raise Exp062Error("stats file %s is missing; the patched subprocess never ran" % p)
+
+    for lineno, line in enumerate(p.read_text(encoding="utf-8").splitlines(), start=1):
         line = line.strip()
         if not line:
             continue
         try:
             rec = json.loads(line)
-        except ValueError:
-            continue
+        except ValueError as exc:
+            raise Exp062Error("stats %s line %d is malformed: %s" % (p, lineno, exc)) from exc
+        if run_id is not None and str(rec.get("run_id", "")) != str(run_id):
+            raise Exp062Error(
+                "stats %s line %d belongs to run %r, not this run %r (stale evidence)"
+                % (p, lineno, rec.get("run_id"), run_id))
+        if expect_mode is not None and rec.get("mode") != expect_mode:
+            raise Exp062Error(
+                "stats %s line %d was written under mode %r, expected %r"
+                % (p, lineno, rec.get("mode"), expect_mode))
+        act = rec.get("activation")
+        if act is not None and merged["activation"] is not None and act != merged["activation"]:
+            raise Exp062Error(
+                "conflicting activation branches across shards: %r vs %r"
+                % (merged["activation"], act))
+        if act is not None:
+            merged["activation"] = act
         merged["stats_records"] += 1
+        merged["stats_shards"].append(rec.get("shard", "?"))
         merged["frames"] += int(rec.get("frames", 0))
         merged["frames_with_bonus"] += int(rec.get("frames_with_bonus", 0))
-        merged["raw_absmax"] = max(merged["raw_absmax"], float(rec.get("raw_absmax", 0.0)))
-        merged["raw_std_sum"] += float(rec.get("raw_std_sum", 0.0))
-        if rec.get("activation"):
-            merged["activation"] = rec["activation"]
-    if merged["frames"]:
-        merged["raw_std_mean"] = merged["raw_std_sum"] / merged["frames"]
+        for key in ("raw_absmax", "pre_raw_absmax"):
+            merged[key] = max(merged[key], float(rec.get(key, 0.0)))
+        for key in ("raw_std_sum", "pre_raw_std_sum"):
+            merged[key] += float(rec.get(key, 0.0))
+
+    if merged["stats_records"] == 0:
+        raise Exp062Error("stats file %s has no records; the patched block never executed" % p)
+    if merged["frames"] <= 0:
+        raise Exp062Error("stats recorded 0 frames; the patched block never saw an edge batch")
+    for key in ("raw_absmax", "raw_std_sum", "pre_raw_absmax", "pre_raw_std_sum"):
+        if not math.isfinite(merged[key]):
+            raise Exp062Error("stats aggregate %s is nonfinite: %r" % (key, merged[key]))
+    merged["raw_std_mean"] = merged["raw_std_sum"] / merged["frames"]
+    merged["pre_raw_std_mean"] = merged["pre_raw_std_sum"] / merged["frames"]
     return merged
 
 
@@ -250,6 +309,11 @@ def finalize(working_dir, telemetry, submission_path=None):
         "beta": beta,
         "submission_sha256": sub_sha,
         "parent_submission_sha256": PARENT_SUBMISSION_SHA256,
+        "candidate_quality_evidence": (
+            "NONE. The 0.947 figure is the PARENT's authenticated Public LB score "
+            "(repro_059, submission 56313491). Nothing in this run establishes any quality "
+            "for the candidate; the notebook's inherited provenance text describes the parent "
+            "lineage only. Quality is decided solely by a separate Public LB submission."),
         "submission_equals_parent": (sub_sha == PARENT_SUBMISSION_SHA256) if sub_sha else None,
     })
 
@@ -266,6 +330,7 @@ def finalize(working_dir, telemetry, submission_path=None):
         "bonus_applied_iff_mode_on": (
             (frames_with_bonus > 0) if mode != "none" else (frames_with_bonus == 0)
         ),
+        "stats_fresh_and_attributable": bool(telemetry.get("stats_records", 0) > 0),
     }
     if expect_sha:
         # Control variant only: historical public-output equality. Never armed in candidate mode,

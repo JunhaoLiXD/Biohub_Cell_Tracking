@@ -50,6 +50,7 @@ def _env_lines(variant):
         "import time as _exp062_time  # exp062",
         "_EXP062_RUN_START = _exp062_time.time()  # exp062",
         "os.environ['BIOHUB_EXP062_STATS_PATH'] = %r  # exp062" % STATS_PATH,
+        "_EXP062_RUN_ID = 'exp062-%s-' + str(int(_EXP062_RUN_START))  # exp062" % variant,
     ]
     if variant == "control":
         return common_head + [
@@ -69,6 +70,8 @@ def _env_lines(variant):
 
 
 PATCH_LINES = [
+    "# truncate stale stats and bind this run's id BEFORE any subprocess writes  # exp062",
+    "_EXP062_RESET = reset_stats(os.environ['BIOHUB_EXP062_STATS_PATH'], _EXP062_RUN_ID)  # exp062",
     "# insert the rank prior into the ALREADY-PARENT-PATCHED predict script  # exp062",
     "# fail-closed on any anchor count != 1; an unpatched run would masquerade as a null  # exp062",
     "_EXP062_PATCH_INFO = apply_mutual_best_patch(REPO_DIR / 'scripts' / 'predict_unet_transformer.py')  # exp062",
@@ -100,9 +103,18 @@ _exp062_tel.pop('patched_source', None)
 _exp062_tel.update(_EXP062_CACHE)
 _exp062_tel['resume_signature_inputs_include_exp062_keys'] = all(
     _k in _inference_resume_env_keys for _k in EXP062_ENV_KEYS)
-_exp062_tel.update(read_stats(os.environ['BIOHUB_EXP062_STATS_PATH']))
+_exp062_tel.update(read_stats(os.environ['BIOHUB_EXP062_STATS_PATH'],
+                              run_id = _EXP062_RUN_ID,
+                              expect_mode = os.environ['BIOHUB_LB_SCORING_MODE']))
 _exp062_tel['runtime_seconds'] = time.time() - _EXP062_RUN_START
+_exp062_tel['run_id'] = _EXP062_RUN_ID
 _exp062_metrics = finalize(WORKING_DIR, _exp062_tel, SUBMISSION_PATH)
+
+# The controller requires the metrics.json contract in the FINAL code cell.
+_exp062_metrics_path = WORKING_DIR / 'metrics.json'
+if not _exp062_metrics_path.is_file():
+    raise RuntimeError('exp062 did not write metrics.json')
+print('exp062 wrote', _exp062_metrics_path)
 print(json.dumps(_exp062_metrics, indent = 2, sort_keys = True))
 """
 
