@@ -10,7 +10,7 @@
     "verified_at_utc": "2026-09-18T00:00:00+00:00"
   },
   "submission_policy": "UPDATED 2026-09-18 by user: Public LB submission COUNT is no longer a research constraint -- multiple submissions are fine. The LB may now be used directly as the real held-out validation signal (Family-2 / distribution-general validation). Still record every submission in SUBMISSION_BUDGET.json with authenticated score_source; still no auto-submit without the user asking; Kaggle's own daily cap (max_submissions_per_day) remains a platform fact, not a scarcity to conserve.",
-  "phase": "EXP062_ADMISSION_PASS_AND_SMOKE_PASS_AWAITING_LAUNCH_AUTHORIZATION",
+  "phase": "EXP062_K1_CONTROL_RUNNING",
   "exp060_0p18_lb": {
     "kernel": "lingxd/biohub-exp060-safediv018-lb-submit",
     "url": "https://www.kaggle.com/code/lingxd/biohub-exp060-safediv018-lb-submit",
@@ -78,7 +78,7 @@
     "not_authorized": "implementation/launch not yet authorized; CONSENSUS is strategy-level only. Fresh Codex admission PASS + smoke + reservation required first."
   },
   "summary": "The exp_061 arc is CLOSED. Submission 56493252 (v5 zon) failed exactly like 56481730 (v4) and 56454236 (v2): 'notebook hit an unhandled error while rerunning your code', no score. That is five consecutive failed LB transports for the zon arm across three distinct mechanisms (two static-copy kernels -> incorrect format; v2/v4/v5 full-inference -> hidden-rerun error), so the stop rule fired and the user abandoned the path. The zon Z-reflection TTA was never scored and its decision rule is permanently UNRESOLVED, not falsified. A fresh public-frontier recon (docs/research/public_frontier_recon_2026-09-23.md) then established: our 0.947 is now OUTSIDE the top 200 (rank-200 cutoff 0.949, LB top 0.975, deadline 2026-09-29); no verified public notebook beats 0.947, every candidate sharing the same three Pilkwang checkpoints; but three concrete, portable, specimen-blind levers are now public on our exact 0.947 base, the most promising being mutual-best/relative-rank EDGE association -- the first shared lever that targets the ~85-90%-weighted edge term rather than the 0.1-weighted division term that produced all of our recent nulls. The project is back on the exp_060 footing with working parent repro_059 = 0.947. GPU remaining 20.398674 h, no reservations outstanding.",
-  "next_action": "exp_062 has a fresh Codex ADMISSION PASS (2026-09-24) and a PASSED snapshot smoke. Nothing remote has run. NEXT, and each needs explicit user authorization: reserve 3.0 GPU h, then launch k1 (control) and verify it reproduces the parent submission SHA d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60 -- if it does not, STOP, the insertion is not inert. Then launch k2 (candidate). Then, only if k2 differs from the control, ONE authorized LB submission of k2 against the three-per-New-York-day project cap. Decision rule vs 0.947: >=0.948 adopt; ==0.947 CLOSE the probe (no beta escalation); <=0.946 revert. Designated successor either way: density-adaptive relinking, which needs its own proposal.",
+  "next_action": "exp_062 k1 (CONTROL) is RUNNING on lingxd/biohub-exp062-mutual-best version 1, launched 2026-09-24T04:57:55Z through the controller after a fresh Codex ADMISSION PASS and a passed snapshot smoke. 3.0 GPU h reserved. DO NOT POLL -- wait for the user's completion notice, then collect ONCE. The control must reproduce parent SHA d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60; if it does not, the insertion is not inert and the arc STOPS there -- do not push the candidate. If it does, push version 2 (CANDIDATE, mutual_best beta=0.20) to the SAME slug, collect it, and only then consider ONE separately authorized LB submission -- and none at all if the candidate output is byte-identical to the control. Project cap three per America/New_York day. Competition closes 2026-09-29 23:59.",
   "leaderboard_submission_authorized": false,
   "leaderboard_submission_note": "The user authorized the v5 submission on 2026-09-23 ('push it to the LB'); it was consumed by 56493252 at 12:35:37Z. Any further submission needs fresh authorization and a remote cap check. The authenticated daily cap is 5, not the 3 recorded in older entries.",
   "exp061_submission_repair": {
@@ -323,7 +323,23 @@
       "command": "scripts/run_smoke_test.py exp_062_mutual_best_edge_association -> validate_notebook.py --require-metrics-contract",
       "exit_code": 0
     },
-    "controller_fix": "Admission round 2 required a reviewed correction rather than a waiver of the notebook smoke gate. experiment_controller/core.py now counts environment assignments that execute BEFORE the configuration guard within the SAME cell, not only in earlier cells (_environment_assignments_before_guard, AST line-number based). Assignments after the guard still do not count. This unblocks the gate for the WHOLE notebook lineage -- the parent repro_059, exp_060, exp_061 and both exp_062 variants now pass, where all four previously failed -- while a synthetic guard-before-assignment notebook and a never-assigned-key notebook are still rejected. Duplicating the frozen config into an earlier cell was rejected as the remedy because it would create a second source of truth, the defect class behind the exp_061 v4 BLOCK."
+    "controller_fix": "Admission round 2 required a reviewed correction rather than a waiver of the notebook smoke gate. experiment_controller/core.py now counts environment assignments that execute BEFORE the configuration guard within the SAME cell, not only in earlier cells (_environment_assignments_before_guard, AST line-number based). Assignments after the guard still do not count. This unblocks the gate for the WHOLE notebook lineage -- the parent repro_059, exp_060, exp_061 and both exp_062 variants now pass, where all four previously failed -- while a synthetic guard-before-assignment notebook and a never-assigned-key notebook are still rejected. Duplicating the frozen config into an earlier cell was rejected as the remedy because it would create a second source of truth, the defect class behind the exp_061 v4 BLOCK.",
+    "launch_k1_control": {
+      "kernel": "lingxd/biohub-exp062-mutual-best",
+      "kernel_version": 1,
+      "url": "https://www.kaggle.com/code/lingxd/biohub-exp062-mutual-best",
+      "launched_at_utc": "2026-09-24T04:57:55+00:00",
+      "launched_via": "scripts/launch_kaggle.py (controller), after Codex ADMISSION PASS + snapshot smoke PASS",
+      "status_at_launch": "RUNNING",
+      "variant": "CONTROL -- BIOHUB_LB_SCORING_MODE=none, beta 0.00, BIOHUB_EXP062_EXPECT_PARENT_SHA armed",
+      "staged_notebook_sha256": "d09027b677d89309",
+      "staged_matches_snapshot": true,
+      "budget_reserved_hours": 3.0,
+      "user_authorized": true,
+      "pass_condition": "MUST reproduce parent submission SHA256 d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60. If it does not, the insertion is NOT inert: STOP, do not push the candidate, do not submit anything.",
+      "never_submitted": "This control output is never sent to the leaderboard -- it would duplicate a known 0.947.",
+      "on_completion": "Wait for the USER's completion notice; do NOT poll. Then collect once and verify: exp062_mutual_best_integrity_passed true; control_reproduces_parent_submission true; patch_applied_exactly_once true; resume_signature_includes_exp062_keys true; no_cache_hit true (measured wall-clock, not the parent's reported predict_seconds); activation_is_softmax true; frames_with_bonus == 0 for mode=none; test-stage telemetry present with the expected shard coverage."
+    }
   },
   "resolved_leaderboard_submission": {
     "submission_id": 56261282,
@@ -348,7 +364,7 @@
     "verified_at_utc": "2026-09-16T14:40:00+00:00",
     "note": "Public LB 0.944 == repro_048 0.944, zero gain despite 3714-edge graph diff. EMA-off replay byte-identical to 0.944, so isolated to the EMA edit: motion EMA is redundant/neutral on top of the edge-feature-TTA bundle. Branch 'EMA on 0.944' closed."
   },
-  "updated_at": "2026-09-24T05:00:00+00:00",
+  "updated_at": "2026-09-24T05:05:00+00:00",
   "active_local_experiment": "local_054_original_score_final_stage_parity",
   "exp057_a0_part1": {
     "status": "DONE_ZERO_GPU",

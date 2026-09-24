@@ -4,7 +4,7 @@
     {
       "path": "experiments/exp_062_mutual_best_edge_association/snapshot/config.yaml",
       "role": "config",
-      "sha256": "5499fdad9774948018ce98567779275cb9a49906f7e980ee9e07de918d1c7dcf"
+      "sha256": "72958f6644c2598895585dd974d5dee2e8339fb7b16f4151e8f3be8695d9a472"
     },
     {
       "path": "experiments/exp_062_mutual_best_edge_association/snapshot/scripts/build_exp062_mutual_best.py",

@@ -5,7 +5,9 @@
   "reserve_hours": 6.0,
   "max_single_experiment_hours": 4.0,
   "require_user_approval_above_hours": 4.0,
-  "reserved_hours": {},
+  "reserved_hours": {
+    "exp_062_mutual_best_edge_association": 3.0
+  },
   "latest_user_reported_remaining_hours": 30.0,
   "latest_user_reported_at_utc": "2026-09-13T03:49:58.137246+00:00",
   "budget_epoch_note": "Research director reported 30 GPU hours remaining on 2026-09-12. Preserve six protected hours and all historical consumption.",

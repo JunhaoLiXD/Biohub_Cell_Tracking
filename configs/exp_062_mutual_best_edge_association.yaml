@@ -62,6 +62,35 @@ admission:
     bounded-gate contract Codex accepted: block only on concrete correctness, leakage, provenance,
     fail-closed, graph-validity or budget defects; record verification-depth without blocking; a
     round limit never makes a known defect acceptable.
+kaggle:
+  owner: lingxd
+  slug: biohub-exp062-mutual-best
+  title: biohub-exp062-mutual-best
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: false
+  competition_sources:
+    - biohub-cell-tracking-during-development
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+    - scripts/exp062_mutual_best.py
+    - scripts/build_exp062_mutual_best.py
+    - scripts/validate_exp062_notebook.py
+    - scripts/test_exp062_behavioral.py
+  note: >
+    Launch mechanics only, added after the admission PASS. The same slug carries BOTH kernel
+    versions: version 1 = control (mode=none), version 2 = candidate (mutual_best beta=0.20),
+    which is the "one notebook, two kernel versions" shape the admission approved and the same
+    pattern exp_060's lb-submit kernel used. The docker image is pinned to the one exp_060 ran on
+    so the environment matches a proven run. No reviewed artifact changed: both notebooks, the
+    module and the tests are byte-identical to the admission-PASSED snapshot.
 budget:
   tier: 1
   expected_gpu_hours: 3.0
