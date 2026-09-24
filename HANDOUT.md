@@ -1,4 +1,4 @@
-# Session Handout — updated 2026-09-24 (exp_062 k1 control RUNNING on Kaggle)
+# Session Handout — updated 2026-09-24 (exp_062 k2 CANDIDATE running; k1 control PASSED)
 
 Purpose: hand the current state to the next session AND to the user. Read this FIRST, then the
 deeper authority in order: `STATE.json`, the active
@@ -15,52 +15,28 @@ summary; `STATE.json` is the machine source of truth).
 
 **One thing is in flight. DO NOT POLL — the user reports completion.**
 
-### exp_062 k1 (CONTROL) is RUNNING
+### exp_062 k2 (CANDIDATE) is RUNNING
 
 | | |
 |---|---|
-| kernel | `lingxd/biohub-exp062-mutual-best` **version 1** |
-| variant | **CONTROL** — `BIOHUB_LB_SCORING_MODE=none`, β 0.00, `BIOHUB_EXP062_EXPECT_PARENT_SHA` armed |
-| launched | 2026-09-24T04:57:55Z via `scripts/launch_kaggle.py` (the controller), commit `282a20e` |
-| reserved | **3.0 GPU h** |
-| expected | ~1.3 h |
-| staged nb | `d09027b6…` — byte-identical to the snapshot control |
+| kernel | `lingxd/biohub-exp062-mutual-best` **version 2** |
+| variant | **CANDIDATE** — `BIOHUB_LB_SCORING_MODE=mutual_best`, β 0.20, `EXPECT_PARENT_SHA` popped + asserted unset |
+| launched | 2026-09-24T14:37:15Z via `scripts/launch_kaggle.py` (the controller) |
+| reserved | **1.75 GPU h** (k1 measured 1.727 h, so the original ~1.3 h/version estimate was low) |
+| staged nb | `1a135feb…` — byte-identical to the admission-PASSED candidate snapshot |
+| staged dir | `kaggle_kernel_retry_001` — the name says "retry", but this is the k2 push, not a retry |
 
-When the user says it finished, **collect once**:
+When the user says it finished, **collect once**, and verify everything k1 verified **plus**
+`frames_with_bonus > 0`, then diff `submission.csv` against the control's `d3453380`.
 
-```bash
-kaggle kernels status lingxd/biohub-exp062-mutual-best
-kaggle kernels output lingxd/biohub-exp062-mutual-best -p <scratchpad-dir>
-```
+### The submission rule
 
-Verify in `metrics.json` / `exp062_telemetry.json`:
-
-- `exp062_mutual_best_integrity_passed` **true**
-- **`control_reproduces_parent_submission` true** — submission SHA256 ==
-  `d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60`
-- `patch_applied_exactly_once`, `resume_signature_includes_exp062_keys`, `activation_is_softmax`
-- `no_cache_hit` true — from **measured** wall-clock, never the parent's reported `predict_seconds`
-- `frames_with_bonus == 0` (mode is `none`), and **test-stage** telemetry present with the expected
-  shard coverage
-- reconcile actual GPU hours into `GPU_BUDGET.json`
-
-### The control's pass condition is absolute
-
-| result | action |
+| k2 output | action |
 |---|---|
-| **reproduces `d3453380`** | the insertion is inert → push **version 2** (CANDIDATE, `mutual_best`, β 0.20) to the **same slug**, collect, then consider one separately authorized LB submission |
-| **does NOT reproduce it** | the insertion is **not** inert → **STOP.** Do not push the candidate. Submit nothing. Investigate what else the patch perturbed. |
+| **byte-identical to the control** | **Do NOT submit.** Zero information, wasted slot. Close the probe. |
+| **differs** | **ONE** LB submission, **separately authorized by the user**, remote cap checked first |
 
-**The control is never submitted to the leaderboard either way** — it would duplicate a known 0.947.
-
-### Then, and only then: k2 candidate → at most ONE submission
-
-- Push version 2 to the same slug, collect once, verify the same gate plus
-  `frames_with_bonus > 0`.
-- **If k2's output is byte-identical to the control, do NOT submit at all** — no information, wasted
-  slot.
-- Otherwise **one** LB submission, **separately authorized by the user**, remote cap checked first.
-- Decision rule vs `repro_059` 0.947:
+Decision rule vs `repro_059` 0.947:
 
 | k2 Public LB | action |
 |---|---|
@@ -73,6 +49,43 @@ and authorization.
 
 ---
 
+## k1 (CONTROL) — DONE, PASSED, collected once. Do not re-run or re-collect.
+
+Collected 2026-09-24. Kernel version 1, COMPLETE in 6218.95 s (**1.727487 GPU h** measured).
+
+- **`submission.csv` independently hashes to `d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60`** —
+  verified with `sha256sum` over the downloaded file (241 357 lines), *not* the notebook's
+  self-report. Byte-identical to parent `repro_059` (submission 56313491, Public LB 0.947).
+  **The insertion is inert → the arc proceeds.**
+- All nine integrity checks true; `anchor_match_count` 1; activation softmax; `no_cache_hit` true on
+  **measured** wall-clock (543.08 s inference vs the 60 s floor), so the parent's restored
+  `predict_seconds` was never trusted; `frames_with_bonus` 0 as required for `mode=none`.
+- `pre_raw_* == raw_*` **exactly** on all four shard records — the bonus block ran and provably
+  changed nothing at β = 0.
+- Test-stage telemetry present with both expected shards (`0/2`, `1/2`, 198 frames each) and
+  **distinct** from the two validation records: the admission round-3 telemetry-substitution gap is
+  now closed on a real run, not just in review.
+- **Never submitted to the LB, and never will be** — its output *is* the already-scored 0.947 file,
+  so it carries zero information and would burn one of three daily slots.
+
+**Budget:** remaining **18.671187 h** after booking k1. The k1 row is filed under the ledger key
+`exp_062_mutual_best_edge_association#k1_control`, deliberately: the controller's `consume_budget()`
+allows only **one** consumed row per `experiment_id`, so a bare `exp_062` key would have blocked the
+k2 booking. Book k2 under a matching `#k2_candidate` key.
+
+⚠ **Controller/experiment shape mismatch worth knowing:** the controller models one `experiment_id`
+as one run, but exp_062 deliberately has two kernel versions. Launching k2 therefore required
+flipping `snapshot_source` from the control to the candidate and returning `state` to `READY`
+by hand (`K1_CONTROL_COLLECTED` is a bookkeeping marker, not a state in the `TRANSITIONS` table).
+Both are recorded in `state_history`. Review PASS and smoke PASS already stood against the
+**candidate** notebook — the recorded smoke command targets `exp062_mutual_best_candidate.ipynb`.
+
+**Pre-k2-launch local gates, all re-run green:** `validate_exp062_notebook.py` ALL PASS (5 groups),
+`test_exp062_behavioral.py` ALL PASS, `validate_notebook.py --require-metrics-contract` PASS. The
+control/candidate diff is confined to **cell 3's env block** (run id, mode, β, guard pop + assert);
+cells 0, 1, 2 and 4 are byte-identical.
+
+---
 ## What exp_062 is
 
 A mutual-best / relative-rank prior added to the edge logits of the frozen 0.947 pipeline,
@@ -109,10 +122,10 @@ Unlike exp_060/exp_061, this one went **through the controller**, not around it.
 | build + local gates | ✅ parity guard, validator 5 groups, behavioral 13 tests |
 | **Codex ADMISSION PASS** | ✅ 2026-09-24, after 3 substantive REVISE rounds (`experiments/exp_062_.../review.md`) |
 | snapshot smoke | ✅ `scripts/run_smoke_test.py`, exit 0 |
-| budget reservation | ✅ 3.0 h via the controller |
-| k1 launch | ✅ RUNNING |
-| k2 launch | ⬜ gated on k1 parity |
-| LB submission | ⬜ needs separate user authorization |
+| budget reservation | ✅ via the controller (3.0 h at k1; revised to 1.75 h for k2 after k1 measured 1.727 h) |
+| k1 launch | ✅ COMPLETE — control PASSED, reproduces `d3453380` |
+| k2 launch | ✅ RUNNING — version 2, launched 2026-09-24T14:37:15Z |
+| LB submission | ⬜ needs separate user authorization, and none at all if k2 == control |
 
 **No waivers were used.** That is the first time in this arc.
 

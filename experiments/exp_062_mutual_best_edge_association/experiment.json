@@ -58,7 +58,7 @@
   },
   "key_defect_closed": "Codex round 2 found, and Claude verified in the parent, that _inference_resume_env_keys (cell 2 line 1669) is a fixed 13-key list containing neither exp_062 variable while _test_prediction_signature (line 1670) hashes exactly those keys. A candidate run could therefore compute the SAME resume signature as the control, skip inference (lines 1672-1680) and replay the control's predictions with every gate green -- burning an LB slot on a duplicate 0.947. Closed by extending the key list between lines 1669 and 1670 (Codex traced propagation to 3171-3172, 3290, 3686, 3723, 3783) plus a measured-wall-clock cache alarm, because parent line 1675 restores the historical predict_seconds on a hit.",
   "created_at": "2026-09-24T00:00:00+00:00",
-  "updated_at": "2026-09-24T04:57:55+00:00",
+  "updated_at": "2026-09-24T14:38:09.842810+00:00",
   "state_history": [
     {
       "from": "PROPOSED",
@@ -131,10 +131,33 @@
       "to": "SUBMITTED",
       "at": "2026-09-24T04:57:55+00:00",
       "note": null
+    },
+    {
+      "state": "K1_CONTROL_COLLECTED",
+      "at": "2026-09-24T14:09:33.923818+00:00",
+      "note": "k1 control collected once; reproduces parent SHA d3453380; insertion inert."
+    },
+    {
+      "from": "K1_CONTROL_COLLECTED",
+      "to": "READY",
+      "at": "2026-09-24T14:36:54.593197+00:00",
+      "note": "k1 control PASSED (submission reproduces parent SHA d3453380, insertion inert). snapshot_source flipped control -> candidate for the k2 push to the SAME slug. K1_CONTROL_COLLECTED is a bookkeeping marker outside the controller TRANSITIONS table, used because the controller models one experiment_id as one run while exp_062 deliberately has two kernel versions; the state is returned to READY so launch() can gate k2 normally. Review PASSED and smoke PASSED both already stand against the CANDIDATE notebook (smoke command targets exp062_mutual_best_candidate.ipynb)."
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-24T14:37:15+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-24T14:38:09.842810+00:00",
+      "note": "k2 CANDIDATE (kernel version 2) pushed and RUNNING."
     }
   ],
   "not_authorized": "No admission review, no budget reservation, no launch, no leaderboard submission. Strategy CONSENSUS authorizes the build only.",
-  "snapshot_source": "experiments/exp_062_mutual_best_edge_association/snapshot/source/exp062_mutual_best_control.ipynb",
+  "snapshot_source": "experiments/exp_062_mutual_best_edge_association/snapshot/source/exp062_mutual_best_candidate.ipynb",
   "admission_round_1": {
     "verdict_attempt_1": "BLOCK -- tool-access only. Codex's read-only command tool stopped opening processes before it could inspect anything; it stated explicitly 'This is an evidence and tool-access block, not a finding that the hypothesis is unsound.' Not a substantive finding. Retried with the project's conventional reviewer model (gpt-6-astra low, config swapped and restored).",
     "verdict": "REVISE",
@@ -188,7 +211,7 @@
   },
   "remote": {
     "kernel_id": "lingxd/biohub-exp062-mutual-best",
-    "submitted_at": "2026-09-24T04:57:55+00:00",
+    "submitted_at": "2026-09-24T14:37:15+00:00",
     "status": "SUBMITTED",
     "last_checked_at": null
   },
@@ -207,5 +230,66 @@
     "pass_condition": "MUST reproduce parent submission SHA256 d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60. If it does not, the insertion is NOT inert: STOP, do not push the candidate, do not submit anything.",
     "never_submitted": "This control output is never sent to the leaderboard -- it would duplicate a known 0.947.",
     "on_completion": "Wait for the USER's completion notice; do NOT poll. Then collect once and verify: exp062_mutual_best_integrity_passed true; control_reproduces_parent_submission true; patch_applied_exactly_once true; resume_signature_includes_exp062_keys true; no_cache_hit true (measured wall-clock, not the parent's reported predict_seconds); activation_is_softmax true; frames_with_bonus == 0 for mode=none; test-stage telemetry present with the expected shard coverage."
+  },
+  "collect_k1_control": {
+    "collected_at_utc": "2026-09-24T14:09:33.923818+00:00",
+    "kernel": "lingxd/biohub-exp062-mutual-best",
+    "kernel_version": 1,
+    "kernel_status": "COMPLETE",
+    "verdict": "PASS -- the insertion is INERT",
+    "runtime_seconds": 6218.951879024506,
+    "actual_gpu_hours": 1.7274866330623626,
+    "submission_sha256": "d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60",
+    "submission_sha256_verification": "INDEPENDENT -- sha256sum over the downloaded submission.csv (241357 lines), not the notebook's self-report. Matches parent repro_059 (submission 56313491, Public LB 0.947) byte for byte.",
+    "gates": {
+      "exp062_mutual_best_integrity_passed": true,
+      "control_reproduces_parent_submission": true,
+      "patch_applied_exactly_once": true,
+      "anchor_match_count": 1,
+      "resume_signature_includes_exp062_keys": true,
+      "activation_is_softmax": true,
+      "no_cache_hit": true,
+      "measured_inference_seconds": 543.0780930519104,
+      "frames_with_bonus": 0,
+      "stage_counts": {
+        "test": 2,
+        "validation": 2
+      },
+      "test_stage_shards": [
+        "0/2",
+        "1/2"
+      ],
+      "stats_fresh_and_attributable": true,
+      "run_id": "exp062-control-1790225889"
+    },
+    "inertness_evidence": "pre_raw_* == raw_* EXACTLY on all four shard records (test 0/2 absmax 19.187894821166992, test 1/2 18.062... see exp062_stats.jsonl), i.e. the bonus block ran and provably changed nothing at beta=0.",
+    "telemetry_exploit_closed_in_practice": "Both test shards (0/2, 1/2) carry stage='test' and are distinct from the two validation records. The admission round-3 substitution gap (a lone val_single record satisfying the gate) is empirically closed on a real run, not just in review.",
+    "leaderboard": "NOT SUBMITTED and never will be -- this output is byte-identical to the already-scored 0.947 parent, so it carries zero information and would consume a daily slot.",
+    "next_gate": "Control passed, so the launch plan permits pushing version 2 (CANDIDATE, mutual_best, beta=0.20) to the same slug. That launch needs its own user authorization."
+  },
+  "launch_k2_candidate": {
+    "kernel": "lingxd/biohub-exp062-mutual-best",
+    "kernel_version": 2,
+    "url": "https://www.kaggle.com/code/lingxd/biohub-exp062-mutual-best",
+    "launched_at_utc": "2026-09-24T14:37:15+00:00",
+    "launched_via": "scripts/launch_kaggle.py (controller)",
+    "status_at_launch": "RUNNING",
+    "variant": "CANDIDATE -- BIOHUB_LB_SCORING_MODE=mutual_best, BIOHUB_LB_SCORING_BETA=0.20, BIOHUB_EXP062_EXPECT_PARENT_SHA popped and asserted unset",
+    "staged_notebook_sha256": "1a135feb4def1db66dfc5e6cc0d180b7d0511c2f468af734332c2637e55d3390",
+    "staged_matches_admission_snapshot": true,
+    "staged_dir": "experiments/exp_062_mutual_best_edge_association/kaggle_kernel_retry_001",
+    "staged_dir_note": "prepare_kernel_directory() never overwrites, so the second push landed in kaggle_kernel_retry_001. The name says 'retry' but this is the k2 CANDIDATE push, not a retry of k1.",
+    "user_authorized": true,
+    "authorized_at_utc": "2026-09-24T14:38:09.842810+00:00",
+    "budget_reserved_hours": 1.75,
+    "gate_that_unlocked_it": "k1 control reproduced parent SHA d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60 byte-for-byte; the insertion is inert.",
+    "pre_launch_local_gates": {
+      "validate_exp062_notebook.py": "ALL PASS (5 groups, incl. group 4 parent-patch-chain replay and anchor uniqueness)",
+      "test_exp062_behavioral.py": "ALL PASS",
+      "validate_notebook.py --require-metrics-contract": "PASS, 5 cells / 3 code cells / 0 saved error outputs",
+      "variant_diff": "cells 0,1,2,4 byte-identical to the control; ONLY cell 3's env block differs (run id, mode, beta, guard pop+assert)"
+    },
+    "on_completion": "Wait for the USER's completion notice; do NOT poll. Collect ONCE, then verify exp062_mutual_best_integrity_passed true, patch_applied_exactly_once, resume_signature_includes_exp062_keys, activation_is_softmax, no_cache_hit on MEASURED wall-clock, test-stage telemetry with shards 0/2 and 1/2, and additionally frames_with_bonus > 0 (mode is on). Compare submission.csv against the control's d3453380.",
+    "submission_rule": "If k2's submission.csv is byte-identical to the control, do NOT submit -- zero information, wasted slot. Otherwise at most ONE LB submission, separately authorized by the user, remote cap checked first."
   }
 }
