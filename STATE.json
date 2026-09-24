@@ -11,7 +11,7 @@
     "verified_at_utc": "2026-09-18T00:00:00+00:00"
   },
   "submission_policy": "UPDATED 2026-09-18 by user: Public LB submission COUNT is no longer a research constraint -- multiple submissions are fine. The LB may now be used directly as the real held-out validation signal (Family-2 / distribution-general validation). Still record every submission in SUBMISSION_BUDGET.json with authenticated score_source; still no auto-submit without the user asking; Kaggle's own daily cap (max_submissions_per_day) remains a platform fact, not a scarcity to conserve.",
-  "phase": "EXP062_STRATEGY_ROUND1_REVISE_AWAITING_V2_CORRECTION",
+  "phase": "EXP062_STRATEGY_CONSENSUS_AWAITING_BUILD_AUTHORIZATION",
   "exp060_0p18_lb": {
     "kernel": "lingxd/biohub-exp060-safediv018-lb-submit",
     "url": "https://www.kaggle.com/code/lingxd/biohub-exp060-safediv018-lb-submit",
@@ -79,7 +79,7 @@
     "not_authorized": "implementation/launch not yet authorized; CONSENSUS is strategy-level only. Fresh Codex admission PASS + smoke + reservation required first."
   },
   "summary": "The exp_061 arc is CLOSED. Submission 56493252 (v5 zon) failed exactly like 56481730 (v4) and 56454236 (v2): 'notebook hit an unhandled error while rerunning your code', no score. That is five consecutive failed LB transports for the zon arm across three distinct mechanisms (two static-copy kernels -> incorrect format; v2/v4/v5 full-inference -> hidden-rerun error), so the stop rule fired and the user abandoned the path. The zon Z-reflection TTA was never scored and its decision rule is permanently UNRESOLVED, not falsified. A fresh public-frontier recon (docs/research/public_frontier_recon_2026-09-23.md) then established: our 0.947 is now OUTSIDE the top 200 (rank-200 cutoff 0.949, LB top 0.975, deadline 2026-09-29); no verified public notebook beats 0.947, every candidate sharing the same three Pilkwang checkpoints; but three concrete, portable, specimen-blind levers are now public on our exact 0.947 base, the most promising being mutual-best/relative-rank EDGE association -- the first shared lever that targets the ~85-90%-weighted edge term rather than the 0.1-weighted division term that produced all of our recent nulls. The project is back on the exp_060 footing with working parent repro_059 = 0.947. GPU remaining 20.398674 h, no reservations outstanding.",
-  "next_action": "Strategy round 1 is done: Claude proposed exp_062 (mutual-best edge association) and Codex returned REVISE (docs/research/exp062_codex_challenge_v1.md). Codex CONCURS that mutual-best at beta=0.20 is the right single next probe, but found four correctness defects in the proposal, three of which Claude independently verified as genuine -- most importantly that exp_055 was already an EDGE intervention with a 0.000 LB delta, so the 'first lever to touch the heavy term' motivation is false and must be rebuilt. NEXT: author proposal v2 as ONE consolidated correction per STATE.exp062_strategy.codex_design_corrections_for_v2, then ONE scoped Codex admission review against the built snapshot, under the bounded-gate contract Codex accepted. Nothing is authorized: no build, no launch, no submission. Remaining levers if exp_062 fails: density-adaptive relinking (Codex's preferred successor over a beta sweep), then option B (which Codex explicitly declined to rule out), then DivNet.",
+  "next_action": "exp_062 reached strategy-level CONSENSUS on 2026-09-24 (Codex PASS, docs/research/exp062_codex_challenge_v3.md) after three rounds. The lever is one unchanged mutual-best beta=0.20 probe on the frozen 0.947 parent, deployed as two kernel versions of one notebook (k1 control mode=none with the parent-SHA assert armed, never submitted; k2 candidate mode=mutual_best beta=0.20, submitted once). NEXT: build, then ONE scoped implementation/admission review, then smoke, then a 3.0 h reservation, then ONE user-authorized launch. Two implementation notes are mandatory and recorded in STATE.exp062_strategy.implementation_notes_from_pass: append the two env keys between parent lines 1669 and 1670, and use MEASURED wall-clock for the cache-hit alarm because line 1675 restores the historical predict_seconds. Nothing is authorized: no build, no launch, no submission. Competition closes 2026-09-29 23:59.",
   "leaderboard_submission_authorized": false,
   "leaderboard_submission_note": "The user authorized the v5 submission on 2026-09-23 ('push it to the LB'); it was consumed by 56493252 at 12:35:37Z. Any further submission needs fresh authorization and a remote cap check. The authenticated daily cap is 5, not the 3 recorded in older entries.",
   "exp061_submission_repair": {
@@ -162,11 +162,31 @@
     "scope": "The entire exp_061 arc: exp_061_deepcenter_tta and the LB-transport repairs v1-v5.",
     "reason": "Five consecutive Public LB submissions for the zon arm failed to return a score, across three distinct transport mechanisms.",
     "attempts": [
-      {"submission_id": 56442230, "mechanism": "static-copy kernel (zon)", "failure": "incorrect submission format"},
-      {"submission_id": 56447637, "mechanism": "static-copy kernel (xyonly control, known-good 0.947 content)", "failure": "incorrect submission format -- proved the copy mechanism, not zon content, was that failure"},
-      {"submission_id": 56454236, "mechanism": "v2 full inference (~2 h visible run)", "failure": "unhandled error in hidden rerun, totalBytes=0"},
-      {"submission_id": 56481730, "mechanism": "v4 zon-only deployment (32.5 min visible run)", "failure": "unhandled error in hidden rerun"},
-      {"submission_id": 56493252, "mechanism": "v5 = v4 + rerun-aware deadline + view cache off /kaggle/working", "failure": "unhandled error in hidden rerun"}
+      {
+        "submission_id": 56442230,
+        "mechanism": "static-copy kernel (zon)",
+        "failure": "incorrect submission format"
+      },
+      {
+        "submission_id": 56447637,
+        "mechanism": "static-copy kernel (xyonly control, known-good 0.947 content)",
+        "failure": "incorrect submission format -- proved the copy mechanism, not zon content, was that failure"
+      },
+      {
+        "submission_id": 56454236,
+        "mechanism": "v2 full inference (~2 h visible run)",
+        "failure": "unhandled error in hidden rerun, totalBytes=0"
+      },
+      {
+        "submission_id": 56481730,
+        "mechanism": "v4 zon-only deployment (32.5 min visible run)",
+        "failure": "unhandled error in hidden rerun"
+      },
+      {
+        "submission_id": 56493252,
+        "mechanism": "v5 = v4 + rerun-aware deadline + view cache off /kaggle/working",
+        "failure": "unhandled error in hidden rerun"
+      }
     ],
     "what_was_ruled_out": "v4 and v5 both ran clean visible runs with full integrity gates and byte-identical predictions (2593a543). v5 confirmed both scale fixes active on the real pipeline, so neither the 7200 s watchdog nor the 20 GB /kaggle/working cap caused the failure. v4's 32.5-min run with 3.7x watchdog and 4.5x disk headroom already argued against the scale hypothesis; v5 settled it.",
     "what_remains_unknown": "The hidden tracebacks were never available. A third property of the rerun environment (hidden-set shape, memory, a dependency absent from the rerun sandbox) is responsible and was never identified.",
@@ -216,11 +236,15 @@
   "exp062_strategy": {
     "title": "exp_062 mutual-best edge association on the frozen 0.947 pipeline",
     "parent": "repro_059_public_0947_exact_copy (Public LB 0.947)",
-    "proposal": "docs/research/exp062_mutual_best_edge_association_proposal.md (v1, SUPERSEDED)",
-    "strategy_status": "REVISE (round 1) -- NOT CONSENSUS",
+    "proposal": "docs/research/exp062_mutual_best_edge_association_proposal_v3.md (v3, CONSENSUS)",
+    "strategy_status": "CONSENSUS",
     "codex_reviewer": "gpt-6-astra (low), read-only, 2026-09-23",
-    "challenge_rounds": ["docs/research/exp062_codex_challenge_v1.md (REVISE: 4 CORRECTNESS + 2 VERIFICATION-DEPTH)"],
-    "codex_bottom_line": "Mutual-best is worth ONE bounded probe at beta=0.20, but the proposal's rationale, activity test and deployment plan need correction. Parent-source inspection rules out MATHEMATICAL equivalence with the existing bidirectional harmonic fusion; it does NOT establish useful additional signal. Codex calls the prior a rank-sharpening heuristic, not a ratio test or an established anti-hijacking mechanism.",
+    "challenge_rounds": [
+      "docs/research/exp062_codex_challenge_v1.md (REVISE: 4 CORRECTNESS + 2 VERIFICATION-DEPTH)",
+      "docs/research/exp062_codex_challenge_v2.md (REVISE: 5 of 6 round-1 findings fixed; cache isolation left open; calibration account newly introduced)",
+      "docs/research/exp062_codex_challenge_v3.md (PASS = strategy-level CONSENSUS, 2026-09-24)"
+    ],
+    "codex_bottom_line": "PASS at round 3: \"Strategy-level CONSENSUS for one unchanged mutual-best beta = 0.20 probe. The two outstanding design corrections are resolved.\" No blocking correctness defects. The PASS explicitly does NOT authorize launch or leaderboard submission.",
     "verified_errors_in_v1": {
       "note": "Claude independently checked these against the repository rather than accepting the reviewer's word. All three confirmed.",
       "1_edge_vs_division_history": "FALSE in v1. exp_055 was an EDGE intervention: adjusted_edge_delta +0.0033 (44b6) and +0.0189 (6bba) with division_jaccard 0.2 UNCHANGED in every specimen block, and its Public LB delta was still 0.000. HANDOUT.md already labelled it 'exp_055 edge'. The 'first lever to touch the heavy term' framing is therefore wrong and the motivation must be rebuilt.",
@@ -240,8 +264,25 @@
       "State the full spending plan including candidate-only deployment and any follow-up run."
     ],
     "lever_recommendation": "Codex concurs with mutual-best beta=0.20 as the first scored probe, but for a different reason than v1 gave: small implementation scope and a mechanism distinct from harmonic fusion, NOT verified public superiority and NOT an untouched metric term. After a null or regression, prefer density-adaptive relinking over a beta sweep. Codex explicitly keeps option B alive: 'the evidence does not justify dismissing division categorically.' DivNet is a larger integration and model-provenance commitment.",
-    "next": "Author proposal v2 as a single consolidated correction, then one scoped Codex admission review against the built snapshot. No build, launch or submission is authorized yet.",
-    "budget_note": "20.398674 h remaining, of which 14.398674 are unprotected. A 2.6 h development run fits, but candidate-only deployment and any follow-up must be budgeted explicitly."
+    "next": "CONSENSUS reached. Next gates in order, none of them yet done: (1) BUILD purely-additive on the repro_059 snapshot with the parity-guard builder; (2) ONE scoped Codex implementation/admission review against the exact snapshot, under the bounded-gate contract; (3) local gates + snapshot smoke; (4) 3.0 h budget reservation; (5) ONE user-authorized launch of k1 (control) then k2 (candidate); (6) separately authorized single LB submission of k2. No build, launch or submission is authorized yet.",
+    "budget_note": "20.398674 h remaining, of which 14.398674 are unprotected. A 2.6 h development run fits, but candidate-only deployment and any follow-up must be budgeted explicitly.",
+    "proposal_history": [
+      "v1 (SUPERSEDED)",
+      "v2 (SUPERSEDED)",
+      "v3 (CONSENSUS)"
+    ],
+    "round2_findings_and_fixes": {
+      "cache_isolation_REAL_DEFECT": "Codex found, and Claude verified directly in the parent, that _inference_resume_env_keys (cell 2 line 1669) is a fixed 13-key list containing NEITHER BIOHUB_LB_SCORING_MODE NOR BIOHUB_LB_SCORING_BETA, while _test_prediction_signature (line 1670) hashes exactly those keys. A candidate run could therefore compute the SAME resume signature as the control, skip inference at lines 1672-1680 and replay the control predictions -- emitting the control output with every gate green and burning an LB slot on a duplicate 0.947. Parent resume state is real and persisted: biohub_live_resume/test_prediction_state.json appeared in the collected exp_061 v5 output. FIXED in v3 section 4.1.",
+      "calibration_account_NEWLY_INTRODUCED_BY_V2": "v2 claimed the bonus lands on re-standardised harmonic-fusion logits scaled per SOURCE. Wrong in three ways, all re-verified: std(dim=1) on (1,n_src,n_tgt) reduces the SOURCE axis giving (1,1,n_tgt) = per TARGET; the [0.5,2.0] clamp is on the RATIO while scales are only clamp_min(1e-4); and the low_margin_consensus secondary blend (lines 1187-1226) runs AFTER fusion, with raw = edge_logits_pair[0] only at line 1232. FIXED in v3 section 2.",
+      "parent_sha_guard": "Now actively os.environ.pop-ed and asserted unset in candidate mode, not merely absent from source. FIXED in v3 section 4.2."
+    },
+    "implementation_notes_from_pass": {
+      "cache_fix_insertion_point": "Append the two keys immediately after the list definition (line 1669) and before the first hash computation (line 1670). Codex traced propagation: 1669-1672 test signature and inference-reuse decision; 3171-3172 base/final-output reuse also requires the test signature; 3290/3686/3723 validator prediction, validator base and PP-sweep signatures; 3783 final signature. Two signatures do NOT inherit the keys -- standalone postprocessing (289-296) and the disabled-validator sentinel (3345) -- and neither opens an uncovered candidate-reuse path.",
+      "predict_seconds_trap": "CRITICAL: parent line 1675 RESTORES the historical predict_seconds from cached state on a cache hit, so the reported prediction time looks normal. The cache-hit alarm must use independently MEASURED elapsed wall-clock, never the reported value. This would have defeated the naive alarm the proposal originally specified.",
+      "legacy_state": "Unrecognised/legacy resume state must be rejected fail-closed, not ignored."
+    },
+    "col_best_redundancy_ruling": "Claude derived, and Codex confirmed, that the parent ALREADY computes softmax(edge_logits_pair[0], dim=0) and topk(dim=0) at lines 1199-1220 -- the best SOURCE per target plus its top-2 margin and secondary agreement -- i.e. the same quantity as _lb_col_best, which carries the LARGEST weight (beta) in the bonus. Codex qualification: this is REUSED RANKING INFORMATION, not mathematical redundancy -- gating a model blend and explicitly boosting a winner are different transformations, and the column bonus still changes probability concentration and candidate admission. The genuinely novel signal is _lb_row_best (best target per source). Retain beta=0.20 and the published weights; do NOT redesign the first probe.",
+    "nonblocking_carried_forward": "[VERIFICATION-DEPTH] A null tests the WHOLE weighted intervention and cannot isolate the target-competition contribution, so it cannot establish that row/mutual information failed nor that a row-weighted successor is preferable. The designated successor stays density-adaptive relinking, which needs its own proposal, challenge and authorization."
   },
   "resolved_leaderboard_submission": {
     "submission_id": 56261282,
@@ -266,7 +307,7 @@
     "verified_at_utc": "2026-09-16T14:40:00+00:00",
     "note": "Public LB 0.944 == repro_048 0.944, zero gain despite 3714-edge graph diff. EMA-off replay byte-identical to 0.944, so isolated to the EMA edit: motion EMA is redundant/neutral on top of the edge-feature-TTA bundle. Branch 'EMA on 0.944' closed."
   },
-  "updated_at": "2026-09-23T13:45:00+00:00",
+  "updated_at": "2026-09-24T00:00:00+00:00",
   "active_local_experiment": "local_054_original_score_final_stage_parity",
   "exp057_a0_part1": {
     "status": "DONE_ZERO_GPU",
