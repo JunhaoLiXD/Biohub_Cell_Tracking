@@ -1,5 +1,28 @@
 # Public-frontier recon — 2026-09-23
 
+> ## ⚠ PARTIALLY SUPERSEDED — read this first
+>
+> **Section 1 (standings) is STALE and wrong as of 2026-09-24.** The rank-200 cutoff moved
+> 0.949 -> **0.953** in one day and our 0.947 is **rank ~478 of 3888**, not "just outside the top
+> 200". Current standings: `leaderboard_recon_2026-09-24.md`.
+>
+> **Section 3's "directly portable to our parent" is WRONG.** It was inferred from a shared
+> self-reported provenance header, not from code. Measured line overlap with our parent is ~36 %.
+>
+> **Section 3's lever descriptions are notebook-specific and were misattributed.** The
+> `haideptry` family is now ABANDONED: that author appears nowhere in the 3888-row leaderboard and
+> their flagship DivNet gate provably throws on every call
+> (`experiments/exp_063_public_0951_pipeline_repro/review.md`).
+>
+> **One factual correction:** this document calls `anvithpothula/biohub-v1284-head-s075` a
+> "private head dataset". It is **public** (30 KB, 186 downloads), and `anvithpothula` is
+> authenticated at **rank 62, score 0.956** — the strongest public lead we have found.
+>
+> What survives: the finding that no *verified* public notebook beat 0.947 at the time, the
+> evgendvorkin evolution table, and the density hypothesis — which is now **measured and confirmed**
+> in `test_density_measurement_2026-09-24.md`.
+
+
 Record type: zero-GPU public-notebook and leaderboard recon.
 Author: Claude Code. Status: evidence gathering only. **No experiment is authorized by this
 document.** Supersedes the recon section of

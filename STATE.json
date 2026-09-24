@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "active_experiment": "exp_062_mutual_best_edge_association",
+  "active_experiment": "exp_064_x138_verbatim_repro",
   "working_parent": "repro_059_public_0947_exact_copy",
   "best_public_lb": {
     "experiment_id": "repro_059_public_0947_exact_copy",
@@ -77,8 +77,8 @@
     "deferred_successor": "exp_061 corrected Z-reflection DeepCenter TTA (8 eval/7 unique XY -> +Z = 16 eval/14 unique; separate per-arm heatmap caches; Z-on vs XY-only guard). Run only if exp_060 shows the division gate is LB-movable, or as an independent representation probe.",
     "not_authorized": "implementation/launch not yet authorized; CONSENSUS is strategy-level only. Fresh Codex admission PASS + smoke + reservation required first."
   },
-  "summary": "Two things in flight. (1) exp_062 k2 (mutual_best beta=0.20) was collected and submitted to the LB as 56530197 on 2026-09-24T19:34:49Z; still PENDING, no score. exp_062 drew 3.526292 GPU h total. (2) exp_064_x138_verbatim_repro is RUNNING on lingxd/biohub-exp064-x138-repro v1, launched 2026-09-24T20:35:55Z after a Codex ADMISSION PASS at round 5 and a passed smoke, with the attended watchdog armed (Monitor b1zyy1022). MAJOR CORRECTION recorded today: the full authenticated leaderboard (3888 teams) shows rank-200 moved 0.949 -> 0.953 in one day and our 0.947 is rank ~478, not 'just outside the top 200'. haideptry (the exp_063 target) appears NOWHERE in 3888 rows and their flagship DivNet gate provably throws on every call, so exp_063 is ABANDONED. anvithpothula, author of x138, is AUTHENTICATED at rank 62 with 0.956. x138 is a verbatim copy, zero authored code, whose distinctive mechanism is a V1284 coordinate-refinement head -- a mechanism class this project has never touched. The admission took five rounds and every one found real defects, all of them mine: an overstated mechanism description, an inferred score floor, and THREE separate false-pass fixtures against my own collection adapter.",
-  "next_action": "DO NOT POLL. The watchdog (Monitor b1zyy1022) fires on a terminal state or at 2h15m; Monitor sessions expire after 30 min, so RE-ARM it until the kernel terminates -- an expiry notice is NOT a terminal state. When exp_064 finishes: collect ONCE, then run `python scripts/collect_exp064_x138.py <dir>`. Its EXIT CODE gates the submission -- 0 may submit with separate user authorization, non-zero must not. Never submit an output that byte-matches d3453380 (parent) or ba9431c1 (exp_062 k2). Comparator is max(0.947, exp_062 k2 56530197), so resolve k2's score first. Submission cap three per America/New_York day; 1 of 3 used 2026-09-24. Reconcile GPU from confirmed termination. Also still pending: k2's own score, which decides the exp_062 arc (>=0.948 adopt; ==0.947 close; <=0.946 revert). Competition closes 2026-09-29 23:59.",
+  "summary": "Two things in flight. (1) exp_062 k2 (mutual_best beta=0.20) was collected and submitted to the LB as 56530197 on 2026-09-24T19:34:49Z; still PENDING, no score. exp_062 drew 3.526292 GPU h total. (2) exp_064_x138_verbatim_repro is RUNNING on lingxd/biohub-exp064-x138-repro v1, launched 2026-09-24T20:35:55Z after a Codex ADMISSION PASS at round 5 and a passed smoke, with the attended watchdog armed (re-armed; Monitor tasks expire every 30 min). MAJOR CORRECTION recorded today: the full authenticated leaderboard (3888 teams) shows rank-200 moved 0.949 -> 0.953 in one day and our 0.947 is rank ~478, not 'just outside the top 200'. haideptry (the exp_063 target) appears NOWHERE in 3888 rows and their flagship DivNet gate provably throws on every call, so exp_063 is ABANDONED. anvithpothula, author of x138, is AUTHENTICATED at rank 62 with 0.956. x138 is a verbatim copy, zero authored code, whose distinctive mechanism is a V1284 coordinate-refinement head -- a mechanism class this project has never touched. The admission took five rounds and every one found real defects, all of them mine: an overstated mechanism description, an inferred score floor, and THREE separate false-pass fixtures against my own collection adapter.",
+  "next_action": "DO NOT POLL. The watchdog fires on a terminal state or at 2h15m; Monitor sessions expire after 30 min, so RE-ARM it until the kernel terminates -- an expiry notice is NOT a terminal state. When exp_064 finishes: collect ONCE, then run `python scripts/collect_exp064_x138.py <dir>`. Its EXIT CODE gates the submission -- 0 may submit with separate user authorization, non-zero must not. Never submit an output that byte-matches d3453380 (parent) or ba9431c1 (exp_062 k2). Comparator is max(0.947, exp_062 k2 56530197), so resolve k2's score first. Submission cap three per America/New_York day; 1 of 3 used 2026-09-24. Reconcile GPU from confirmed termination. Also still pending: k2's own score, which decides the exp_062 arc (>=0.948 adopt; ==0.947 close; <=0.946 revert). Competition closes 2026-09-29 23:59.",
   "leaderboard_submission_authorized": false,
   "leaderboard_submission_note": "The user authorized the v5 submission on 2026-09-23 ('push it to the LB'); it was consumed by 56493252 at 12:35:37Z. Any further submission needs fresh authorization and a remote cap check. The authenticated daily cap is 5, not the 3 recorded in older entries.",
   "exp061_submission_repair": {
@@ -571,5 +571,12 @@
     "strategy_amendment": "experiments/exp_061_zon_lb_submission_repair_v5/strategy_amendment_v1.md"
   },
   "leaderboard_submission": "exp_062 k2 submitted 56530197, PENDING; exp_064 not yet authorized",
-  "updated_utc": "2026-09-24T20:36:37.785660+00:00"
+  "updated_utc": "2026-09-24T20:48:56.109716+00:00",
+  "prior_experiment_awaiting_score": {
+    "experiment_id": "exp_062_mutual_best_edge_association",
+    "state": "COLLECTING",
+    "submission_id": 56530197,
+    "status": "PENDING",
+    "note": "Collected and submitted; the arc closes when 56530197 scores. Not active work."
+  }
 }

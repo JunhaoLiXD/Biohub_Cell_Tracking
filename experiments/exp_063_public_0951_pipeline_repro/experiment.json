@@ -2,7 +2,7 @@
   "schema_version": 1,
   "experiment_id": "exp_063_public_0951_pipeline_repro",
   "parent": "repro_059_public_0947_exact_copy",
-  "state": "MANUAL_REVIEW_REQUIRED",
+  "state": "REJECT",
   "hypothesis": "A VERBATIM reproduction of the public notebook haideptry/biohub-0-951-sota-deepcenter-fast-ilp-19m, run under our own Kaggle account with the same four mounted datasets and the same pinned docker image, scores strictly above our incumbent comparator on the Public LB. The comparator is max(0.947, exp_062 k2), NOT the stale 0.947. This is an OPERATIONAL hypothesis about the displayed 3-decimal score. Honest prior: the \"0.951\" is the notebook's own title claim, from an author who does not appear in the LB top 200 (rank-200 cutoff 0.949) and whose notebook has 7 votes. It is a hypothesis worth exactly one submission, NOT a known gain. Rationale for testing the whole pipeline rather than porting one lever: the notebook stacks FIVE interacting mechanisms on our own operating point, and four interacting mechanisms cannot be hand-ported and individually validated in the days remaining.\n",
   "change": {
     "component": "whole_pipeline_reproduction_no_authored_code",
@@ -34,13 +34,23 @@
     "status": "PENDING"
   },
   "created_at": "2026-09-24T19:37:56+00:00",
-  "updated_at": "2026-09-24T19:45:28.049021+00:00",
+  "updated_at": "2026-09-24T20:47:55.898899+00:00",
   "state_history": [
     {
       "from": "PROPOSED",
       "to": "MANUAL_REVIEW_REQUIRED",
       "at": "2026-09-24T19:45:28.049021+00:00",
       "note": "Codex admission VERDICT BLOCK; two headline findings independently confirmed."
+    },
+    {
+      "from": "MANUAL_REVIEW_REQUIRED",
+      "to": "REJECT",
+      "at": "2026-09-24T20:47:55.898899+00:00",
+      "note": "Abandoned; superseded by exp_064. Never launched, no GPU consumed, no submission made."
     }
-  ]
+  ],
+  "abandoned": {
+    "at_utc": "2026-09-24T20:47:55.898899+00:00",
+    "reason": "Wrong target. The full authenticated leaderboard (3888 teams, 2026-09-24) shows haideptry appears NOWHERE, while their notebook titles claim 'SOTA 0.951+'. Independently, their flagship DivNet gate is structurally inoperative: a 6-D tensor into a Conv3d needing 5-D with in_channels=1, the exception swallowed, the veto gated on non-None. Superseded by exp_064, a verbatim reproduction of anvithpothula/biohub-x138, whose author IS authenticated at rank 62 with 0.956."
+  }
 }
