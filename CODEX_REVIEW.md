@@ -1,38 +1,36 @@
 # Latest Codex Review
 
 Experiment: `exp_062_mutual_best_edge_association`  
-Captured: 2026-09-24T04:49:38+00:00
+Captured: 2026-09-24T04:54:51+00:00
 
 ## Summary
 
-**REVISE.** Strategy consensus is verified in the Claude-authored v3 proposal and Codex challenge records v1–v3. The snapshot preserves the parent code after removing marked injections, and all seven manifest hashes match. One concrete admission defect remains.
+**PASS to snapshot smoke testing.** The [versioned v3 strategy](E:/Project/Biohub_CellTracking/docs/research/exp062_mutual_best_edge_association_proposal_v3.md) records Claude’s proposal, Codex objections, revisions, and explicit **CONSENSUS**, supported by the three challenge records.
 
 ## Methodology
 
-The fixed mutual-best β=0.20 intervention is testable and distinct from previous downstream repairs. Prior null results weaken expected benefit but do not contradict this upstream intervention.
+The fixed β=0.20 prior is a testable, single major intervention upstream of ILP. Earlier downstream nulls do not directly contradict it, but neither establish likely benefit.
 
-The inherited validator selects division-prioritized training videos within both 44b6 and 6bba; it is **not specimen-disjoint validation**. Training exposure and adaptive postprocessing selection prevent independent generalization claims. The integrity-only gate and separately authorized LB endpoint acknowledge this limitation. The experiment measures the intervention through the retained adaptive pipeline.
+The inherited 44b6/6bba training-video validation is **not specimen-disjoint generalization evidence**. Retained adaptive postprocessing makes this a whole-pipeline intervention test. Public LB is the operational quality endpoint; displayed equality cannot establish exact numerical equivalence.
 
 ## Implementation risks
 
-**Expected subprocess coverage is implemented but never enforced.** The final notebook cell calls `read_stats()` without `expect_shards`. Test and validation subprocesses share the telemetry file, and finalization accepts aggregate activity.
-
-I executed the frozen functions using memory-only filesystem substitutes: a single `val_single` record, with **no test-inference telemetry**, passed `read_stats()` and produced `exp062_mutual_best_integrity_passed: true`. Thus validation activity can substitute for missing candidate execution evidence. This leaves the earlier coverage finding unresolved.
-
-The rank formula, axes, signature extension, and candidate historical-SHA clearing are present. PyTorch numerical parity remains unverified locally. Git diff was unavailable because the directory is not a Git working tree.
+- All seven snapshot hashes matched. Removing marked injections reproduces the parent code exactly in both variants.
+- Rank axes, bonus formula, signature extension, checkpoint guards, and inherited graph checks are preserved.
+- The telemetry correction closes the demonstrated validation-for-test substitution defect. Memory-only execution rejected nine invalid-evidence cases, including validation-only records and missing test shards; valid mixed-stage evidence passed.
+- Notebook syntax passed. GPU numerical parity and full runtime behavior remain unverified here.
+- Git diff was unavailable: Git did not recognize the accessible directory as a repository.
 
 ## Budget
 
-The ledger records **20.398674 GPU hours**, with no reservations. Reserving 3.0 hours preserves the six-hour floor and leaves **11.398674 unprotected hours**. One bounded probe is reasonable; no automatic sweep is justified. Submission remains separately authorized under the three-per-day project limit.
+The 3.0-hour allocation fits the recorded 20.398674-hour balance, leaving **17.398674 hours**, including the protected six-hour reserve. One bounded probe offers reasonable information value; automatic beta escalation remains unjustified.
 
 ## Required changes
 
-- Pass expected identities from the actual launched subprocesses into telemetry validation; distinguish test and validation coverage.
-- Require test-only execution evidence: candidate bonus activity and control inactivity must hold independently of validation records.
-- Add negative checks for missing test telemetry and missing individual shards. Rebuild the snapshot, then perform scoped re-review and snapshot smoke.
+No blocking implementation changes found. Remaining execution gates are snapshot smoke, reservation, and explicit launch authorization. Require control SHA parity before proceeding; skip leaderboard submission for byte-identical candidate output. Submission and promotion retain separate authorization requirements.
 
 ## Recommendation
 
-Retain strategy CONSENSUS, but withhold admission PASS until the demonstrated evidence gap is closed. No files were changed, and no remote work was launched.
+Proceed to the next controller stage: **local snapshot smoke testing**. This admission judgment does not authorize remote execution or claim the hypothesis will improve tracking quality. Review was read-only; no files were changed.
 
-VERDICT: REVISE
+VERDICT: PASS
