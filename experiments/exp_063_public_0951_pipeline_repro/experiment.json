@@ -2,7 +2,7 @@
   "schema_version": 1,
   "experiment_id": "exp_063_public_0951_pipeline_repro",
   "parent": "repro_059_public_0947_exact_copy",
-  "state": "PROPOSED",
+  "state": "MANUAL_REVIEW_REQUIRED",
   "hypothesis": "A VERBATIM reproduction of the public notebook haideptry/biohub-0-951-sota-deepcenter-fast-ilp-19m, run under our own Kaggle account with the same four mounted datasets and the same pinned docker image, scores strictly above our incumbent comparator on the Public LB. The comparator is max(0.947, exp_062 k2), NOT the stale 0.947. This is an OPERATIONAL hypothesis about the displayed 3-decimal score. Honest prior: the \"0.951\" is the notebook's own title claim, from an author who does not appear in the LB top 200 (rank-200 cutoff 0.949) and whose notebook has 7 votes. It is a hypothesis worth exactly one submission, NOT a known gain. Rationale for testing the whole pipeline rather than porting one lever: the notebook stacks FIVE interacting mechanisms on our own operating point, and four interacting mechanisms cannot be hand-ported and individually validated in the days remaining.\n",
   "change": {
     "component": "whole_pipeline_reproduction_no_authored_code",
@@ -24,12 +24,23 @@
   "review": {
     "required": true,
     "provider": "codex",
-    "status": "PENDING"
+    "status": "BLOCKED",
+    "completed_at": "2026-09-24T19:45:28.049021+00:00",
+    "verdict": "BLOCK",
+    "record": "experiments/exp_063_public_0951_pipeline_repro/review.md",
+    "summary": "Genuine BLOCK. DivNet gate is structurally inoperative (6-D tensor into a Conv3d expecting 5-D, exception swallowed, veto gated on non-None) and the claim that the pipeline preserves our tight55 is false (discrete density overrides give 7.25/6.5/5.5 by measured density; 5.5 only on high-density movies). Both independently verified by Claude Code against the frozen snapshot. Also: ground_truth_accessed is a hardcoded constant not an observed record; pip runs in cell 7; the gate field is never emitted; expected_gpu_hours is not an enforceable ceiling."
   },
   "smoke_test": {
     "status": "PENDING"
   },
   "created_at": "2026-09-24T19:37:56+00:00",
-  "updated_at": "2026-09-24T19:37:56+00:00",
-  "state_history": []
+  "updated_at": "2026-09-24T19:45:28.049021+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-24T19:45:28.049021+00:00",
+      "note": "Codex admission VERDICT BLOCK; two headline findings independently confirmed."
+    }
+  ]
 }
