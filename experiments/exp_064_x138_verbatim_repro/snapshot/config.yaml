@@ -56,10 +56,15 @@ validation:
   known_unverified: >
     The V1284 checkpoint's state_dict/mean/scale compatibility could NOT be verified locally
     (no PyTorch in the dev venv) and loading is lazy, so "head patched" is not "head loaded". This
-    is accepted as a RUN-TIME risk rather than a launch blocker because the failure is LOUD, not
-    silent: the module uses strict state-dict matching and raises `invalid V1284 displacement` on a
-    bad refine. A mismatch therefore errors the run; it cannot silently produce a degraded
-    submission. The adapter fails the gate on any such log signature.
+    is accepted as a RUN-TIME risk rather than a launch blocker, on the reviewer's explicit
+    disposition that neither uncertainty alone should block a bounded reproduction and that the
+    remote run may test compatibility. CORRECTION, required by admission round 3: the earlier claim
+    that a mismatch "cannot silently produce a degraded submission" was TOO STRONG and is withdrawn.
+    Strict state-dict matching and the displacement check catch gross failures, but they do NOT
+    prove semantic compatibility -- incorrectly normalized features can still yield finite, bounded
+    displacements and therefore a quietly worse submission. Training provenance likewise remains an
+    unverified author claim, not a runtime-testable fact. Both are recorded as accepted research
+    uncertainties, and the LB score is the only thing that would reveal a quiet degradation.
 admission:
   require_codex_review: true
   reviewer_provider: codex
@@ -104,19 +109,28 @@ local:
     - "{source_notebook}"
 budget:
   tier: 1
-  expected_gpu_hours: 2.0
+  expected_gpu_hours: 2.5
   note: >
-    ACCOUNTING UNIT: charged GPU hours per launched kernel version, reconciled from the kernel's
-    own measured runtime at collection. CUMULATIVE ALLOWANCE for exp_064: 4.0 h across ALL runs
-    including any retry, against 10.872382 h discretionary (16.872382 total minus the protected
-    6.0 h). Our comparable parent kernel measured 1.727 h.
-    CANCELLATION MECHANISM (the enforceable ceiling Codex required, since the notebook's shard wait
-    at cell 4:378-407 has no overall deadline, the 1200 s ILP timeout bounds only individual solves,
-    and the 27000 s repair deadline degrades rather than terminates): the operator runs
-    `kaggle kernels status lingxd/biohub-exp064-x138-repro` at the 2.5 h mark and, if still
-    RUNNING, cancels the kernel in the Kaggle UI and books 2.5 h as consumed.
-    RETRY: a hidden-rerun failure costs no charged GPU on our side; budget is rechecked before any
-    retry and the retry is only permitted if cumulative charged hours remain under 4.0 h.
+    ACCOUNTING UNIT: charged GPU hours per launched kernel version, reconciled from CONFIRMED
+    TERMINATION -- the kernel's own measured runtime at collection, never a nominal figure. There is
+    no hard ceiling and none is claimed anywhere in this config.
+    CUMULATIVE ALLOWANCE for exp_064: 4.0 h across all runs, against 10.872382 h discretionary
+    (16.872382 total minus the protected 6.0 h). Our comparable parent kernel measured 1.727 h.
+    RESERVATION: 2.5 h for the first run. This is an ATTENDED TARGET, not a bounded cost.
+    ATTENDED WATCHDOG, armed at launch in the same action that pushes the kernel: it polls
+    `kaggle kernels status lingxd/biohub-exp064-x138-repro` every 5 minutes, tolerates query
+    failures and queued/initializing states without firing, distinguishes terminal states
+    (COMPLETE / ERROR / CANCELLED) from RUNNING, and fires early at 2 h 15 m so polling and operator
+    response have room inside the 2.5 h target. Arming is recorded in experiment.json; if the
+    watchdog is not armed, the launch is not complete.
+    HONEST LIMIT: Kaggle exposes no CLI cancel, so cancellation is performed by a human in the
+    Kaggle UI. Operator response time is not bounded by anything technical, so the run CAN exceed
+    2.5 h if the operator is away. That residual is explicitly accepted; it is an operational limit,
+    not enforcement, and the 4.0 h cumulative allowance is consequently a budgeting intent rather
+    than a guarantee.
+    RETRY: a hidden-rerun failure costs no charged GPU on our side. Any further RUN requires a fresh
+    reservation, is decided only after the first run's actual consumption is reconciled from
+    confirmed termination, and is permitted only if the remaining allowance still covers it.
 success:
   minimum_improvement: 0.0
   regression_threshold: 0.0
