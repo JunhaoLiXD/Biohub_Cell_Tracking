@@ -1,7 +1,6 @@
 {
   "schema_version": 1,
-  "active_experiment": null,
-  "active_experiment_note": "No active experiment. The exp_061 arc (deepcenter_tta + zon LB repair v1-v5) was ABANDONED by user decision on 2026-09-23 after five consecutive failed LB transports. The project is back on the exp_060 footing: working parent repro_059 = Public LB 0.947, and exp_060's single-config variant-notebook deployment pattern (the only transport in this project with a proven hidden-rerun record, submission 56361673 COMPLETE) is the template for any successor. Candidate next levers are recorded in docs/research/public_frontier_recon_2026-09-23.md; none is authorized.",
+  "active_experiment": "exp_062_mutual_best_edge_association",
   "working_parent": "repro_059_public_0947_exact_copy",
   "best_public_lb": {
     "experiment_id": "repro_059_public_0947_exact_copy",
@@ -11,7 +10,7 @@
     "verified_at_utc": "2026-09-18T00:00:00+00:00"
   },
   "submission_policy": "UPDATED 2026-09-18 by user: Public LB submission COUNT is no longer a research constraint -- multiple submissions are fine. The LB may now be used directly as the real held-out validation signal (Family-2 / distribution-general validation). Still record every submission in SUBMISSION_BUDGET.json with authenticated score_source; still no auto-submit without the user asking; Kaggle's own daily cap (max_submissions_per_day) remains a platform fact, not a scarcity to conserve.",
-  "phase": "EXP062_STRATEGY_CONSENSUS_AWAITING_BUILD_AUTHORIZATION",
+  "phase": "EXP062_BUILT_AWAITING_ADMISSION_REVIEW",
   "exp060_0p18_lb": {
     "kernel": "lingxd/biohub-exp060-safediv018-lb-submit",
     "url": "https://www.kaggle.com/code/lingxd/biohub-exp060-safediv018-lb-submit",
@@ -79,7 +78,7 @@
     "not_authorized": "implementation/launch not yet authorized; CONSENSUS is strategy-level only. Fresh Codex admission PASS + smoke + reservation required first."
   },
   "summary": "The exp_061 arc is CLOSED. Submission 56493252 (v5 zon) failed exactly like 56481730 (v4) and 56454236 (v2): 'notebook hit an unhandled error while rerunning your code', no score. That is five consecutive failed LB transports for the zon arm across three distinct mechanisms (two static-copy kernels -> incorrect format; v2/v4/v5 full-inference -> hidden-rerun error), so the stop rule fired and the user abandoned the path. The zon Z-reflection TTA was never scored and its decision rule is permanently UNRESOLVED, not falsified. A fresh public-frontier recon (docs/research/public_frontier_recon_2026-09-23.md) then established: our 0.947 is now OUTSIDE the top 200 (rank-200 cutoff 0.949, LB top 0.975, deadline 2026-09-29); no verified public notebook beats 0.947, every candidate sharing the same three Pilkwang checkpoints; but three concrete, portable, specimen-blind levers are now public on our exact 0.947 base, the most promising being mutual-best/relative-rank EDGE association -- the first shared lever that targets the ~85-90%-weighted edge term rather than the 0.1-weighted division term that produced all of our recent nulls. The project is back on the exp_060 footing with working parent repro_059 = 0.947. GPU remaining 20.398674 h, no reservations outstanding.",
-  "next_action": "exp_062 reached strategy-level CONSENSUS on 2026-09-24 (Codex PASS, docs/research/exp062_codex_challenge_v3.md) after three rounds. The lever is one unchanged mutual-best beta=0.20 probe on the frozen 0.947 parent, deployed as two kernel versions of one notebook (k1 control mode=none with the parent-SHA assert armed, never submitted; k2 candidate mode=mutual_best beta=0.20, submitted once). NEXT: build, then ONE scoped implementation/admission review, then smoke, then a 3.0 h reservation, then ONE user-authorized launch. Two implementation notes are mandatory and recorded in STATE.exp062_strategy.implementation_notes_from_pass: append the two env keys between parent lines 1669 and 1670, and use MEASURED wall-clock for the cache-hit alarm because line 1675 restores the historical predict_seconds. Nothing is authorized: no build, no launch, no submission. Competition closes 2026-09-29 23:59.",
+  "next_action": "exp_062 is BUILT (2026-09-24) on strategy CONSENSUS, with all local gates passing including the decisive replay gate that proves the rank-prior anchor is unique in the REAL parent-patched predict script. NEXT: run ONE scoped Codex admission review against experiments/exp_062_mutual_best_edge_association/snapshot/ using scripts/request_codex_review.py or a direct read-only codex exec, under the bounded-gate contract. A strategy PASS is NOT an admission PASS. After an admission PASS: snapshot smoke, reserve 3.0 GPU h, then ONE user-authorized launch of k1 (control, mode=none, must reproduce parent SHA d3453380) followed by k2 (candidate, mutual_best beta=0.20), then ONE separately authorized LB submission of k2 only. If k2's output is byte-identical to the control, do NOT submit. Competition closes 2026-09-29 23:59.",
   "leaderboard_submission_authorized": false,
   "leaderboard_submission_note": "The user authorized the v5 submission on 2026-09-23 ('push it to the LB'); it was consumed by 56493252 at 12:35:37Z. Any further submission needs fresh authorization and a remote cap check. The authenticated daily cap is 5, not the 3 recorded in older entries.",
   "exp061_submission_repair": {
@@ -264,7 +263,7 @@
       "State the full spending plan including candidate-only deployment and any follow-up run."
     ],
     "lever_recommendation": "Codex concurs with mutual-best beta=0.20 as the first scored probe, but for a different reason than v1 gave: small implementation scope and a mechanism distinct from harmonic fusion, NOT verified public superiority and NOT an untouched metric term. After a null or regression, prefer density-adaptive relinking over a beta sweep. Codex explicitly keeps option B alive: 'the evidence does not justify dismissing division categorically.' DivNet is a larger integration and model-provenance commitment.",
-    "next": "CONSENSUS reached. Next gates in order, none of them yet done: (1) BUILD purely-additive on the repro_059 snapshot with the parity-guard builder; (2) ONE scoped Codex implementation/admission review against the exact snapshot, under the bounded-gate contract; (3) local gates + snapshot smoke; (4) 3.0 h budget reservation; (5) ONE user-authorized launch of k1 (control) then k2 (candidate); (6) separately authorized single LB submission of k2. No build, launch or submission is authorized yet.",
+    "next": "BUILT. Next gate: ONE scoped Codex admission review against experiments/exp_062_mutual_best_edge_association/snapshot/, under the bounded-gate contract (block only on concrete correctness/leakage/provenance/fail-closed/graph-validity/budget; record verification-depth without blocking; a round limit never makes a known defect acceptable). Then snapshot smoke, a 3.0 h reservation, ONE user-authorized launch of k1 (control) then k2 (candidate), and ONE separately authorized submission of k2. Nothing beyond the build is authorized.",
     "budget_note": "20.398674 h remaining, of which 14.398674 are unprotected. A 2.6 h development run fits, but candidate-only deployment and any follow-up must be budgeted explicitly.",
     "proposal_history": [
       "v1 (SUPERSEDED)",
@@ -282,7 +281,32 @@
       "legacy_state": "Unrecognised/legacy resume state must be rejected fail-closed, not ignored."
     },
     "col_best_redundancy_ruling": "Claude derived, and Codex confirmed, that the parent ALREADY computes softmax(edge_logits_pair[0], dim=0) and topk(dim=0) at lines 1199-1220 -- the best SOURCE per target plus its top-2 margin and secondary agreement -- i.e. the same quantity as _lb_col_best, which carries the LARGEST weight (beta) in the bonus. Codex qualification: this is REUSED RANKING INFORMATION, not mathematical redundancy -- gating a model blend and explicitly boosting a winner are different transformations, and the column bonus still changes probability concentration and candidate admission. The genuinely novel signal is _lb_row_best (best target per source). Retain beta=0.20 and the published weights; do NOT redesign the first probe.",
-    "nonblocking_carried_forward": "[VERIFICATION-DEPTH] A null tests the WHOLE weighted intervention and cannot isolate the target-competition contribution, so it cannot establish that row/mutual information failed nor that a row-weighted successor is preferable. The designated successor stays density-adaptive relinking, which needs its own proposal, challenge and authorization."
+    "nonblocking_carried_forward": "[VERIFICATION-DEPTH] A null tests the WHOLE weighted intervention and cannot isolate the target-competition contribution, so it cannot establish that row/mutual information failed nor that a row-weighted successor is preferable. The designated successor stays density-adaptive relinking, which needs its own proposal, challenge and authorization.",
+    "build": {
+      "status": "BUILT 2026-09-24. NOT admission-reviewed, NOT reserved, NOT launched, NOT submitted.",
+      "experiment_record": "experiments/exp_062_mutual_best_edge_association/experiment.json",
+      "config": "configs/exp_062_mutual_best_edge_association.yaml",
+      "artifacts": {
+        "module": "scripts/exp062_mutual_best.py",
+        "builder": "scripts/build_exp062_mutual_best.py",
+        "validator": "scripts/validate_exp062_notebook.py",
+        "behavioral": "scripts/test_exp062_behavioral.py",
+        "notebooks": ".private/current/exp062_mutual_best_{control,candidate}.ipynb",
+        "snapshot": "experiments/exp_062_mutual_best_edge_association/snapshot/ (manifest.json regenerated)"
+      },
+      "notebook_sha256": {
+        "control": "1ba46d6baa465b35911d0f5f8794803b21152a903cb13a1679f213d55d481a88",
+        "candidate": "b8ee7f312b94cb627b6b21c4d35ad6c2b554b7154a70cb8028ead6810e6ea20e"
+      },
+      "local_gates": "ALL PASS. Builder parity guard both variants (15 control / 16 candidate injected lines strip back to the parent byte-for-byte). validate_exp062_notebook.py: 5 groups, 45 checks. test_exp062_behavioral.py: 13 tests, 48 checks, executed against a numpy torch shim running the REAL patch block.",
+      "decisive_local_gate": "validate group 4 REPLAYS the parent's own five-stage patch chain (env block + _exact_text/_patch_text helpers + cell-2 lines 1021-1518) onto a temp copy of the reference predict_unet_transformer.py, then proves the exp_062 anchor is UNIQUE in that actually-patched source (count==1), that our patch applies and compiles on it, and that double-patching is REFUSED. This is the zero-GPU answer to Codex round-1 answer 1, which said a constructed matrix alone is insufficient.",
+      "verified_during_build": [
+        "The parent patch chain replays cleanly and applies all five patches (D4 detection TTA, calibrated dual-seed, retention guard, bidirectional harmonic fusion, coordinate-manifest hook).",
+        "After replay there is exactly ONE 'raw = edge_logits_pair[0]' in the patched source -- the parent's fusion patch REPLACES the original region rather than duplicating it, so the anchor is unambiguous.",
+        "The parent's config-drift guard iterates only its own _EXPECTED_NUMERIC/_EXPECTED_TEXT dicts, so the two new env keys cannot trip it.",
+        "The two built notebooks differ ONLY in the environment block (verified by diff; cells 0,1,2,4 byte-identical)."
+      ]
+    }
   },
   "resolved_leaderboard_submission": {
     "submission_id": 56261282,
@@ -307,7 +331,7 @@
     "verified_at_utc": "2026-09-16T14:40:00+00:00",
     "note": "Public LB 0.944 == repro_048 0.944, zero gain despite 3714-edge graph diff. EMA-off replay byte-identical to 0.944, so isolated to the EMA edit: motion EMA is redundant/neutral on top of the edge-feature-TTA bundle. Branch 'EMA on 0.944' closed."
   },
-  "updated_at": "2026-09-24T00:00:00+00:00",
+  "updated_at": "2026-09-24T01:00:00+00:00",
   "active_local_experiment": "local_054_original_score_final_stage_parity",
   "exp057_a0_part1": {
     "status": "DONE_ZERO_GPU",

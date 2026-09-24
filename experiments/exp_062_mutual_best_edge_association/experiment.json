@@ -1,0 +1,70 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_062_mutual_best_edge_association",
+  "parent": "repro_059_public_0947_exact_copy",
+  "state": "BUILT",
+  "hypothesis": "A mutual-best rank prior on the edge logits of the frozen 0.947 pipeline, at the published beta = 0.20 with everything else byte-identical to repro_059, changes the Public LB by at least +0.001 vs 0.947. H1 is an OPERATIONAL hypothesis about the displayed score. The intervention is inserted UPSTREAM of the ILP solve, unlike every prior probe in this arc. Honest prior: it reinforces the parent's existing fused ranking rather than adding independent evidence, and a null is genuinely likely.",
+  "change": {
+    "component": "edge_association_rank_prior_only",
+    "from": "repro_059 edge logits used unmodified at the activation",
+    "to": "purely-additive rank prior before the edge activation (mutual 2b / col-best 0.8b / row-best 0.3b / neither -0.2b), applied fail-closed, plus resume-signature discrimination on the two new env keys",
+    "variables_changed": "edge_rank_prior_only_no_other_parent_path_change"
+  },
+  "config": "configs/exp_062_mutual_best_edge_association.yaml",
+  "snapshot_config": "experiments/exp_062_mutual_best_edge_association/snapshot/config.yaml",
+  "snapshot_source_control": "experiments/exp_062_mutual_best_edge_association/snapshot/source/exp062_mutual_best_control.ipynb",
+  "snapshot_source_candidate": "experiments/exp_062_mutual_best_edge_association/snapshot/source/exp062_mutual_best_candidate.ipynb",
+  "snapshot_manifest": "experiments/exp_062_mutual_best_edge_association/snapshot/manifest.json",
+  "notebook_sha256": {
+    "control": "1ba46d6baa465b35911d0f5f8794803b21152a903cb13a1679f213d55d481a88",
+    "candidate": "b8ee7f312b94cb627b6b21c4d35ad6c2b554b7154a70cb8028ead6810e6ea20e"
+  },
+  "validation_protocol": "public_0947_mutual_best_edge_association_v1",
+  "gate": "exp062_mutual_best_integrity_passed",
+  "budget": {
+    "expected_gpu_hours": 3.0,
+    "reserved": false,
+    "note": "~1.3 h per kernel version, two versions. Reservation happens at the user-authorized launch gate."
+  },
+  "strategy": {
+    "status": "CONSENSUS",
+    "proposal": "docs/research/exp062_mutual_best_edge_association_proposal_v3.md",
+    "rounds": [
+      "docs/research/exp062_codex_challenge_v1.md (REVISE: 4 CORRECTNESS + 2 VERIFICATION-DEPTH)",
+      "docs/research/exp062_codex_challenge_v2.md (REVISE: 5 of 6 fixed; cache isolation open; calibration account newly introduced)",
+      "docs/research/exp062_codex_challenge_v3.md (PASS = strategy-level CONSENSUS, 2026-09-24)"
+    ],
+    "reviewer": "Codex gpt-6-astra (low), read-only"
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "PENDING",
+    "verdict": null,
+    "note": "Strategy CONSENSUS is NOT an admission PASS. A fresh experiment-specific Codex admission review against this snapshot is required before launch, under the bounded-gate contract Codex accepted."
+  },
+  "local_gates": {
+    "builder_parity_guard": "PASS (both variants; 15 control / 16 candidate injected lines strip back to the parent byte-for-byte)",
+    "validate_exp062_notebook": "PASS (5 groups, 45 checks)",
+    "test_exp062_behavioral": "PASS (13 tests, 48 checks)",
+    "decisive_gate": "Group 4 REPLAYS the parent's own five-stage patch chain onto a temp copy of the reference predict_unet_transformer.py, then proves the exp_062 anchor is UNIQUE in that actually-patched source, that our patch applies and compiles on it, and that double-patching is refused. A constructed unit test could not establish this."
+  },
+  "deployment": {
+    "shape": "ONE notebook, TWO kernel versions, environment is the only difference",
+    "k1_control": "BIOHUB_LB_SCORING_MODE=none, beta 0.00, BIOHUB_EXP062_EXPECT_PARENT_SHA armed. NEVER submitted.",
+    "k2_candidate": "BIOHUB_LB_SCORING_MODE=mutual_best, beta 0.20, EXPECT_PARENT_SHA actively popped and asserted unset. Submitted once.",
+    "precedent": "exp_060's single-config lb-submit kernel (submission 56361673, COMPLETE at 0.947) -- the closest successful minimal-change deployment precedent in this project. No new deployment machinery."
+  },
+  "key_defect_closed": "Codex round 2 found, and Claude verified in the parent, that _inference_resume_env_keys (cell 2 line 1669) is a fixed 13-key list containing neither exp_062 variable while _test_prediction_signature (line 1670) hashes exactly those keys. A candidate run could therefore compute the SAME resume signature as the control, skip inference (lines 1672-1680) and replay the control's predictions with every gate green -- burning an LB slot on a duplicate 0.947. Closed by extending the key list between lines 1669 and 1670 (Codex traced propagation to 3171-3172, 3290, 3686, 3723, 3783) plus a measured-wall-clock cache alarm, because parent line 1675 restores the historical predict_seconds on a hit.",
+  "created_at": "2026-09-24T00:00:00+00:00",
+  "updated_at": "2026-09-24T00:00:00+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "BUILT",
+      "at": "2026-09-24T00:00:00+00:00",
+      "note": "Strategy CONSENSUS (Codex PASS round 3). Built purely-additive on the repro_059 snapshot; all local gates pass. NOT reviewed for admission, NOT reserved, NOT launched, NOT submitted."
+    }
+  ],
+  "not_authorized": "No admission review, no budget reservation, no launch, no leaderboard submission. Strategy CONSENSUS authorizes the build only."
+}

@@ -1,0 +1,81 @@
+schema_version: 1
+experiment_id: exp_062_mutual_best_edge_association
+parent: repro_059_public_0947_exact_copy
+hypothesis: >
+  A mutual-best / relative-rank prior added to the edge logits of the frozen 0.947 pipeline, at
+  the published beta = 0.20 and with every other parameter byte-identical to repro_059, changes
+  the Public LB score by at least +0.001 relative to 0.947 (H1). H1 is an OPERATIONAL hypothesis
+  about the DISPLAYED score: equality at three decimals does not scientifically falsify every
+  possible underlying benefit, it establishes only that the intervention is not worth carrying at
+  the resolution the competition reports. The intervention is inserted UPSTREAM of the ILP solve,
+  unlike exp_055 (post-smoothing graph repair), exp_057 (post-solve smoothing), exp_060 (division
+  accept gate) and exp_061 (division candidate scoring), all of which returned 0.000 or were never
+  scored. Honest prior: the prior REINFORCES the parent's existing fused ranking rather than adding
+  independent evidence, and its largest single term (col_best) largely re-expresses a signal the
+  low_margin_consensus stage already computes; a null is a genuinely likely outcome.
+change:
+  component: edge_association_rank_prior_only
+  from: repro_059 edge logits used unmodified at the activation (BIOHUB_LB_SCORING_MODE unset)
+  to: >
+    A purely-additive rank prior inserted into the ALREADY-PARENT-PATCHED
+    predict_unet_transformer.py immediately before the edge activation, env-driven by
+    BIOHUB_LB_SCORING_MODE and BIOHUB_LB_SCORING_BETA. Net bonus: mutual 2.0*beta, column-best
+    only 0.8*beta, row-best only 0.3*beta, neither -0.2*beta. raw is (n_src, n_tgt): dim 0
+    reduces SOURCES (best source per target), dim 1 reduces TARGETS (best target per source).
+    Applied FAIL-CLOSED on anchor count != 1. Additionally the parent's
+    _inference_resume_env_keys is extended with both variables so the resume signature
+    DISCRIMINATES mode/beta; without that a candidate run would replay the control's cached
+    predictions and emit the control's output with every gate green.
+  variables_changed: edge_rank_prior_only_no_other_parent_path_change
+source_notebook: .private/current/exp062_mutual_best_candidate.ipynb
+control_notebook: .private/current/exp062_mutual_best_control.ipynb
+substrate_note: >
+  Full re-run of the frozen repro_059 (0.947) notebook, same three Pilkwang checkpoints. ONE
+  notebook, TWO kernel versions differing ONLY in the environment block: k1 control
+  (mode=none, beta=0.00, EXPECT_PARENT_SHA armed, NEVER submitted) and k2 candidate
+  (mode=mutual_best, beta=0.20, EXPECT_PARENT_SHA actively popped and asserted unset, submitted
+  once). Two cells are added (the exp062_mutual_best.py module, placed BEFORE the parent cell so
+  the patch is applied mid-parent-cell and before any inference subprocess, and a gated finalize
+  cell); 15 (control) / 16 (candidate) `# exp062` lines are injected. Stripping all of them
+  reproduces the parent cells byte-for-byte. The parent's adaptive PP-sweep is RETAINED, as in
+  exp_060's lb-submit kernel, which ran it and re-selected tight55. ~1.3 GPU hr per version.
+validation:
+  protocol: public_0947_mutual_best_edge_association_v1
+  primary_metric: binary_integrity_gate
+  warning: >
+    Integrity gate only; decides NOTHING about quality. There is deliberately NO local-proxy
+    quality gate -- that is a RESOURCE decision, not a claim the proxy is worthless, and its
+    consequence is that this experiment has no pre-LB quality estimate at all. Checks: patch
+    applied exactly once; resume signature includes the exp_062 keys; no cache hit (measured
+    wall-clock, NOT the parent's reported predict_seconds, which line 1675 restores from cached
+    state on a hit); submission written; activation branch is softmax; bonus applied iff mode is
+    on. The control additionally asserts its submission SHA256 ==
+    d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60 (parent 0.947); that check
+    is armed ONLY in the control, because a hidden rerun operates on different input data.
+admission:
+  require_codex_review: true
+  reviewer_provider: codex
+  note: >
+    Strategy CONSENSUS reached after three rounds (Codex gpt-6-astra, PASS 2026-09-24;
+    docs/research/exp062_codex_challenge_v1..v3.md). This config still requires a FRESH
+    experiment-specific Codex admission PASS against the built snapshot before launch, under the
+    bounded-gate contract Codex accepted: block only on concrete correctness, leakage, provenance,
+    fail-closed, graph-validity or budget defects; record verification-depth without blocking; a
+    round limit never makes a known defect acceptable.
+budget:
+  tier: 1
+  expected_gpu_hours: 3.0
+  note: ~1.3 h per kernel version, two versions, reserved at 3.0 h.
+success:
+  minimum_improvement: 0.0
+gate: exp062_mutual_best_integrity_passed
+leaderboard:
+  authorized: false
+  plan: >
+    Exactly ONE submission, the candidate (k2), separately authorized, remote cap checked first
+    (authenticated cap 5/day). Decision rule vs repro_059 0.947: >=0.948 adopt as new parent;
+    ==0.947 CLOSE the probe (equality cannot distinguish cancellation, unannotated changes or
+    rounding, so it does not license a larger beta); <=0.946 revert. If k2's output is
+    byte-identical to the control, do NOT submit -- it would duplicate a known 0.947. Designated
+    successor either way: density-adaptive relinking, which needs its own proposal and
+    authorization.
