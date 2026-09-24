@@ -1,0 +1,35 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_064_x138_verbatim_repro",
+  "parent": "repro_059_public_0947_exact_copy",
+  "state": "PROPOSED",
+  "hypothesis": "A VERBATIM reproduction of anvithpothula/biohub-x138, run under our own account with the same four mounted datasets and the same pinned docker image, scores strictly above our incumbent comparator on the Public LB. Comparator is max(0.947, exp_062 k2 submission 56530197), resolved BEFORE any submission. The author is authenticated at rank 62 / 3888 with score 0.956 (full LB download 2026-09-24T20:03:35) and the notebook claims no score at all. That rank is evidence the AUTHOR is strong; per the admission review it establishes NO expected score for this reproduction, and in particular no floor of 0.947 -- this pipeline is not our parent and may score below it. Outcome is genuinely unknown until measured.\n",
+  "change": {
+    "component": "whole_pipeline_reproduction_no_authored_code",
+    "from": "repro_059 pipeline (our frozen 0.947 parent), rank ~478 / 3888",
+    "to": "The third-party notebook byte-for-byte, ZERO code authored by us. Characterised at EXECUTION level (v1 of this config described it as \"a coordinate head, orthogonal to our edge work\"; the admission review showed that was both incomplete and overstated, and it is corrected here). The pipeline differs from our parent in MANY interacting ways, not one:\n  * V1284 coordinate-refinement head -- frozen-feature coordinate regression at first-seen\n    fused detections (module written at cell 4:511, called at patched predictor line 636,\n    with `_v1284_index` also replacing `UNetNodeTransformer._index_features` at line 984).\n    It changes BOTH node coordinates AND feature sampling, so it feeds association and graph\n    geometry; it is NOT orthogonal to our previous edge-association work.\n  * Neighborhood-flow relinking with a 7.0 um tight gate when a flow field exists, versus 5.5\n    without one (cell 0:78-90, cell 5:687-715).\n  * Re-admission of discarded detections followed by a further relink (cell 5:1249-1299,\n    1943-1948).\n  * Gap filling from sub-threshold peaks (cell 5:1181-1468, 1990+).\n  * Continuous density-adaptive gap closing (cell 5:788-908).\n  * Dual-seed detection fusion, frame-retention fallback, harmonic reverse association, and\n    feature TTA for both models (cell 4:60-308).\nFinal CSV coordinates are rounded at cell 5:2152-2154, AFTER association and repair.\n",
+    "variables_changed": "entire_pipeline_not_causally_isolated"
+  },
+  "signature": "bb63f46ce076336ebf229930be3b2f8f7891aeb8767af58c1360d79ece7dd825",
+  "config": "configs/exp_064_x138_verbatim_repro.yaml",
+  "snapshot_config": "experiments/exp_064_x138_verbatim_repro/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_064_x138_verbatim_repro/snapshot/source/biohub-x138.ipynb",
+  "snapshot_manifest": "experiments/exp_064_x138_verbatim_repro/snapshot/manifest.json",
+  "git_commit": "b4464a74b667f03177f50dac67d89d42379e765b",
+  "validation_protocol": "x138_verbatim_repro_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-24T20:20:09+00:00",
+  "updated_at": "2026-09-24T20:20:09+00:00",
+  "state_history": []
+}

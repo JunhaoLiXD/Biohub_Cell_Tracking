@@ -1,0 +1,154 @@
+schema_version: 1
+experiment_id: exp_064_x138_verbatim_repro
+parent: repro_059_public_0947_exact_copy
+hypothesis: >
+  A VERBATIM reproduction of anvithpothula/biohub-x138, run under our own account with the same
+  four mounted datasets and the same pinned docker image, scores strictly above our incumbent
+  comparator on the Public LB. Comparator is max(0.947, exp_062 k2 submission 56530197), resolved
+  BEFORE any submission. The author is authenticated at rank 62 / 3888 with score 0.956 (full LB
+  download 2026-09-24T20:03:35) and the notebook claims no score at all. That rank is evidence the
+  AUTHOR is strong; per the admission review it establishes NO expected score for this
+  reproduction, and in particular no floor of 0.947 -- this pipeline is not our parent and may
+  score below it. Outcome is genuinely unknown until measured.
+change:
+  component: whole_pipeline_reproduction_no_authored_code
+  from: repro_059 pipeline (our frozen 0.947 parent), rank ~478 / 3888
+  to: >
+    The third-party notebook byte-for-byte, ZERO code authored by us. Characterised at EXECUTION
+    level (v1 of this config described it as "a coordinate head, orthogonal to our edge work"; the
+    admission review showed that was both incomplete and overstated, and it is corrected here).
+    The pipeline differs from our parent in MANY interacting ways, not one:
+      * V1284 coordinate-refinement head -- frozen-feature coordinate regression at first-seen
+        fused detections (module written at cell 4:511, called at patched predictor line 636,
+        with `_v1284_index` also replacing `UNetNodeTransformer._index_features` at line 984).
+        It changes BOTH node coordinates AND feature sampling, so it feeds association and graph
+        geometry; it is NOT orthogonal to our previous edge-association work.
+      * Neighborhood-flow relinking with a 7.0 um tight gate when a flow field exists, versus 5.5
+        without one (cell 0:78-90, cell 5:687-715).
+      * Re-admission of discarded detections followed by a further relink (cell 5:1249-1299,
+        1943-1948).
+      * Gap filling from sub-threshold peaks (cell 5:1181-1468, 1990+).
+      * Continuous density-adaptive gap closing (cell 5:788-908).
+      * Dual-seed detection fusion, frame-retention fallback, harmonic reverse association, and
+        feature TTA for both models (cell 4:60-308).
+    Final CSV coordinates are rounded at cell 5:2152-2154, AFTER association and repair.
+  variables_changed: entire_pipeline_not_causally_isolated
+source_notebook: docs/research/public_notebook_archive/biohub-x138.ipynb
+substrate_note: >
+  NOT causally isolated and not presented as one. If it beats the comparator we will not know which
+  of the mechanisms above is responsible; with the competition closing 2026-09-29 that trade is
+  accepted deliberately and explicitly by the user. Archived third-party artifact SHA256
+  6b655e39bbfd2d3d6c762badea69847d3f00f5b548f385cb01b07ee2600fde6d, pulled 2026-09-24, committed
+  in-repo because a sibling notebook the 09-23 recon quoted has already gone 403.
+validation:
+  protocol: x138_verbatim_repro_v1
+  primary_metric: binary_integrity_gate
+  warning: >
+    No local proxy gate and no authored-code parity guard, because nothing is authored.
+    Patch-parity and anchor-uniqueness tests are inapplicable to a verbatim copy. OUTPUT and
+    EXECUTION validation are required instead and are IMPLEMENTED, not merely named, in
+    scripts/collect_exp064_x138.py -- which emits the gate field. COMPLIANCE EVIDENCE CAVEAT,
+    carried forward from three repeated review findings: the notebook's own
+    `ground_truth_accessed: False` (cell 3:681) and its compliance fields (cell 6:131-134) are
+    HARDCODED ASSERTIONS, not access telemetry, and its guard report carries stale effective-config
+    values (cell 6:138-147). None of them may be cited as compliance evidence. The adapter reads
+    the runtime receipt ONLY for checkpoint hashes, which are genuinely computed at runtime.
+  known_unverified: >
+    The V1284 checkpoint's state_dict/mean/scale compatibility could NOT be verified locally
+    (no PyTorch in the dev venv) and loading is lazy, so "head patched" is not "head loaded". This
+    is accepted as a RUN-TIME risk rather than a launch blocker because the failure is LOUD, not
+    silent: the module uses strict state-dict matching and raises `invalid V1284 displacement` on a
+    bad refine. A mismatch therefore errors the run; it cannot silently produce a degraded
+    submission. The adapter fails the gate on any such log signature.
+admission:
+  require_codex_review: true
+  reviewer_provider: codex
+  note: >
+    Direction authorized by the user 2026-09-24. exp_063 (haideptry family) is ABANDONED: that
+    author appears nowhere in the 3888-row leaderboard and their flagship DivNet gate provably
+    throws on every call. Round 1 on this experiment returned REVISE (not BLOCK) and confirmed the
+    notebook itself is free of DivNet-style structural breakage; this config answers its required
+    changes.
+kaggle:
+  owner: lingxd
+  slug: biohub-exp064-x138-repro
+  title: biohub-exp064-x138-repro
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: false
+  competition_sources:
+    - biohub-cell-tracking-during-development
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+    - anvithpothula/biohub-v1284-head-s075
+  required_dataset_sources: 4
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  note: >
+    Mirrors the source kernel-metadata.json exactly. The docker digest is the SAME image our
+    parent, exp_060 and exp_062 ran on. The first three datasets are checkpoints we already mount;
+    x138 verifies the DeepCenter bytes against SHA256
+    8040999a92f6b7bbd98fa8cf458141e045c0f9ad7c936bdb3b18e1f7edafe2a0 at cell 3:552-563, the same
+    checkpoint our parent loads with the same torch.load(weights_only=False) -- an INHERITED
+    deserialization surface, not a new one. The new artifact
+    anvithpothula/biohub-v1284-head-s075 is public (30 KB, 186 downloads) and is loaded with
+    weights_only=True, so it adds no unrestricted-pickle surface. The notebook hard-fails if it is
+    not mounted exactly once (cell 4:513-514).
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_notebook.py
+    - "{source_notebook}"
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+  note: >
+    ACCOUNTING UNIT: charged GPU hours per launched kernel version, reconciled from the kernel's
+    own measured runtime at collection. CUMULATIVE ALLOWANCE for exp_064: 4.0 h across ALL runs
+    including any retry, against 10.872382 h discretionary (16.872382 total minus the protected
+    6.0 h). Our comparable parent kernel measured 1.727 h.
+    CANCELLATION MECHANISM (the enforceable ceiling Codex required, since the notebook's shard wait
+    at cell 4:378-407 has no overall deadline, the 1200 s ILP timeout bounds only individual solves,
+    and the 27000 s repair deadline degrades rather than terminates): the operator runs
+    `kaggle kernels status lingxd/biohub-exp064-x138-repro` at the 2.5 h mark and, if still
+    RUNNING, cancels the kernel in the Kaggle UI and books 2.5 h as consumed.
+    RETRY: a hidden-rerun failure costs no charged GPU on our side; budget is rechecked before any
+    retry and the retry is only permitted if cumulative charged hours remain under 4.0 h.
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: x138_repro_integrity_passed
+gate: x138_repro_integrity_passed
+collection:
+  adapter: scripts/collect_exp064_x138.py
+  note: >
+    The notebook emits no metrics.json and no gate field, so this adapter supplies both. It
+    validates what the notebook's own guard (cell 6:10-94, cell 10:113-124) does NOT: unique
+    (dataset,node_id) pairs, finite non-negative coordinates, integral ids/times on node rows
+    (edge rows legitimately carry -1 sentinels), dynamic dataset discovery rather than an assumed
+    four visible names, DeepCenter checkpoint identity, positive evidence that V1284 actually
+    executed in candidate mode, absence of the five silent-degradation signatures Codex enumerated
+    (low-detection dump skipped, re-admission swallowed, basic-filtered ILP fallback, repair
+    deadline degradation, gap-filler idle), and inequality against BOTH known submission hashes.
+    Negative-tested against the exp_062 k1 and k2 outputs: it correctly fails each as a duplicate
+    and correctly reports V1284 absent.
+leaderboard:
+  authorized: false
+  plan: >
+    SUBMISSION COUNT, reconciled per the review: ONE initial submission of this arm, PLUS at most
+    ONE further submission if and only if the first fails in the hidden rerun without producing a
+    score (the exp_061 failure mode). Maximum two submissions total, never two scored probes.
+    Each requires separate user authorization and a remote three-per-America/New_York-day check;
+    1 of 3 was used on 2026-09-24 by exp_062 k2.
+    PRECONDITIONS: the adapter gate passes, AND exp_062 k2's result is resolved so the comparator
+    is known. Never submit an output that byte-matches d3453380 (parent) or ba9431c1 (k2).
+    DECISION RULE: ABOVE comparator -> adopt as the new parent and continue the project on the x138
+    route, as the user directed; EQUAL -> no measurable difference at 3 decimals, which is not
+    proof of identical predictions; BELOW -> OUR reproduction under OUR conditions underperformed,
+    which says nothing about the author's own 0.956. If the hidden rerun fails twice, the route is
+    reconsidered rather than re-transported -- the exp_061 lesson was five failed transports.
