@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-24T19:37:56+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_063_public_0951_pipeline_repro/snapshot/config.yaml",
+      "sha256": "f2095a40bcc5fa1ed2c9a256ac36a45835e31c03591ac32cc349dd460ce59b8d"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_063_public_0951_pipeline_repro/snapshot/source/biohub-0-951-sota-deepcenter-fast-ilp-19m.ipynb",
+      "sha256": "fb2b1cd4d9612d333eb2e8ad6c0106646ac2429c05ccfce5997179135a228734"
+    }
+  ]
+}

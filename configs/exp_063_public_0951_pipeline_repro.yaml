@@ -1,0 +1,116 @@
+schema_version: 1
+experiment_id: exp_063_public_0951_pipeline_repro
+parent: repro_059_public_0947_exact_copy
+hypothesis: >
+  A VERBATIM reproduction of the public notebook
+  haideptry/biohub-0-951-sota-deepcenter-fast-ilp-19m, run under our own Kaggle account with the
+  same four mounted datasets and the same pinned docker image, scores strictly above our incumbent
+  comparator on the Public LB. The comparator is max(0.947, exp_062 k2), NOT the stale 0.947.
+  This is an OPERATIONAL hypothesis about the displayed 3-decimal score. Honest prior: the "0.951"
+  is the notebook's own title claim, from an author who does not appear in the LB top 200 (rank-200
+  cutoff 0.949) and whose notebook has 7 votes. It is a hypothesis worth exactly one submission,
+  NOT a known gain. Rationale for testing the whole pipeline rather than porting one lever: the
+  notebook stacks FIVE interacting mechanisms on our own operating point, and four interacting
+  mechanisms cannot be hand-ported and individually validated in the days remaining.
+change:
+  component: whole_pipeline_reproduction_no_authored_code
+  from: repro_059 pipeline (our frozen 0.947 parent)
+  to: >
+    The third-party notebook, byte-for-byte, with ZERO code authored by us. Its environment block
+    keeps OUR operating point (BIOHUB_MOTION_RELINK_TIGHT_UM = "5.5", identical to the value our
+    own held-out PP-sweep selected as tight55) and adds: continuous gap-density adaptation
+    (BIOHUB_GAP_DENSITY_ADAPTIVE=1, REFERENCE_UM=6.5, GAIN=0.040, MAX_STEP_DELTA_UM=0.125,
+    NEIGHBORS=3); DivNet mitosis verification (BIOHUB_DIVNET_VERIFY=1, BIOHUB_DIV_MIN_PROB=0.50)
+    from the public dataset giorgosi/biohub-divnet-v2; a mutual-best / relative-rank edge prior
+    (_lb_mutual, _lb_rank_bonus added to raw) which is the SAME mechanism family as exp_062; and a
+    safe-division mutual-nearest-neighbour gate (SAFE_DIV_REQUIRE_MUTUAL_NN). The expensive
+    PP-sweep machinery is reduced (the selected value is frozen instead of re-swept), which is the
+    likely source of the notebook's "19m" runtime claim.
+  variables_changed: entire_pipeline_not_causally_isolated
+source_notebook: docs/research/public_notebook_archive/biohub-0-951-sota-deepcenter-fast-ilp-19m.ipynb
+substrate_note: >
+  NOT a causally-isolated experiment and it is not presented as one. If it scores above the
+  comparator we will NOT know which of the five stacked mechanisms is responsible. That trade is
+  deliberate and was accepted explicitly: with the competition closing 2026-09-29, testing the
+  stack as shipped is the only way to evaluate the stack. Attribution, if wanted, is a separate
+  later experiment. Archived third-party artifact SHA256
+  fb2b1cd4d9612d333eb2e8ad6c0106646ac2429c05ccfce5997179135a228734, pulled 2026-09-24 and kept
+  in-repo because a sibling notebook the 09-23 recon quoted has already gone 403.
+validation:
+  protocol: public_0951_verbatim_repro_v1
+  primary_metric: binary_integrity_gate
+  warning: >
+    There is NO local proxy gate and NO authored-code parity guard, because nothing was authored.
+    Patch-parity and anchor-uniqueness tests are genuinely inapplicable to a verbatim copy. OUTPUT
+    and EXECUTION validation are not, and are required at collection: submission.csv exists, has
+    our exact 10-column schema, is non-empty, covers all four hidden-test datasets, differs from
+    the parent d3453380, and the notebook's own runtime integrity receipt
+    (bidirectional_production_runtime_integrity.json) reports ground_truth_accessed false with
+    resolvable checkpoint SHA256s.
+admission:
+  require_codex_review: true
+  reviewer_provider: codex
+  note: >
+    Direction authorized by the user 2026-09-24 after the Codex challenge round on
+    docs/research/exp063_next_step_proposal_v2.md (VERDICT REVISE on v1; five findings verified and
+    all five accepted). The admission review here is NOT a code review of our work -- there is no
+    work of ours to review. It is a review of (a) the decision to run unaudited third-party code,
+    (b) the completeness of the pre-launch audit, (c) compliance and leakage clearance, and
+    (d) budget and stop-rule bounds.
+kaggle:
+  owner: lingxd
+  slug: biohub-exp063-public-0951-repro
+  title: biohub-exp063-public-0951-repro
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: false
+  competition_sources:
+    - biohub-cell-tracking-during-development
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+    - giorgosi/biohub-divnet-v2
+  required_dataset_sources: 4
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  note: >
+    Every field mirrors the source kernel's own kernel-metadata.json exactly, including the docker
+    image digest -- which is the SAME image exp_060 and exp_062 ran on, so the environment is one
+    we have proven twice. The fourth dataset giorgosi/biohub-divnet-v2 (5.18 MB, 481 downloads) is
+    new to this project and is the one OPEN audit item: it is publicly accessible, but public
+    accessibility is not evidence of permitted training provenance. Recorded, see risks.
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/validate_notebook.py
+    - "{source_notebook}"
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+  note: >
+    Ceiling for the WHOLE of exp_063, not per run. The source claims 19 minutes; our comparable
+    parent kernel measured 1.727 h, and the title claim is unverified, so 2.0 h is a deliberate
+    upper bound rather than an estimate. Discretionary GPU is 10.872382 h after the protected
+    6.0 h reserve.
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: exp063_repro_integrity_passed
+gate: exp063_repro_integrity_passed
+leaderboard:
+  authorized: false
+  plan: >
+    Exactly ONE submission of this arm, separately authorized, remote cap checked first. Governing
+    limit is the PROJECT rule of THREE per America/New_York day (AGENTS.md), stricter than the
+    platform's 5. Comparator is max(0.947, exp_062 k2 = submission 56530197). Decision rule:
+    ABOVE comparator -> adopt as the new parent; EQUAL -> no measurable difference at 3 decimals,
+    which is NOT proof of identical predictions, stop the family; BELOW -> OUR frozen reproduction
+    under OUR execution conditions underperformed, which says nothing about the author's own claim,
+    revert to the incumbent and stop the family. BOUNDS: at most 2 exp_063 runs total (arm B
+    biohub-sota-0-948-density-adaptive-2xt4-22m requires its own separate decision and is NOT
+    pre-approved); at most ONE hidden-rerun retry, then the route is abandoned; NO open-ended
+    tuning inside a winning pipeline -- that would be a separate proposal.

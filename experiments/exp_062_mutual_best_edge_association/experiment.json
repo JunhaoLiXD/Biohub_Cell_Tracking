@@ -2,7 +2,7 @@
   "schema_version": 1,
   "experiment_id": "exp_062_mutual_best_edge_association",
   "parent": "repro_059_public_0947_exact_copy",
-  "state": "SUBMITTED",
+  "state": "COLLECTING",
   "hypothesis": "A mutual-best rank prior on the edge logits of the frozen 0.947 pipeline, at the published beta = 0.20 with everything else byte-identical to repro_059, changes the Public LB by at least +0.001 vs 0.947. H1 is an OPERATIONAL hypothesis about the displayed score. The intervention is inserted UPSTREAM of the ILP solve, unlike every prior probe in this arc. Honest prior: it reinforces the parent's existing fused ranking rather than adding independent evidence, and a null is genuinely likely.",
   "change": {
     "component": "edge_association_rank_prior_only",
@@ -58,7 +58,7 @@
   },
   "key_defect_closed": "Codex round 2 found, and Claude verified in the parent, that _inference_resume_env_keys (cell 2 line 1669) is a fixed 13-key list containing neither exp_062 variable while _test_prediction_signature (line 1670) hashes exactly those keys. A candidate run could therefore compute the SAME resume signature as the control, skip inference (lines 1672-1680) and replay the control's predictions with every gate green -- burning an LB slot on a duplicate 0.947. Closed by extending the key list between lines 1669 and 1670 (Codex traced propagation to 3171-3172, 3290, 3686, 3723, 3783) plus a measured-wall-clock cache alarm, because parent line 1675 restores the historical predict_seconds on a hit.",
   "created_at": "2026-09-24T00:00:00+00:00",
-  "updated_at": "2026-09-24T14:38:09.842810+00:00",
+  "updated_at": "2026-09-24T19:36:04.940612+00:00",
   "state_history": [
     {
       "from": "PROPOSED",
@@ -154,6 +154,12 @@
       "to": "SUBMITTED",
       "at": "2026-09-24T14:38:09.842810+00:00",
       "note": "k2 CANDIDATE (kernel version 2) pushed and RUNNING."
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-24T19:36:04.940612+00:00",
+      "note": "k2 collected; LB submission 56530197 pending."
     }
   ],
   "not_authorized": "No admission review, no budget reservation, no launch, no leaderboard submission. Strategy CONSENSUS authorizes the build only.",
@@ -291,5 +297,40 @@
     },
     "on_completion": "Wait for the USER's completion notice; do NOT poll. Collect ONCE, then verify exp062_mutual_best_integrity_passed true, patch_applied_exactly_once, resume_signature_includes_exp062_keys, activation_is_softmax, no_cache_hit on MEASURED wall-clock, test-stage telemetry with shards 0/2 and 1/2, and additionally frames_with_bonus > 0 (mode is on). Compare submission.csv against the control's d3453380.",
     "submission_rule": "If k2's submission.csv is byte-identical to the control, do NOT submit -- zero information, wasted slot. Otherwise at most ONE LB submission, separately authorized by the user, remote cap checked first."
+  },
+  "collect_k2_candidate": {
+    "collected_at_utc": "2026-09-24T19:36:04.940612+00:00",
+    "kernel_version": 2,
+    "kernel_status": "COMPLETE",
+    "verdict": "PASS -- integrity green AND output differs from the control",
+    "runtime_seconds": 6475.69647359848,
+    "actual_gpu_hours": 1.7988045759995779,
+    "submission_sha256": "ba9431c1161ac89770cb1d1ffd268ac9248da31e3d738390b418c19fd3629cbb",
+    "differs_from_control": true,
+    "gates": {
+      "exp062_mutual_best_integrity_passed": true,
+      "frames_with_bonus": 396,
+      "frames": 396,
+      "anchor_match_count": 1,
+      "activation_is_softmax": true,
+      "no_cache_hit": true,
+      "measured_inference_seconds": 594.0934526920319,
+      "stage_counts": {
+        "test": 2,
+        "validation": 2
+      },
+      "test_stage_shards": [
+        "0/2",
+        "1/2"
+      ],
+      "run_id": "exp062-candidate-1790260650"
+    },
+    "effect_evidence": "raw_absmax 19.227895736694336 vs pre_raw_absmax 19.187894821166992 (delta +0.0400009, consistent with the beta=0.20 bonus magnitudes); raw_std_sum 1291.79 vs pre_raw 1288.85. The prior demonstrably perturbed the logits, unlike the control where pre_raw == raw exactly.",
+    "leaderboard_submission": {
+      "submission_id": 56530197,
+      "submitted_at_utc": "2026-09-24T19:34:49.737000Z",
+      "status": "PENDING",
+      "user_authorized": true
+    }
   }
 }
