@@ -35,6 +35,13 @@ EXPECT_SHA_KEY = "BIOHUB_EXP062_EXPECT_PARENT_SHA"
 STATS_PATH_KEY = "BIOHUB_EXP062_STATS_PATH"
 RUN_ID_KEY = "BIOHUB_EXP062_RUN_ID"
 EXP062_ENV_KEYS = (MODE_KEY, BETA_KEY)
+
+# Every stats record must carry all of these; a missing field is rejected, never defaulted.
+REQUIRED_STAT_FIELDS = ("frames", "frames_with_bonus", "activation", "raw_absmax", "raw_std_sum",
+                        "pre_raw_absmax", "pre_raw_std_sum", "run_id", "mode", "beta", "shard",
+                        "pid")
+NUMERIC_STAT_FIELDS = ("frames", "frames_with_bonus", "raw_absmax", "raw_std_sum",
+                       "pre_raw_absmax", "pre_raw_std_sum")
 VALID_MODES = ("none", "relative_rank", "mutual_best")
 
 # The anchor, as it stands in the parent-patched predict script: the final `raw` assignment
@@ -224,7 +231,16 @@ def reset_stats(stats_path, run_id):
     return {"stats_path": str(p), "run_id": str(run_id)}
 
 
-def read_stats(stats_path, run_id=None, expect_mode=None):
+def _beta_equal(recorded, expected, tol=1e-12):
+    """Compare a recorded beta string to the expected value numerically."""
+    try:
+        return abs(float(recorded) - float(expected)) <= tol
+    except (TypeError, ValueError):
+        return False
+
+
+def read_stats(stats_path, run_id=None, expect_mode=None, expect_beta=None,
+               expect_shards=None):
     """Merge the per-subprocess stats records, FAIL-CLOSED on anything unreliable.
 
     Rejects rather than skips: malformed JSON, records from another run/mode, conflicting
@@ -248,29 +264,61 @@ def read_stats(stats_path, run_id=None, expect_mode=None):
             rec = json.loads(line)
         except ValueError as exc:
             raise Exp062Error("stats %s line %d is malformed: %s" % (p, lineno, exc)) from exc
-        if run_id is not None and str(rec.get("run_id", "")) != str(run_id):
+
+        # --- validate the record COMPLETELY before any of it is aggregated -------------------
+        # Aggregating first is how invalid evidence slips through: `max()` silently drops a NaN
+        # (max(0.0, nan) == 0.0), and a zero-frame record disappears into a valid neighbour's sum.
+        for field in REQUIRED_STAT_FIELDS:
+            if field not in rec:
+                raise Exp062Error(
+                    "stats %s line %d is missing the required field %r" % (p, lineno, field))
+        if run_id is not None and str(rec["run_id"]) != str(run_id):
             raise Exp062Error(
                 "stats %s line %d belongs to run %r, not this run %r (stale evidence)"
-                % (p, lineno, rec.get("run_id"), run_id))
-        if expect_mode is not None and rec.get("mode") != expect_mode:
+                % (p, lineno, rec["run_id"], run_id))
+        if expect_mode is not None and rec["mode"] != expect_mode:
             raise Exp062Error(
                 "stats %s line %d was written under mode %r, expected %r"
-                % (p, lineno, rec.get("mode"), expect_mode))
-        act = rec.get("activation")
-        if act is not None and merged["activation"] is not None and act != merged["activation"]:
+                % (p, lineno, rec["mode"], expect_mode))
+        if expect_beta is not None and not _beta_equal(rec["beta"], expect_beta):
+            raise Exp062Error(
+                "stats %s line %d was written under beta %r, expected %r"
+                % (p, lineno, rec["beta"], expect_beta))
+        for key in NUMERIC_STAT_FIELDS:
+            try:
+                value = float(rec[key])
+            except (TypeError, ValueError) as exc:
+                raise Exp062Error(
+                    "stats %s line %d field %r is not numeric: %r"
+                    % (p, lineno, key, rec[key])) from exc
+            if not math.isfinite(value):
+                raise Exp062Error(
+                    "stats %s line %d field %r is nonfinite: %r" % (p, lineno, key, value))
+        if int(rec["frames"]) <= 0:
+            raise Exp062Error(
+                "stats %s line %d recorded 0 frames; that subprocess never saw an edge batch"
+                % (p, lineno))
+        act = rec["activation"]
+        if merged["activation"] is not None and act != merged["activation"]:
             raise Exp062Error(
                 "conflicting activation branches across shards: %r vs %r"
                 % (merged["activation"], act))
-        if act is not None:
-            merged["activation"] = act
+        shard = rec["shard"]
+        if shard in merged["stats_shards"]:
+            raise Exp062Error(
+                "stats %s line %d duplicates shard %r; subprocess coverage is ambiguous"
+                % (p, lineno, shard))
+
+        # --- only now aggregate -------------------------------------------------------------
+        merged["activation"] = act
         merged["stats_records"] += 1
-        merged["stats_shards"].append(rec.get("shard", "?"))
-        merged["frames"] += int(rec.get("frames", 0))
-        merged["frames_with_bonus"] += int(rec.get("frames_with_bonus", 0))
+        merged["stats_shards"].append(shard)
+        merged["frames"] += int(rec["frames"])
+        merged["frames_with_bonus"] += int(rec["frames_with_bonus"])
         for key in ("raw_absmax", "pre_raw_absmax"):
-            merged[key] = max(merged[key], float(rec.get(key, 0.0)))
+            merged[key] = max(merged[key], float(rec[key]))
         for key in ("raw_std_sum", "pre_raw_std_sum"):
-            merged[key] += float(rec.get(key, 0.0))
+            merged[key] += float(rec[key])
 
     if merged["stats_records"] == 0:
         raise Exp062Error("stats file %s has no records; the patched block never executed" % p)
@@ -279,6 +327,10 @@ def read_stats(stats_path, run_id=None, expect_mode=None):
     for key in ("raw_absmax", "raw_std_sum", "pre_raw_absmax", "pre_raw_std_sum"):
         if not math.isfinite(merged[key]):
             raise Exp062Error("stats aggregate %s is nonfinite: %r" % (key, merged[key]))
+    if expect_shards is not None and sorted(merged["stats_shards"]) != sorted(expect_shards):
+        raise Exp062Error(
+            "subprocess coverage mismatch: recorded shards %r, expected %r"
+            % (sorted(merged["stats_shards"]), sorted(expect_shards)))
     merged["raw_std_mean"] = merged["raw_std_sum"] / merged["frames"]
     merged["pre_raw_std_mean"] = merged["pre_raw_std_sum"] / merged["frames"]
     return merged

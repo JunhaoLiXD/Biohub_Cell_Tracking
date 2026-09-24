@@ -371,7 +371,8 @@ def test_read_stats_merges(tmp="exp062_stats_test.jsonl"):
         p.write_text(_rec(frames=3, frames_with_bonus=3, raw_absmax=2.0, raw_std_sum=1.5) + "\n"
                      + _rec(frames=2, frames_with_bonus=1, raw_absmax=5.0, raw_std_sum=0.5,
                             shard="1/2") + "\n", encoding="utf-8")
-        s = M.read_stats(p, run_id="R1", expect_mode="mutual_best")
+        s = M.read_stats(p, run_id="R1", expect_mode="mutual_best", expect_beta="0.20",
+                         expect_shards=["0/2", "1/2"])
         check("stats merge: frames summed", s["frames"] == 5)
         check("stats merge: bonus frames summed", s["frames_with_bonus"] == 4)
         check("stats merge: absmax is a max", s["raw_absmax"] == 5.0)
@@ -380,14 +381,27 @@ def test_read_stats_merges(tmp="exp062_stats_test.jsonl"):
         check("stats merge: shards recorded", sorted(s["stats_shards"]) == ["0/2", "1/2"])
 
         # Fail-closed negatives -- each of these used to pass silently as a valid null.
+        import json as _j
+        base_kw = {"run_id": "R1", "expect_mode": "mutual_best", "expect_beta": "0.20"}
+        dropped = _j.loads(_rec())
+        dropped.pop("raw_absmax")
         cases = {
-            "stale run id": (_rec(run_id="R0"), {"run_id": "R1", "expect_mode": "mutual_best"}),
-            "wrong mode": (_rec(mode="none"), {"run_id": "R1", "expect_mode": "mutual_best"}),
-            "malformed json": ("{not json", {"run_id": "R1", "expect_mode": "mutual_best"}),
-            "conflicting activation": (_rec() + "\n" + _rec(activation="sigmoid"),
-                                       {"run_id": "R1", "expect_mode": "mutual_best"}),
-            "zero frames": (_rec(frames=0, frames_with_bonus=0),
-                            {"run_id": "R1", "expect_mode": "mutual_best"}),
+            "stale run id": (_rec(run_id="R0"), base_kw),
+            "wrong mode": (_rec(mode="none"), base_kw),
+            "malformed json": ("{not json", base_kw),
+            "conflicting activation": (_rec(shard="0/2") + "\n"
+                                       + _rec(shard="1/2", activation="sigmoid"), base_kw),
+            "zero frames": (_rec(frames=0, frames_with_bonus=0), base_kw),
+            # The holes Codex found by EXECUTING the previous read_stats():
+            "wrong beta": (_rec(beta="0.40"), base_kw),
+            "missing numeric field": (_j.dumps(dropped), base_kw),
+            "zero-frame record BESIDE a valid one": (
+                _rec(shard="0/2") + "\n" + _rec(shard="1/2", frames=0, frames_with_bonus=0),
+                base_kw),
+            "NaN masked by max()": (_rec(raw_absmax=float("nan")), base_kw),
+            "duplicate shard": (_rec(shard="0/2") + "\n" + _rec(shard="0/2"), base_kw),
+            "shard coverage mismatch": (_rec(shard="0/2"),
+                                        dict(base_kw, expect_shards=["0/2", "1/2"])),
         }
         for name, (body, kw) in cases.items():
             p.write_text(body + "\n", encoding="utf-8")

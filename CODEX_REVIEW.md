@@ -1,46 +1,47 @@
 # Latest Codex Review
 
 Experiment: `exp_062_mutual_best_edge_association`  
-Captured: 2026-09-24T04:34:02+00:00
+Captured: 2026-09-24T04:42:57+00:00
 
 ## Summary
 
-**REVISE: strategy consensus is verified, but the snapshot is incompatible with the next controller stage.**
+**REVISE.** Explicit strategy **CONSENSUS** is verified in the [Claude-authored v3 proposal](E:/Project/Biohub_CellTracking/docs/research/exp062_mutual_best_edge_association_proposal_v3.md), supported by Codex objections and revisions across rounds 1–3.
 
-The Claude-authored v3 proposal and Codex challenges v1–v3 record objections, revisions, and explicit **CONSENSUS**. All seven snapshot hashes match; removing marked injections reproduces the parent code exactly. Review remained read-only; no state-changing tests ran. Initial git checks returned no changes.
+All seven snapshot hashes match. Removing marked injections reproduces the parent code exactly. Review remained read-only; targeted checks executed in memory. Git diff was unavailable: Git reported no repository.
 
 ## Methodology
 
-The fixed β=0.20 intervention is testable and sufficiently isolated. Earlier downstream edge failures do not directly contradict this upstream intervention, but neither the parent’s 0.947 nor public provenance establishes likely improvement.
+The fixed β=0.20 upstream rank prior is testable and sufficiently isolated. Previous downstream failures do not directly contradict it, but the parent’s 0.947 establishes a baseline—not evidence that this intervention will improve it.
 
-The inherited validator selects division-prioritized training videos within both specimen prefixes; it is **not leave-one-specimen-out validation**. Frozen-model training exposure and adaptive PP selection prevent interpreting its scores as independent generalization evidence. Retaining that selection policy is consistent with the agreed experiment, whose quality endpoint is explicitly Public LB.
+The inherited division-prioritized training selection covers both 44b6 and 6bba but is **not specimen-disjoint validation**. Frozen-model exposure and adaptive postprocessing selection prevent treating its scores as independent generalization evidence. The experiment appropriately labels its controller metric as integrity only and uses separately authorized Public LB scoring for quality.
+
+Retaining adaptive postprocessing means the measured effect includes any resulting change in selected postprocessing configuration.
 
 ## Implementation risks
 
-- **Controller configuration fails validation.** `success.regression_threshold` is missing. Moreover, top-level `gate` is ignored by `decide()`: without `evaluation.mode: gate`, evaluation defaults to comparison and fails against the incompatible legacy baseline.
-- **Manifest format is incompatible.** The snapshot stores `files` as a path-to-hash mapping; `verify_snapshot()` expects a list of objects containing `path` and `sha256`. Correct hashes do not prevent this failure.
-- **Default smoke rejects the notebook.** It requires the final code cell to contain the `metrics.json` contract. That literal appears in the earlier module-definition cell, while the final cell only calls `finalize()`.
-- **Telemetry is not reliably tied to the current run.** Statistics append to a fixed file without clearing it or recording run/mode/dataset identity. Malformed records are skipped and activation is overwritten by the last record. Stale or partial evidence can therefore satisfy aggregate execution checks.
-- Calibration statistics describe **post-bonus** logits and omit the promised per-dataset distributions and probability/candidate changes. The NumPy shim also differs from PyTorch in precision, tie sorting, and standard deviation; its tests do not establish numerical parity.
+The config fields, manifest schema, final-cell metrics marker, telemetry reset, and parent-versus-candidate quality distinction have been corrected. Rank axes, bonus formula, resume-signature extension, checkpoint hashes, and inherited graph checks are preserved.
 
-The rank formula, signature-key extension, candidate SHA-guard clearing, model hashes, and inherited lineage-degree/time checks are present.
+Two concrete issues remain:
+
+- **Telemetry still accepts invalid evidence.** Memory-only tests of the frozen [`read_stats()`](E:/Project/Biohub_CellTracking/experiments/exp_062_mutual_best_edge_association/snapshot/scripts/exp062_mutual_best.py:227) accepted a wrong β, missing numeric fields, and a zero-frame record alongside a valid record. It also accepted `raw_absmax=NaN`: `max()` masked it before the aggregate finite check. Recorded subprocess identities are not checked against expected coverage.
+- **Standard snapshot smoke still fails.** Executing the controller’s read-only validation functions against the candidate reproduced the “environment keys not explicitly assigned in an earlier code cell” error. This is inherited, but documenting it does not satisfy the smoke gate or extend previous experiments’ waivers.
+
+The NumPy shim establishes logic, not PyTorch numerical parity. GPU parity remains appropriately assigned to k1.
 
 ## Budget
 
-The recorded 20.398674 hours supports a 3-hour reservation while preserving six protected hours. Information gain is reasonable for one bounded probe, without automatic escalation.
+The recorded **20.398674 hours** supports a **3-hour reservation**, leaving **17.398674 hours**, including the protected six. One bounded probe offers reasonable information value; no automatic β escalation is justified.
 
-The config’s “5/day” wording must not override the project’s **three submissions per New York day** limit.
+Preserve the project limit of **three submissions per New York day**, separate submission authorization, and the byte-identical-output stop rule.
 
 ## Required changes
 
-1. Correct config validation fields, explicit gate evaluation, manifest schema, and snapshot smoke integration.
-2. Make execution telemetry fresh and attributable to each subprocess; reject incomplete, conflicting, or nonfinite evidence.
-3. Restore the agreed activity/calibration contract or explicitly record a narrowed contract.
-4. Remove inherited candidate-report claims of already-verified 0.947 quality; distinguish parent provenance from candidate evidence.
-5. Preserve prior review history, snapshot the corrections, and obtain a scoped review before smoke, reservation, or launch.
+1. Validate required telemetry fields, finiteness, counts, effective β, and expected subprocess coverage **before aggregation**. Add negative checks for the accepted cases above.
+2. Resolve the smoke incompatibility through a reviewed validation correction that checks assignment-before-guard execution without duplicating configuration. Do not bypass it based on inherited behavior.
+3. Preserve prior review/snapshot evidence, freeze the corrections, and obtain a scoped re-review. Keep reservation, launch, submission, and promotion gates separate.
 
 ## Recommendation
 
-Retain the agreed strategy, but do not advance this snapshot. These are concrete controller and evidence-contract defects, independent of speculative efficacy.
+Retain the agreed strategy, but do not advance this snapshot. The remaining findings concern execution evidence and a reproducible controller failure, not speculative efficacy.
 
 VERDICT: REVISE

@@ -105,7 +105,8 @@ _exp062_tel['resume_signature_inputs_include_exp062_keys'] = all(
     _k in _inference_resume_env_keys for _k in EXP062_ENV_KEYS)
 _exp062_tel.update(read_stats(os.environ['BIOHUB_EXP062_STATS_PATH'],
                               run_id = _EXP062_RUN_ID,
-                              expect_mode = os.environ['BIOHUB_LB_SCORING_MODE']))
+                              expect_mode = os.environ['BIOHUB_LB_SCORING_MODE'],
+                              expect_beta = os.environ['BIOHUB_LB_SCORING_BETA']))
 _exp062_tel['runtime_seconds'] = time.time() - _EXP062_RUN_START
 _exp062_tel['run_id'] = _EXP062_RUN_ID
 _exp062_metrics = finalize(WORKING_DIR, _exp062_tel, SUBMISSION_PATH)
