@@ -1,0 +1,11 @@
+[2026-09-24T20:35:42+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_notebook.py", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_064_x138_verbatim_repro\\snapshot\\source\\biohub-x138.ipynb"]
+exit_code=0
+STDOUT
+{
+  "cells": 12,
+  "code_cells": 12,
+  "saved_error_outputs": 0
+}
+
+STDERR
+

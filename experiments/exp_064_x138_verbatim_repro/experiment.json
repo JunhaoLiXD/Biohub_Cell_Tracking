@@ -2,7 +2,7 @@
   "schema_version": 1,
   "experiment_id": "exp_064_x138_verbatim_repro",
   "parent": "repro_059_public_0947_exact_copy",
-  "state": "PROPOSED",
+  "state": "SUBMITTED",
   "hypothesis": "A VERBATIM reproduction of anvithpothula/biohub-x138, run under our own account with the same four mounted datasets and the same pinned docker image, scores strictly above our incumbent comparator on the Public LB. Comparator is max(0.947, exp_062 k2 submission 56530197), resolved BEFORE any submission. The author is authenticated at rank 62 / 3888 with score 0.956 (full LB download 2026-09-24T20:03:35) and the notebook claims no score at all. That rank is evidence the AUTHOR is strong; per the admission review it establishes NO expected score for this reproduction, and in particular no floor of 0.947 -- this pipeline is not our parent and may score below it. Outcome is genuinely unknown until measured.\n",
   "change": {
     "component": "whole_pipeline_reproduction_no_authored_code",
@@ -19,17 +19,79 @@
   "validation_protocol": "x138_verbatim_repro_v1",
   "budget": {
     "expected_gpu_hours": 2.5,
-    "reserved": false
+    "reserved": true
   },
   "review": {
     "required": true,
     "provider": "codex",
-    "status": "PENDING"
+    "status": "PASSED",
+    "completed_at": "2026-09-24T20:35:27.348812+00:00",
+    "verdict": "PASS",
+    "rounds": 5,
+    "record": "experiments/exp_064_x138_verbatim_repro/review.md",
+    "summary": "PASS at round 5. Rounds 1-4 REVISE, every one finding real defects, all of them mine: an overstated and incomplete mechanism description, an inferred score floor, and three separate false-pass fixtures against my own collection adapter (finite-but-huge coords, absent degradation telemetry, and a self-loop). Round 1 independently cleared the notebook by executing its patch chain in memory. Round 3 ruled that unverifiable third-party training provenance must not block a bounded reproduction."
   },
   "smoke_test": {
-    "status": "PENDING"
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/validate_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\exp_064_x138_verbatim_repro\\snapshot\\source\\biohub-x138.ipynb"
+    ],
+    "completed_at": "2026-09-24T20:35:42+00:00",
+    "exit_code": 0
   },
   "created_at": "2026-09-24T20:33:27+00:00",
-  "updated_at": "2026-09-24T20:33:27+00:00",
-  "state_history": []
+  "updated_at": "2026-09-24T20:35:55+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-24T20:35:42+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-24T20:35:42+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-24T20:35:55+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-24T20:36:37.785660+00:00",
+      "note": "x138 verbatim repro launched after Codex PASS (round 5) and smoke PASS; watchdog armed."
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp064-x138-repro",
+    "submitted_at": "2026-09-24T20:35:55+00:00",
+    "status": "SUBMITTED",
+    "last_checked_at": null
+  },
+  "launch": {
+    "kernel": "lingxd/biohub-exp064-x138-repro",
+    "kernel_version": 1,
+    "url": "https://www.kaggle.com/code/lingxd/biohub-exp064-x138-repro",
+    "launched_at_utc": "2026-09-24T20:35:55+00:00",
+    "launched_via": "scripts/launch_kaggle.py (controller)",
+    "variant": "VERBATIM third-party reproduction; zero authored code",
+    "staged_notebook_sha256": "6b655e39bbfd2d3d6c762badea69847d3f00f5b548f385cb01b07ee2600fde6d",
+    "staged_matches_archive": true,
+    "user_authorized": true,
+    "budget_reserved_hours": 2.5,
+    "gates": {
+      "codex_admission": "PASS (round 5)",
+      "snapshot_smoke": "PASS exit 0"
+    },
+    "watchdog_armed": true,
+    "watchdog": "Monitor task b1zyy1022, armed 2026-09-24T20:36Z. Polls kernel status every 5 min; tolerates query failures and queued/initializing states without firing; fires on a terminal state (COMPLETE/ERROR/CANCELLED) or at 2h15m. Monitor sessions expire after 30 min and must be RE-ARMED until the kernel terminates -- an expiry notice is not a terminal state.",
+    "on_completion": "Collect ONCE, then run `python scripts/collect_exp064_x138.py <dir>`. Its exit code gates the submission: 0 = may submit with separate user authorization; non-zero = DO NOT submit. Reconcile actual GPU hours from confirmed termination, never a nominal figure."
+  }
 }
