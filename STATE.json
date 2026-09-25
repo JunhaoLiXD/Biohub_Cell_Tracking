@@ -655,6 +655,22 @@
       "docs/research/public_notebook_archive/biohub-frontier947-fast-v1.ipynb",
       "docs/research/public_notebook_archive/SHA256SUMS_frontier947_series.txt"
     ],
-    "status": "RECON ONLY. No experiment proposed, no admission run, no launch authorized."
+    "status": "RECON ONLY. No experiment proposed, no admission run, no launch authorized.",
+    "standings_refresh": {
+      "snapshot_utc": "2026-09-25T01:45:42",
+      "teams": 3894,
+      "our_rank_approx": 533,
+      "teams_strictly_above_0947": 532,
+      "cutoffs": {
+        "1": 0.975,
+        "10": 0.967,
+        "25": 0.962,
+        "50": 0.958,
+        "100": 0.954,
+        "200": 0.953,
+        "300": 0.953
+      },
+      "drift_warning": "Our rank went ~478 -> ~533 in roughly six hours on 2026-09-24/25, and rank 300 went 0.950 -> 0.953. The day before, the rank-200 cutoff moved 0.949 -> 0.953. Any plan quoting a rank more than a few hours old is quoting a stale number."
+    }
   }
 }
