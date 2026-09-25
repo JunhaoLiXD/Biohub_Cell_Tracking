@@ -458,6 +458,41 @@ def _explicit_environment_assignments(source: str) -> set[str]:
     return set(pattern.findall(source))
 
 
+def _guard_statement_lineno(source: str) -> int | None:
+    """1-based line of the first ``_EXPECTED_NUMERIC``/``_EXPECTED_TEXT`` assignment, if any."""
+    try:
+        tree = ast.parse(source)
+    except SyntaxError:
+        return None
+    linenos = [
+        node.lineno
+        for node in tree.body
+        if isinstance(node, ast.Assign)
+        and {t.id for t in node.targets if isinstance(t, ast.Name)}
+        & {"_EXPECTED_NUMERIC", "_EXPECTED_TEXT"}
+    ]
+    return min(linenos) if linenos else None
+
+
+def _environment_assignments_before_guard(source: str) -> set[str]:
+    """Assignments that execute BEFORE the configuration guard within the same cell.
+
+    The guard's requirement is that every expected key is already assigned when the guard runs.
+    A key assigned earlier in the *same* cell satisfies that just as well as one assigned in an
+    earlier cell -- which is how this project's parent notebooks are actually written. Restricting
+    the check to earlier cells would force a successor to duplicate the frozen configuration into
+    a second location purely to satisfy the tool, creating two sources of truth for it; that is
+    the defect class that produced the exp_061 v4 admission BLOCK, so it must not be the remedy.
+
+    Assignments that appear AFTER the guard still do not count.
+    """
+    lineno = _guard_statement_lineno(source)
+    if lineno is None:
+        return set()
+    prefix = "\n".join(source.split("\n")[: lineno - 1])
+    return _explicit_environment_assignments(prefix)
+
+
 def validate_notebook(path: Path, *, require_metrics_contract: bool = False) -> dict[str, int]:
     notebook = read_json(path)
     if not isinstance(notebook, dict) or notebook.get("nbformat") != 4:
@@ -488,11 +523,16 @@ def validate_notebook(path: Path, *, require_metrics_contract: bool = False) -> 
             expected_environment = _guard_expected_environment_keys(cell_source)
             if expected_environment:
                 assigned_environment = _explicit_environment_assignments(prior_code_source)
+                # A key assigned earlier in THIS cell is already set when the guard runs, so it
+                # satisfies the guard exactly as an earlier cell would. Assignments after the
+                # guard still do not count.
+                assigned_environment |= _environment_assignments_before_guard(cell_source)
                 missing_environment = sorted(expected_environment - assigned_environment)
                 if missing_environment:
                     raise ControllerError(
                         "Configuration guard expects environment keys that are not explicitly "
-                        f"assigned in an earlier code cell: {missing_environment}"
+                        "assigned before the guard executes (earlier cell, or earlier in the same "
+                        f"cell): {missing_environment}"
                     )
             if "metrics.json" in cell_source:
                 metrics_contract_indices.append(index)

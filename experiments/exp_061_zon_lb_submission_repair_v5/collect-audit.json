@@ -1,0 +1,124 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_061_zon_lb_submission_repair_v5",
+  "kernel": "lingxd/biohub-exp061-zon-deploy-v5",
+  "kernel_version": 1,
+  "kernel_status": "COMPLETE",
+  "collected_at_utc": "2026-09-23T12:35:00+00:00",
+  "auditor": "Claude Opus 5 (read-only collection audit)",
+  "collection_policy": "single collection, no polling; kernel completion reported by the user",
+  "runtime_seconds": 1992.1196377277374,
+  "runtime_hours": 0.5533665660354826,
+  "integrity_gate": {
+    "exp061_zon_deployment_integrity_passed": true,
+    "checks_total": 19,
+    "checks_failed": 0,
+    "checks": {
+      "all_arm_configs_equal_parent": true,
+      "all_discovered_test_datasets_completed": true,
+      "all_veto_scores_finite_and_accounted": true,
+      "checkpoint_provenance_verified": true,
+      "config_complete_all_arms": true,
+      "deployment_runs_only_zon": true,
+      "experimental_arms_execution_valid": true,
+      "live_pinned_config_equals_frozen_parent": true,
+      "no_exception_during_probe": true,
+      "no_nonfinite_heatmaps": true,
+      "parent_deepcenter_tta_env_on": true,
+      "resolved_config_pinned_tight55": true,
+      "shared_prediction_inputs_unchanged": true,
+      "telemetry_persisted_and_valid": true,
+      "validator_sweep_disabled": true,
+      "view_cache_integrity_ok": true,
+      "whole_run_watchdog_armed": true,
+      "within_hard_stop_and_timing_reliable": true,
+      "zon_started": true
+    }
+  },
+  "prediction_identity": {
+    "submission_csv_sha256": "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1",
+    "exp061_submission_zon_csv_sha256": "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1",
+    "matches_historical_development_zon_hash": true,
+    "matches_v4_current_run_hash": true,
+    "rows": 241365,
+    "lines_including_header": 241366,
+    "header": "id,dataset,row_type,node_id,t,z,y,x,source_id,target_id",
+    "nodes": 122813,
+    "edges": 118552,
+    "arm_signature": "b115ff351e3f3ab8",
+    "conclusion": "v5's resource-only changes produced byte-identical predictions, as designed."
+  },
+  "fix_1_rerun_aware_deadline": {
+    "verified": true,
+    "is_competition_rerun": false,
+    "hard_stop_seconds": 7200.0,
+    "finalization_reserve_seconds": 1200.0,
+    "elapsed_seconds": 1992.1,
+    "remaining_seconds": 5207.9,
+    "reading": "On this VISIBLE run the deadline policy correctly resolved to the 7200 s branch, so the 2.0 h GPU reservation was honoured and the 30600 s rerun branch was not spuriously taken. The rerun branch itself is exercised only by the local executable deadline matrix in validate_exp061_zon_deployment_v5.py; a visible run cannot test it.",
+    "deadline_consistency_guard": "cell 2 and the module agreed (publication was not refused)"
+  },
+  "fix_2_cache_off_output_path": {
+    "verified": true,
+    "view_cache_root": "/kaggle/temp/exp061_viewcache",
+    "view_cache_outside_working_dir": true,
+    "scratch_root_fallback_used": false,
+    "disk_view_files": 4272,
+    "disk_view_bytes": 4480063488,
+    "collected_kernel_output_bytes": 61604000,
+    "collected_kernel_output_files": 182,
+    "viewcache_files_in_collected_output": 0,
+    "reading": "The 4.48 GB view cache moved entirely off the collected output path. Downloaded kernel output fell from ~4.5 GB (v4) to 58.75 MB, and /kaggle/working consumption is now far below the 20 GB cap."
+  },
+  "numerical_health": {
+    "nonfinite_heatmap_events": 0,
+    "nonfinite_view_logits": 0,
+    "view_cache_integrity_failures": 0,
+    "run_exception": null,
+    "stop_note": "",
+    "veto_calls_accounted_for": true,
+    "veto_records": 845,
+    "zero_candidate_case": false
+  },
+  "provenance": {
+    "config_equal_frozen_parent": true,
+    "pinned_overrides": {"MOTION_RELINK_TIGHT_UM": 5.5},
+    "checkpoint_provenance_verified": true,
+    "deepcenter_sha256": "8040999a92f6b7bbd98fa8cf458141e045c0f9ad7c936bdb3b18e1f7edafe2a0",
+    "transform_impl_version": "v1",
+    "parent_submission_sha256_reference": "d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60",
+    "arms_started": ["zon"],
+    "arm_status": {"zon": "completed"},
+    "deployment_only": true,
+    "parity_replay": "not applicable: the deployment-only run omits the development replay by design"
+  },
+  "views": {
+    "per_frame": 16,
+    "z_reflected": 8,
+    "labels": ["V0", "Vx", "Vy", "Vxy", "R1", "R3", "Td", "Ta", "ZV0", "ZVx", "ZVy", "ZVxy", "ZR1", "ZR3", "ZTd", "ZTa"],
+    "distinct_deepcenter_frames": 267,
+    "view_forward_calls": 4272,
+    "seconds_per_view_forward": 0.10225077838486947
+  },
+  "feasibility": {
+    "measured": true,
+    "arm_costs_seconds": {"zon": 436.81532526016235},
+    "mean_seconds_per_dataset": 109.18,
+    "max_seconds_per_dataset": 240.96,
+    "dataset_costs_seconds": {
+      "44b6_0113de3b": 85.51,
+      "44b6_0b24845f": 91.88,
+      "6bba_05b6850b": 18.38,
+      "6bba_05db0fb1": 240.96
+    },
+    "process_peak_rss_bytes": 3418492928
+  },
+  "verdict": "PASS. Every documented v5 on-completion check is satisfied: the zon CSV reproduces 2593a543 byte-for-byte, both scale fixes are confirmed active on the real pipeline, and no correctness or numerical defect appeared. The collected output is 58.75 MB.",
+  "limits_of_this_audit": [
+    "This is a VISIBLE run. It cannot prove the hidden rerun succeeds; it only shows the two removed failure modes are genuinely removed and that predictions are unchanged.",
+    "The hidden tracebacks for submissions 56454236 (v2) and 56481730 (v4) remain unavailable, so the scale hypothesis is still unproven and a third unknown cause may remain.",
+    "v4 review items #2-#6 (config-key completeness incl. adaptive short-track rescue, fail-fast-before-arms ordering, all_started_arms_completed partial-run gate, per-frame view-geometry validation, stage edge identities) are inherited OPEN.",
+    "Governance: this kernel ran under a one-time user waiver of the Codex admission gate (review.verdict NO_PASS). External evidence is local gates only; Claude authored v5 and must not act as its reviewer."
+  ],
+  "artifacts": "experiments/exp_061_zon_lb_submission_repair_v5/artifacts/ (metrics.json, run_stats.csv, ppsweep_selected.json, bidirectional_production_runtime_integrity.json, exp061/exp061_telemetry.json, exp061/receipt_zon.json). The 12.0 MB submission CSVs and the 4.48 GB scratch cache are not committed."
+}

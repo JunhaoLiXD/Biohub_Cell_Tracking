@@ -1,0 +1,115 @@
+{
+    "schema_version":  1,
+    "experiment_id":  "exp_061_zon_lb_submission_repair_v2",
+    "parent":  "exp_061_deepcenter_tta",
+    "state":  "SUBMITTED",
+    "hypothesis":  "A full current-input exp061 zon inference notebook fixes the static-CSV code-submission failure without changing the inference strategy.",
+    "change":  {
+                   "component":  "code_submission_adapter",
+                   "from":  "Static development CSV promotion and fixed development parity hash",
+                   "to":  "Full unchanged exp061 inference, original-XY current-input parity, fail-closed current-run zon publication",
+                   "variables_changed":  "Submission transport and input-relative validation only; no prediction policy edits"
+               },
+    "signature":  "08a4e4092c2a9fde1f9999d7eca601383f3dc63142ed82edd3da50de375bea24",
+    "config":  "configs/exp_061_zon_lb_submission_repair_v2.yaml",
+    "snapshot_config":  "experiments/exp_061_zon_lb_submission_repair_v2/snapshot/config.yaml",
+    "snapshot_source":  "experiments/exp_061_zon_lb_submission_repair_v2/snapshot/source/exp061_zon_lb_repair.ipynb",
+    "snapshot_manifest":  "experiments/exp_061_zon_lb_submission_repair_v2/snapshot/manifest.json",
+    "git_commit":  "cac8a099942a93d98e1442da8bd6b8928bc25226",
+    "validation_protocol":  "exp061_zon_submission_transport_repair_v2",
+    "budget":  {
+                   "expected_gpu_hours":  2.0,
+                   "reserved":  true
+               },
+    "review":  {
+                   "required":  false,
+                   "provider":  "codex",
+                   "status":  "WAIVED_BY_USER",
+                   "override":  {
+                                    "authorized_by":  "user",
+                                    "authorized_at":  "2026-09-22T05:25:00+00:00",
+                                    "scope":  "One-time only. User explicitly authorized skipping the mandatory fresh Codex admission review for this single bounded submission-transport repair launch. This is NOT a Codex PASS: Codex was at its rate limit and could not perform the review. No independent admission review exists for v2.",
+                                    "residual_risk":  "No independent review of the v2 transport repair. Only local smoke PASS (claude_code_local) and the v1 Codex read-only checks (BLOCK, later addressed) exist as external evidence. exp061 guard-coverage limitations disclosed in the v1 review remain inherited.",
+                                    "not_a_precedent":  "Future launches still require a real fresh Codex admission PASS; require_codex_review remains true in the workflow policy."
+                                }
+               },
+    "smoke_test":  {
+                       "status":  "PASSED",
+                       "command":  [
+                                       "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+                                       "scripts/validate_exp061_lb_repair.py",
+                                       "E:\\Project\\Biohub_CellTracking\\experiments\\exp_061_zon_lb_submission_repair_v2\\snapshot\\source\\exp061_zon_lb_repair.ipynb"
+                                   ],
+                       "completed_at":  "2026-09-22T04:25:18+00:00",
+                       "exit_code":  0
+                   },
+    "created_at":  "2026-09-22T04:03:24+00:00",
+    "updated_at":  "2026-09-22T04:25:20+00:00",
+    "state_history":  [
+                          {
+                              "from":  "PROPOSED",
+                              "to":  "LOCAL_TESTING",
+                              "at":  "2026-09-22T04:25:17+00:00",
+                              "note":  null
+                          },
+                          {
+                              "from":  "LOCAL_TESTING",
+                              "to":  "READY",
+                              "at":  "2026-09-22T04:25:18+00:00",
+                              "note":  null
+                          },
+                          {
+                              "from":  "READY",
+                              "to":  "SUBMITTED",
+                              "at":  "2026-09-22T04:25:20+00:00",
+                              "note":  null
+                          }
+                      ],
+    "remote":  {
+                   "kernel_id":  "lingxd/biohub-exp061-zon-lb-repair",
+                   "submitted_at":  "2026-09-22T04:25:20+00:00",
+                   "status":  "COMPLETE",
+                   "kernel_version":  1,
+                   "last_checked_at":  "2026-09-22T05:26:00+00:00"
+               },
+    "collect_and_audit":  {
+                              "completed_at":  "2026-09-22T05:26:00+00:00",
+                              "verdict":  "PASS",
+                              "kernel_status":  "COMPLETE",
+                              "fail_closed_reasoning":  "The FINAL cell deletes any existing submission.csv, runs full inference, then raises unless integrity_passed AND zon completed AND zon sha == receipt before atomically publishing zon-\u003esubmission.csv. COMPLETE (no exception) therefore proves all gates passed and submission.csv == zon.",
+                              "current_input_xy_reference_sha256":  "d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60",
+                              "current_input_reference_matches_parent_0947":  true,
+                              "xyonly_sha256":  "d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60",
+                              "zon_sha256":  "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1",
+                              "xyd4_sha256":  "d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60",
+                              "zon_receipt":  {
+                                                  "status":  "completed",
+                                                  "rows":  241365,
+                                                  "nodes":  122813,
+                                                  "edges":  118552,
+                                                  "views_run_count":  16,
+                                                  "z_reflected_views_present":  true
+                                              },
+                              "zon_csv_format":  "10 columns (same header as parent), +9 rows vs parent, no empty/NaN fields",
+                              "development_hash_corroboration":  "xyonly == historical d3453380; zon == historical 2593a543 (both byte-identical to the earlier exp061 run on the same visible input)"
+                          },
+    "lb_submission":  {
+                          "submission_id":  56454236,
+                          "kernel":  "lingxd/biohub-exp061-zon-lb-repair",
+                          "kernel_version":  1,
+                          "arm":  "zon",
+                          "file_name":  "submission.csv",
+                          "submission_sha256":  "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1",
+                          "submitted_at_utc":  "2026-09-22T05:26:43.837000Z",
+                          "status":  "COMPLETE_WITH_ERROR",
+                          "user_authorized":  true,
+                          "vs_parent":  "repro_059 0.947 (56313491)",
+                          "decision_rule":  "\u003e=0.948 adopt / ==0.947 null -\u003e option B / \u003c=0.946 revert",
+                          "note":  "Authenticated completion query: hidden rerun hit an unhandled error and returned no artifact. totalBytes=0 does not prove no intermediate output was ever generated. No resubmission authorized.",
+                          "public_score":  null,
+                          "total_bytes":  0,
+                          "error_description":  "Your notebook hit an unhandled error while rerunning your code. Note that the hidden dataset can be larger/smaller/different than the public dataset",
+                          "evidence_path":  "experiments/exp_061_zon_lb_submission_repair_v2/leaderboard-error.json",
+                          "audit_history":  "Originally PENDING after visible kernel COMPLETE and development audit PASS; those claims apply only to the visible run."
+                      }
+}

@@ -1,0 +1,40 @@
+{
+  "created_at": "2026-09-22T04:03:24+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v2/snapshot/config.yaml",
+      "sha256": "125f33b1fa3d571c065a8401aa6ed0c0314b7b32e3bddd9a21c87d8edf8402b0"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v2/snapshot/source/exp061_zon_lb_repair.ipynb",
+      "sha256": "51e46abd9c6d29ca135dc6a3c386c9e1ea79a7fc369bcd8ef4520c607b383b1b"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v2/snapshot/extra_files/build_exp061_lb_repair.py",
+      "sha256": "1319d07762a1ff3949d4eabd3994249b05e7bab68d0372a1a3f486684cc2bff3"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v2/snapshot/extra_files/validate_exp061_lb_repair.py",
+      "sha256": "dc47e73d7dd51e580497d451785bef2ac69a4d042ef2a73cc366c53ad7d17686"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v2/snapshot/extra_files/test_exp061_behavioral.py",
+      "sha256": "166c7b5c0bc035529dcc795d5cfface19affd192141a552432aa80cf215e5aaa"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v2/snapshot/extra_files/exp061_deepcenter_tta.py",
+      "sha256": "45d756b7585f171e4f590eec04be54277ef525c3b63790f04f025f7d0c548178"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v2/snapshot/extra_files/biohub-exp061-deepcenter-tta.ipynb",
+      "sha256": "bb60ffe996a81bfaad7a3f8c53b1282d5772a68fb12536c58bfa24c483f16aae"
+    }
+  ]
+}

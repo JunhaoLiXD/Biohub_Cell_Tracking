@@ -1,0 +1,106 @@
+schema_version: 1
+experiment_id: exp_061_zon_lb_submission_repair_v4
+parent: exp_061_zon_lb_submission_repair_v2
+hypothesis: A zon-only deployment with the frozen prediction policy and a watchdog
+  armed through final publication can complete the current-input output contract;
+  the v2 hidden failure cause remains unknown.
+change:
+  component: zon_only_submission_transport_v4
+  from: v2 full research replay; v3 unlaunched attempt disarmed watchdog before final
+    publication
+  to: one zon replay and a watchdog retained until atomic publication
+  variables_changed: deployment execution and validation only; frozen zon prediction
+    policy
+source_notebook: .private/exp061_lb_repair_v4/build/exp061_zon_submission_repair_v4.ipynb
+substrate_note: Unchanged v3 parent inference cells and frozen zon prediction/graph-writer
+  policy. The sole behavioral correction from v3 is keeping the 2h watchdog armed
+  through final publication.
+validation:
+  protocol: exp061_zon_only_deployment_v4
+  primary_metric: binary_integrity_gate
+  warning: Deployment integrity only, not a quality metric. The v2 hidden traceback
+    is unavailable. The 2h watchdog covers parent inference, zon replay, final audit,
+    staging, and publication. No leaderboard submission is authorized.
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: exp061_zon_deployment_integrity_passed
+admission:
+  require_claude_review: false
+  require_codex_review: true
+  reviewer_provider: codex
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+local:
+  smoke_test:
+  - '{python}'
+  - scripts/validate_exp061_zon_deployment_v4.py
+  - '{source_notebook}'
+provenance:
+  base_notebook: experiments/repro_059_public_0947_exact_copy/snapshot/source/biohub-repro059-public-0947-exact-copy.ipynb
+  base_experiment: repro_059_public_0947_exact_copy
+  builder: scripts/build_exp061_zon_submission_repair_v3.py
+  appended_module: scripts/exp061_zon_deployment.py
+  instrumented_functions:
+  - deepcenter_heatmap_for_frame
+  - deepcenter_accept_repair_point
+  - filter_output_graph
+  strategy_proposal: docs/research/exp061_z_reflection_deepcenter_tta_proposal.md
+  strategy_status: CONSENSUS
+  codex_challenges:
+  - docs/research/exp061_codex_challenge_v1.md
+  - docs/research/exp061_codex_challenge_v2.md
+  - docs/research/exp061_codex_challenge_v3.md
+  - docs/research/exp061_codex_challenge_v4.md
+  - docs/research/exp061_codex_challenge_v5.md
+  resolved_config_source: experiments/repro_059_public_0947_exact_copy/artifacts/ppsweep_selected.json
+  pinned_overrides:
+    MOTION_RELINK_TIGHT_UM: 5.5
+  arms:
+  - zon
+  submission_repair: docs/research/exp061_lb_submission_repair.md
+  repair_upstream_notebook: .private/exp061_lb_repair/upstream/biohub-exp061-deepcenter-tta.ipynb
+  historical_development_zon_submission_sha256: 2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1
+  module_builder: scripts/build_exp061_zon_deployment_module.py
+  source_parent: exp_061_zon_lb_submission_repair_v3 (unlaunched blocked snapshot)
+  strategy_amendment: experiments/exp_061_zon_lb_submission_repair_v4/strategy_amendment_v1.md
+  historical_development_zon_sha256: 2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1
+  generated_zon_deployment_sha256: 74e3529856694130bf5990b8796db21d9c730b8bcc5f7d09a2fc219f4e23efb8
+  expected_v3_notebook_sha256: 8efd5500fc80909928679d6dbc5e4361a28374ec214e57bf53cce0239f5cfaba
+  expected_v3_module_sha256: 35aa6d61c543a891da5649ed48722938e10b4ca240a31d3c3e4360c3ccd39123
+authorization:
+  scope: User explicitly requested rebuilding and running the submission notebook
+    based on current project state. This authorizes one bounded Kaggle kernel run
+    after consensus, fresh Codex PASS, snapshot smoke and budget reservation. It does
+    not authorize leaderboard submission.
+  no_leaderboard_submission: true
+submission:
+  user_authorized_count: 0
+kaggle:
+  owner: lingxd
+  slug: biohub-exp061-zon-deploy-v4
+  title: biohub-exp061-zon-deploy-v4
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: true
+  competition_sources:
+  - biohub-cell-tracking-during-development
+  dataset_sources:
+  - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+  - pilkwang/biohub-temporal-unet3d-seed314159-v1
+  - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+  - scripts/build_exp061_zon_submission_repair_v4.py
+  - scripts/exp061_zon_deployment_v4.py
+  - scripts/validate_exp061_zon_deployment_v4.py
+  - experiments/exp_061_zon_lb_submission_repair_v3/snapshot/source/exp061_zon_submission_repair_v3.ipynb
+  - experiments/exp_061_zon_lb_submission_repair_v3/snapshot/extra_files/exp061_zon_deployment.py

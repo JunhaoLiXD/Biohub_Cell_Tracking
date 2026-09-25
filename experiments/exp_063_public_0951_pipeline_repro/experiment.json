@@ -1,0 +1,56 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_063_public_0951_pipeline_repro",
+  "parent": "repro_059_public_0947_exact_copy",
+  "state": "REJECT",
+  "hypothesis": "A VERBATIM reproduction of the public notebook haideptry/biohub-0-951-sota-deepcenter-fast-ilp-19m, run under our own Kaggle account with the same four mounted datasets and the same pinned docker image, scores strictly above our incumbent comparator on the Public LB. The comparator is max(0.947, exp_062 k2), NOT the stale 0.947. This is an OPERATIONAL hypothesis about the displayed 3-decimal score. Honest prior: the \"0.951\" is the notebook's own title claim, from an author who does not appear in the LB top 200 (rank-200 cutoff 0.949) and whose notebook has 7 votes. It is a hypothesis worth exactly one submission, NOT a known gain. Rationale for testing the whole pipeline rather than porting one lever: the notebook stacks FIVE interacting mechanisms on our own operating point, and four interacting mechanisms cannot be hand-ported and individually validated in the days remaining.\n",
+  "change": {
+    "component": "whole_pipeline_reproduction_no_authored_code",
+    "from": "repro_059 pipeline (our frozen 0.947 parent)",
+    "to": "The third-party notebook, byte-for-byte, with ZERO code authored by us. Its environment block keeps OUR operating point (BIOHUB_MOTION_RELINK_TIGHT_UM = \"5.5\", identical to the value our own held-out PP-sweep selected as tight55) and adds: continuous gap-density adaptation (BIOHUB_GAP_DENSITY_ADAPTIVE=1, REFERENCE_UM=6.5, GAIN=0.040, MAX_STEP_DELTA_UM=0.125, NEIGHBORS=3); DivNet mitosis verification (BIOHUB_DIVNET_VERIFY=1, BIOHUB_DIV_MIN_PROB=0.50) from the public dataset giorgosi/biohub-divnet-v2; a mutual-best / relative-rank edge prior (_lb_mutual, _lb_rank_bonus added to raw) which is the SAME mechanism family as exp_062; and a safe-division mutual-nearest-neighbour gate (SAFE_DIV_REQUIRE_MUTUAL_NN). The expensive PP-sweep machinery is reduced (the selected value is frozen instead of re-swept), which is the likely source of the notebook's \"19m\" runtime claim.\n",
+    "variables_changed": "entire_pipeline_not_causally_isolated"
+  },
+  "signature": "81bd130729e3b9988a8bbb980c9b5f6a8b6e240cefb66218b06429471526d879",
+  "config": "configs/exp_063_public_0951_pipeline_repro.yaml",
+  "snapshot_config": "experiments/exp_063_public_0951_pipeline_repro/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_063_public_0951_pipeline_repro/snapshot/source/biohub-0-951-sota-deepcenter-fast-ilp-19m.ipynb",
+  "snapshot_manifest": "experiments/exp_063_public_0951_pipeline_repro/snapshot/manifest.json",
+  "git_commit": "3452ff8461fb5bd7289e6e415629c15743c5c3d2",
+  "validation_protocol": "public_0951_verbatim_repro_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "BLOCKED",
+    "completed_at": "2026-09-24T19:45:28.049021+00:00",
+    "verdict": "BLOCK",
+    "record": "experiments/exp_063_public_0951_pipeline_repro/review.md",
+    "summary": "Genuine BLOCK. DivNet gate is structurally inoperative (6-D tensor into a Conv3d expecting 5-D, exception swallowed, veto gated on non-None) and the claim that the pipeline preserves our tight55 is false (discrete density overrides give 7.25/6.5/5.5 by measured density; 5.5 only on high-density movies). Both independently verified by Claude Code against the frozen snapshot. Also: ground_truth_accessed is a hardcoded constant not an observed record; pip runs in cell 7; the gate field is never emitted; expected_gpu_hours is not an enforceable ceiling."
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-24T19:37:56+00:00",
+  "updated_at": "2026-09-24T20:47:55.898899+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-24T19:45:28.049021+00:00",
+      "note": "Codex admission VERDICT BLOCK; two headline findings independently confirmed."
+    },
+    {
+      "from": "MANUAL_REVIEW_REQUIRED",
+      "to": "REJECT",
+      "at": "2026-09-24T20:47:55.898899+00:00",
+      "note": "Abandoned; superseded by exp_064. Never launched, no GPU consumed, no submission made."
+    }
+  ],
+  "abandoned": {
+    "at_utc": "2026-09-24T20:47:55.898899+00:00",
+    "reason": "Wrong target. The full authenticated leaderboard (3888 teams, 2026-09-24) shows haideptry appears NOWHERE, while their notebook titles claim 'SOTA 0.951+'. Independently, their flagship DivNet gate is structurally inoperative: a 6-D tensor into a Conv3d needing 5-D with in_channels=1, the exception swallowed, the veto gated on non-None. Superseded by exp_064, a verbatim reproduction of anvithpothula/biohub-x138, whose author IS authenticated at rank 62 with 0.956."
+  }
+}

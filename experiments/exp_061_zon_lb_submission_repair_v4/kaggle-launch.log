@@ -1,0 +1,7 @@
+[2026-09-23T01:50:17+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "push", "-p", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_061_zon_lb_submission_repair_v4\\kaggle_kernel", "--accelerator", "NvidiaTeslaT4"]
+exit_code=0
+STDOUT
+Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/lingxd/biohub-exp061-zon-deploy-v4
+
+STDERR
+

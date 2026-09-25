@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-24T20:33:27+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_064_x138_verbatim_repro/snapshot/config.yaml",
+      "sha256": "46cad439a31a8be84ed78cc9f031a3602968c72844f43a55b45feceb3bd45879"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_064_x138_verbatim_repro/snapshot/source/biohub-x138.ipynb",
+      "sha256": "6b655e39bbfd2d3d6c762badea69847d3f00f5b548f385cb01b07ee2600fde6d"
+    }
+  ]
+}

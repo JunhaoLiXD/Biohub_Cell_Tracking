@@ -1,0 +1,17 @@
+[2026-09-22T04:25:18+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/validate_exp061_lb_repair.py", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_061_zon_lb_submission_repair_v2\\snapshot\\source\\exp061_zon_lb_repair.ipynb"]
+exit_code=0
+STDOUT
+Submitted current-input zon output: ff3905aa69602f48544d24bcecae85b87124fcedab5575d04fff66e47937b753
+[exp061] arm xyonly: sha=bf3fa82429bf1571... nodes=12 edges=8 cost=0s elapsed=0s
+[exp061] arm zon: sha=bf3fa82429bf1571... nodes=12 edges=8 cost=0s elapsed=0s
+[exp061] arm xyd4: sha=bf3fa82429bf1571... nodes=12 edges=8 cost=0s elapsed=0s
+[exp061] integrity PASS; parity_ok=True; arms=['xyonly', 'zon', 'xyd4']; mechanism={'zon': {'execution_valid': True, 'views_run': ['R1', 'R3', 'Ta', 'Td', 'V0', 'Vx', 'Vxy', 'Vy', 'ZR1', 'ZR3', 'ZTa', 'ZTd', 'ZV0', 'ZVx', 'ZVxy', 'ZVy'], 'views_expected': ['R1', 'R3', 'Ta', 'Td', 'V0', 'Vx', 'Vxy', 'Vy', 'ZR1', 'ZR3', 'ZTa', 'ZTd', 'ZV0', 'ZVx', 'ZVxy', 'ZVy'], 'shared_frames_compared': 2, 'heatmap_differs_from_xyonly': False, 'submission_differs_from_xyonly': False, 'verified_null': True, 'active': False, 'delta_stats': {'sample_frames': 2, 'max_abs_delta': 0.0, 'mean_max_abs_delta': 0.0}}, 'xyd4': {'execution_valid': True, 'views_run': ['Aad', 'R1', 'R3', 'Td', 'V0', 'Vx', 'Vxy', 'Vy'], 'views_expected': ['Aad', 'R1', 'R3', 'Td', 'V0', 'Vx', 'Vxy', 'Vy'], 'shared_frames_compared': 2, 'heatmap_differs_from_xyonly': False, 'submission_differs_from_xyonly': False, 'verified_null': True, 'active': False, 'delta_stats': {'sample_frames': 2, 'max_abs_delta': 0.0, 'mean_max_abs_delta': 0.0}}}; note='integrity PASS'; runtime=0s; wrote C:\Users\Ling\AppData\Local\Temp\tmpk6xy06c7\metrics.json
+Submitted current-input zon output: bf3fa82429bf1571004570c6565bc8b97b3d8762298c9e0625a63da939029ee7
+[exp061] arm xyonly: sha=bf3fa82429bf1571... nodes=12 edges=8 cost=0s elapsed=0s
+[exp061] xyonly control parity mismatch - stopping before zon/xyd4
+[exp061] integrity FAIL; parity_ok=False; arms=['xyonly']; mechanism={}; note='xyonly control parity mismatch - stopping before zon/xyd4'; runtime=0s; wrote C:\Users\Ling\AppData\Local\Temp\tmp0j540dvd\metrics.json
+[exp061] arm xyonly: measured budget abort after 1/2 datasets (remaining -0s < projected 0s + reserve 1200s)
+PASS: source parity, controller identity, actual reference-before-patch, mismatch/exception/budget/publication controls
+
+STDERR
+

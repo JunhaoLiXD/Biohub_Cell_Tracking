@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_061_zon_lb_submission_repair_v4",
+  "parent": "exp_061_zon_lb_submission_repair_v2",
+  "state": "COLLECTING",
+  "hypothesis": "A zon-only deployment with the frozen prediction policy and a watchdog armed through final publication can complete the current-input output contract; the v2 hidden failure cause remains unknown.",
+  "change": {
+    "component": "zon_only_submission_transport_v4",
+    "from": "v2 full research replay; v3 unlaunched attempt disarmed watchdog before final publication",
+    "to": "one zon replay and a watchdog retained until atomic publication",
+    "variables_changed": "deployment execution and validation only; frozen zon prediction policy"
+  },
+  "signature": "f1b4bf6be727348641f9ce81e44b544e3eb027d779c91030ecd0e0011a6f276e",
+  "config": "configs/exp_061_zon_lb_submission_repair_v4.yaml",
+  "snapshot_config": "experiments/exp_061_zon_lb_submission_repair_v4/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_061_zon_lb_submission_repair_v4/snapshot/source/exp061_zon_submission_repair_v4.ipynb",
+  "snapshot_manifest": "experiments/exp_061_zon_lb_submission_repair_v4/snapshot/manifest.json",
+  "git_commit": "cac8a099942a93d98e1442da8bd6b8928bc25226",
+  "validation_protocol": "exp061_zon_only_deployment_v4",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": true
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "WAIVED_BY_USER_FOR_ONE_V4_KERNEL_RUN",
+    "verdict": "NO_PASS",
+    "reason": "User explicitly requested Kaggle run after being told formal admission remained BLOCK.",
+    "at_utc": "2026-09-23T01:50:15+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "type": "direct_immutable_snapshot_validation_with_review_waiver",
+    "receipt": "experiments/exp_061_zon_lb_submission_repair_v4/user-waiver-smoke.json",
+    "at_utc": "2026-09-23T01:50:15+00:00"
+  },
+  "created_at": "2026-09-23T01:40:11+00:00",
+  "updated_at": "2026-09-23T02:27:54+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-23T01:50:15+00:00",
+      "note": "One-time user waiver; formal Codex PASS absent"
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-23T01:50:15+00:00",
+      "note": "Direct immutable snapshot smoke passed"
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-23T01:50:15+00:00",
+      "note": "Ready for one manually tracked Kaggle push"
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-23T01:50:17+00:00",
+      "note": "One-time user-authorized kernel run; no LB submission"
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-23T02:27:54+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp061-zon-deploy-v4",
+    "submitted_at": "2026-09-23T01:50:17+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-23T02:27:50+00:00",
+    "launch_mode": "one_time_user_waiver_no_codex_pass"
+  }
+}

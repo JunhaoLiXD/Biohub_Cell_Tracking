@@ -1,0 +1,11 @@
+[2026-09-24T04:55:10+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "E:\\Project\\Biohub_CellTracking\\scripts\\validate_notebook.py", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_062_mutual_best_edge_association\\snapshot\\source\\exp062_mutual_best_candidate.ipynb", "--require-metrics-contract"]
+exit_code=0
+STDOUT
+{
+  "cells": 5,
+  "code_cells": 3,
+  "saved_error_outputs": 0
+}
+
+STDERR
+

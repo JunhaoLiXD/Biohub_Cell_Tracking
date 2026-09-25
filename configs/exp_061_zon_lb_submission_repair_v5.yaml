@@ -1,0 +1,112 @@
+schema_version: 1
+experiment_id: exp_061_zon_lb_submission_repair_v5
+parent: exp_061_zon_lb_submission_repair_v4
+hypothesis: 'The v4 hidden-rerun outcome is gated by deployment-scale limits, not
+  by the zon prediction policy: a fixed 2.0h watchdog and a 4.48 GB view cache inside
+  the collected output directory both fail on a sufficiently larger hidden dataset.
+  Removing both limits without touching any predicted value lets the rerun finish.
+  The exact v2/v4 hidden failure cause remains unproven.'
+change:
+  component: zon_only_submission_transport_v5
+  from: 'v4: hardcoded signal.alarm(7200) and view cache under WORKING_DIR'
+  to: rerun-aware deadline (2.0h visible / 8.5h hidden rerun) and view cache on a
+    non-output scratch root
+  variables_changed: deployment resource limits and cache location only; frozen zon
+    prediction policy
+source_notebook: .private/exp061_lb_repair_v5/build/exp061_zon_submission_repair_v5.ipynb
+substrate_note: Unchanged v4 parent inference cells and frozen zon prediction/graph-writer
+  policy. The only behavioral changes are the rerun-aware whole-run deadline and moving
+  the view cache off the collected output path; both are resource-placement changes
+  that cannot alter a predicted node or edge.
+validation:
+  protocol: exp061_zon_only_deployment_v5
+  primary_metric: binary_integrity_gate
+  warning: Deployment integrity only, not a quality metric. The v2 and v4 hidden tracebacks
+    are unavailable, so the scale hypothesis is not proven. The watchdog still covers
+    parent inference, zon replay, final audit, staging and publication. A separate
+    authorization is required for any leaderboard submission.
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: exp061_zon_deployment_integrity_passed
+admission:
+  require_claude_review: false
+  require_codex_review: true
+  reviewer_provider: codex
+  methodology_valid: true
+  require_reproducible_for_promotion: true
+local:
+  smoke_test:
+  - '{python}'
+  - scripts/validate_exp061_zon_deployment_v5.py
+  - '{source_notebook}'
+provenance:
+  base_notebook: experiments/repro_059_public_0947_exact_copy/snapshot/source/biohub-repro059-public-0947-exact-copy.ipynb
+  base_experiment: repro_059_public_0947_exact_copy
+  builder: scripts/build_exp061_zon_submission_repair_v5.py
+  appended_module: scripts/exp061_zon_deployment_v5.py
+  instrumented_functions:
+  - deepcenter_heatmap_for_frame
+  - deepcenter_accept_repair_point
+  - filter_output_graph
+  strategy_proposal: docs/research/exp061_z_reflection_deepcenter_tta_proposal.md
+  strategy_status: CONSENSUS
+  codex_challenges:
+  - docs/research/exp061_codex_challenge_v1.md
+  - docs/research/exp061_codex_challenge_v2.md
+  - docs/research/exp061_codex_challenge_v3.md
+  - docs/research/exp061_codex_challenge_v4.md
+  - docs/research/exp061_codex_challenge_v5.md
+  resolved_config_source: experiments/repro_059_public_0947_exact_copy/artifacts/ppsweep_selected.json
+  pinned_overrides:
+    MOTION_RELINK_TIGHT_UM: 5.5
+  arms:
+  - zon
+  submission_repair: docs/research/exp061_lb_submission_repair.md
+  repair_upstream_notebook: .private/exp061_lb_repair/upstream/biohub-exp061-deepcenter-tta.ipynb
+  historical_development_zon_submission_sha256: 2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1
+  module_builder: scripts/build_exp061_zon_deployment_module.py
+  source_parent: exp_061_zon_lb_submission_repair_v4 (launched, kernel COMPLETE, LB
+    submission 56481730)
+  strategy_amendment: experiments/exp_061_zon_lb_submission_repair_v5/strategy_amendment_v1.md
+  historical_development_zon_sha256: 2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1
+  generated_zon_deployment_sha256: 99c71fa15fc999a7f52c234caf2ec758c8fcb6ff120e99dbe3381beb536f68bb
+  expected_v4_notebook_sha256: 39eba1b92c79739b324009a274336672fa098e8f11c4edf1e16c16da6be08290
+  expected_v4_module_sha256: 74e3529856694130bf5990b8796db21d9c730b8bcc5f7d09a2fc219f4e23efb8
+authorization:
+  scope: The user asked for a corrected version to be built and pushed to Kaggle immediately,
+    as a fallback in case the v4 leaderboard submission (56481730) fails again. That
+    is a one-time user waiver of the Codex admission gate for this bounded deployment
+    fix, NOT a Codex PASS. It authorizes one tracked kernel run after snapshot smoke
+    and budget reservation. It does not authorize a leaderboard submission.
+  no_leaderboard_submission: true
+submission:
+  user_authorized_count: 0
+kaggle:
+  owner: lingxd
+  slug: biohub-exp061-zon-deploy-v5
+  title: biohub-exp061-zon-deploy-v5
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: true
+  competition_sources:
+  - biohub-cell-tracking-during-development
+  dataset_sources:
+  - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+  - pilkwang/biohub-temporal-unet3d-seed314159-v1
+  - pilkwang/biohub-tracking-support-pack-50ep-v1
+  required_dataset_sources: 3
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+  - scripts/build_exp061_zon_submission_repair_v5.py
+  - scripts/exp061_zon_deployment_v5.py
+  - scripts/validate_exp061_zon_deployment_v5.py
+  - experiments/exp_061_zon_lb_submission_repair_v4/snapshot/source/exp061_zon_submission_repair_v4.ipynb
+  - experiments/exp_061_zon_lb_submission_repair_v4/snapshot/extra_files/exp061_zon_deployment_v4.py

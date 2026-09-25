@@ -1,0 +1,88 @@
+{
+  "checks": {
+    "coords_integral_in_int16": true,
+    "dataset_coverage_matches_discovery": true,
+    "deepcenter_checkpoint_identity": true,
+    "degradation_telemetry_present": true,
+    "differs_from_exp062_k2": true,
+    "differs_from_parent": true,
+    "edge_endpoints_exist": true,
+    "edges_strictly_forward": true,
+    "every_dataset_has_edges": true,
+    "exactly_one_runtime_receipt": true,
+    "frames_contiguous": true,
+    "no_malformed_rows": true,
+    "no_silent_degradation": true,
+    "node_ids_non_negative": true,
+    "non_empty": true,
+    "row_types_valid": true,
+    "run_stats_covers_datasets": true,
+    "run_stats_present": true,
+    "runtime_measured": true,
+    "schema_columns": true,
+    "submission_written": true,
+    "t_within_bounds": true,
+    "unique_node_ids": true,
+    "v1284_mode_candidate": true,
+    "v1284_no_runtime_error": true,
+    "v1284_patched": true
+  },
+  "details": {
+    "backward_or_selfloop_edge_count": 0,
+    "checkpoint_sha256": {
+      "deepcenter": "8040999a92f6b7bbd98fa8cf458141e045c0f9ad7c936bdb3b18e1f7edafe2a0",
+      "primary": "12f6881ee3620a831697ca098ff8f48e687a24225f4e048b538deec3562fe771",
+      "secondary": "9bac2fa0dadc4a6fc1899e0caf187f4b553e0a7cd90ba1261a68b35ffe9e305f"
+    },
+    "dangling_edge_count": 0,
+    "datasets_in_submission": [
+      "44b6_0113de3b",
+      "44b6_0b24845f",
+      "6bba_05b6850b",
+      "6bba_05db0fb1"
+    ],
+    "degradations_detected": [],
+    "density_per_dataset": {
+      "44b6_0113de3b": 257.3,
+      "44b6_0b24845f": 195.2,
+      "6bba_05b6850b": 62.2,
+      "6bba_05db0fb1": 697.5
+    },
+    "edges_per_dataset": {
+      "44b6_0113de3b": 24986,
+      "44b6_0b24845f": 18323,
+      "6bba_05b6850b": 6025,
+      "6bba_05db0fb1": 67707
+    },
+    "log_files": [
+      "biohub-exp064-x138-repro.log"
+    ],
+    "nodes_per_dataset": {
+      "44b6_0113de3b": 25728,
+      "44b6_0b24845f": 19522,
+      "6bba_05b6850b": 6220,
+      "6bba_05db0fb1": 69749
+    },
+    "non_adjacent_edge_count": 0,
+    "rows": 238260,
+    "run_stats_rows": 4,
+    "runtime_receipts": [
+      "bidirectional_production_runtime_integrity.json"
+    ],
+    "runtime_seconds_source": "kernel_elapsed_seconds",
+    "submission_sha256": "d52a5da2ae5cb0d1b22499f6ca51a00838a6c32ae9a1986ec756ea72e7909e03",
+    "test_videos_discovered": 4
+  },
+  "experiment_id": "exp_064_x138_verbatim_repro",
+  "failures": [],
+  "primary_metric": 1.0,
+  "primary_metric_meaning": "deployment integrity; NO quality inference",
+  "quality_evidence": "NONE. Nothing in this run establishes any Public LB quality. The author's rank-62 0.956 is THEIR score on THEIR pipeline and is not inherited by this reproduction. Quality is decided solely by a separate authorized Public LB submission.",
+  "reproducible": false,
+  "runtime_seconds": 932.2,
+  "schema_version": 1,
+  "validation": {
+    "protocol": "x138_verbatim_repro_v1"
+  },
+  "x138_repro_integrity_passed": true
+}

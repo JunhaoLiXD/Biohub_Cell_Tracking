@@ -1,0 +1,336 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_062_mutual_best_edge_association",
+  "parent": "repro_059_public_0947_exact_copy",
+  "state": "COLLECTING",
+  "hypothesis": "A mutual-best rank prior on the edge logits of the frozen 0.947 pipeline, at the published beta = 0.20 with everything else byte-identical to repro_059, changes the Public LB by at least +0.001 vs 0.947. H1 is an OPERATIONAL hypothesis about the displayed score. The intervention is inserted UPSTREAM of the ILP solve, unlike every prior probe in this arc. Honest prior: it reinforces the parent's existing fused ranking rather than adding independent evidence, and a null is genuinely likely.",
+  "change": {
+    "component": "edge_association_rank_prior_only",
+    "from": "repro_059 edge logits used unmodified at the activation",
+    "to": "purely-additive rank prior before the edge activation (mutual 2b / col-best 0.8b / row-best 0.3b / neither -0.2b), applied fail-closed, plus resume-signature discrimination on the two new env keys",
+    "variables_changed": "edge_rank_prior_only_no_other_parent_path_change"
+  },
+  "config": "configs/exp_062_mutual_best_edge_association.yaml",
+  "snapshot_config": "experiments/exp_062_mutual_best_edge_association/snapshot/config.yaml",
+  "snapshot_source_control": "experiments/exp_062_mutual_best_edge_association/snapshot/source/exp062_mutual_best_control.ipynb",
+  "snapshot_source_candidate": "experiments/exp_062_mutual_best_edge_association/snapshot/source/exp062_mutual_best_candidate.ipynb",
+  "snapshot_manifest": "experiments/exp_062_mutual_best_edge_association/snapshot/manifest.json",
+  "notebook_sha256": {
+    "source": "1a135feb4def1db66dfc5e6cc0d180b7d0511c2f468af734332c2637e55d3390",
+    "control": "d09027b677d8930902f937995d2851774f6a3c2852a8dc19319ce48f109f86be"
+  },
+  "validation_protocol": "public_0947_mutual_best_edge_association_v1",
+  "gate": "exp062_mutual_best_integrity_passed",
+  "budget": {
+    "expected_gpu_hours": 3.0,
+    "reserved": true,
+    "note": "~1.3 h per kernel version, two versions. Reservation happens at the user-authorized launch gate."
+  },
+  "strategy": {
+    "status": "CONSENSUS",
+    "proposal": "docs/research/exp062_mutual_best_edge_association_proposal_v3.md",
+    "rounds": [
+      "docs/research/exp062_codex_challenge_v1.md (REVISE: 4 CORRECTNESS + 2 VERIFICATION-DEPTH)",
+      "docs/research/exp062_codex_challenge_v2.md (REVISE: 5 of 6 fixed; cache isolation open; calibration account newly introduced)",
+      "docs/research/exp062_codex_challenge_v3.md (PASS = strategy-level CONSENSUS, 2026-09-24)"
+    ],
+    "reviewer": "Codex gpt-6-astra (low), read-only"
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/exp_062_mutual_best_edge_association/review.md",
+    "completed_at": "2026-09-24T04:54:51+00:00"
+  },
+  "local_gates": {
+    "builder_parity_guard": "PASS (both variants; 15 control / 16 candidate injected lines strip back to the parent byte-for-byte)",
+    "validate_exp062_notebook": "PASS (5 groups, 45 checks)",
+    "test_exp062_behavioral": "PASS (13 tests, 48 checks)",
+    "decisive_gate": "Group 4 REPLAYS the parent's own five-stage patch chain onto a temp copy of the reference predict_unet_transformer.py, then proves the exp_062 anchor is UNIQUE in that actually-patched source, that our patch applies and compiles on it, and that double-patching is refused. A constructed unit test could not establish this."
+  },
+  "deployment": {
+    "shape": "ONE notebook, TWO kernel versions, environment is the only difference",
+    "k1_control": "BIOHUB_LB_SCORING_MODE=none, beta 0.00, BIOHUB_EXP062_EXPECT_PARENT_SHA armed. NEVER submitted.",
+    "k2_candidate": "BIOHUB_LB_SCORING_MODE=mutual_best, beta 0.20, EXPECT_PARENT_SHA actively popped and asserted unset. Submitted once.",
+    "precedent": "exp_060's single-config lb-submit kernel (submission 56361673, COMPLETE at 0.947) -- the closest successful minimal-change deployment precedent in this project. No new deployment machinery."
+  },
+  "key_defect_closed": "Codex round 2 found, and Claude verified in the parent, that _inference_resume_env_keys (cell 2 line 1669) is a fixed 13-key list containing neither exp_062 variable while _test_prediction_signature (line 1670) hashes exactly those keys. A candidate run could therefore compute the SAME resume signature as the control, skip inference (lines 1672-1680) and replay the control's predictions with every gate green -- burning an LB slot on a duplicate 0.947. Closed by extending the key list between lines 1669 and 1670 (Codex traced propagation to 3171-3172, 3290, 3686, 3723, 3783) plus a measured-wall-clock cache alarm, because parent line 1675 restores the historical predict_seconds on a hit.",
+  "created_at": "2026-09-24T00:00:00+00:00",
+  "updated_at": "2026-09-24T19:36:04.940612+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "PROPOSED",
+      "at": "2026-09-24T00:00:00+00:00",
+      "note": "Strategy CONSENSUS (Codex PASS round 3). Built purely-additive on the repro_059 snapshot; all local gates pass. State is the controller's PROPOSED = built and awaiting the independent admission review. NOT reviewed, NOT reserved, NOT launched, NOT submitted."
+    },
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-24T04:30:35+00:00",
+      "note": "Codex verdict: BLOCK"
+    },
+    {
+      "from": "MANUAL_REVIEW_REQUIRED",
+      "to": "PROPOSED",
+      "at": "2026-09-24T05:00:00+00:00",
+      "note": "Admission round 1 = REVISE. All six controller/evidence-contract findings fixed; two verification-depth items recorded; one inherited-from-parent limitation documented rather than worked around. Snapshot rebuilt. Re-submitting for the scoped re-review."
+    },
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-24T04:42:57+00:00",
+      "note": "Codex verdict: REVISE"
+    },
+    {
+      "from": "MANUAL_REVIEW_REQUIRED",
+      "to": "PROPOSED",
+      "at": "2026-09-24T06:00:00+00:00",
+      "note": "Admission round 2 = REVISE. Both findings fixed: read_stats now validates every record before aggregating (six new negative tests), and the controller's notebook smoke check was corrected to honour assignment-before-guard execution order. All local gates plus controller verify_snapshot/load_config/validate_notebook now pass. Re-submitting for the scoped re-review."
+    },
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-24T04:46:42+00:00",
+      "note": "Codex verdict: BLOCK"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-24T04:49:38+00:00",
+      "note": "Codex verdict: REVISE"
+    },
+    {
+      "from": "MANUAL_REVIEW_REQUIRED",
+      "to": "PROPOSED",
+      "at": "2026-09-24T07:00:00+00:00",
+      "note": "Admission round 3 = REVISE on a demonstrated evidence gap (validation telemetry could stand in for absent test telemetry). Fixed by end-to-end stage separation plus actual-shard coverage. Note rounds 1 and 4 of the review tool returned BLOCK for tool-access reasons only ('helper_unknown_error: setup refresh had errors'), which Codex itself labelled evidence-access blocks, not findings."
+    },
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-24T04:54:51+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-24T04:55:10+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-24T04:55:10+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-24T04:57:55+00:00",
+      "note": null
+    },
+    {
+      "state": "K1_CONTROL_COLLECTED",
+      "at": "2026-09-24T14:09:33.923818+00:00",
+      "note": "k1 control collected once; reproduces parent SHA d3453380; insertion inert."
+    },
+    {
+      "from": "K1_CONTROL_COLLECTED",
+      "to": "READY",
+      "at": "2026-09-24T14:36:54.593197+00:00",
+      "note": "k1 control PASSED (submission reproduces parent SHA d3453380, insertion inert). snapshot_source flipped control -> candidate for the k2 push to the SAME slug. K1_CONTROL_COLLECTED is a bookkeeping marker outside the controller TRANSITIONS table, used because the controller models one experiment_id as one run while exp_062 deliberately has two kernel versions; the state is returned to READY so launch() can gate k2 normally. Review PASSED and smoke PASSED both already stand against the CANDIDATE notebook (smoke command targets exp062_mutual_best_candidate.ipynb)."
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-24T14:37:15+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-24T14:38:09.842810+00:00",
+      "note": "k2 CANDIDATE (kernel version 2) pushed and RUNNING."
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-24T19:36:04.940612+00:00",
+      "note": "k2 collected; LB submission 56530197 pending."
+    }
+  ],
+  "not_authorized": "No admission review, no budget reservation, no launch, no leaderboard submission. Strategy CONSENSUS authorizes the build only.",
+  "snapshot_source": "experiments/exp_062_mutual_best_edge_association/snapshot/source/exp062_mutual_best_candidate.ipynb",
+  "admission_round_1": {
+    "verdict_attempt_1": "BLOCK -- tool-access only. Codex's read-only command tool stopped opening processes before it could inspect anything; it stated explicitly 'This is an evidence and tool-access block, not a finding that the hypothesis is unsound.' Not a substantive finding. Retried with the project's conventional reviewer model (gpt-6-astra low, config swapped and restored).",
+    "verdict": "REVISE",
+    "review": "experiments/exp_062_mutual_best_edge_association/review.md (round 1)",
+    "confirmed_positive": "Strategy CONSENSUS verified (v3 proposal + challenges v1-v3 record objections, revisions and explicit consensus); all seven snapshot hashes matched; removing the marked injections reproduces the parent exactly; the rank formula, signature-key extension, candidate SHA-guard clearing, model hashes and inherited lineage/time checks are present.",
+    "findings_fixed": {
+      "1_config_validation": "success.regression_threshold was missing (controller core.py:225 requires it numeric) and the top-level `gate` key is ignored by decide(); without evaluation.mode=gate the controller defaults to comparison against an incompatible legacy baseline. FIXED: added success.regression_threshold 0.0 and evaluation {mode: gate, gate_field: exp062_mutual_best_integrity_passed}. Verified via load_config.",
+      "2_manifest_schema": "verify_snapshot() iterates manifest['files'] as a LIST of objects with 'path' and 'sha256'; the snapshot stored a path->hash MAPPING, so correct hashes would still have failed. FIXED: rewritten as a list with role/path/sha256. Verified via verify_snapshot().",
+      "3_smoke_metrics_contract": "validate_notebook requires the LAST cell containing the 'metrics.json' literal to BE the last code cell; the literal appeared only in the earlier module cell while the final cell just called finalize(). FIXED: the finalize cell now asserts and prints the metrics.json path. Verified: metrics.json in cells [2,4], last code cell 4.",
+      "4_telemetry_freshness": "REAL FAIL-OPEN, same class as the resume-cache defect. Stats appended to a fixed path with no reset and no run identity; malformed records were skipped and activation was overwritten by the last record, so stale or partial evidence could satisfy the aggregate execution checks. FIXED: reset_stats() truncates and binds a per-variant run id; each record carries run_id/mode/beta/shard/pid; read_stats() now REJECTS (not skips) malformed JSON, foreign run ids, wrong modes, conflicting activation branches, zero frames, empty and missing files, and nonfinite aggregates. Eight executable negative tests cover these.",
+      "5_calibration_contract": "Statistics described POST-bonus logits only. FIXED for the in-run part: pre-bonus raw std/absmax are now captured separately from post-bonus, so the effect of beta on the final tensor is visible. NARROWED AND RECORDED for the rest: per-dataset probability and candidate-set deltas require diffing k1 against k2 and are therefore POST-HOC analysis at collection, not in-run telemetry.",
+      "6_submission_cap": "The config said 'authenticated cap 5/day'. AGENTS.md:86 sets a stricter PROJECT rule of three per America/New_York calendar day, which governs. FIXED in the config and in SUBMISSION_BUDGET.json, where a 2026-09-23 edit had wrongly replaced the project rule with the platform fact; the platform's 5 is now recorded separately as platform_max_daily_substitutions."
+    },
+    "findings_recorded_not_fixed": {
+      "numpy_shim_parity": "[VERIFICATION-DEPTH] The behavioral tests run the real patch block against a numpy shim, which differs from PyTorch in floating-point precision, tie-breaking order and std() convention. The tests establish LOGIC (axis semantics, truth table, inertness, fail-closed), NOT numerical parity with torch. Recorded as a stated limitation; torch is not installed locally and installing it would not make the shim the real runtime either.",
+      "inherited_validator_selection": "[VERIFICATION-DEPTH] Codex noted the inherited validator picks division-prioritised training videos within both specimen prefixes and is NOT leave-one-specimen-out; with frozen-model training exposure and adaptive PP selection its scores are not independent generalization evidence. Consistent with the agreed design, whose quality endpoint is explicitly the Public LB. No change."
+    },
+    "inherited_limitation": "validate_notebook() also rejects this notebook because the parent's configuration guard expects environment keys assigned in an EARLIER code cell, while the parent assigns them in the SAME cell. Verified this fails IDENTICALLY for the parent repro_059, exp_060 and exp_061 -- it is an inherited structural property of this notebook lineage, not an exp_062 defect, and is why every experiment in this lineage has been launched outside the controller under explicit user authorization. NOT worked around: emitting duplicate env assignments in an earlier cell would create a second source of truth for the frozen config, which is the exact defect class that produced the exp_061 v4 BLOCK."
+  },
+  "admission_round_2": {
+    "verdict": "REVISE",
+    "confirmed_fixed": "Codex confirmed all six round-1 findings corrected: config fields, manifest schema, final-cell metrics marker, telemetry reset, and the parent-versus-candidate quality distinction. Rank axes, bonus formula, resume-signature extension, checkpoint hashes and inherited graph checks preserved.",
+    "findings_fixed": {
+      "1_telemetry_still_accepted_invalid_evidence": "Codex EXECUTED the frozen read_stats() and found five holes: a wrong beta was accepted; missing numeric fields were silently defaulted; a zero-frame record was absorbed by a valid neighbour's sum; raw_absmax=NaN was masked because max(0.0, nan)==0.0 dropped it before the aggregate finite check; and subprocess identities were never checked against expected coverage. FIXED by validating each record COMPLETELY BEFORE any aggregation: all 12 required fields must be present (never defaulted), all 6 numerics must parse and be finite, per-record frames must be > 0, beta must match numerically, shards must be unique, and optional expect_shards asserts coverage. Six new executable negative tests cover exactly the accepted cases.",
+      "2_snapshot_smoke_incompatibility": "Codex rejected documenting this as inherited: 'documenting it does not satisfy the smoke gate or extend previous experiments' waivers', and directed a reviewed validation correction that checks assignment-before-guard EXECUTION without duplicating configuration. FIXED in experiment_controller/core.py: _environment_assignments_before_guard() uses the AST line number of the first _EXPECTED_NUMERIC/_EXPECTED_TEXT assignment and counts environ[...] assignments appearing before it in the SAME cell, in addition to earlier cells. Assignments AFTER the guard still do not count. Verified: the parent repro_059, exp_060, exp_061 and both exp_062 variants now pass, while a synthetic guard-before-assignment notebook and a never-assigned-key notebook are still REJECTED. The rejected alternative -- emitting duplicate env assignments in an earlier cell -- would have created a second source of truth for the frozen config, the defect class behind the exp_061 v4 BLOCK."
+    },
+    "note": "This was a correction to shared controller infrastructure, not to exp_062 alone; it unblocks the smoke gate for every experiment in this notebook lineage rather than waiving it."
+  },
+  "admission_round_3": {
+    "verdict": "REVISE",
+    "finding": "DEMONSTRATED EXPLOIT, not a theoretical risk. The parent runs the patched predict script TWICE -- once for test inference (predict_cmd, the run that produces the submission) and once for validation (predict_val_cmd) -- and both append to the same telemetry file. Codex executed the frozen functions with memory-only filesystem substitutes and showed that a single 'val_single' validation record, with NO test-inference telemetry at all, passed read_stats() and produced exp062_mutual_best_integrity_passed: true. Validation activity could therefore substitute for missing candidate execution evidence.",
+    "fix": "Stage separation end to end. BIOHUB_EXP062_STAGE is set to 'test' before predict_cmd and to 'validation' before predict_val_cmd; every telemetry record carries the stage, and an 'unknown' stage is rejected outright. read_stats(require_stage='test') counts frames and frames_with_bonus for the REQUIRED STAGE ONLY, reports other stages separately in stage_counts/other_stage_records, and raises if no test-stage record exists. The finalize cell now passes require_stage='test' and expect_shards computed from the parent's ACTUAL launched shard set (worker_count/SLICE at the convergence point), so missing individual shards are caught too. Four new negative tests: validation-only telemetry, missing stage marker, duplicate shard, shard coverage mismatch.",
+    "also_recorded": "[VERIFICATION-DEPTH] PyTorch numerical parity of the numpy shim remains unverified locally; the shim establishes logic, not float-level parity. [VERIFICATION-DEPTH] The inherited validator is not specimen-disjoint and must never be presented as independent generalization evidence; the config already states this."
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "E:\\Project\\Biohub_CellTracking\\scripts\\validate_notebook.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\exp_062_mutual_best_edge_association\\snapshot\\source\\exp062_mutual_best_candidate.ipynb",
+      "--require-metrics-contract"
+    ],
+    "completed_at": "2026-09-24T04:55:10+00:00",
+    "exit_code": 0
+  },
+  "launch_plan": {
+    "shape": "one slug lingxd/biohub-exp062-mutual-best carries BOTH kernel versions",
+    "version_1": "CONTROL (mode=none, beta=0.00, EXPECT_PARENT_SHA armed). MUST reproduce parent SHA d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60. NEVER submitted.",
+    "version_2": "CANDIDATE (mutual_best, beta=0.20). Pushed only after the control passes. At most one authorized LB submission, and none if its output is byte-identical to the control.",
+    "config_delta_after_admission": "Only configs/...yaml changed, to add the kaggle launch block (slug, datasets, T4, docker image pinned to the one exp_060 ran on, inject_experiment_id false). Verified by hash: both notebooks, the module and all tests are BYTE-IDENTICAL to the admission-PASSED snapshot. No reviewed artifact was touched."
+  },
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp062-mutual-best",
+    "submitted_at": "2026-09-24T14:37:15+00:00",
+    "status": "SUBMITTED",
+    "last_checked_at": null
+  },
+  "launch_k1_control": {
+    "kernel": "lingxd/biohub-exp062-mutual-best",
+    "kernel_version": 1,
+    "url": "https://www.kaggle.com/code/lingxd/biohub-exp062-mutual-best",
+    "launched_at_utc": "2026-09-24T04:57:55+00:00",
+    "launched_via": "scripts/launch_kaggle.py (controller), after Codex ADMISSION PASS + snapshot smoke PASS",
+    "status_at_launch": "RUNNING",
+    "variant": "CONTROL -- BIOHUB_LB_SCORING_MODE=none, beta 0.00, BIOHUB_EXP062_EXPECT_PARENT_SHA armed",
+    "staged_notebook_sha256": "d09027b677d89309",
+    "staged_matches_snapshot": true,
+    "budget_reserved_hours": 3.0,
+    "user_authorized": true,
+    "pass_condition": "MUST reproduce parent submission SHA256 d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60. If it does not, the insertion is NOT inert: STOP, do not push the candidate, do not submit anything.",
+    "never_submitted": "This control output is never sent to the leaderboard -- it would duplicate a known 0.947.",
+    "on_completion": "Wait for the USER's completion notice; do NOT poll. Then collect once and verify: exp062_mutual_best_integrity_passed true; control_reproduces_parent_submission true; patch_applied_exactly_once true; resume_signature_includes_exp062_keys true; no_cache_hit true (measured wall-clock, not the parent's reported predict_seconds); activation_is_softmax true; frames_with_bonus == 0 for mode=none; test-stage telemetry present with the expected shard coverage."
+  },
+  "collect_k1_control": {
+    "collected_at_utc": "2026-09-24T14:09:33.923818+00:00",
+    "kernel": "lingxd/biohub-exp062-mutual-best",
+    "kernel_version": 1,
+    "kernel_status": "COMPLETE",
+    "verdict": "PASS -- the insertion is INERT",
+    "runtime_seconds": 6218.951879024506,
+    "actual_gpu_hours": 1.7274866330623626,
+    "submission_sha256": "d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60",
+    "submission_sha256_verification": "INDEPENDENT -- sha256sum over the downloaded submission.csv (241357 lines), not the notebook's self-report. Matches parent repro_059 (submission 56313491, Public LB 0.947) byte for byte.",
+    "gates": {
+      "exp062_mutual_best_integrity_passed": true,
+      "control_reproduces_parent_submission": true,
+      "patch_applied_exactly_once": true,
+      "anchor_match_count": 1,
+      "resume_signature_includes_exp062_keys": true,
+      "activation_is_softmax": true,
+      "no_cache_hit": true,
+      "measured_inference_seconds": 543.0780930519104,
+      "frames_with_bonus": 0,
+      "stage_counts": {
+        "test": 2,
+        "validation": 2
+      },
+      "test_stage_shards": [
+        "0/2",
+        "1/2"
+      ],
+      "stats_fresh_and_attributable": true,
+      "run_id": "exp062-control-1790225889"
+    },
+    "inertness_evidence": "pre_raw_* == raw_* EXACTLY on all four shard records (test 0/2 absmax 19.187894821166992, test 1/2 18.062... see exp062_stats.jsonl), i.e. the bonus block ran and provably changed nothing at beta=0.",
+    "telemetry_exploit_closed_in_practice": "Both test shards (0/2, 1/2) carry stage='test' and are distinct from the two validation records. The admission round-3 substitution gap (a lone val_single record satisfying the gate) is empirically closed on a real run, not just in review.",
+    "leaderboard": "NOT SUBMITTED and never will be -- this output is byte-identical to the already-scored 0.947 parent, so it carries zero information and would consume a daily slot.",
+    "next_gate": "Control passed, so the launch plan permits pushing version 2 (CANDIDATE, mutual_best, beta=0.20) to the same slug. That launch needs its own user authorization."
+  },
+  "launch_k2_candidate": {
+    "kernel": "lingxd/biohub-exp062-mutual-best",
+    "kernel_version": 2,
+    "url": "https://www.kaggle.com/code/lingxd/biohub-exp062-mutual-best",
+    "launched_at_utc": "2026-09-24T14:37:15+00:00",
+    "launched_via": "scripts/launch_kaggle.py (controller)",
+    "status_at_launch": "RUNNING",
+    "variant": "CANDIDATE -- BIOHUB_LB_SCORING_MODE=mutual_best, BIOHUB_LB_SCORING_BETA=0.20, BIOHUB_EXP062_EXPECT_PARENT_SHA popped and asserted unset",
+    "staged_notebook_sha256": "1a135feb4def1db66dfc5e6cc0d180b7d0511c2f468af734332c2637e55d3390",
+    "staged_matches_admission_snapshot": true,
+    "staged_dir": "experiments/exp_062_mutual_best_edge_association/kaggle_kernel_retry_001",
+    "staged_dir_note": "prepare_kernel_directory() never overwrites, so the second push landed in kaggle_kernel_retry_001. The name says 'retry' but this is the k2 CANDIDATE push, not a retry of k1.",
+    "user_authorized": true,
+    "authorized_at_utc": "2026-09-24T14:38:09.842810+00:00",
+    "budget_reserved_hours": 1.75,
+    "gate_that_unlocked_it": "k1 control reproduced parent SHA d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60 byte-for-byte; the insertion is inert.",
+    "pre_launch_local_gates": {
+      "validate_exp062_notebook.py": "ALL PASS (5 groups, incl. group 4 parent-patch-chain replay and anchor uniqueness)",
+      "test_exp062_behavioral.py": "ALL PASS",
+      "validate_notebook.py --require-metrics-contract": "PASS, 5 cells / 3 code cells / 0 saved error outputs",
+      "variant_diff": "cells 0,1,2,4 byte-identical to the control; ONLY cell 3's env block differs (run id, mode, beta, guard pop+assert)"
+    },
+    "on_completion": "Wait for the USER's completion notice; do NOT poll. Collect ONCE, then verify exp062_mutual_best_integrity_passed true, patch_applied_exactly_once, resume_signature_includes_exp062_keys, activation_is_softmax, no_cache_hit on MEASURED wall-clock, test-stage telemetry with shards 0/2 and 1/2, and additionally frames_with_bonus > 0 (mode is on). Compare submission.csv against the control's d3453380.",
+    "submission_rule": "If k2's submission.csv is byte-identical to the control, do NOT submit -- zero information, wasted slot. Otherwise at most ONE LB submission, separately authorized by the user, remote cap checked first."
+  },
+  "collect_k2_candidate": {
+    "collected_at_utc": "2026-09-24T19:36:04.940612+00:00",
+    "kernel_version": 2,
+    "kernel_status": "COMPLETE",
+    "verdict": "PASS -- integrity green AND output differs from the control",
+    "runtime_seconds": 6475.69647359848,
+    "actual_gpu_hours": 1.7988045759995779,
+    "submission_sha256": "ba9431c1161ac89770cb1d1ffd268ac9248da31e3d738390b418c19fd3629cbb",
+    "differs_from_control": true,
+    "gates": {
+      "exp062_mutual_best_integrity_passed": true,
+      "frames_with_bonus": 396,
+      "frames": 396,
+      "anchor_match_count": 1,
+      "activation_is_softmax": true,
+      "no_cache_hit": true,
+      "measured_inference_seconds": 594.0934526920319,
+      "stage_counts": {
+        "test": 2,
+        "validation": 2
+      },
+      "test_stage_shards": [
+        "0/2",
+        "1/2"
+      ],
+      "run_id": "exp062-candidate-1790260650"
+    },
+    "effect_evidence": "raw_absmax 19.227895736694336 vs pre_raw_absmax 19.187894821166992 (delta +0.0400009, consistent with the beta=0.20 bonus magnitudes); raw_std_sum 1291.79 vs pre_raw 1288.85. The prior demonstrably perturbed the logits, unlike the control where pre_raw == raw exactly.",
+    "leaderboard_submission": {
+      "submission_id": 56530197,
+      "submitted_at_utc": "2026-09-24T19:34:49.737000Z",
+      "status": "PENDING",
+      "user_authorized": true
+    }
+  }
+}

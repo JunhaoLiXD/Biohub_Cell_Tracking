@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_061_zon_lb_submission_repair",
+  "parent": "exp_061_deepcenter_tta",
+  "state": "MANUAL_REVIEW_REQUIRED",
+  "hypothesis": "A full current-input exp061 zon inference notebook fixes the static-CSV code-submission failure without changing the inference strategy.",
+  "change": {
+    "component": "code_submission_adapter",
+    "from": "Static development CSV promotion and fixed development parity hash",
+    "to": "Full unchanged exp061 inference, original-XY current-input parity, fail-closed current-run zon publication",
+    "variables_changed": "Submission transport and input-relative validation only; no prediction policy edits"
+  },
+  "signature": "912c363ea8e240a73ab9fbf8626302b7869abf2ea6c2ca6c3e725bbdbade59cd",
+  "config": "configs/exp_061_zon_lb_submission_repair.yaml",
+  "snapshot_config": "experiments/exp_061_zon_lb_submission_repair/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_061_zon_lb_submission_repair/snapshot/source/exp061_zon_lb_repair.ipynb",
+  "snapshot_manifest": "experiments/exp_061_zon_lb_submission_repair/snapshot/manifest.json",
+  "git_commit": "cac8a099942a93d98e1442da8bd6b8928bc25226",
+  "validation_protocol": "public_0947_deepcenter_tta_probe_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "CHANGES_REQUESTED",
+    "verdict": "BLOCK",
+    "path": "experiments/exp_061_zon_lb_submission_repair/review.md",
+    "completed_at": "2026-09-22T03:56:22+00:00"
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-22T03:50:03+00:00",
+  "updated_at": "2026-09-22T03:56:22+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-22T03:56:22+00:00",
+      "note": "Codex verdict: BLOCK"
+    }
+  ]
+}

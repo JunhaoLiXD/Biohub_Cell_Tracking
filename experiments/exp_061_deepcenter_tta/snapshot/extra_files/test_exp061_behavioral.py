@@ -581,7 +581,7 @@ def test_M_executable_budget_abort_is_clean_partial():
 
 
 def test_N_frozen_parent_config_matches_parent_notebook():
-    print("N. frozen parent config is INDEPENDENTLY derived from the parent notebook (v3 #1 guard)")
+    print("N. frozen parent config is INDEPENDENTLY derived from the parent notebook (v3 #1 / v4 #1 guard)")
     import json, re
     m = _load_module()
     nb_path = (ROOT / "experiments/repro_059_public_0947_exact_copy/snapshot/source/"
@@ -591,21 +591,43 @@ def test_N_frozen_parent_config_matches_parent_notebook():
     nb = json.loads(nb_path.read_text(encoding="utf-8"))
     code = [c for c in nb["cells"] if c["cell_type"] == "code"]
     src = "".join(code[0]["source"]); lines = src.split("\n")
-    FLOAT = re.compile(r"^\s*(\w+)\s*=\s*float\(os\.environ\.get\('BIOHUB_\w+',\s*'([^']*)'\)\)\s*$")
-    INT = re.compile(r"^\s*(\w+)\s*=\s*int\(os\.environ\.get\('BIOHUB_\w+',\s*'([^']*)'\)\)\s*$")
-    BOOL = re.compile(r"^\s*(\w+)\s*=\s*os\.environ\.get\('BIOHUB_\w+',\s*'([^']*)'\)\s*!=\s*'0'\s*$")
+    # v4 #1: the EFFECTIVE parent value is the env-setup override (os.environ['BIOHUB_KEY']='V',
+    # set BEFORE the declarations) when present, else the declaration fallback. test_N MUST parse
+    # BOTH blocks, otherwise it self-consistently false-PASSes against a fallback-only table (the
+    # exact bug admission v4 caught). We recompute the effective value and require the checked-in
+    # EXP061_PARENT_BASE_DEFAULTS to equal it key-by-key.
+    FLOAT = re.compile(r"^\s*(\w+)\s*=\s*float\(os\.environ\.get\('BIOHUB_(\w+)',\s*'([^']*)'\)\)\s*$")
+    INT = re.compile(r"^\s*(\w+)\s*=\s*int\(os\.environ\.get\('BIOHUB_(\w+)',\s*'([^']*)'\)\)\s*$")
+    BOOL = re.compile(r"^\s*(\w+)\s*=\s*os\.environ\.get\('BIOHUB_(\w+)',\s*'([^']*)'\)\s*!=\s*'0'\s*$")
+    # env-setup overrides: os.environ['BIOHUB_KEY'] = '...'  (last write wins). Only capture string
+    # literals; a non-literal RHS (e.g. str(path)) is not a config knob we freeze.
+    env = {}
+    for em in re.finditer(r"os\.environ\['BIOHUB_(\w+)'\]\s*=\s*'([^']*)'\s*$", src, re.M):
+        env[em.group(1)] = em.group(2)
     parsed = {}
     for k in m.EXP061_PARENT_BASE_DEFAULTS:
         for l in lines:
-            if re.match(rf"\s*{k}\s*=", l):
+            if re.match(rf"\s*{k}\s*=", l) and "os.environ" in l:
                 for rx, cast in ((FLOAT, float), (INT, int), (BOOL, lambda v: v != "0")):
                     mm = rx.match(l)
                     if mm:
-                        parsed[k] = cast(mm.group(2)); break
+                        env_key, fallback = mm.group(2), mm.group(3)
+                        raw = env.get(env_key, fallback)   # env override wins (v4 #1)
+                        parsed[k] = cast(raw); break
                 break
     mismatches = {k: (m.EXP061_PARENT_BASE_DEFAULTS[k], parsed.get(k))
                   for k in m.EXP061_PARENT_BASE_DEFAULTS if parsed.get(k) != m.EXP061_PARENT_BASE_DEFAULTS[k]}
-    check(not mismatches, f"EXP061_PARENT_BASE_DEFAULTS matches the parent notebook defaults ({mismatches})")
+    check(not mismatches,
+          f"EXP061_PARENT_BASE_DEFAULTS == parent EFFECTIVE config (env-override applied) ({mismatches})")
+    # Guard against a future regression to the old bug: at least the known env-overridden knobs must
+    # differ from their declaration fallbacks, proving test_N actually consulted the env-setup block.
+    _known_env_overrides = {
+        "DEEPCENTER_SAFE_DIV_THRESHOLD": 0.20, "DEEPCENTER_GAP_THRESHOLD": 0.25,
+        "MOTION_RELINK_LEARNED_BONUS": 1.0, "OUTPUT_GAP2_RECOVERY": True, "GAP_DENSITY_ADAPTIVE": True,
+        "ILP_DIVISION_WEIGHT": 1.2, "SAFE_DIV_MAX_UM": 9.0, "DEEPCENTER_EXPECTED_EPOCH": 2,
+    }
+    check(all(parsed.get(k) == v for k, v in _known_env_overrides.items()),
+          f"test_N read the env-setup overrides (not just fallbacks) for {list(_known_env_overrides)}")
     check(m.EXP061_FROZEN_PARENT_CONFIG["MOTION_RELINK_TIGHT_UM"] == 5.5,
           "frozen resolved config applies ONLY the tight55 override")
     check(all(m.EXP061_FROZEN_PARENT_CONFIG[k] == m.EXP061_PARENT_BASE_DEFAULTS[k]

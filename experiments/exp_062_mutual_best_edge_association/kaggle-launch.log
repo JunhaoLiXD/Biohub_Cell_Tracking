@@ -1,0 +1,14 @@
+[2026-09-24T04:57:55+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "push", "-p", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_062_mutual_best_edge_association\\kaggle_kernel", "--accelerator", "NvidiaTeslaT4"]
+exit_code=0
+STDOUT
+Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/lingxd/biohub-exp062-mutual-best
+
+STDERR
+
+[2026-09-24T14:37:15+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "push", "-p", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_062_mutual_best_edge_association\\kaggle_kernel_retry_001", "--accelerator", "NvidiaTeslaT4"]
+exit_code=0
+STDOUT
+Kernel version 2 successfully pushed.  Please check progress at https://www.kaggle.com/code/lingxd/biohub-exp062-mutual-best
+
+STDERR
+

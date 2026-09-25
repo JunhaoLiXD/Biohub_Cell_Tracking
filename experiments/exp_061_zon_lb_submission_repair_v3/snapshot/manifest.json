@@ -1,0 +1,40 @@
+{
+  "created_at": "2026-09-23T01:20:53+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v3/snapshot/config.yaml",
+      "sha256": "fb62219d2ebc331fca7fb20522f2f14a85cfc2aee7e0620985f793cfb44b600f"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v3/snapshot/source/exp061_zon_submission_repair_v3.ipynb",
+      "sha256": "8efd5500fc80909928679d6dbc5e4361a28374ec214e57bf53cce0239f5cfaba"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v3/snapshot/extra_files/build_exp061_zon_submission_repair_v3.py",
+      "sha256": "f34327ce1531255da52ddd328a75a6deca30ac3299a61b982f88f0d39bab5b9c"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v3/snapshot/extra_files/build_exp061_zon_deployment_module.py",
+      "sha256": "42142407a48300f3910b1cfc28d284b5b21259340a7cf074ccac6a9d62e333c6"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v3/snapshot/extra_files/exp061_zon_deployment.py",
+      "sha256": "35aa6d61c543a891da5649ed48722938e10b4ca240a31d3c3e4360c3ccd39123"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v3/snapshot/extra_files/validate_exp061_zon_deployment_v3.py",
+      "sha256": "ea5de7f415c62c1e19f895f88cdf49d982e7f7b3c340b69acd6b648a4961302a"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v3/snapshot/extra_files/biohub-exp061-deepcenter-tta.ipynb",
+      "sha256": "bb60ffe996a81bfaad7a3f8c53b1282d5772a68fb12536c58bfa24c483f16aae"
+    }
+  ]
+}

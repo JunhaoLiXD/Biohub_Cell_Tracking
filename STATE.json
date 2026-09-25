@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "active_experiment": "exp_055_original_score_joint_bootstrap_smoke_fix",
+  "active_experiment": "exp_064_x138_verbatim_repro",
   "working_parent": "repro_059_public_0947_exact_copy",
   "best_public_lb": {
     "experiment_id": "repro_059_public_0947_exact_copy",
@@ -10,7 +10,7 @@
     "verified_at_utc": "2026-09-18T00:00:00+00:00"
   },
   "submission_policy": "UPDATED 2026-09-18 by user: Public LB submission COUNT is no longer a research constraint -- multiple submissions are fine. The LB may now be used directly as the real held-out validation signal (Family-2 / distribution-general validation). Still record every submission in SUBMISSION_BUDGET.json with authenticated score_source; still no auto-submit without the user asking; Kaggle's own daily cap (max_submissions_per_day) remains a platform fact, not a scarcity to conserve.",
-  "phase": "EXP061_ADMISSION_V4_REVISE_FIXES_DEFERRED",
+  "phase": "EXP064_SUBMITTED_PENDING__EXP062_K2_SUBMITTED_PENDING__NO_GPU_COMMITTED",
   "exp060_0p18_lb": {
     "kernel": "lingxd/biohub-exp060-safediv018-lb-submit",
     "url": "https://www.kaggle.com/code/lingxd/biohub-exp060-safediv018-lb-submit",
@@ -77,9 +77,270 @@
     "deferred_successor": "exp_061 corrected Z-reflection DeepCenter TTA (8 eval/7 unique XY -> +Z = 16 eval/14 unique; separate per-arm heatmap caches; Z-on vs XY-only guard). Run only if exp_060 shows the division gate is LB-movable, or as an independent representation probe.",
     "not_authorized": "implementation/launch not yet authorized; CONSENSUS is strategy-level only. Fresh Codex admission PASS + smoke + reservation required first."
   },
-  "summary": "exp_060 safe-div 0.18 arm scored Public LB 0.947 == parent (NULL, third consecutive causally-isolated post-processing null). User chose pivot (A) = exp_061 DeepCenter repair-heatmap TTA probe. exp_061 STRATEGY reached CONSENSUS (Codex gpt-6-astra, 5 rounds v1-v4 REVISE -> v5 CONSENSUS): 3 arms xyonly (byte-parity control) / zon (Z-reflection, primary) / xyd4 (XY-D4 repair replacing the duplicated anti-transpose view), pre-gap1 replay boundary, view-level disk-backed provenance-keyed TTA cache (~17 distinct forwards/frame union), executable transform table, TWO direct DeepCenter veto consumers (gap1 + safe-div; gap2 downstream), fresh xyonly parent-SHA parity through the shared cached path, per-arm LB promotion-notebook route, conditional feasibility (build-time timing probe + 20-min finalization reserve). Parent = repro_059 (0.947). Implementation NOT yet authorized: needs build + fresh Codex ADMISSION PASS + smoke + budget reservation + user launch authorization. Honest prior: exp_061 may be another sub-precision null, and zon may regress if the DeepCenter checkpoint is not Z-symmetric. Standing reminder ARMED: after exp_061 LB result, remind user to do option B (larger 0.15/0.12 safe-div threshold move).",
-  "next_action": "exp_061 admission v4 = REVISE (fresh Codex review 2026-09-21). USER DEFERRED the fixes to NEXT SESSION and asked to record them in HANDOUT.md (done). NEXT SESSION: apply the 6 v4 fixes documented in HANDOUT.md '>>> NEXT SESSION: the 6 v4 fixes <<<' -- most importantly the REAL BUG in the frozen-parent config (derive from the parent's effective os.environ BIOHUB_* overrides + tight55, NOT declaration fallbacks; strengthen test_N; expand EXP061_CONFIG_KEYS incl. adaptive short-track rescue), plus fail-fast, partial-run contract, per-frame view-geometry validation, and stage edge identities -- then rebuild snapshot + local gates + a fresh Codex admission review. Nothing is launched. B reminder still ARMED.",
+  "summary": "exp_064 (x138 byte-verbatim repro) COMPLETED, was collected once, passed the collection adapter (exit 0, 25/25 checks) and was submitted to the Public LB as 56535761 on 2026-09-25T00:44:57Z with explicit user authorization. It is PENDING. exp_062 k2 (56530197) is ALSO still PENDING. Two unresolved submissions, no GPU committed, nothing running. THREE CORRECTIONS RECORDED TODAY, all to claims this project made before measuring. (1) x138's runtime self-tuning is INERT: the notebook itself ships BIOHUB_VALIDATOR_ENABLE=0, so the validator never ran and the post-process sweep never fired. ppsweep_selected.json says selected=base with held_out_stems []. The plan to harvest free sweep telemetry and pick the next knob from it yields NOTHING. The compensating gain is real: x138 as run is a deterministic single-policy pipeline, so a single-knob variant on it IS a clean one-variable experiment. (2) The density argument is WITHDRAWN as directional evidence. Predicted nodes per frame is not an optimal relink radius; x138 already ships BIOHUB_GAP_DENSITY_ADAPTIVE=1 and uses a separate 7.0 um flow gate whenever a flow field exists, with 5.5 only on the non-flow path. The measurement shows our global constant is QUESTIONABLE; it does not establish mistuning and supports no direction. (3) exp_064 drew 0.258944 GPU h against a 2.5 h reservation -- about a tenth. Our own comparable runs cost 1.73-2.0 h, most plausibly because our parent runs the held-out validator and sweep that x138 skips. GPU is therefore no longer a binding constraint at all.",
+  "next_action": "DO NOT POLL, and DO NOT spend GPU until at least one score lands. Two submissions are pending: 56535761 (exp_064 x138) and 56530197 (exp_062 k2). Check with `kaggle competitions submissions -c biohub-cell-tracking-during-development -v`. exp_064 decision rule: >=0.953 adopt x138 as the new parent (near the rank-200 cutoff); 0.948-0.952 a real gain, adopt; ~0.947 no advantage over our own parent; <0.947 reject. If it returns ~0.939, the likely explanation is the author's own stale 'public 0.939 configuration' label on the base config that actually ran. k2 decision rule unchanged: >=0.948 adopt; ==0.947 close; <=0.946 revert. The authorized zero-GPU work item while waiting is LB mining: from the 3888-row download, find authenticated teams at >=0.956 who have published notebooks, then READ each notebook's mechanism -- a team's score does NOT authenticate any particular public notebook (the DivNet lesson). Do not pre-allocate GPU runs to env-var variants: each arm must first earn its slot with an active-path check, a named failure mechanism and a predicted measurable effect. Competition closes 2026-09-29 23:59.",
   "leaderboard_submission_authorized": false,
+  "leaderboard_submission_note": "Two submissions were user-authorized and are PENDING: 56535761 (exp_064) and 56530197 (exp_062 k2). No FURTHER submission is authorized; ask the user each time. Cap is now 5 per America/New_York day (user ruling 2026-09-24); 2 of 5 used on NY day 2026-09-24.",
+  "exp061_submission_repair": {
+    "experiment_id": "exp_061_zon_lb_submission_repair_v2",
+    "status": "HIDDEN_RERUN_FAILED_DIAGNOSED",
+    "implementation_owner": "GPT-5.6 Sol, medium reasoning, explicitly requested by user",
+    "v1_review": "BLOCK: validation-contract amendment agreement and targeted replay verification required. No launch occurred. V1 snapshot and review retained.",
+    "user_authorization": "Diagnose, repair submission transport, and resubmit zon without changing inference strategy; latest user request 2026-09-22 UTC.",
+    "diagnosis": "Authenticated API confirms identical incorrect-format errors for zon-copy 56442230 and known-good xyonly-copy 56447637, both with empty public score. Strong evidence for static-output/current-scoring-input mismatch; exact internal scorer trace unavailable.",
+    "repair": "Unchanged full exp061 inference; replace development-only fixed hash requirement with independent original-XY current-input parity; publish only integrity-checked current-run zon output.",
+    "validation": "Source parity, notebook syntax, successful current-input output, integrity-failure/partial-run/corrupt-output negative controls PASS; existing exp061 behavioral tests PASS.",
+    "launch_status": "LAUNCHED_COMPLETE (v2, kernel lingxd/biohub-exp061-zon-lb-repair, launched 2026-09-22T04:25:20Z, ~2h run, COMPLETE)",
+    "lb_status": "COMPLETE_WITH_ERROR (submission 56454236; hidden code rerun hit an unhandled error; no score; totalBytes=0)",
+    "budget_hours": 2.0,
+    "v2_collect_audit": "PASS 2026-09-22T05:26Z: kernel COMPLETE + fail-closed FINAL cell => integrity gate + zon-completed + zon-sha-match + control-parity all passed and zon published to submission.csv. current-input XY reference == parent 0.947 (d3453380); xyonly control byte-identical; zon == 2593a543 (16 views incl. 8 Z-reflected, 241365 rows, well-formed 10-col CSV, +9 rows vs parent, no NaN/empty). Review WAIVED_BY_USER (Codex rate-limited; one-time; not a Codex PASS).",
+    "v2_lb_submission": {
+      "submission_id": 56454236,
+      "kernel": "lingxd/biohub-exp061-zon-lb-repair",
+      "kernel_version": 1,
+      "status": "COMPLETE_WITH_ERROR",
+      "submitted_at_utc": "2026-09-22T05:26:43.837000Z",
+      "submission_sha256": "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1",
+      "decision_rule": ">=0.948 adopt zon TTA as new parent; ==0.947 sub-precision null -> option B (larger 0.15/0.12 safe-div move); <=0.946 revert, keep repro_059 0.947.",
+      "on_score": "No score was produced; no resubmission is authorized.",
+      "public_score": null,
+      "total_bytes": 0,
+      "error_description": "Your notebook hit an unhandled error while rerunning your code. Note that the hidden dataset can be larger/smaller/different than the public dataset",
+      "evidence_path": "experiments/exp_061_zon_lb_submission_repair_v2/leaderboard-error.json",
+      "audit_history": "Originally recorded PENDING after the visible kernel completed and development-output audit passed. The authenticated completion query established a hidden-rerun error. totalBytes=0 means Kaggle returned no submission artifact; it does not prove the notebook never generated intermediate output."
+    }
+  },
+  "exp061_v4_deploy": {
+    "experiment_id": "exp_061_zon_lb_submission_repair_v4",
+    "kernel": "lingxd/biohub-exp061-zon-deploy-v4",
+    "kernel_version": 1,
+    "launched_at_utc": "2026-09-23T01:50:17+00:00",
+    "kernel_status": "COMPLETE",
+    "runtime_seconds": 1947.5,
+    "governance": "One-time user waiver of the formal Codex admission BLOCK for the kernel run. The later LB submission was authorized by the user after a Claude read-only audit. Neither is a Codex PASS.",
+    "design": "zon-only deployment: the original-XY reference, xyonly control and xyd4 replays are moved OUT of the hidden scoring rerun; the whole-run watchdog stays armed through atomic publication (the v3 BLOCK fix). Inference policy unchanged from the exp_061 v5 CONSENSUS.",
+    "claude_audit_2026_09_23": {
+      "role": "read-only review",
+      "pushed_code_vs_snapshot": "identical except the controller EXPERIMENT_ID injection on one line of cell 2; exp061_zon_deployment_v4.py byte-identical (74e35298)",
+      "zon_sha256": "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1 (recomputed; == historical development hash)",
+      "rows_nodes_edges": "241365 / 122813 / 118552",
+      "config_equal_frozen_parent": true,
+      "checkpoint_provenance_verified": true,
+      "views_per_frame": "16 incl. 8 Z-reflected",
+      "numerical_health": "no nonfinite heatmaps or logits, 0 view-cache integrity failures, run_exception null, 845 veto records all accounted",
+      "test_discovery": "dynamic TEST_DIR/*.zarr scan; no hardcoded movie names",
+      "verdict": "No defect found that could produce a wrong score. Two scale-dependent hazards remain, both tripping near a 4x-larger hidden workload."
+    },
+    "scale_hazards": {
+      "hard_watchdog": "signal.alarm(7200) at the top of cell 2 raises KeyboardInterrupt. Visible run used 1947.5s = 27%, ~3.7x headroom. This is the leading hypothesis for the v2 failure, whose visible run already took ~2h.",
+      "working_dir_cache": "exp061_zon_deployment_v4.py:316 writes the disk-backed view cache to WORKING_DIR/exp061_viewcache: 4272 .npy files / 4.48 GB on the public 4-movie workload, against a 20 GB /kaggle/working cap (~4.5x headroom). It is also why the kernel output is ~4.5 GB.",
+      "clean_abort_is_still_a_failure": "A per-dataset budget abort leaves all_discovered_test_datasets_completed false, so no submission.csv is written and the rerun shows the same generic error."
+    },
+    "lb_submission": {
+      "submission_id": 56481730,
+      "submitted_at_utc": "2026-09-23T03:47:28.950000Z",
+      "status": "COMPLETE_WITH_ERROR",
+      "resolved_at_utc": "2026-09-23T12:34:55+00:00",
+      "error_description": "Your notebook hit an unhandled error while rerunning your code. Note that the hidden dataset can be larger/smaller/different than the public dataset",
+      "outcome": "ABANDONED by user decision 2026-09-23. Same failure as v2's 56454236 from a run 4x cheaper; v4 is retired as an LB route and is not resubmitted. Superseded by 56493252 (v5), which carries byte-identical zon predictions.",
+      "post_mortem": "v4's visible run used 27% of its 7200 s watchdog and 22% of the 20 GB /kaggle/working cap, yet the hidden rerun still failed. That WEAKENS the scale hypothesis behind v5: unless the hidden dataset is >=3.7x the public one, neither removed hazard explains this failure and a third unknown cause remains. The pre-submit audit found no defect capable of producing a wrong score, so the failure lies in the rerun environment or its scale, not in the zon prediction policy.",
+      "public_score": null,
+      "submit_method": "competition_submit_code (kernel_version=1, file_name=submission.csv)",
+      "submission_sha256": "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1",
+      "gate": "1/3 used in the rolling 24h window, non-duplicate, allowed",
+      "user_authorized": true,
+      "baseline": "repro_059 0.947 (submission 56313491)",
+      "decision_rule": ">=0.948 adopt zon as new parent; ==0.947 sub-precision null -> option B (larger 0.15/0.12 safe-div move); <=0.946 revert. A rerun error is not a score and leaves the rule unresolved.",
+      "rationale_for_submitting_as_is": "The run is ~4x cheaper than v2, the submission costs no GPU ledger time, and only a real rerun can falsify the watchdog hypothesis. Rebuilding a v5 first would cost another verification run and only pays off if the hidden set is >=4x the public one, for which there is no evidence.",
+      "evidence_path": "experiments/exp_061_zon_lb_submission_repair_v4/leaderboard-submission.json"
+    }
+  },
+  "exp061_arc_abandoned": {
+    "decided_at_utc": "2026-09-23T13:10:00+00:00",
+    "decided_by": "user",
+    "scope": "The entire exp_061 arc: exp_061_deepcenter_tta and the LB-transport repairs v1-v5.",
+    "reason": "Five consecutive Public LB submissions for the zon arm failed to return a score, across three distinct transport mechanisms.",
+    "attempts": [
+      {
+        "submission_id": 56442230,
+        "mechanism": "static-copy kernel (zon)",
+        "failure": "incorrect submission format"
+      },
+      {
+        "submission_id": 56447637,
+        "mechanism": "static-copy kernel (xyonly control, known-good 0.947 content)",
+        "failure": "incorrect submission format -- proved the copy mechanism, not zon content, was that failure"
+      },
+      {
+        "submission_id": 56454236,
+        "mechanism": "v2 full inference (~2 h visible run)",
+        "failure": "unhandled error in hidden rerun, totalBytes=0"
+      },
+      {
+        "submission_id": 56481730,
+        "mechanism": "v4 zon-only deployment (32.5 min visible run)",
+        "failure": "unhandled error in hidden rerun"
+      },
+      {
+        "submission_id": 56493252,
+        "mechanism": "v5 = v4 + rerun-aware deadline + view cache off /kaggle/working",
+        "failure": "unhandled error in hidden rerun"
+      }
+    ],
+    "what_was_ruled_out": "v4 and v5 both ran clean visible runs with full integrity gates and byte-identical predictions (2593a543). v5 confirmed both scale fixes active on the real pipeline, so neither the 7200 s watchdog nor the 20 GB /kaggle/working cap caused the failure. v4's 32.5-min run with 3.7x watchdog and 4.5x disk headroom already argued against the scale hypothesis; v5 settled it.",
+    "what_remains_unknown": "The hidden tracebacks were never available. A third property of the rerun environment (hidden-set shape, memory, a dependency absent from the rerun sandbox) is responsible and was never identified.",
+    "scientific_status": "The zon Z-reflection DeepCenter TTA is UNRESOLVED, not falsified. It was measured as mechanically active in the visible run (heatmap max_abs_delta 0.142, safe-div accepted 316->318, +9 rows vs parent) but never scored on held-out data.",
+    "cost": "GPU: v2 2.0 h (upper bound) + v4 0.541 h + v5 0.553 h = 3.094 h. LB: 5 submissions, 0 scores.",
+    "lesson": "The only transport in this project with a proven hidden-rerun record is exp_060's single-config variant notebook (submission 56361673, COMPLETE at 0.947). Any successor should use that pattern rather than a bespoke deployment adapter. Recorded as a risk-register item.",
+    "recon_after_abandonment": "docs/research/public_frontier_recon_2026-09-23.md"
+  },
+  "public_frontier_recon_2026_09_23": {
+    "document": "docs/research/public_frontier_recon_2026-09-23.md",
+    "performed_at_utc": "2026-09-23T13:00:00+00:00",
+    "method": "zero-GPU: authenticated leaderboard query + kaggle kernels list/pull + source inspection of 8 public notebooks",
+    "supersedes": "experiments/repro_059_public_0947_exact_copy/PROVENANCE.md section 4 (2026-09-18)",
+    "standing": {
+      "our_best_public_lb": 0.947,
+      "lb_rank_200_cutoff": 0.949,
+      "lb_top": 0.975,
+      "note": "0.947 is now OUTSIDE the top 200. On 2026-09-18 the frontier was ~0.970; it is 0.975 now with a thick 0.955-0.966 band.",
+      "competition_deadline": "2026-09-29 23:59",
+      "daily_submission_cap": 5
+    },
+    "is_there_a_verified_public_notebook_above_0947": "NO. Same finding as 2026-09-18. Every inspected notebook resolves to the same lineage and the same three Pilkwang checkpoints. The four new high-vote notebooks (amanatar/biohub-geometric-fusion 161 votes, evgendvorkin/biohub-0-947-lb-proxy-score-0-9490 131, flexonafft/biohub-lineage-forge-precision-tracking 106, anvithpothula/biohub-x138 104) claim nothing above 0.947; evgendvorkin's is explicitly 0.947. The haideptry 'SOTA 0.948+' titles are UNVERIFIED -- that author does not appear in the top 200.",
+    "unexplained": "The 0.955-0.966 band is not accounted for by any public notebook found. Either those teams hold unshared work or they combine the public micro-levers more aggressively than anyone has published. Not established; not guessed at.",
+    "levers_found": {
+      "note": "All three sit on OUR exact 0.947 base: haideptry's notebooks self-report source_notebook_sha256 3e65ca69..., the documented upstream of repro_059, with metric_hack_used false. Directly portable.",
+      "1_mutual_best_association": {
+        "rank": "RECOMMENDED FIRST",
+        "mechanism": "rank bonus on the edge logits: beta*col_best + 0.5*beta*row_best + 0.5*beta*mutual - 0.20*beta*(not mutual), via BIOHUB_LB_SCORING_MODE=mutual_best and BIOHUB_LB_SCORING_BETA (0.20 in haideptry, 0.12 mentioned elsewhere)",
+        "why": "It perturbs EDGE ASSOCIATION, ~85-90% of the aggregate metric. Every recent probe of ours (exp_055, exp_057, exp_060, exp_061) moved DIVISION, weighted only 0.1 -- the structural reason they were sub-precision nulls. This is the first shared lever aimed at the heavy term.",
+        "provenance": "yudaiyamauchi published a systematic A-E series on this axis (A hard-negative margin, B hard-negative strong, C disagreement-adaptive, D relative rank, E mutual-best). haideptry carries BIOHUB_LB_EXPLORATION_ID='e-mutual-best', i.e. E is the survivor. The A-E notebooks have 0-2 votes, so this is not priced in."
+      },
+      "2_density_adaptive_overrides": {
+        "rank": "SECOND",
+        "mechanism": "determine_density_group() measures avg cells/frame and selects tight_um/relaxed_um/velocity_weight/learned_bonus: low(<120) 7.25/11.0/0.5/3.0, middle 6.5/9.0/0.0/6.0, high 5.5/10.0/0.5/1.0",
+        "why": "Generalizes the single global tight55 we froze. Cell density varies ~11x across embryos (61 to 703 cells/frame), so one global value is plausibly mis-set for three of the four movies.",
+        "specimen_blind_verified": "YES -- checked explicitly: the four public test movie names appear ZERO times in the notebook's code (prose only), the group is decided by measurement, and test discovery is a dynamic TEST_DIR.iterdir() scan. Satisfies our ground-truth-free / specimen-blind rule."
+      },
+      "3_divnet_mitosis_gate": {
+        "rank": "THIRD",
+        "mechanism": "BIOHUB_DIVNET_VERIFY=1, BIOHUB_DIV_MIN_PROB=0.50, weights from the public dataset giorgosi/biohub-divnet-v2 (5.2 MB, 455 downloads, available)",
+        "why_last": "It is the first MODEL-level addition available to us, but it acts on division, the 0.1-weighted term -- on our own repeated evidence the least likely of the three to register at 3-decimal LB."
+      }
+    },
+    "caveat": "All three headline numbers are self-reported by an author absent from the top 200. Treat them as hypotheses worth one cheap LB probe each, not as known gains.",
+    "authorizes": "NOTHING. Evidence gathering only."
+  },
+  "exp062_strategy": {
+    "title": "exp_062 mutual-best edge association on the frozen 0.947 pipeline",
+    "parent": "repro_059_public_0947_exact_copy (Public LB 0.947)",
+    "proposal": "docs/research/exp062_mutual_best_edge_association_proposal_v3.md (v3, CONSENSUS)",
+    "strategy_status": "CONSENSUS",
+    "codex_reviewer": "gpt-6-astra (low), read-only, 2026-09-23",
+    "challenge_rounds": [
+      "docs/research/exp062_codex_challenge_v1.md (REVISE: 4 CORRECTNESS + 2 VERIFICATION-DEPTH)",
+      "docs/research/exp062_codex_challenge_v2.md (REVISE: 5 of 6 round-1 findings fixed; cache isolation left open; calibration account newly introduced)",
+      "docs/research/exp062_codex_challenge_v3.md (PASS = strategy-level CONSENSUS, 2026-09-24)"
+    ],
+    "codex_bottom_line": "PASS at round 3: \"Strategy-level CONSENSUS for one unchanged mutual-best beta = 0.20 probe. The two outstanding design corrections are resolved.\" No blocking correctness defects. The PASS explicitly does NOT authorize launch or leaderboard submission.",
+    "verified_errors_in_v1": {
+      "note": "Claude independently checked these against the repository rather than accepting the reviewer's word. All three confirmed.",
+      "1_edge_vs_division_history": "FALSE in v1. exp_055 was an EDGE intervention: adjusted_edge_delta +0.0033 (44b6) and +0.0189 (6bba) with division_jaccard 0.2 UNCHANGED in every specimen block, and its Public LB delta was still 0.000. HANDOUT.md already labelled it 'exp_055 edge'. The 'first lever to touch the heavy term' framing is therefore wrong and the motivation must be rebuilt.",
+      "2_axis_labels_reversed": "FALSE in v1. predict_unet_transformer.py:452 annotates the returned tensor (1, n_src, n_tgt), so ROWS are sources and COLUMNS are targets; the parent applies softmax(raw, dim=0), normalising over sources. v1 described the axes backwards. The upstream anchor block (lines 454-458) does exist verbatim in our reference copy, confirming the patch is portable.",
+      "3_exp060_sweep_not_disabled": "FALSE in v1. STATE.json.exp060_0p18_lb.run_completed records that the ppsweep RAN and re-selected tight55. v1's budget rationale claimed the sweep was disabled in that kernel; the 1.3 h reference figure includes the sweep.",
+      "4_monotonicity_test_wrong": "FALSE in v1. Net bonus truth table is: mutual 2*beta, column-best-only 0.8*beta, row-best-only 0.3*beta, neither -0.2*beta. v1's required test asserted every non-mutual pair decreases, which would fail against a correct implementation.",
+      "5_transport_exclusivity_overstated": "repro_059 (56313491), exp_057 (56281129) and exp_055 (56261282) all returned scores via code submission, so exp_060 is not the unique working transport -- 'closest successful minimal-change precedent' is the supportable claim.",
+      "6_pedigree_overstated": "'E survived the A-E series' was inferred from an environment-variable name, not from any measurement. Unverified context, not efficacy evidence."
+    },
+    "bounded_gate_ruling": "ACCEPTED WITH AMENDMENTS. One consolidated strategy correction, then ONE scoped implementation/admission review against the exact snapshot. Block only on concrete correctness, leakage, provenance, fail-closed, graph-validity or budget defects; record speculative-efficacy and verification-depth items without blocking. Real-GPU parity and execution evidence belong INSIDE the authorized development run and are required before submission, not before launch. Re-review covers fixes and newly introduced defects only -- but a round limit can never make a known defect acceptable. Fresh experiment-specific Codex PASS and separate submission authorization are preserved.",
+    "codex_design_corrections_for_v2": [
+      "Split the run: beta=0 byte-parity control is DEVELOPMENT validation; the SUBMITTED notebook must run the candidate only. Do not require the historical public CSV hash during a hidden rerun on different input data.",
+      "Keep beta=0.20 as an exploratory first probe (max bonus 0.4 logits; largest within-column difference 0.44, odds multiplier ~1.55) but REMOVE the automatic escalation to 0.40 after a displayed null.",
+      "Replace the monotonicity gate with the four-row bonus truth table plus post-activation checks; drop H2's requirement that mutual-best STATUS changes, since an effective confidence adjustment can preserve all winners. Measure patch execution, changed probabilities/candidate edges, and final-graph differences separately.",
+      "Test axis semantics through the ACTUAL patched source on an asymmetric rectangular matrix including ties and single-source/single-target cases; a constructed matrix alone is insufficient.",
+      "Justify dropping the proxy gate as a RESOURCE decision only, and state plainly that there is no pre-LB quality estimate. exp_057 skipped proxy scoring entirely, so it is not transfer-failure evidence; exp_055 is.",
+      "State the full spending plan including candidate-only deployment and any follow-up run."
+    ],
+    "lever_recommendation": "Codex concurs with mutual-best beta=0.20 as the first scored probe, but for a different reason than v1 gave: small implementation scope and a mechanism distinct from harmonic fusion, NOT verified public superiority and NOT an untouched metric term. After a null or regression, prefer density-adaptive relinking over a beta sweep. Codex explicitly keeps option B alive: 'the evidence does not justify dismissing division categorically.' DivNet is a larger integration and model-provenance commitment.",
+    "next": "ADMISSION PASS + SMOKE PASS. Remaining gates, all still closed: (1) reserve 3.0 GPU hours; (2) ONE user-authorized launch of k1 (control, mode=none) which MUST reproduce parent SHA d3453380 before anything else proceeds; (3) then k2 (candidate, mutual_best beta=0.20); (4) ONE separately authorized LB submission of k2 -- and NO submission at all if k2's output is byte-identical to the control. Project cap is three per America/New_York day. Competition closes 2026-09-29 23:59.",
+    "budget_note": "20.398674 h remaining, of which 14.398674 are unprotected. A 2.6 h development run fits, but candidate-only deployment and any follow-up must be budgeted explicitly.",
+    "proposal_history": [
+      "v1 (SUPERSEDED)",
+      "v2 (SUPERSEDED)",
+      "v3 (CONSENSUS)"
+    ],
+    "round2_findings_and_fixes": {
+      "cache_isolation_REAL_DEFECT": "Codex found, and Claude verified directly in the parent, that _inference_resume_env_keys (cell 2 line 1669) is a fixed 13-key list containing NEITHER BIOHUB_LB_SCORING_MODE NOR BIOHUB_LB_SCORING_BETA, while _test_prediction_signature (line 1670) hashes exactly those keys. A candidate run could therefore compute the SAME resume signature as the control, skip inference at lines 1672-1680 and replay the control predictions -- emitting the control output with every gate green and burning an LB slot on a duplicate 0.947. Parent resume state is real and persisted: biohub_live_resume/test_prediction_state.json appeared in the collected exp_061 v5 output. FIXED in v3 section 4.1.",
+      "calibration_account_NEWLY_INTRODUCED_BY_V2": "v2 claimed the bonus lands on re-standardised harmonic-fusion logits scaled per SOURCE. Wrong in three ways, all re-verified: std(dim=1) on (1,n_src,n_tgt) reduces the SOURCE axis giving (1,1,n_tgt) = per TARGET; the [0.5,2.0] clamp is on the RATIO while scales are only clamp_min(1e-4); and the low_margin_consensus secondary blend (lines 1187-1226) runs AFTER fusion, with raw = edge_logits_pair[0] only at line 1232. FIXED in v3 section 2.",
+      "parent_sha_guard": "Now actively os.environ.pop-ed and asserted unset in candidate mode, not merely absent from source. FIXED in v3 section 4.2."
+    },
+    "implementation_notes_from_pass": {
+      "cache_fix_insertion_point": "Append the two keys immediately after the list definition (line 1669) and before the first hash computation (line 1670). Codex traced propagation: 1669-1672 test signature and inference-reuse decision; 3171-3172 base/final-output reuse also requires the test signature; 3290/3686/3723 validator prediction, validator base and PP-sweep signatures; 3783 final signature. Two signatures do NOT inherit the keys -- standalone postprocessing (289-296) and the disabled-validator sentinel (3345) -- and neither opens an uncovered candidate-reuse path.",
+      "predict_seconds_trap": "CRITICAL: parent line 1675 RESTORES the historical predict_seconds from cached state on a cache hit, so the reported prediction time looks normal. The cache-hit alarm must use independently MEASURED elapsed wall-clock, never the reported value. This would have defeated the naive alarm the proposal originally specified.",
+      "legacy_state": "Unrecognised/legacy resume state must be rejected fail-closed, not ignored."
+    },
+    "col_best_redundancy_ruling": "Claude derived, and Codex confirmed, that the parent ALREADY computes softmax(edge_logits_pair[0], dim=0) and topk(dim=0) at lines 1199-1220 -- the best SOURCE per target plus its top-2 margin and secondary agreement -- i.e. the same quantity as _lb_col_best, which carries the LARGEST weight (beta) in the bonus. Codex qualification: this is REUSED RANKING INFORMATION, not mathematical redundancy -- gating a model blend and explicitly boosting a winner are different transformations, and the column bonus still changes probability concentration and candidate admission. The genuinely novel signal is _lb_row_best (best target per source). Retain beta=0.20 and the published weights; do NOT redesign the first probe.",
+    "nonblocking_carried_forward": "[VERIFICATION-DEPTH] A null tests the WHOLE weighted intervention and cannot isolate the target-competition contribution, so it cannot establish that row/mutual information failed nor that a row-weighted successor is preferable. The designated successor stays density-adaptive relinking, which needs its own proposal, challenge and authorization.",
+    "build": {
+      "status": "BUILT 2026-09-24. NOT admission-reviewed, NOT reserved, NOT launched, NOT submitted.",
+      "experiment_record": "experiments/exp_062_mutual_best_edge_association/experiment.json",
+      "config": "configs/exp_062_mutual_best_edge_association.yaml",
+      "artifacts": {
+        "module": "scripts/exp062_mutual_best.py",
+        "builder": "scripts/build_exp062_mutual_best.py",
+        "validator": "scripts/validate_exp062_notebook.py",
+        "behavioral": "scripts/test_exp062_behavioral.py",
+        "notebooks": ".private/current/exp062_mutual_best_{control,candidate}.ipynb",
+        "snapshot": "experiments/exp_062_mutual_best_edge_association/snapshot/ (manifest.json regenerated)"
+      },
+      "notebook_sha256": {
+        "control": "1ba46d6baa465b35911d0f5f8794803b21152a903cb13a1679f213d55d481a88",
+        "candidate": "b8ee7f312b94cb627b6b21c4d35ad6c2b554b7154a70cb8028ead6810e6ea20e"
+      },
+      "local_gates": "ALL PASS. Builder parity guard both variants (15 control / 16 candidate injected lines strip back to the parent byte-for-byte). validate_exp062_notebook.py: 5 groups, 45 checks. test_exp062_behavioral.py: 13 tests, 48 checks, executed against a numpy torch shim running the REAL patch block.",
+      "decisive_local_gate": "validate group 4 REPLAYS the parent's own five-stage patch chain (env block + _exact_text/_patch_text helpers + cell-2 lines 1021-1518) onto a temp copy of the reference predict_unet_transformer.py, then proves the exp_062 anchor is UNIQUE in that actually-patched source (count==1), that our patch applies and compiles on it, and that double-patching is REFUSED. This is the zero-GPU answer to Codex round-1 answer 1, which said a constructed matrix alone is insufficient.",
+      "verified_during_build": [
+        "The parent patch chain replays cleanly and applies all five patches (D4 detection TTA, calibrated dual-seed, retention guard, bidirectional harmonic fusion, coordinate-manifest hook).",
+        "After replay there is exactly ONE 'raw = edge_logits_pair[0]' in the patched source -- the parent's fusion patch REPLACES the original region rather than duplicating it, so the anchor is unambiguous.",
+        "The parent's config-drift guard iterates only its own _EXPECTED_NUMERIC/_EXPECTED_TEXT dicts, so the two new env keys cannot trip it.",
+        "The two built notebooks differ ONLY in the environment block (verified by diff; cells 0,1,2,4 byte-identical)."
+      ]
+    },
+    "admission": {
+      "verdict": "PASS",
+      "at_utc": "2026-09-24T04:54:51+00:00",
+      "reviewer": "Codex gpt-6-astra (low), read-only, via scripts/request_codex_review.py",
+      "review": "experiments/exp_062_mutual_best_edge_association/review.md",
+      "rounds": "3 substantive rounds (REVISE, REVISE, REVISE) then PASS. Two additional attempts returned BLOCK for TOOL-ACCESS reasons only -- Codex's read-only command tool failed to start ('helper_unknown_error: setup refresh had errors') and Codex itself labelled both 'an evidence-access block, not rejection of the hypothesis'. Neither was a finding.",
+      "codex_independently_verified_the_fix": "Memory-only execution rejected nine invalid-evidence cases, including validation-only records and missing test shards, while valid mixed-stage evidence passed.",
+      "what_it_authorizes": "Progression to local snapshot smoke ONLY. Codex: 'This admission judgment does not authorize remote execution or claim the hypothesis will improve tracking quality.'",
+      "standing_conditions": "Require control SHA parity before proceeding; skip the leaderboard submission entirely if the candidate output is byte-identical; submission and promotion retain separate authorization."
+    },
+    "smoke": {
+      "status": "PASSED",
+      "at_utc": "2026-09-24T04:55:10+00:00",
+      "command": "scripts/run_smoke_test.py exp_062_mutual_best_edge_association -> validate_notebook.py --require-metrics-contract",
+      "exit_code": 0
+    },
+    "controller_fix": "Admission round 2 required a reviewed correction rather than a waiver of the notebook smoke gate. experiment_controller/core.py now counts environment assignments that execute BEFORE the configuration guard within the SAME cell, not only in earlier cells (_environment_assignments_before_guard, AST line-number based). Assignments after the guard still do not count. This unblocks the gate for the WHOLE notebook lineage -- the parent repro_059, exp_060, exp_061 and both exp_062 variants now pass, where all four previously failed -- while a synthetic guard-before-assignment notebook and a never-assigned-key notebook are still rejected. Duplicating the frozen config into an earlier cell was rejected as the remedy because it would create a second source of truth, the defect class behind the exp_061 v4 BLOCK.",
+    "launch_k1_control": {
+      "kernel": "lingxd/biohub-exp062-mutual-best",
+      "kernel_version": 1,
+      "url": "https://www.kaggle.com/code/lingxd/biohub-exp062-mutual-best",
+      "launched_at_utc": "2026-09-24T04:57:55+00:00",
+      "launched_via": "scripts/launch_kaggle.py (controller), after Codex ADMISSION PASS + snapshot smoke PASS",
+      "status_at_launch": "RUNNING",
+      "variant": "CONTROL -- BIOHUB_LB_SCORING_MODE=none, beta 0.00, BIOHUB_EXP062_EXPECT_PARENT_SHA armed",
+      "staged_notebook_sha256": "d09027b677d89309",
+      "staged_matches_snapshot": true,
+      "budget_reserved_hours": 3.0,
+      "user_authorized": true,
+      "pass_condition": "MUST reproduce parent submission SHA256 d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60. If it does not, the insertion is NOT inert: STOP, do not push the candidate, do not submit anything.",
+      "never_submitted": "This control output is never sent to the leaderboard -- it would duplicate a known 0.947.",
+      "on_completion": "Wait for the USER's completion notice; do NOT poll. Then collect once and verify: exp062_mutual_best_integrity_passed true; control_reproduces_parent_submission true; patch_applied_exactly_once true; resume_signature_includes_exp062_keys true; no_cache_hit true (measured wall-clock, not the parent's reported predict_seconds); activation_is_softmax true; frames_with_bonus == 0 for mode=none; test-stage telemetry present with the expected shard coverage."
+    }
+  },
   "resolved_leaderboard_submission": {
     "submission_id": 56261282,
     "experiment_id": "exp_055_original_score_joint_bootstrap_smoke_fix",
@@ -103,7 +364,7 @@
     "verified_at_utc": "2026-09-16T14:40:00+00:00",
     "note": "Public LB 0.944 == repro_048 0.944, zero gain despite 3714-edge graph diff. EMA-off replay byte-identical to 0.944, so isolated to the EMA edit: motion EMA is redundant/neutral on top of the edge-feature-TTA bundle. Branch 'EMA on 0.944' closed."
   },
-  "updated_at": "2026-09-21T05:05:00+00:00",
+  "updated_at": "2026-09-25T00:55:00+00:00",
   "active_local_experiment": "local_054_original_score_final_stage_parity",
   "exp057_a0_part1": {
     "status": "DONE_ZERO_GPU",
@@ -139,9 +400,11 @@
   },
   "pending_followup": {
     "created_utc": "2026-09-20T00:00:00+00:00",
-    "trigger": "After exp_061 (option A) reaches its Public LB result",
+    "trigger": "After exp_061 (option A) reaches its Public LB result -- FIRED 2026-09-23 without a score",
     "action": "REMIND THE USER to run option B: a LARGER safe-div threshold move (e.g. 0.15 / 0.12) to clear the 3-decimal LB display grain, since the 0.20->0.18 bracket was sub-precision. This is a user-requested standing reminder (2026-09-20): user chose to do A (exp_061) first and explicitly asked to be reminded to do B after A completes.",
-    "status": "ARMED"
+    "status": "DELIVERED_AND_DEPRIORITISED",
+    "delivered_at_utc": "2026-09-23T13:10:00+00:00",
+    "resolution": "exp_061 never returned a score, so the trigger condition was met by abandonment rather than by a result. The reminder is hereby delivered. However, the 2026-09-23 public-frontier recon reprioritised it: option B is a DIVISION-side move (0.1 aggregate weight), the same class that produced exp_055, exp_057 and exp_060's three consecutive nulls, whereas two newly public and portable EDGE-side levers (mutual-best association; density-adaptive overrides) target the ~85-90%-weighted term. Option B remains available and is not withdrawn, but it now ranks BELOW those two. The choice is the user's."
   },
   "exp061": {
     "title": "exp_061 corrected Z-reflection DeepCenter division TTA",
@@ -181,6 +444,200 @@
     "admission_v2_fixes": "(1) parent submission audits (consecutive-frame + max in-degree<=1 + out-degree<=2) applied PER ARM. (2) explicit frozen-parent config captured once (parent runtime config + tight55) and each arm compared DIRECTLY to it (all_arm_configs_equal_frozen_parent), not transitively. (3) execution-validity (intended views actually ran: arm_views_seen vs expected) SEPARATE from observed response; zero heatmap response = VALID NULL not failure; gate=experimental_arms_execution_valid. (4) candidate logger only STASHES ids (no fresh-{}-cache re-scoring); one combined per-veto record (ids+score+accept); safe_div rows linked to final fork survival; per-arm receipt carries that arms veto rows. (5) view cache persists a .sha256 sidecar; invalid/unverifiable entries REJECTED+recomputed BEFORE use. (6) validator-disable GATED on BIOHUB_EXP061_ENABLE so probe-off = true parent rollback (tight55). + measured feasibility worksheet (per-forward rate, remaining margin) in telemetry; control arm also reserve-checked. Local: validator PASS, behavioral PASS, snapshot smoke PASS.",
     "admission_v3": "REVISE. Core confirmed + v2/v3 fixes acknowledged. Residuals: (1) expected_parent_config self-referential (needs independent frozen config; byte-parity is the anchor). (2) attribution: gap telemetry only middle_id (no endpoints/bypassed/gap-survival); safe_div survival now covers existing daughter [FIXED]; receipts now after per-arm survival [FIXED]. (3) behavioral tests compare key SETS + self-equality, dont EXECUTE reordered arms / corrupt-cache / interrupted-finalization / valid-zero-response (need not run GPU). (4) memory: _dc_cache_trim omitted [FIXED]. (5) feasibility worksheet is post-hoc; control assumes zero cost; cannot establish 20-min reserve pre-launch. Codex: fresh GPU byte parity should remain a gate WITHIN the authorized experiment, not a prerequisite.",
     "admission_v3_fixes": "ALL 5 ADDRESSED (2026-09-21). #1 EXP061_PARENT_BASE_DEFAULTS + EXP061_FROZEN_PARENT_CONFIG = the parent notebook's own BIOHUB_* knob defaults (transcribed once, guarded by test_N re-parsing the parent notebook) + the documented tight55 override; expected_parent_config = dict(EXP061_FROZEN_PARENT_CONFIG); live knobs asserted == frozen reference up-front (live_pinned_config_equals_frozen_parent) AND per arm (all_arm_configs_equal_frozen_parent) -- no longer self-captured. #2 gap logger passes {middle_id,left_id,right_id,reused}; gap survived_final = (left,middle)&(middle,right) both in final edge_set; EXP061_STAGE_STAT_KEYS captures gap1/gap2/safediv candidate/added + DeepCenter-bypass counts per dataset; telemetry adds stage_stat_delta (cross-arm gap1/gap2/safediv-specific), stage_stats_by_arm, veto_survival_summary. #3 test_exp061_behavioral.py I-N: mocked end-to-end run of run_exp061_deepcenter_tta over a numpy torch shim + fake model/filter/on-disk geffs -> executes reordered arms, corrupt-cache digest-reject+recompute, clean per-dataset budget abort (no .tmp, no CSV), config-drift fail-closed, verified-zero-response valid-null; plus test_N guards the frozen config vs the parent notebook. All PASS (numpy present). #4 _write_arm_submission times each dataset and aborts cleanly between datasets (arm_status aborted_budget) if remaining < measured projected-remaining + 20-min reserve -- governs the control too; feasibility_worksheet.measured=True with dataset_costs, view_cache_capacity_io (disk files/bytes, LRU, hit rates); _dc_cache_trim retained. #5 GPU_BUDGET.json: exp_060 consumed entry added (reserved 2.0, actual 2.0 conservative-upper-bound pending authenticated Kaggle runtime, 2 kernel versions) + reconciliation note; remaining_hours 26.493->24.493. Snapshot + manifest.json rebuilt (notebook sha 8736612c...). NOT yet re-reviewed by Codex.",
-    "admission_v4": "REVISE (fresh review 2026-09-21T05:03Z on the v3-fixes snapshot). Core confirmed (6 manifest hashes, module equality, stripped-parent parity, clean worktree). REAL BUG found in the v3 #1 fix: EXP061_PARENT_BASE_DEFAULTS was built from the parent's DECLARATION FALLBACKS, but the parent SETS os.environ['BIOHUB_*'] overrides BEFORE the declarations (env-setup block ~L35-90), so effective config differs (safe-div 0.12->0.20, gap 0.10->0.25, motion-bonus 0.75->1.0, gap2 False->True, div-weight 1.0->1.2, safe-div geometry knobs, expected-epoch 0->2, gap-confirm-span 0->8.5, etc.). test_N only parsed fallbacks so it FALSELY passed. The real run would fail live_pinned_config_equals_frozen_parent -- the admission gate caught it before any GPU/LB spend. Other v4 items: (2) config coverage incomplete (adaptive short-track rescue family + other env-set knobs missing from EXP061_CONFIG_KEYS); (3) fail fast BEFORE arm execution on invalid config/ckpt (currently prints+continues); (4) explicit partial-run contract (all_started_arms_completed) so a budget-aborted started arm can't pass the gate with no artifact; (5) validate EXACT per-frame view sequence/count from recorded tensor geometry (current square-only-expected inference is circular); (6) persist per-stage edge IDENTITIES intersected with the final graph (not just added-counts) + conservative first-arm/runtime admission (upper-bound, not mean)."
+    "admission_v4": "REVISE (fresh review 2026-09-21T05:03Z on the v3-fixes snapshot). Core confirmed (6 manifest hashes, module equality, stripped-parent parity, clean worktree). REAL BUG found in the v3 #1 fix: EXP061_PARENT_BASE_DEFAULTS was built from the parent's DECLARATION FALLBACKS, but the parent SETS os.environ['BIOHUB_*'] overrides BEFORE the declarations (env-setup block ~L35-90), so effective config differs (safe-div 0.12->0.20, gap 0.10->0.25, motion-bonus 0.75->1.0, gap2 False->True, div-weight 1.0->1.2, safe-div geometry knobs, expected-epoch 0->2, gap-confirm-span 0->8.5, etc.). test_N only parsed fallbacks so it FALSELY passed. The real run would fail live_pinned_config_equals_frozen_parent -- the admission gate caught it before any GPU/LB spend. Other v4 items: (2) config coverage incomplete (adaptive short-track rescue family + other env-set knobs missing from EXP061_CONFIG_KEYS); (3) fail fast BEFORE arm execution on invalid config/ckpt (currently prints+continues); (4) explicit partial-run contract (all_started_arms_completed) so a budget-aborted started arm can't pass the gate with no artifact; (5) validate EXACT per-frame view sequence/count from recorded tensor geometry (current square-only-expected inference is circular); (6) persist per-stage edge IDENTITIES intersected with the final graph (not just added-counts) + conservative first-arm/runtime admission (upper-bound, not mean).",
+    "admission_v4_fixes": "v4 #1 REAL BUG FIXED (2026-09-21 later session): EXP061_PARENT_BASE_DEFAULTS rebuilt to parent-EFFECTIVE config, derived programmatically from the repro_059 notebook env-setup block (os.environ['BIOHUB_*'] overrides win over declaration fallbacks; env-override values match all 18 v4-listed mismatches; tight55 5.5 applied via EXP061_RESOLVED_OVERRIDES). test_N now parses BOTH blocks + recomputes effective + has a regression guard that it consulted env overrides. Notebook+snapshot+manifest rebuilt; both local gates PASS. v4 #2-#6 deferred/downgraded per user (verification-depth, runtime config gate already fails closed on drift). Codex verdict NOT re-run this session; Claude did not self-certify. Awaiting user launch decision."
+  },
+  "exp061_launch": {
+    "status": "COMPLETE",
+    "kernel": "lingxd/biohub-exp061-deepcenter-tta",
+    "url": "https://www.kaggle.com/code/lingxd/biohub-exp061-deepcenter-tta",
+    "launched_at_utc": "2026-09-21T14:51:55+00:00",
+    "launched_by": "manual kaggle kernels push (outside controller) under explicit user launch authorization 2026-09-21",
+    "is_private": true,
+    "machine": "NvidiaTeslaT4",
+    "enable_internet": false,
+    "notebook_sha256": "2a8c65f1f45651245598f7a768213c845d54664f6c15b99a43f45fe85585b656",
+    "budget_reserved_hours": 2.0,
+    "arms": [
+      "xyonly",
+      "zon",
+      "xyd4"
+    ],
+    "parent": "repro_059 (Public LB 0.947)",
+    "on_completion": "kaggle kernels output lingxd/biohub-exp061-deepcenter-tta -p <dir>; verify exp061_deepcenter_tta_integrity_passed==true AND the xyonly arm submission sha256 byte-parity with the parent 0.947 (d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60); read mechanism{} to see if zon/xyd4 heatmaps DIFFER (verified_null vs active); reconcile GPU actual hours; then SEPARATE user auth for any LB submission of an arm (needs the arm-promotion variant notebook, competition is notebook-only). Decision vs 0.947: >=0.948 adopt, ==0.947 sub-precision null -> then B reminder (larger 0.15/0.12 safe-div move), <=0.946 revert.",
+    "caveats_open_v4_items": "v4 #2-#6 (config completeness incl short-track rescue, fail-fast, partial-run gate, per-frame view geometry, stage edge identities) remain OPEN; launched under user auth informed of this.",
+    "result": {
+      "integrity_passed": true,
+      "config_equal_frozen_parent": true,
+      "xyonly_parity_ok": true,
+      "arm_submission_sha256": {
+        "xyonly": "d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60",
+        "xyd4": "d34533806b3153ddd4f33f3bbc1dea70af2d5406bb1ea48e42c135a97c213f60",
+        "zon": "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1"
+      },
+      "mechanism": "zon ACTIVE (heatmap max_abs_delta 0.142, submission differs, +9 rows, safe-div accepted 316->318); xyd4 heatmap changed but sub-threshold -> submission == parent 0.947; xyonly == parent (control).",
+      "arms_completed": [
+        "xyonly",
+        "zon",
+        "xyd4"
+      ],
+      "gpu_actual_hours_approx": 1.0
+    },
+    "lb_submission": {
+      "arm": "zon",
+      "submission_id": 56442230,
+      "kernel": "lingxd/biohub-exp061-zon-promote v2",
+      "status": "SCORING_ERROR",
+      "submitted_at_utc": "2026-09-21T19:38:13Z",
+      "submission_sha256": "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1",
+      "vs_parent": "repro_059 0.947 (56313491)",
+      "decision_rule": ">=0.948 adopt / ==0.947 null -> option B / <=0.946 revert",
+      "error_description": "Submission Scoring Error: 'Your notebook generated a submission file with incorrect format (wrong number of rows/columns, empty values, wrong dtype, or invalid submission values).'",
+      "root_cause_hypothesis": "code-only competition re-runs the notebook at scoring; the promote kernel copies a static cached zon CSV -> mismatches the scoring rerun. (exp_060 used a FULL pipeline variant notebook, not a copy kernel -- consistent with this.) Alt: zon values genuinely invalid.",
+      "diagnostic": {
+        "kernel": "lingxd/biohub-exp061-xyonly-promote v1",
+        "submission_id": 56447637,
+        "status": "SCORING_ERROR",
+        "api_status": "SubmissionStatus.COMPLETE",
+        "public_score": null,
+        "verified_at_utc": "2026-09-22T03:53:00+00:00",
+        "error_description": "Incorrect submission format, identical to zon-copy error. Authenticated Kaggle API; no public score.",
+        "reads": "xyonly==parent 0.947 via same copy mechanism"
+      }
+    }
+  },
+  "exp061_v5_deploy": {
+    "experiment_id": "exp_061_zon_lb_submission_repair_v5",
+    "kernel": "lingxd/biohub-exp061-zon-deploy-v5",
+    "kernel_version": 1,
+    "url": "https://www.kaggle.com/code/lingxd/biohub-exp061-zon-deploy-v5",
+    "launched_at_utc": "2026-09-23T04:08:52+00:00",
+    "status": "COMPLETE_COLLECTED_AND_LB_SUBMITTED",
+    "kernel_status": "COMPLETE",
+    "runtime_seconds": 1992.1196377277374,
+    "gpu_actual_hours": 0.5533665660354826,
+    "purpose": "Fallback for the v4 LB submission 56481730, built from the post-run audit of v4. With 56481730 resolved as a hidden-rerun error and abandoned, v5 became the active LB candidate.",
+    "governance": "One-time user waiver of the Codex admission gate (review.verdict NO_PASS), same standing as the v4 run. Not a Codex PASS.",
+    "parent": "exp_061_zon_lb_submission_repair_v4 (notebook 39eba1b9, module 74e35298, both hash-locked by the builder)",
+    "notebook_sha256": "da4d933b9ab1735cd2cb5150137445925fb19602916dd0143f76b5c8afe815ac",
+    "budget_reserved_hours": 2.0,
+    "fixes": {
+      "rerun_aware_deadline": "v4 armed a hardcoded signal.alarm(7200) whose handler raises KeyboardInterrupt. v5 keeps 7200s on a visible run (our 2.0h GPU reservation) and uses 30600s (8.5h) when Kaggle sets KAGGLE_IS_COMPETITION_RERUN, with BIOHUB_EXP061_HARD_STOP_SECONDS as an override. Cell 2 and the module derive it from the same environment and the final cell refuses to publish if they disagree.",
+      "view_cache_off_output_path": "v4 wrote the disk-backed view cache to WORKING_DIR/exp061_viewcache (4272 files / 4.48 GB on the public workload), which Kaggle collects as output and charges against the 20 GB cap. v5 selects a non-collected scratch root (override -> /kaggle/temp -> platform temp -> WORKING_DIR as a last resort, reported in telemetry but not gated)."
+    },
+    "prediction_impact": "None. Same views, same accumulation order, same bytes; only the cache location and the time ceiling change. Parent inference cells 0-1 are byte-identical and every cell-2 edit is confined to # exp061-marked lines.",
+    "local_gates": "builder parity guard PASS; validate_exp061_zon_deployment_v5.py PASS (8 groups, incl. executable deadline-policy matrix over KAGGLE_IS_COMPETITION_RERUN on/off/garbage/override, scratch-root override/fallback/bad-override, a mocked end-to-end run asserting no cache under WORKING_DIR, and a new deadline-mismatch publication negative); scripts/test_exp061_behavioral.py PASS.",
+    "build_finding": "Writing the tests caught a real ordering bug in the first draft: the deadline-consistency guard sat before the adapter unlinks the parent submission.csv, so a mismatch would have left the parent 0.947 artifact on disk to be scored silently. The guard now runs after the unlink and the validator asserts that ordering.",
+    "open_items": "v4 items #2-#6 (config completeness incl. adaptive short-track rescue, fail-fast before arms, partial-run gate, per-frame view geometry, stage edge identities) remain OPEN and are inherited unchanged.",
+    "unproven": "The v2 and v4 hidden tracebacks are unavailable. v5 removes two ways a rerun can abort; it does not prove either caused the v2 failure, and a third unknown cause may remain.",
+    "on_completion": "DONE 2026-09-23T12:35Z: collected once (no polling) and audited read-only; every listed check passed. See collect_audit below and experiments/exp_061_zon_lb_submission_repair_v5/collect-audit.json.",
+    "collect_audit": {
+      "auditor": "Claude Opus 5 (read-only collection audit), 2026-09-23",
+      "verdict": "PASS",
+      "integrity_gate": "exp061_zon_deployment_integrity_passed true; 19/19 checks true",
+      "zon_sha256": "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1 (recomputed from both top-level submission.csv and exp061/submission_zon.csv; == the historical development hash AND == v4's current-run hash, confirming the resource-only changes altered no predicted value)",
+      "rows_nodes_edges": "241365 / 122813 / 118552",
+      "config_equal_frozen_parent": true,
+      "checkpoint_provenance_verified": true,
+      "views_per_frame": "16 incl. 8 Z-reflected",
+      "numerical_health": "0 nonfinite heatmaps, 0 nonfinite view logits, 0 view-cache integrity failures, run_exception null, 845 veto records accounted",
+      "fix_1_rerun_aware_deadline": "CONFIRMED on the real pipeline: is_competition_rerun false, hard_stop_seconds 7200, elapsed 1992.1 s, remaining 5207.9 s, 1200 s finalization reserve; the cell-2 vs module deadline-consistency guard did not refuse publication. The 30600 s rerun branch is exercised only by the local executable deadline matrix; a visible run cannot test it.",
+      "fix_2_view_cache_off_output_path": "CONFIRMED: view_cache_root /kaggle/temp/exp061_viewcache, view_cache_outside_working_dir true, no scratch-root fallback used, 4272 files / 4.48 GB held off the collected path. Collected kernel output fell from about 4.5 GB (v4) to 58.75 MB across 182 files with zero viewcache entries.",
+      "feasibility": "measured; zon arm 436.8 s, per-dataset 18.38-240.96 s, 267 distinct DeepCenter frames, 4272 view forwards at 0.1023 s each, peak RSS 3.42 GB",
+      "artifacts": "experiments/exp_061_zon_lb_submission_repair_v5/artifacts/ (metrics.json, telemetry, receipt, run_stats, ppsweep_selected, runtime integrity); the 12 MB CSVs and the scratch cache are not committed"
+    },
+    "lb_submission": {
+      "submission_id": 56493252,
+      "submitted_at_utc": "2026-09-23T12:35:37.380000Z",
+      "status": "COMPLETE_WITH_ERROR",
+      "resolved_at_utc": "2026-09-23T13:10:00+00:00",
+      "error_description": "Your notebook hit an unhandled error while rerunning your code. Note that the hidden dataset can be larger/smaller/different than the public dataset",
+      "outcome": "FAILED, identical to v4 and v2. The stop rule recorded before submitting fired: no v6 was built and nothing was resubmitted. User decision 2026-09-23: abandon the zon LB path entirely.",
+      "conclusion": "Both v5 scale fixes were confirmed active on the real pipeline and the predictions were byte-identical to v4, so neither the deadline nor the /kaggle/working cap was the cause. The failure is a third, unidentified property of the hidden rerun environment. The zon Z-reflection TTA decision rule against 0.947 is permanently UNRESOLVED -- it was never scored, so zon is neither confirmed nor falsified.",
+      "public_score": null,
+      "submit_method": "competition_submit_code (kernel_version=1, file_name=submission.csv)",
+      "submission_sha256": "2593a5438a17e5649736fcd6ad2f7af4c2fa8f822a759e9f51d877cdf6c840a1",
+      "attempt_number": 5,
+      "gate": "cap 5/day (authenticated), 1 used in the rolling 24h window, submissions not disabled, non-duplicate as a transport retry; allowed",
+      "user_authorized": true,
+      "user_authorization_note": "User instruction 2026-09-23: the v5 run had finished, push it to the LB, and abandon the repeatedly failing v4 submission.",
+      "review_status": "NO_CODEX_PASS; authorized by the user after the read-only collection audit, on top of the one-time build/run waiver.",
+      "baseline": "repro_059 0.947 (submission 56313491)",
+      "decision_rule": ">=0.948 adopt zon as the new parent; ==0.947 sub-precision null -> fire the ARMED option B (larger 0.15/0.12 safe-div move); <=0.946 revert. A rerun error is not a score and leaves the rule unresolved.",
+      "honest_prior": "The scale hypothesis is NOT established. v4 failed from a 32.5-min visible run with 3.7x watchdog and 4.5x disk headroom, so unless the hidden set is >=3.7x the public one, neither removed hazard explains that failure. v5 is strictly safer than v4, not proven sufficient.",
+      "on_error_next_step": "STOP resubmitting the zon transport. Do not build a v6 blind: five attempts across three distinct mechanisms will have failed and the remaining hypotheses (hidden-set shape, memory, a dependency missing in the rerun sandbox) are not addressable by another retry. Return the question to the user; a minimal instrumented probe kernel is the only cheap next option.",
+      "evidence_path": "experiments/exp_061_zon_lb_submission_repair_v5/leaderboard-submission.json"
+    },
+    "strategy_amendment": "experiments/exp_061_zon_lb_submission_repair_v5/strategy_amendment_v1.md"
+  },
+  "leaderboard_submission": "exp_062 k2 submitted 56530197, PENDING; exp_064 not yet authorized",
+  "updated_utc": "2026-09-25T00:55:00+00:00",
+  "prior_experiment_awaiting_score": {
+    "experiment_id": "exp_062_mutual_best_edge_association",
+    "state": "COLLECTING",
+    "submission_id": 56530197,
+    "status": "PENDING",
+    "note": "Still unresolved. Decision rule: >=0.948 adopt as new parent; ==0.947 CLOSE the probe; <=0.946 revert. It is also the comparator for exp_064, which was submitted before k2 resolved under an explicit, recorded waiver."
+  },
+  "exp064_result": {
+    "experiment_id": "exp_064_x138_verbatim_repro",
+    "controller_state": "EVALUATED (deployment integrity only; KEEP/REJECT deferred to the LB score)",
+    "kernel": "lingxd/biohub-exp064-x138-repro",
+    "kernel_version": 1,
+    "kernel_status": "COMPLETE",
+    "runtime_seconds": 932.2,
+    "actual_gpu_hours": 0.258944,
+    "reserved_gpu_hours": 2.5,
+    "collected_once": true,
+    "adapter_exit_code": 0,
+    "checks_passed": 25,
+    "failures": [],
+    "submission_sha256": "d52a5da2ae5cb0d1b22499f6ca51a00838a6c32ae9a1986ec756ea72e7909e03",
+    "rows": 238260,
+    "differs_from_parent": true,
+    "differs_from_exp062_k2": true,
+    "v1284_patched": true,
+    "v1284_no_runtime_error": true,
+    "leaderboard_submission_id": 56535761,
+    "leaderboard_status": "PENDING",
+    "public_score": null,
+    "evidence": "experiments/exp_064_x138_verbatim_repro/collection/",
+    "quality_evidence": "NONE until 56535761 scores. The author's rank-62 0.956 is not inherited."
+  },
+  "x138_runtime_selector_correction": {
+    "recorded_at_utc": "2026-09-25T00:55:00+00:00",
+    "status": "MEASURED, from our own kernel log -- not inferred",
+    "finding": "x138 ships BIOHUB_VALIDATOR_ENABLE=0. Log: 'VALIDATOR: disabled (BIOHUB_VALIDATOR_ENABLE=0).' then 'SWEEP: validator unavailable -- keeping the base configuration.' then 'Keeping the base submission.csv (public 0.939 configuration).' ppsweep_selected.json: selected=base, overrides {}, held_out_stems [], base_proxy null.",
+    "supersedes": "Any plan that treats x138's inference-time post-process sweep as a source of free telemetry, or that treats runtime re-selection as a threat to the interpretability of single-knob variants on x138. Both were written before the run and both are wrong for x138 as configured.",
+    "verified_but_moot": "Read directly from the archived notebook and confirmed, but it never executes in x138's own configuration: cell 0:63 overrides the sweep margin to 0.001; cell 10:33-49 also scores a COMBINATION of individually-positive candidates at +0.0005; cell 10:99-108 REWRITES submission.csv with the selected configuration. If BIOHUB_VALIDATOR_ENABLE is ever turned on, all of that becomes live again.",
+    "new_arm_it_creates": "BIOHUB_VALIDATOR_ENABLE=1 on x138 is now a one-line arm with a real hypothesis: switch on the self-tuning the author disabled. It costs the held-out validator inference and would change the output."
+  },
+  "density_argument_downgrade": {
+    "recorded_at_utc": "2026-09-25T00:55:00+00:00",
+    "status": "WITHDRAWN as directional evidence; retained as motivation only",
+    "what_still_stands": "docs/research/test_density_measurement_2026-09-24.md measured, on our own output and with zero GPU, that the four hidden-test movies run at 62.2 / 195.2 / 257.3 / 697.5 nodes per frame (exp_064's own figures; the k1 figures were 61.5 / 207.3 / 256.4 / 702.9). Density spans ~11x. Our global tight55 was selected as a single value over 8 mixed-density held-out train movies. That makes the global constant QUESTIONABLE.",
+    "what_is_withdrawn": [
+      "That this establishes the constant is MISTUNED. Predicted nodes per frame is not an optimal relink radius.",
+      "That it supports the direction 5.5 -> 6.5. It supports no direction.",
+      "That density adaptation is a mechanism class untouched by x138. FALSE: x138 ships BIOHUB_GAP_DENSITY_ADAPTIVE=1 (local-spacing-adaptive gap closing) and uses a separate 7.0 um flow gate whenever a flow field exists, with 5.5 only on the non-flow path. Any tight_um arm must first show the non-flow path carries consequential decisions.",
+      "That 'not in the _EXPECTED_NUMERIC drift guard' means a knob is effective. It means only that the guard will not reject it."
+    ],
+    "source": "Codex challenge round 1, 2026-09-24, independently re-verified against the notebook by Claude."
+  },
+  "strategy_state_2026_09_24_late": {
+    "budget_ruling": "USER 2026-09-24 (late stage): treat GPU as 20 h with ALL limits released (no 6 h reserve, no 4 h per-experiment ceiling), and raise the daily LB cap from the project's 3 to the platform's 5. GPU_BUDGET.json and SUBMISSION_BUDGET.json updated accordingly. Remaining after exp_064: 19.741056 h.",
+    "binding_constraint": "NO LONGER GPU. At exp_064's measured 0.259 h, 19.74 h buys dozens of x138-class runs, and ~120 h of calendar comfortably fits them serially. What actually limits us is EVIDENCE QUALITY and PUBLIC-LB OVERFITTING RISK.",
+    "public_lb_discipline": "~25 remaining submission slots can overfit the Public LB; more slots do not improve the signal's statistical quality. Freeze small batches before reading their scores, record every result, require local corroboration for small gains, always preserve a robust baseline, and do not treat unused slots as wasted.",
+    "codex_challenge_rounds": [
+      "Round 1 (repo-audited): four notebook claims, all independently re-verified by Claude and all correct -- sweep margin 0.001, combination candidate, submission rewrite, GAP_DENSITY_ADAPTIVE=1. Density argument downgraded.",
+      "Round 2 (NOT repo-audited -- Codex's file access failed, it reasoned from supplied evidence): corrected Claude's throughput arithmetic (8 runs x 2.5 h = 20 execution hours against ~120 calendar hours, so serial execution was never the ceiling and concurrency is not the key unknown); rejected tiering admission by authored line count and reframed it as tiering by semantic risk with reusable regression fixtures -- five defect-finding rounds mean the admission MATERIALS were defective, not that the review was excessive; and cut the pre-allocated env-var variant runs, requiring each slot to be earned."
+    ],
+    "next_steps_ranked": [
+      "ZERO GPU, authorized: LB mining for authenticated >=0.956 teams with published, mechanism-checkable notebooks.",
+      "Resolve 56535761 and 56530197; they decide the parent.",
+      "Single-knob arms on x138 ONLY once each earns its slot. Now cleanly interpretable because the runtime selector is inert. Candidates include BIOHUB_VALIDATOR_ENABLE=1 and MOTION_RELINK_FLOW_TIGHT_UM (the gate that is actually active when flow exists).",
+      "Porting exp_062 mutual-best onto x138 only if k2 >= 0.948, and only after a semantic overlap check: x138 already ships BIDIRECTIONAL_FUSION_MODE=harmonic_probability with reverse-time edge weight 0.15, so additivity must not be assumed.",
+      "A measurement run (spend GPU to learn rather than to score) is now affordable and was not before."
+    ]
   }
 }

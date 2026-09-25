@@ -1,0 +1,40 @@
+{
+  "created_at": "2026-09-23T04:06:28+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v5/snapshot/config.yaml",
+      "sha256": "15547a2aa2d5d3a03a0468b7a9e8aad0269b9bff9ed6555a41b8cefc6314229e"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v5/snapshot/source/exp061_zon_submission_repair_v5.ipynb",
+      "sha256": "da4d933b9ab1735cd2cb5150137445925fb19602916dd0143f76b5c8afe815ac"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v5/snapshot/extra_files/build_exp061_zon_submission_repair_v5.py",
+      "sha256": "c92a695436e4c068bfadb785b9235ea02be0a0e3c9a615ff168d65897ae6a959"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v5/snapshot/extra_files/exp061_zon_deployment_v5.py",
+      "sha256": "99c71fa15fc999a7f52c234caf2ec758c8fcb6ff120e99dbe3381beb536f68bb"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v5/snapshot/extra_files/validate_exp061_zon_deployment_v5.py",
+      "sha256": "3b592d93f5d1490ea55acd1c14f49decb074bcd4123fe0383a5dfa251fe193b2"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v5/snapshot/extra_files/exp061_zon_submission_repair_v4.ipynb",
+      "sha256": "39eba1b92c79739b324009a274336672fa098e8f11c4edf1e16c16da6be08290"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_061_zon_lb_submission_repair_v5/snapshot/extra_files/exp061_zon_deployment_v4.py",
+      "sha256": "74e3529856694130bf5990b8796db21d9c730b8bcc5f7d09a2fc219f4e23efb8"
+    }
+  ]
+}

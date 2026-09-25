@@ -1,0 +1,9 @@
+{
+  "source_sha256": "45d756b7585f171e4f590eec04be54277ef525c3b63790f04f025f7d0c548178",
+  "output_sha256": "35aa6d61c543a891da5649ed48722938e10b4ca240a31d3c3e4360c3ccd39123",
+  "transform": "deterministic textual patch set in scripts/build_exp061_zon_deployment_module.py",
+  "run_entrypoint": "run_exp061_zon_deployment",
+  "expected_arms": [
+    "zon"
+  ]
+}
