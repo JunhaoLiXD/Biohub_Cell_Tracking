@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "timezone": "America/New_York",
-  "max_submissions_per_day": 3,
-  "max_submissions_per_day_source": "PROJECT RULE (AGENTS.md): three submissions per America/New_York calendar day. This is stricter than the platform limit and therefore governs. The authenticated Kaggle competitions_list max_daily_submissions is 5 (verified 2026-09-23T12:34:55Z) and is recorded separately as platform_max_daily_submissions; a 2026-09-23 edit wrongly replaced the project rule with the platform fact and is corrected here.",
+  "max_submissions_per_day": 5,
+  "max_submissions_per_day_source": "USER RULING 2026-09-24 (late stage): the project's stricter 3/day rule is lifted; the cap is now the platform cap of 5 per America/New_York day. Prior source text retained below for provenance. PRIOR: PROJECT RULE (AGENTS.md) three per America/New_York calendar day.",
   "competition_deadline": "2026-09-29 23:59:00",
   "submissions": [
     {
@@ -491,6 +491,47 @@
       },
       "decision_rule": ">=0.948 adopt as new parent; ==0.947 CLOSE the probe (equality cannot distinguish cancellation, unannotated changes or rounding, so it does not license a larger beta); <=0.946 revert and keep repro_059 0.947",
       "rationale": "User-authorized single LB probe of the exp_062 candidate. First intervention in this arc placed UPSTREAM of the ILP solve and the first to target the ~85-90%-weighted edge term rather than the 0.1-weighted division term. Competition is notebook-only; kernel version 2's own submission.csv IS the candidate arm.",
+      "public_score": null,
+      "score_source": "pending_authenticated_kaggle_submission_history"
+    },
+    {
+      "local_date": "2026-09-24",
+      "gate_checked_at_utc": "2026-09-25T00:47:17.167382+00:00",
+      "submitted_at_utc": "2026-09-25T00:44:57.010000Z",
+      "competition": "biohub-cell-tracking-during-development",
+      "submission_id": 56535761,
+      "experiment_id": "exp_064_x138_verbatim_repro",
+      "kernel": "lingxd/biohub-exp064-x138-repro",
+      "kernel_version": 1,
+      "file_name": "submission.csv",
+      "submission_sha256": "d52a5da2ae5cb0d1b22499f6ca51a00838a6c32ae9a1986ec756ea72e7909e03",
+      "status": "PENDING",
+      "submit_method": "competition_submit_code (kaggle competitions submit -k lingxd/biohub-exp064-x138-repro -v 1 -f submission.csv)",
+      "gate_verdict": {
+        "allowed": true,
+        "cap": 5,
+        "remote_today": 1,
+        "local_today": 1,
+        "used": 1,
+        "remaining": 4,
+        "duplicate": false
+      },
+      "remote_history_checked_before_submit": true,
+      "platform_remaining_reported_at_submit": 4,
+      "duplicate_probe": false,
+      "user_authorized": true,
+      "arm": "x138 byte-verbatim reproduction (zero authored code)",
+      "byte_parity": "Output sha d52a5da2 DIFFERS from parent d3453380 and from exp_062 k2 ba9431c1; the no-information duplicate rule did not fire. Adapter checks differs_from_parent and differs_from_exp062_k2 both true.",
+      "integrity": "scripts/collect_exp064_x138.py exit 0, x138_repro_integrity_passed true, 25/25 checks, failures []. v1284_patched true, v1284_no_runtime_error true, v1284_mode_candidate true. 238260 rows, 4/4 test videos, 0 dangling edges, 0 backward/self-loop edges, 0 non-adjacent edges. Checkpoints: deepcenter 8040999a, primary 12f6881e, secondary 9bac2fa0. Measured runtime 932.2 s (kernel_elapsed_seconds).",
+      "runtime_selector_state": "INERT. The notebook ships BIOHUB_VALIDATOR_ENABLE=0, so the validator never ran, ppsweep_selected.json records selected=base with held_out_stems [] and base_proxy null, and the log reads 'SWEEP: validator unavailable -- keeping the base configuration.' The submitted output is x138's BASE configuration; its inference-time self-tuning never engaged. This was NOT known before the run.",
+      "baseline_for_comparison": {
+        "experiment_id": "repro_059_public_0947_exact_copy",
+        "submission_id": 56313491,
+        "public_score": 0.947,
+        "note": "Comparator is max(0.947, exp_062 k2 56530197). k2 was STILL PENDING at submit time; the user authorized this submission anyway and the 5/day cap removes the scarcity reason for waiting."
+      },
+      "decision_rule": "The author is authenticated at rank 62 / 0.956, but that is THEIR score on THEIR pipeline and is not inherited. >= 0.953 would put us near the rank-200 cutoff and makes x138 the new parent; 0.948-0.952 is a real gain over 0.947 and still adopts; ~0.947 means the reproduction carries no advantage over our own parent; < 0.947 rejects it.",
+      "rationale": "User-authorized LB probe. exp_064 completed COMPLETE; collected once; the adapter exit code was the submission gate and returned 0. Competition is notebook-only; kernel version 1's own submission.csv IS this arm.",
       "public_score": null,
       "score_source": "pending_authenticated_kaggle_submission_history"
     }

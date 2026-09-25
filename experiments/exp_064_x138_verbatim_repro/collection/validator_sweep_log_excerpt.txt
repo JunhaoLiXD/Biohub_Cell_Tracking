@@ -1,0 +1,5 @@
+11:,{"stream_name":"stdout","time":8.240677655,"data":"Configuration guard: PASS\n"}
+2103:,{"stream_name":"stdout","time":941.954615141,"data":"VALIDATOR: disabled (BIOHUB_VALIDATOR_ENABLE=0).\n"}
+2125:,{"stream_name":"stdout","time":942.125053097,"data":"VALIDATOR: disabled or no held-out samples available -- skipping scoring.\n"}
+2126:,{"stream_name":"stdout","time":942.325387844,"data":"SWEEP: validator unavailable -- keeping the base configuration.\n"}
+2127:,{"stream_name":"stdout","time":942.325421635,"data":"Keeping the base submission.csv (public 0.939 configuration).\n"}

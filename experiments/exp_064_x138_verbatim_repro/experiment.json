@@ -2,7 +2,7 @@
   "schema_version": 1,
   "experiment_id": "exp_064_x138_verbatim_repro",
   "parent": "repro_059_public_0947_exact_copy",
-  "state": "SUBMITTED",
+  "state": "EVALUATED",
   "hypothesis": "A VERBATIM reproduction of anvithpothula/biohub-x138, run under our own account with the same four mounted datasets and the same pinned docker image, scores strictly above our incumbent comparator on the Public LB. Comparator is max(0.947, exp_062 k2 submission 56530197), resolved BEFORE any submission. The author is authenticated at rank 62 / 3888 with score 0.956 (full LB download 2026-09-24T20:03:35) and the notebook claims no score at all. That rank is evidence the AUTHOR is strong; per the admission review it establishes NO expected score for this reproduction, and in particular no floor of 0.947 -- this pipeline is not our parent and may score below it. Outcome is genuinely unknown until measured.\n",
   "change": {
     "component": "whole_pipeline_reproduction_no_authored_code",
@@ -19,7 +19,10 @@
   "validation_protocol": "x138_verbatim_repro_v1",
   "budget": {
     "expected_gpu_hours": 2.5,
-    "reserved": true
+    "reserved": false,
+    "actual_gpu_hours": 0.258944,
+    "actual_source": "kernel_elapsed_seconds 932.2 from the confirmed COMPLETE run",
+    "note": "Drew ~10 percent of the 2.5 h reservation. Reservation released and reconciled in GPU_BUDGET.json. Hypothesis for the gap, not a measurement: x138 ships BIOHUB_VALIDATOR_ENABLE=0 and therefore skips the held-out validator inference and post-process sweep that our own parent pipeline runs over 8 train movies; our comparable runs cost 1.73-2.0 h."
   },
   "review": {
     "required": true,
@@ -42,7 +45,7 @@
     "exit_code": 0
   },
   "created_at": "2026-09-24T20:33:27+00:00",
-  "updated_at": "2026-09-24T20:35:55+00:00",
+  "updated_at": "2026-09-25T00:50:00+00:00",
   "state_history": [
     {
       "from": "PROPOSED",
@@ -67,13 +70,26 @@
       "to": "SUBMITTED",
       "at": "2026-09-24T20:36:37.785660+00:00",
       "note": "x138 verbatim repro launched after Codex PASS (round 5) and smoke PASS; watchdog armed."
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-25T00:40:00+00:00",
+      "note": "Kernel reached COMPLETE; collected ONCE into the session scratchpad."
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-25T00:50:00+00:00",
+      "note": "scripts/collect_exp064_x138.py exit 0, 25/25 checks, failures []. EVALUATED covers DEPLOYMENT INTEGRITY ONLY; the KEEP/REJECT decision is deferred until Public LB submission 56535761 scores."
     }
   ],
   "remote": {
     "kernel_id": "lingxd/biohub-exp064-x138-repro",
     "submitted_at": "2026-09-24T20:35:55+00:00",
-    "status": "SUBMITTED",
-    "last_checked_at": null
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-25T00:38:00+00:00",
+    "terminal_state_confirmed": true
   },
   "launch": {
     "kernel": "lingxd/biohub-exp064-x138-repro",
@@ -93,5 +109,58 @@
     "watchdog_armed": true,
     "watchdog": "Monitor task b1zyy1022, armed 2026-09-24T20:36Z. Polls kernel status every 5 min; tolerates query failures and queued/initializing states without firing; fires on a terminal state (COMPLETE/ERROR/CANCELLED) or at 2h15m. Monitor sessions expire after 30 min and must be RE-ARMED until the kernel terminates -- an expiry notice is not a terminal state.",
     "on_completion": "Collect ONCE, then run `python scripts/collect_exp064_x138.py <dir>`. Its exit code gates the submission: 0 = may submit with separate user authorization; non-zero = DO NOT submit. Reconcile actual GPU hours from confirmed termination, never a nominal figure."
+  },
+  "collection": {
+    "collected_at_utc": "2026-09-25T00:40:00+00:00",
+    "collected_once": true,
+    "adapter": "scripts/collect_exp064_x138.py",
+    "adapter_exit_code": 0,
+    "x138_repro_integrity_passed": true,
+    "checks_passed": 25,
+    "failures": [],
+    "evidence_dir": "experiments/exp_064_x138_verbatim_repro/collection/",
+    "submission_sha256": "d52a5da2ae5cb0d1b22499f6ca51a00838a6c32ae9a1986ec756ea72e7909e03",
+    "rows": 238260,
+    "test_videos_discovered": 4,
+    "differs_from_parent": true,
+    "differs_from_exp062_k2": true,
+    "v1284": {
+      "patched": true,
+      "runtime_error": false,
+      "mode_candidate": true
+    },
+    "graph_integrity": {
+      "dangling_edges": 0,
+      "backward_or_selfloop_edges": 0,
+      "non_adjacent_edges": 0
+    },
+    "primary_metric": 1.0,
+    "primary_metric_meaning": "deployment integrity; NO quality inference",
+    "quality_evidence": "NONE. Quality is decided solely by Public LB submission 56535761."
+  },
+  "runtime_selector_finding": {
+    "severity": "CORRECTS THE STRATEGY MODEL BUILT BEFORE THE RUN",
+    "observed": "The x138 notebook ships BIOHUB_VALIDATOR_ENABLE=0. The kernel log reads 'VALIDATOR: disabled (BIOHUB_VALIDATOR_ENABLE=0).' then 'SWEEP: validator unavailable -- keeping the base configuration.' and 'Keeping the base submission.csv'. ppsweep_selected.json records selected=base, held_out_stems [], base_proxy null, overrides {}.",
+    "consequences": [
+      "NO free sweep telemetry exists. The pre-run plan to read ppsweep_results.csv / validator_stats.csv and choose the next knob from them yields NOTHING; those files were never written.",
+      "x138 as run is a DETERMINISTIC SINGLE-POLICY pipeline. There is no runtime re-selection of post-process configuration. This REMOVES the reviewer's main interpretability objection to single-knob variants on x138: a one-variable change is now a clean one-variable experiment.",
+      "BIOHUB_VALIDATOR_ENABLE=1 becomes a well-motivated one-line arm in its own right -- it would switch on the author's own disabled self-tuning. It costs the validator inference and would change the output.",
+      "The submitted artifact is x138's BASE configuration. The log's 'public 0.939 configuration' string is the author's own stale annotation of that base; it is NOT evidence of an expected score, but if 56535761 returns ~0.939 that string is the likely explanation."
+    ],
+    "verified_notebook_behaviour_when_the_sweep_DOES_run": "Verified by reading the archived notebook, but MOOT for this run: cell 0:63 overrides BIOHUB_PPSWEEP_SELECT_MARGIN to 0.001; cell 10:33-49 also scores a COMBINATION of individually-positive candidates at +0.0005; cell 10:99-108 REWRITES submission.csv with the selected configuration and writes the selected overrides back into os.environ. The CPU cost is low because score_validator_config() reuses cached VAL_RAW_GRAPHS and re-runs post-processing only; the GPU cost is one inference pass over the held-out stems (BIOHUB_VALIDATOR_N_PER_TYPE=4 per embryo-type prefix)."
+  },
+  "leaderboard_submission": {
+    "submission_id": 56535761,
+    "status": "PENDING",
+    "public_score": null,
+    "score_source": "pending_authenticated_kaggle_submission_history",
+    "submitted_at_utc": "2026-09-25T00:44:57.010000Z",
+    "kernel": "lingxd/biohub-exp064-x138-repro",
+    "kernel_version": 1,
+    "user_authorized": true,
+    "gate": "Adapter exit 0 AND byte-differs from both d3453380 and ba9431c1 AND user authorization AND remote cap check. All met.",
+    "gate_item_waived": "The pre-registered gate also asked that exp_062 k2's score be resolved first, because the comparator is max(0.947, k2). k2 (56530197) was STILL PENDING at submit time. This is an INTERPRETATION gate, not a safety gate, and the user's 2026-09-24 ruling raising the cap to 5/day removed the scarcity reason for waiting. The user authorized the submission explicitly. Recorded as a waiver, not as a pass.",
+    "comparator": "max(0.947, exp_062 k2 56530197) -- still unresolved",
+    "decision_rule": ">=0.953 near the rank-200 cutoff, adopt x138 as the new parent; 0.948-0.952 a real gain over 0.947, adopt; ~0.947 the reproduction carries no advantage over our own parent; <0.947 reject. The author's rank-62 0.956 is THEIR score on THEIR pipeline and is NOT inherited."
   }
 }
