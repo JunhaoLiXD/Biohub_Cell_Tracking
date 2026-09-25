@@ -1,4 +1,4 @@
-# Session Handout — updated 2026-09-25T00:55Z
+# Session Handout — updated 2026-09-25T02:00Z
 
 Purpose: hand the current state to the next session AND to the user. Read this FIRST, then
 `STATE.json`, then the active `experiments/exp_064_x138_verbatim_repro/` record.
@@ -30,10 +30,77 @@ themselves (see the selector finding below).
 
 **exp_062 k2 decision rule** (unchanged): ≥0.948 adopt · ==0.947 close the probe · ≤0.946 revert.
 
-**The one authorized zero-GPU work item while waiting:** LB mining. From the 3888-row download, find
-authenticated teams at ≥0.956 who have published notebooks, then **read each notebook's mechanism**.
-A team's score does **not** authenticate any particular public notebook — that is the DivNet lesson,
-and it is the single most expensive mistake this project nearly made.
+**LB mining is DONE** (2026-09-25, zero GPU, zero submissions) and it found the strongest candidate
+this project has had. Full write-up: `docs/research/lb_mining_2026-09-25.md`. Summary below under
+"The candidate". **The next step there is a PROPOSAL, not a launch** — strategy record → fresh
+experiment-specific Codex admission PASS → snapshot smoke → explicit user authorization, in that
+order.
+
+---
+
+## The candidate: `thtennant/biohub-frontier947-readmit-v1`
+
+**x138 = readmit-v1 + the V1284 head, and nothing else.** Established by direct comparison, not
+inference:
+
+| | `readmit-v1` — thtennant, **rank 37 / 0.959** | `x138` — anvithpothula, rank 67 / 0.956 |
+|---|---|---|
+| env config | **identical across all 87 `BIOHUB_*` keys** | identical |
+| source | **strict subset** — 0 lines absent from x138 | + exactly **34 lines** |
+| those 34 lines | — | V1284 head install + preserving refined coords past an `int16` cast |
+| datasets | **the 3 Pilkwang checkpoints we already mount** | same 3 **+** `biohub-v1284-head-s075` |
+| sha256 | `241459fc7342faad…` | `6b655e39bbfd2d3d…` |
+
+x138's own comments confirm the lineage: it cites `agent/frontier943_flow2`,
+`agent/frontier947_readmit`, `agent/frontier947_gapfill` — precisely thtennant's arm names.
+
+**Why it is the strongest candidate.** exp_064 already submitted x138 (`56535761`, pending), so
+running readmit-v1 is a **matched single-mechanism A/B on the Public LB** at ~0.26 GPU h — the
+cleanest causal isolation this project has ever had access to — and it carries **no third-party
+weights of unverifiable provenance**, which was exp_064's one accepted risk.
+
+⚠ **Hypothesis, not evidence.** thtennant is rank 37 without the head; anvithpothula is rank 67 with
+it. That is *suggestive* that the V1284 head is not the win and may be a loss. It is not evidence:
+different teams, different unshared work, **eleven** published notebooks with no way to know which
+produced 0.959, and a team's authenticated score never authenticates a particular notebook they
+published. The A/B settles it for *our* pipeline, which is the only thing that matters.
+
+### The rest of the ladder (all on our existing 3 checkpoints)
+
+```
+fast-v1 (base, 61 env keys)
+ ├─ fast-det096-v1          DET_THRESHOLD 0.965 -> 0.96
+ ├─ fast-tight60-v1         MOTION_RELINK_TIGHT_UM 5.5 -> 6.0     <- single variable
+ ├─ fast-det096-tight60-v1  both
+ ├─ flow2-v1                + 13 neighborhood-flow keys (FLOW_GATE=1, FLOW_TIGHT_UM=7.0)
+ │   ├─ flow2-det096-v1
+ │   └─ gapfill-v1          + 10 gapfill / cache / lowdet keys
+ │       ├─ gapfill-det096-v1
+ │       ├─ divprec-v1      + SAFE_DIV_SISTER_SYMMETRY_TAU 0.6 -> 0.4
+ │       └─ readmit-v1      + READMIT_RADIUS_UM=4, READMIT_MIN_SCORE=0.965   (87 keys)
+```
+
+**The top of the board publishes nothing usable.** Of ranks 1–16, only two users have any public
+notebook in this competition and neither is current or above 0.947. The **0.96+ band remains
+unexplained by public work**; the 0.956–0.959 band is now fully accounted for — it is this ladder.
+
+### Two free findings from the same pass
+
+1. x138's author documents that their V1284 patch and readmit's patch **anchor on the same line**.
+   In an earlier ordering theirs ran first, readmit's anchor count went to 0, the exception was
+   swallowed as non-fatal, the low-detection dump was never written, and every movie logged "gap
+   filler idle". They reordered to fix it. **Fourth instance in this project's recon of the same
+   failure mode: present, correct, fully-wired machinery that silently does nothing.** To their
+   credit, they caught it in their own logs.
+2. On `tight_um`: thtennant built a **dedicated single-variable notebook** for 5.5 → 6.0, and our own
+   `repro_059` sets **6.0 statically** with the PP-sweep re-selecting `tight55` at runtime (the
+   frontier947 family sets 5.5 statically and disables the sweep, reaching the same effective value
+   by another route). Neither restores the withdrawn directional claim — we still have no score for
+   any tight60 arm — but a stronger team thought the lever worth isolating.
+
+**Method note, worth reusing:** the leaderboard CSV carries `TeamMemberUserNames`, which resolves
+team-name ≠ username matching exactly. Competition-wide kernel paging is unreliable (`-p 1` returned
+2 rows, `-p 2` returned 20); query **per user** instead.
 
 ---
 
@@ -52,7 +119,7 @@ and it is the single most expensive mistake this project nearly made.
 | evidence | `experiments/exp_064_x138_verbatim_repro/collection/` |
 
 `primary_metric: 1.0` means **deployment integrity only**. It carries **no** quality inference. The
-author's rank-62 0.956 is their score on their pipeline and is **not inherited**.
+author's rank-67 0.956 is their score on their pipeline and is **not inherited**.
 
 **A recorded waiver.** The pre-registered gate also required that k2's score be resolved first,
 because the comparator is `max(0.947, k2)`. k2 was still PENDING. That is an *interpretation* gate,
@@ -136,30 +203,41 @@ unused slots as wasted.
 
 ## Where we stand
 
-Full authenticated LB download, 3888 teams, `2026-09-24T20:03:35`:
+Full authenticated LB download, **3894 teams**, `2026-09-25T01:45:42`:
 
-| rank | 1 | 10 | 50 | 100 | 200 | 300 |
-|---|---|---|---|---|---|---|
-| score | 0.975 | 0.967 | 0.957 | 0.954 | **0.953** | 0.950 |
+| rank | 1 | 10 | 25 | 50 | 100 | 200 | 300 |
+|---|---|---|---|---|---|---|---|
+| score | 0.975 | 0.967 | 0.962 | 0.958 | 0.954 | **0.953** | 0.953 |
 
-Our 0.947 is **rank ~478 of 3888**. The rank-200 cutoff moved 0.949 → 0.953 in one day. The gap is
-**0.006**. Record: `docs/research/leaderboard_recon_2026-09-24.md`.
+Our 0.947 is **rank ~533 of 3894** — 532 teams strictly above us. The gap to the top 200 is
+**0.006**.
+
+⚠ **The board is moving fast and against us.** In roughly six hours on 09-24/25 our rank went
+**~478 → ~533**, and rank 300 went 0.950 → 0.953. The day before, the rank-200 cutoff moved
+0.949 → 0.953. Any plan quoting a rank more than a few hours old is quoting a stale number.
+Records: `docs/research/lb_mining_2026-09-25.md`, `docs/research/leaderboard_recon_2026-09-24.md`.
 
 ---
 
 ## Next steps, ranked
 
-1. **Zero GPU, authorized now:** LB mining (above).
-2. **Resolve the two pending scores.** They decide the parent. Everything downstream waits on them.
-3. **Single-knob arms on x138 — each must earn its slot** with an active-path check, a named failure
-   mechanism, and a predicted measurable effect. No pre-allocated run budget. Candidates:
-   `BIOHUB_VALIDATOR_ENABLE=1`, `MOTION_RELINK_FLOW_TIGHT_UM` (the gate actually active when flow
-   exists).
-4. **Port exp_062 mutual-best onto x138** only if k2 ≥ 0.948, and only after a semantic overlap
-   check — x138 already ships `BIDIRECTIONAL_FUSION_MODE=harmonic_probability` with reverse-time
+1. ~~LB mining~~ — **done**, 2026-09-25. See "The candidate" above.
+2. **Write the readmit-v1 proposal.** This is the live work item. A verbatim reproduction of
+   `thtennant/biohub-frontier947-readmit-v1`, framed as the **matched control for exp_064**: same
+   87-key configuration, same three checkpoints, minus the V1284 head. Falsifiable and cheap
+   (~0.26 GPU h). **Proposal → fresh experiment-specific Codex admission PASS → snapshot smoke →
+   explicit user authorization.** Nothing launches before all four.
+3. **Resolve the two pending scores.** They decide the parent, and they also set what the A/B means:
+   readmit-v1's score is read against exp_064's, not against 0.947 alone.
+4. **Single-knob arms — each must earn its slot** with an active-path check, a named failure
+   mechanism, and a predicted measurable effect. No pre-allocated run budget. The ladder above is
+   now a menu of *pre-built, already-published* single-variable arms (`tight60`, `det096`,
+   `divprec`), which is strictly better than knobs we invent.
+5. **Port exp_062 mutual-best** only if k2 ≥ 0.948, and only after a semantic overlap check — the
+   frontier947 base already ships `BIDIRECTIONAL_FUSION_MODE=harmonic_probability` with reverse-time
    edge weight 0.15, so additivity must **not** be assumed. k2's evidence belongs to *its own*
    parent.
-5. **A measurement run** — spending GPU to learn rather than to score — is now affordable and was
+6. **A measurement run** — spending GPU to learn rather than to score — is now affordable and was
    not before.
 
 ## Governance notes from this arc
@@ -201,8 +279,11 @@ right there in the notebook. One environment variable made all of it dead code.
 - **exp_064:** `experiments/exp_064_x138_verbatim_repro/` — `experiment.json`, `review.md` (the
   5-round PASS), `collection/` (metrics, ppsweep record, log excerpt), `kaggle_kernel/`.
 - **Collection adapter:** `scripts/collect_exp064_x138.py` — the submission gate.
-- **Archived third-party notebooks (with hashes):** `docs/research/public_notebook_archive/`.
-- **Recon:** `docs/research/leaderboard_recon_2026-09-24.md` (current) supersedes the standings in
+- **Archived third-party notebooks (with hashes):** `docs/research/public_notebook_archive/` — now
+  also holds `biohub-frontier947-readmit-v1.ipynb` (the candidate), `-fast-v1` (its base),
+  `-fast-tight60-v1`, and `SHA256SUMS_frontier947_series.txt` covering all 11 pulled arms.
+- **Recon:** `docs/research/lb_mining_2026-09-25.md` (current, the ≥0.956 cohort sweep) and
+  `docs/research/leaderboard_recon_2026-09-24.md` (standings). Both supersede
   `public_frontier_recon_2026-09-23.md` (stale).
 - **Density measurement:** `docs/research/test_density_measurement_2026-09-24.md` — read it together
   with correction #2 above, which downgrades its conclusion.
