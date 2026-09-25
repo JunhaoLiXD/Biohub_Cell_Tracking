@@ -271,6 +271,14 @@ right there in the notebook. One environment variable made all of it dead code.
 - Claude must **never** play the Codex reviewer role.
 - English only for code, notebooks, configs and technical docs. Never `git add -f` `.kaggle/` or
   `.private/`.
+- **Git: work on `main` and push to `main`** (user ruling 2026-09-25; the old feature-branch flow via
+  PRs is retired). ⚠ **The GitHub repo is PUBLIC.** The LB mining recon — commits `e4f8c4a` and
+  `972e812`, plus their merge — is **deliberately held back from the remote until the competition
+  closes 2026-09-29 23:59**, because it names an un-run candidate. Local `main` carries it; remote
+  `main` stops at `e8f233c`. A `.git/hooks/pre-push` guard blocks any push that would publish them;
+  push the safe prefix explicitly (`git push origin <safe-commit>:refs/heads/main`), or after the
+  deadline override deliberately with `ALLOW_RECON_PUSH=1 git push origin main`. Before pushing
+  anything new, check whether it discloses un-run strategy.
 - Regenerate the checkpoint block with `python scripts/render_checkpoint.py` after editing
   `STATE.json`; never hand-edit that block.
 
