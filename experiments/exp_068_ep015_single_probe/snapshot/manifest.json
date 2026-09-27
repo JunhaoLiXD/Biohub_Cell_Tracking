@@ -1,0 +1,40 @@
+{
+  "created_at": "2026-09-27T02:17:34+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_068_ep015_single_probe/snapshot/config.yaml",
+      "sha256": "fa1265179a569aaae14e323e4c8163656da2a3b5aa8d3ef867eda273c1e66c15"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_068_ep015_single_probe/snapshot/source/biohub-exp068-ep015.ipynb",
+      "sha256": "4dfc2bb121d67a47ddefd75a25c5559df7dc58e202ddaa1efb1bd9a98100555f"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_068_ep015_single_probe/snapshot/extra_files/build_exp068_probe.py",
+      "sha256": "67848b8dedd1a8b9668cd77c6fcff6c7ba4b3b838e1e3b98683b86dacccfbbeb"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_068_ep015_single_probe/snapshot/extra_files/exp068_build_support.py",
+      "sha256": "b6d34a8c581e8e28392d865686f53bef3d008dec828ddb2924794cdfc734fa39"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_068_ep015_single_probe/snapshot/extra_files/exp068_contract.py",
+      "sha256": "b6be3a42e66a134502cdded9d3846d64a704e3864a01cba2f38da7c504fe1faa"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_068_ep015_single_probe/snapshot/extra_files/smoke_exp068.py",
+      "sha256": "93e8fb4176ef85c51048e6d7cb13031557d6d67eac1e7ab0de03e19e1bf7e063"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_068_ep015_single_probe/snapshot/extra_files/audit_exp068_collection.py",
+      "sha256": "4109407aa8a83b4bb4c78d1e921768cdf3a50c7bc8aa3111269a3a4b9463e882"
+    }
+  ]
+}

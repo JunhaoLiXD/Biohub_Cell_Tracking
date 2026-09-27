@@ -1,0 +1,20 @@
+﻿{
+  "experiment_id": "exp_067_temporal_joint_lineage",
+  "state": "LOCAL_IMPLEMENTATION_TESTED_REMOTE_NOT_ADMITTED",
+  "parent": "exp_064_x138_verbatim_repro",
+  "parent_public_lb": 0.953,
+  "hypothesis": "Learned multi-frame context and joint continuation/division decoding can recover lineage links blocked by the parent's staged postprocessing.",
+  "authorization": "User selected option 1 and explicitly requested Claude Code implementation; local design, implementation and validation authorized.",
+  "remote_launch_authorized": true,
+  "remote_trial": "exp_067a_temporal_feature_export; explicit user instruction to run on Kaggle; awaiting mandatory admission",
+  "leaderboard_submission_authorized": false,
+  "admission": {"require_codex_review": true, "reviewer_provider": "codex", "status": "NOT_REQUESTED"},
+  "strategy_consensus": "CONSENSUS revision_acceptance_v2.md",
+  "implementation_owner": "Claude Code",
+  "implementation_completion": "Codex completed integration and corrections after Claude quota stop and user continuation; no model retry",
+  "local_validation": {"status": "PASS", "tests_passed": 14, "review": "codex_implementation_review_v1.md", "real_data_training": false},
+  "independent_reviewer": "Codex",
+  "budget": {"remote_gpu_hours_committed": 0, "local_validation": "CPU only"},
+  "local_environment": {"python": ".private/runtime/exp067_cpu/Scripts/python.exe", "torch": "2.14.0+cpu", "scipy": "1.18.1", "numpy": "2.5.3", "pytest": "9.1.1"},
+  "note": "Local development record only; not a controller admission receipt or active remote experiment. Existing dirty files and experiment history preserved. Exact weekly model allowance unavailable."
+}

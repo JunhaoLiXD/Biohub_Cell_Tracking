@@ -1,0 +1,9 @@
+{
+  "mode": "control",
+  "parent_sha256": "6b655e39bbfd2d3d6c762badea69847d3f00f5b548f385cb01b07ee2600fde6d",
+  "notebook_sha256": "27d40cdf3957675d9eb8eef894118ff9ebacfb79d33dc9b9240d3dac224fc995",
+  "patched_predictor_sha256": "dae541d6b1e8ac444beae98ce311e51d75279aec8aa7d939da6fba3f56fc89a9",
+  "real_patch_chain_replayed": true,
+  "remote_verified": false,
+  "admission": "NOT_REQUESTED"
+}

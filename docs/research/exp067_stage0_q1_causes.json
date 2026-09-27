@@ -1,0 +1,308 @@
+{
+  "causes": {
+    "generator_truncation": 7
+  },
+  "findings": [
+    {
+      "stem": "44b6_12dfb391",
+      "mother": 31885,
+      "children": [
+        32368,
+        32394
+      ],
+      "ids_present": true,
+      "t_mother": 66,
+      "t_children": [
+        67,
+        67
+      ],
+      "dt": [
+        1,
+        1
+      ],
+      "dist_um": [
+        2.67,
+        8.56
+      ],
+      "mother_reconsiderable": true,
+      "children_reconsiderable": [
+        true,
+        true
+      ],
+      "n_candidates_from_mother": 3,
+      "candidate_targets": [
+        32335,
+        32361,
+        32363
+      ],
+      "child_edge_present": [
+        false,
+        false
+      ],
+      "child_has_any_incoming_candidate": [
+        4,
+        4
+      ],
+      "mother_out_degree_parent": 1
+    },
+    {
+      "stem": "44b6_267148e4",
+      "mother": 647,
+      "children": [
+        837,
+        846
+      ],
+      "ids_present": true,
+      "t_mother": 3,
+      "t_children": [
+        4,
+        4
+      ],
+      "dt": [
+        1,
+        1
+      ],
+      "dist_um": [
+        2.26,
+        9.69
+      ],
+      "mother_reconsiderable": true,
+      "children_reconsiderable": [
+        true,
+        true
+      ],
+      "n_candidates_from_mother": 4,
+      "candidate_targets": [
+        817,
+        824,
+        825,
+        834
+      ],
+      "child_edge_present": [
+        false,
+        false
+      ],
+      "child_has_any_incoming_candidate": [
+        3,
+        7
+      ],
+      "mother_out_degree_parent": 1
+    },
+    {
+      "stem": "44b6_2a2eff9f",
+      "mother": 6401,
+      "children": [
+        6865,
+        6908
+      ],
+      "ids_present": true,
+      "t_mother": 11,
+      "t_children": [
+        12,
+        12
+      ],
+      "dt": [
+        1,
+        1
+      ],
+      "dist_um": [
+        11.52,
+        0.34
+      ],
+      "mother_reconsiderable": true,
+      "children_reconsiderable": [
+        true,
+        true
+      ],
+      "n_candidates_from_mother": 5,
+      "candidate_targets": [
+        6762,
+        6795,
+        6807,
+        6808,
+        6844
+      ],
+      "child_edge_present": [
+        false,
+        false
+      ],
+      "child_has_any_incoming_candidate": [
+        4,
+        4
+      ],
+      "mother_out_degree_parent": 1
+    },
+    {
+      "stem": "44b6_341df25f",
+      "mother": 476,
+      "children": [
+        582,
+        580
+      ],
+      "ids_present": true,
+      "t_mother": 4,
+      "t_children": [
+        5,
+        5
+      ],
+      "dt": [
+        1,
+        1
+      ],
+      "dist_um": [
+        1.5,
+        8.53
+      ],
+      "mother_reconsiderable": true,
+      "children_reconsiderable": [
+        true,
+        true
+      ],
+      "n_candidates_from_mother": 5,
+      "candidate_targets": [
+        567,
+        569,
+        571,
+        572,
+        580
+      ],
+      "child_edge_present": [
+        false,
+        true
+      ],
+      "child_has_any_incoming_candidate": [
+        6,
+        4
+      ],
+      "mother_out_degree_parent": 1
+    },
+    {
+      "stem": "6bba_07e24132",
+      "mother": 24363,
+      "children": [
+        24699,
+        24715
+      ],
+      "ids_present": true,
+      "t_mother": 65,
+      "t_children": [
+        66,
+        66
+      ],
+      "dt": [
+        1,
+        1
+      ],
+      "dist_um": [
+        1.74,
+        6.74
+      ],
+      "mother_reconsiderable": true,
+      "children_reconsiderable": [
+        true,
+        true
+      ],
+      "n_candidates_from_mother": 4,
+      "candidate_targets": [
+        24615,
+        24616,
+        24628,
+        24642
+      ],
+      "child_edge_present": [
+        false,
+        false
+      ],
+      "child_has_any_incoming_candidate": [
+        4,
+        2
+      ],
+      "mother_out_degree_parent": 1
+    },
+    {
+      "stem": "6bba_09961292",
+      "mother": 16214,
+      "children": [
+        16535,
+        16492
+      ],
+      "ids_present": true,
+      "t_mother": 48,
+      "t_children": [
+        49,
+        49
+      ],
+      "dt": [
+        1,
+        1
+      ],
+      "dist_um": [
+        1.05,
+        9.08
+      ],
+      "mother_reconsiderable": true,
+      "children_reconsiderable": [
+        true,
+        true
+      ],
+      "n_candidates_from_mother": 3,
+      "candidate_targets": [
+        16446,
+        16447,
+        16501
+      ],
+      "child_edge_present": [
+        false,
+        false
+      ],
+      "child_has_any_incoming_candidate": [
+        4,
+        8
+      ],
+      "mother_out_degree_parent": 1
+    },
+    {
+      "stem": "6bba_09961292",
+      "mother": 17390,
+      "children": [
+        17639,
+        17694
+      ],
+      "ids_present": true,
+      "t_mother": 52,
+      "t_children": [
+        53,
+        53
+      ],
+      "dt": [
+        1,
+        1
+      ],
+      "dist_um": [
+        7.16,
+        1.08
+      ],
+      "mother_reconsiderable": true,
+      "children_reconsiderable": [
+        true,
+        true
+      ],
+      "n_candidates_from_mother": 4,
+      "candidate_targets": [
+        17663,
+        17683,
+        17697,
+        17699
+      ],
+      "child_edge_present": [
+        false,
+        false
+      ],
+      "child_has_any_incoming_candidate": [
+        3,
+        4
+      ],
+      "mother_out_degree_parent": 1
+    }
+  ]
+}

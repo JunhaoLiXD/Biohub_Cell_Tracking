@@ -1,0 +1,380 @@
+{
+  "total": {
+    "gt_divisions": 12,
+    "matched": 9,
+    "missed": 7,
+    "missed_raw_reachable": 6,
+    "missed_event_generated": 0,
+    "missed_actionable": 0,
+    "in_parent": 2,
+    "unmatched": 3
+  },
+  "per_stem": [
+    {
+      "stem": "44b6_12dfb391",
+      "n_nodes": 44745,
+      "n_parent_edges": 43341,
+      "n_candidate_edges": 188982,
+      "n_division_events": 17286,
+      "n_division_events_geometry_pass": 17284,
+      "n_parent_forks": 19,
+      "tally": {
+        "gt_divisions": 1,
+        "matched": 1,
+        "missed": 1,
+        "missed_raw_reachable": 1,
+        "missed_event_generated": 0,
+        "missed_actionable": 0
+      },
+      "rows": [
+        {
+          "gt_mother": 172000000050,
+          "gt_children": [
+            173000000050,
+            173000000051
+          ],
+          "pred_mother": 31885,
+          "pred_children": [
+            32368,
+            32394
+          ],
+          "stem": "44b6_12dfb391",
+          "matched": true,
+          "in_parent": false,
+          "raw": true,
+          "raw_missing": [],
+          "event_generated": false,
+          "actionable": false
+        }
+      ]
+    },
+    {
+      "stem": "44b6_267148e4",
+      "n_nodes": 22224,
+      "n_parent_edges": 21335,
+      "n_candidate_edges": 90123,
+      "n_division_events": 6540,
+      "n_division_events_geometry_pass": 6536,
+      "n_parent_forks": 17,
+      "tally": {
+        "gt_divisions": 1,
+        "matched": 1,
+        "missed": 1,
+        "missed_raw_reachable": 1,
+        "missed_event_generated": 0,
+        "missed_actionable": 0
+      },
+      "rows": [
+        {
+          "gt_mother": 16000000001,
+          "gt_children": [
+            17000000001,
+            17000000002
+          ],
+          "pred_mother": 647,
+          "pred_children": [
+            837,
+            846
+          ],
+          "stem": "44b6_267148e4",
+          "matched": true,
+          "in_parent": false,
+          "raw": true,
+          "raw_missing": [],
+          "event_generated": false,
+          "actionable": false
+        }
+      ]
+    },
+    {
+      "stem": "44b6_2a2eff9f",
+      "n_nodes": 39162,
+      "n_parent_edges": 37513,
+      "n_candidate_edges": 155727,
+      "n_division_events": 10513,
+      "n_division_events_geometry_pass": 10510,
+      "n_parent_forks": 22,
+      "tally": {
+        "gt_divisions": 1,
+        "matched": 1,
+        "missed": 1,
+        "missed_raw_reachable": 1,
+        "missed_event_generated": 0,
+        "missed_actionable": 0
+      },
+      "rows": [
+        {
+          "gt_mother": 160000000048,
+          "gt_children": [
+            161000000048,
+            161000000049
+          ],
+          "pred_mother": 6401,
+          "pred_children": [
+            6865,
+            6908
+          ],
+          "stem": "44b6_2a2eff9f",
+          "matched": true,
+          "in_parent": false,
+          "raw": true,
+          "raw_missing": [],
+          "event_generated": false,
+          "actionable": false
+        }
+      ]
+    },
+    {
+      "stem": "44b6_341df25f",
+      "n_nodes": 8456,
+      "n_parent_edges": 8228,
+      "n_candidate_edges": 37813,
+      "n_division_events": 607,
+      "n_division_events_geometry_pass": 607,
+      "n_parent_forks": 12,
+      "tally": {
+        "gt_divisions": 1,
+        "matched": 1,
+        "missed": 1,
+        "missed_raw_reachable": 1,
+        "missed_event_generated": 0,
+        "missed_actionable": 0
+      },
+      "rows": [
+        {
+          "gt_mother": 79000000000,
+          "gt_children": [
+            80000000000,
+            80000000001
+          ],
+          "pred_mother": 476,
+          "pred_children": [
+            582,
+            580
+          ],
+          "stem": "44b6_341df25f",
+          "matched": true,
+          "in_parent": false,
+          "raw": true,
+          "raw_missing": [],
+          "event_generated": false,
+          "actionable": false
+        }
+      ]
+    },
+    {
+      "stem": "6bba_062c8d37",
+      "n_nodes": 5933,
+      "n_parent_edges": 5708,
+      "n_candidate_edges": 26032,
+      "n_division_events": 110,
+      "n_division_events_geometry_pass": 110,
+      "n_parent_forks": 4,
+      "tally": {
+        "gt_divisions": 1,
+        "matched": 1,
+        "in_parent": 1
+      },
+      "rows": [
+        {
+          "gt_mother": 90001276,
+          "gt_children": [
+            91001298,
+            91001299
+          ],
+          "pred_mother": 5968,
+          "pred_children": [
+            6027,
+            6031
+          ],
+          "stem": "6bba_062c8d37",
+          "matched": true,
+          "in_parent": true,
+          "raw": true,
+          "raw_missing": [],
+          "event_generated": true,
+          "actionable": true
+        }
+      ]
+    },
+    {
+      "stem": "6bba_07e24132",
+      "n_nodes": 28181,
+      "n_parent_edges": 27191,
+      "n_candidate_edges": 108458,
+      "n_division_events": 10214,
+      "n_division_events_geometry_pass": 10213,
+      "n_parent_forks": 4,
+      "tally": {
+        "gt_divisions": 2,
+        "unmatched": 1,
+        "matched": 1,
+        "missed": 1,
+        "missed_raw_reachable": 1,
+        "missed_event_generated": 0,
+        "missed_actionable": 0
+      },
+      "rows": [
+        {
+          "gt_mother": 36000309,
+          "gt_children": [
+            37000317,
+            37000318
+          ],
+          "pred_mother": 13973,
+          "pred_children": [
+            14341,
+            null
+          ],
+          "stem": "6bba_07e24132",
+          "matched": false
+        },
+        {
+          "gt_mother": 66000550,
+          "gt_children": [
+            67000557,
+            67000558
+          ],
+          "pred_mother": 24363,
+          "pred_children": [
+            24699,
+            24715
+          ],
+          "stem": "6bba_07e24132",
+          "matched": true,
+          "in_parent": false,
+          "raw": true,
+          "raw_missing": [],
+          "event_generated": false,
+          "actionable": false
+        }
+      ]
+    },
+    {
+      "stem": "6bba_085bf656",
+      "n_nodes": 8416,
+      "n_parent_edges": 8140,
+      "n_candidate_edges": 36785,
+      "n_division_events": 217,
+      "n_division_events_geometry_pass": 217,
+      "n_parent_forks": 5,
+      "tally": {
+        "gt_divisions": 1,
+        "unmatched": 1
+      },
+      "rows": [
+        {
+          "gt_mother": 19000327,
+          "gt_children": [
+            20000345,
+            20000346
+          ],
+          "pred_mother": 2485,
+          "pred_children": [
+            2607,
+            null
+          ],
+          "stem": "6bba_085bf656",
+          "matched": false
+        }
+      ]
+    },
+    {
+      "stem": "6bba_09961292",
+      "n_nodes": 29686,
+      "n_parent_edges": 28912,
+      "n_candidate_edges": 128537,
+      "n_division_events": 14336,
+      "n_division_events_geometry_pass": 14335,
+      "n_parent_forks": 22,
+      "tally": {
+        "gt_divisions": 4,
+        "unmatched": 1,
+        "matched": 3,
+        "in_parent": 1,
+        "missed": 2,
+        "missed_raw_reachable": 1,
+        "missed_event_generated": 0,
+        "missed_actionable": 0
+      },
+      "rows": [
+        {
+          "gt_mother": 25000920,
+          "gt_children": [
+            26000956,
+            26000987
+          ],
+          "pred_mother": 8622,
+          "pred_children": [
+            9016,
+            null
+          ],
+          "stem": "6bba_09961292",
+          "matched": false
+        },
+        {
+          "gt_mother": 45001493,
+          "gt_children": [
+            46001530,
+            46001531
+          ],
+          "pred_mother": 14911,
+          "pred_children": [
+            15245,
+            15199
+          ],
+          "stem": "6bba_09961292",
+          "matched": true,
+          "in_parent": true,
+          "raw": true,
+          "raw_missing": [],
+          "event_generated": true,
+          "actionable": true
+        },
+        {
+          "gt_mother": 49001609,
+          "gt_children": [
+            50001629,
+            50001630
+          ],
+          "pred_mother": 16214,
+          "pred_children": [
+            16535,
+            16492
+          ],
+          "stem": "6bba_09961292",
+          "matched": true,
+          "in_parent": false,
+          "raw": false,
+          "raw_missing": [
+            [
+              14556,
+              14817
+            ]
+          ],
+          "event_generated": false,
+          "actionable": false
+        },
+        {
+          "gt_mother": 53001680,
+          "gt_children": [
+            54001733,
+            54001734
+          ],
+          "pred_mother": 17390,
+          "pred_children": [
+            17639,
+            17694
+          ],
+          "stem": "6bba_09961292",
+          "matched": true,
+          "in_parent": false,
+          "raw": true,
+          "raw_missing": [],
+          "event_generated": false,
+          "actionable": false
+        }
+      ]
+    }
+  ]
+}

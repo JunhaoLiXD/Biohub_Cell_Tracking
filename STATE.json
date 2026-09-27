@@ -1,16 +1,18 @@
 {
   "schema_version": 1,
-  "active_experiment": "exp_064_x138_verbatim_repro",
-  "working_parent": "repro_059_public_0947_exact_copy",
+  "active_experiment": "exp_068_ep015_single_probe",
+  "working_parent": "exp_064_x138_verbatim_repro",
   "best_public_lb": {
-    "experiment_id": "repro_059_public_0947_exact_copy",
-    "submission_id": 56313491,
-    "public_score": 0.947,
-    "score_source": "authenticated_kaggle_submission_history",
-    "verified_at_utc": "2026-09-18T00:00:00+00:00"
+    "experiment_id": "exp_064_x138_verbatim_repro",
+    "submission_id": 56535761,
+    "public_score": 0.953,
+    "score_source": "authenticated_kaggle_submission_history (read 2026-09-25T12:50Z)",
+    "verified_at_utc": "2026-09-25T12:50:00+00:00",
+    "leaderboard_rank_at_verification": "361 of 3899",
+    "note": "x138 byte-verbatim reproduction. 0.953 satisfied the pre-registered >=0.953 branch, so x138 is ADOPTED as the working parent, superseding repro_059 0.947 (56313491). Independently corroborated: amanatar/optimized-biohub-max-score cell 0 declares BIOHUB_SCORE_AXIS = \"x138 base (LB 0.953)\". 0.953 is a 249-team plateau = the public-notebook ceiling; ranks 200 through 420 all sit on it."
   },
   "submission_policy": "UPDATED 2026-09-18 by user: Public LB submission COUNT is no longer a research constraint -- multiple submissions are fine. The LB may now be used directly as the real held-out validation signal (Family-2 / distribution-general validation). Still record every submission in SUBMISSION_BUDGET.json with authenticated score_source; still no auto-submit without the user asking; Kaggle's own daily cap (max_submissions_per_day) remains a platform fact, not a scarcity to conserve.",
-  "phase": "EXP064_SUBMITTED_PENDING__EXP062_K2_SUBMITTED_PENDING__NO_GPU_COMMITTED",
+  "phase": "EP068_SUBMITTED__CPU_COUNTERFACTUAL_COMPLETE",
   "exp060_0p18_lb": {
     "kernel": "lingxd/biohub-exp060-safediv018-lb-submit",
     "url": "https://www.kaggle.com/code/lingxd/biohub-exp060-safediv018-lb-submit",
@@ -77,10 +79,10 @@
     "deferred_successor": "exp_061 corrected Z-reflection DeepCenter TTA (8 eval/7 unique XY -> +Z = 16 eval/14 unique; separate per-arm heatmap caches; Z-on vs XY-only guard). Run only if exp_060 shows the division gate is LB-movable, or as an independent representation probe.",
     "not_authorized": "implementation/launch not yet authorized; CONSENSUS is strategy-level only. Fresh Codex admission PASS + smoke + reservation required first."
   },
-  "summary": "exp_064 (x138 byte-verbatim repro) COMPLETED, was collected once, passed the collection adapter (exit 0, 25/25 checks) and was submitted to the Public LB as 56535761 on 2026-09-25T00:44:57Z with explicit user authorization. It is PENDING. exp_062 k2 (56530197) is ALSO still PENDING. Two unresolved submissions, no GPU committed, nothing running. THREE CORRECTIONS RECORDED TODAY, all to claims this project made before measuring. (1) x138's runtime self-tuning is INERT: the notebook itself ships BIOHUB_VALIDATOR_ENABLE=0, so the validator never ran and the post-process sweep never fired. ppsweep_selected.json says selected=base with held_out_stems []. The plan to harvest free sweep telemetry and pick the next knob from it yields NOTHING. The compensating gain is real: x138 as run is a deterministic single-policy pipeline, so a single-knob variant on it IS a clean one-variable experiment. (2) The density argument is WITHDRAWN as directional evidence. Predicted nodes per frame is not an optimal relink radius; x138 already ships BIOHUB_GAP_DENSITY_ADAPTIVE=1 and uses a separate 7.0 um flow gate whenever a flow field exists, with 5.5 only on the non-flow path. The measurement shows our global constant is QUESTIONABLE; it does not establish mistuning and supports no direction. (3) exp_064 drew 0.258944 GPU h against a 2.5 h reservation -- about a tenth. Our own comparable runs cost 1.73-2.0 h, most plausibly because our parent runs the held-out validator and sweep that x138 skips. GPU is therefore no longer a binding constraint at all.",
-  "next_action": "DO NOT POLL. Two LB submissions pending: 56535761 (exp_064 x138) and 56530197 (exp_062 k2). LB MINING IS DONE -- see docs/research/lb_mining_2026-09-25.md and STATE.lb_mining_2026_09_25. It found the strongest candidate this project has had: thtennant/biohub-frontier947-readmit-v1 is x138 MINUS the V1284 head and nothing else (identical 87-key env config; strict source subset; 34 added lines in x138, all head-related), it needs only the three checkpoints we already mount, and its author is rank 37 / 0.959 versus x138's author at rank 67 / 0.956. Since x138 is already submitted, running readmit-v1 is a MATCHED SINGLE-MECHANISM A/B at ~0.26 GPU h. THE NEXT STEP IS A PROPOSAL, NOT A LAUNCH: it needs a strategy record, a fresh experiment-specific Codex admission PASS, a snapshot smoke, and explicit user authorization -- in that order. Decision rules for the two pending scores are unchanged (exp_064: >=0.953 adopt x138 as parent, 0.948-0.952 adopt, ~0.947 no advantage, <0.947 reject; k2: >=0.948 adopt, ==0.947 close, <=0.946 revert). Competition closes 2026-09-29 23:59.",
-  "leaderboard_submission_authorized": false,
-  "leaderboard_submission_note": "Two submissions were user-authorized and are PENDING: 56535761 (exp_064) and 56530197 (exp_062 k2). No FURTHER submission is authorized; ask the user each time. Cap is now 5 per America/New_York day (user ruling 2026-09-24); 2 of 5 used on NY day 2026-09-24.",
+  "summary": "ep015 one-probe continuation: experiment SUBMITTED, review PASS. GPU ledger 30.000000 h; reservations {'exp_068_ep015_single_probe': 2.0}. CPU GT-assisted 128-subset diagnostic reproduces baseline 3/2/9 and reaches 9/2/3 under true-edge edits; not deployable performance or LB evidence. Retain exp064 submission 56535761 at recorded 0.953.",
+  "next_action": "Wait for user completion notice; do not poll, rebuild or relaunch. Then check/collect once, run scripts/audit_exp068_collection_v2.py (verify admission_supplement_manifest.json), bind remote version/source, check remote history and conservative three/day cap, and perform the one already authorized LB submission if all gates pass.",
+  "leaderboard_submission_authorized": true,
+  "leaderboard_submission_note": "Both prior submissions are RESOLVED and recorded in SUBMISSION_BUDGET.json with an authenticated score_source: 56535761 = 0.953 (exp_064, ADOPT), 56530197 = 0.944 (exp_062 k2, REVERT). No new submission is authorized.",
   "exp061_submission_repair": {
     "experiment_id": "exp_061_zon_lb_submission_repair_v2",
     "status": "HIDDEN_RERUN_FAILED_DIAGNOSED",
@@ -364,7 +366,7 @@
     "verified_at_utc": "2026-09-16T14:40:00+00:00",
     "note": "Public LB 0.944 == repro_048 0.944, zero gain despite 3714-edge graph diff. EMA-off replay byte-identical to 0.944, so isolated to the EMA edit: motion EMA is redundant/neutral on top of the edge-feature-TTA bundle. Branch 'EMA on 0.944' closed."
   },
-  "updated_at": "2026-09-25T01:55:00+00:00",
+  "updated_at": "2026-09-27T02:26:01.458634+00:00",
   "active_local_experiment": "local_054_original_score_final_stage_parity",
   "exp057_a0_part1": {
     "status": "DONE_ZERO_GPU",
@@ -672,5 +674,258 @@
       },
       "drift_warning": "Our rank went ~478 -> ~533 in roughly six hours on 2026-09-24/25, and rank 300 went 0.950 -> 0.953. The day before, the rank-200 cutoff moved 0.949 -> 0.953. Any plan quoting a rank more than a few hours old is quoting a stale number."
     }
+  },
+  "exp064_result_lb": {
+    "submission_id": 56535761,
+    "public_score": 0.953,
+    "status": "COMPLETE",
+    "rule": ">=0.953 adopt x138 as parent | 0.948-0.952 adopt | ~0.947 no advantage | <0.947 reject",
+    "verdict": "ADOPT. Exactly on the >=0.953 branch and exactly on the rank-200 cutoff. +0.006 over repro_059 0.947."
+  },
+  "exp062_k2_result_lb": {
+    "submission_id": 56530197,
+    "public_score": 0.944,
+    "status": "COMPLETE",
+    "rule": ">=0.948 adopt | ==0.947 close the probe | <=0.946 revert",
+    "verdict": "REVERT. -0.003 against the 0.947 parent. The mutual-best / relative-rank edge prior at beta=0.20 is a measured LOSS. Arc CLOSED: do not raise beta, do not retry a variant."
+  },
+  "recon_2026_09_25_afternoon": {
+    "doc": "docs/research/lb_recon_2026-09-25_amanatar_sweep.md",
+    "cost": "zero GPU, zero submissions",
+    "headline": "Harvested a 14-config x 8-held-out-stem post-process sweep table from amanatar/optimized-biohub-max-score via kaggle kernels output. That author runs BIOHUB_VALIDATOR_ENABLE=1 on an x138-identical base, so the telemetry that lb_mining_2026-09-25.md concluded was unobtainable is in fact public. Archived under docs/research/public_notebook_archive/amanatar_v9_sweep_telemetry/ with SHA256SUMS_amanatar_v9.txt.",
+    "metric_formula": "proxy = adjusted_edge_jaccard + 0.1 * division_jaccard, verified numerically on all 14 rows (residual 0). adjusted_edge_jaccard = max(0, edge_jaccard * (1 - 0.1*(t_pred - t_true)/t_true)) -- notebook cell 8 line 77. The count adjustment is ONE-SIDED: over-prediction is penalised and under-prediction is actively REWARDED (the multiplier exceeds 1). CORRECTED 2026-09-25 from the Codex challenge; the earlier wording \"under-prediction is not penalised\" was imprecise and the difference matters, because a movie that already under-predicts gains nothing worth having from more pruning.",
+    "best_lever": "ep015 = OUTPUT_MIN_EDGE_PROB 0.15 is the largest measured effect and it is NOT robust. Test-reweighted aggregate +0.00236, but: 60.6 percent of its gross positive contribution comes from one held-out movie (6bba_09961292); it regresses -0.0084939 on the 44b6 prefix against the author own -0.001 guard limit, so their guard rejects it; and 10 of the 36 test-shaped subsets (two movies per prefix, matching the hidden test shape) are negative, min -0.00584, median +0.002796470, max +0.01371. Under the real test shape roughly 28 percent of draws lose. It does not qualify for a submission.",
+    "closed_arms": "CORRECTED 2026-09-25 by the Codex challenge -- see tight_um_claim_WITHDRAWN below. What stands: (1) MOTION_RELINK_VELOCITY_WEIGHT (default 0.5, vel075 sets 0.75) and SHORT_TRACK_RESCUE_MIN_MEAN_EDGE_PROB (0.88, rescue085 sets 0.85) are genuine changes that are bit-identical to base on all 8 stems and every column. MOTION_RELINK_TIGHT_UM is NOT on this list. (2) No post-process knob in this table moves division recall: div_tp = 3 of 12 and div_fn = 9 for all 14 configs, only div_fp moves. That is strong evidence about THESE 14 interventions, not proof that division recall is unreachable by every untested one (Codex RISK finding 4); it remains sufficient reason not to open a third division arc with four days left, which is a scheduling judgement, not a theorem.",
+    "readmit_v1_downgraded": "The readmit-v1 A/B premise was thtennant 0.959 versus anvithpothula 0.956. Since x138 as published measures 0.953, neither number belongs to a published notebook, so that A/B tests a mechanism with no quantified expected effect. It is no longer the strongest candidate.",
+    "lever_availability": "Every ep*, seg*, cx* and lfitclamp* lever is implemented in amanatar 862 added lines and does NOT exist in x138 (0 grep hits for OUTPUT_MIN_EDGE_PROB, LEAF_PRUNE_MIN_EDGE_PROB, SEG_PRUNE_MIN_PROB, PPSWEEP_EXTENDED, PPSWEEP_PREFIX_GUARD). They cannot be reached by an env flag on the exp_064 parent; using them means adopting amanatar notebook as parent. DEEPCENTER_SAFE_DIV_THRESHOLD is the exception - x138 has it, set to 0.25.",
+    "unscored": "PP_CANDIDATES holds 41 entries EXCLUDING base (7 in the base dict + 34 under PPSWEEP_EXTENDED). The archived table is base + 12 declared + 1 dynamically generated combination = 14 rows, so 29 declared candidates are unmeasured and a full sweep yields 42 configurations including base (43 with the generated combination). CORRECTED 2026-09-25: the earlier figure of 27 was wrong. Unscored and high-value: ep010, ep020, seg030L3, seg035L4, seg040L6, cx03, cx06, cx10, prune_pack, ep_cx, seg_cx, leaf_seg, leaf030.",
+    "their_run_failed": "Their run ends in AttributeError: they assign _v6env = os.environ.get and then call _v6env.get(...) in a cell-12 summary print, AFTER submission.csv was already written. Under papermill that fails the notebook, which is why they are still at 0.953 with 116 submissions. Fifth instance in this project recon of correct machinery defeated by a trivial wiring fault.",
+    "selection_guard": "Their logged rule is >= +0.001 proxy AND per-embryo adj loss <= 0.0005. ep015 clears the margin but loses 0.0085 on the 44b6 prefix, so dcsd015 shipped instead - worth +0.00014 test-reweighted, i.e. nothing. Running their notebook verbatim would gain approximately zero.",
+    "proxy_lb_calibration": "ONE point: base proxy 0.95549 against measured LB 0.953, offset -0.0025. A single calibration point, not a transfer function.",
+    "tight_um_claim_WITHDRAWN": "CORRECTION 2026-09-25 from the Codex challenge. The claim \"MOTION_RELINK_TIGHT_UM is bit-for-bit INERT, do not build a tight60 arm\" is WITHDRAWN as unsupported. x138 cell 0 line 76 and the vehicle cell 0 line 71 BOTH already set MOTION_RELINK_TIGHT_UM = 5.5, and the tight55 candidate sets 5.5 - the sweep never varied the variable, so the identical row is a self-consistency check, not evidence about the lever. The tight_um question lb_mining_2026-09-25.md left open is STILL OPEN, and this table supports a tight60 arm in neither direction. THE OTHER TWO SURVIVE AND ARE REAL: MOTION_RELINK_VELOCITY_WEIGHT (default 0.5, vel075 sets 0.75) and SHORT_TRACK_RESCUE_MIN_MEAN_EDGE_PROB (set to 0.88, rescue085 sets 0.85) are genuine changes that are bit-identical to base on all 8 stems. The division result (no post-process knob moves div recall) is untouched by this correction, though Codex notes it is evidence about these 14 configs, not proof for every untested intervention."
+  },
+  "exp065_proposal": {
+    "experiment_id": "exp_065_metric_aligned_pruning",
+    "doc": "docs/research/exp065_metric_aligned_pruning_proposal_v3.md",
+    "version": "v3",
+    "strategy_status": "V3_BUILT_AND_LAUNCHED_WITHOUT_A_THIRD_CHALLENGE (user ruling 2026-09-25)",
+    "author": "Claude Code, 2026-09-25, at explicit user request",
+    "parent": "exp_064_x138_verbatim_repro (Public LB 0.953, submission 56535761, output sha d52a5da2)",
+    "vehicle": "amanatar/optimized-biohub-max-score, sha256 371fc1f9f4f20f692e0586616ff7d3eab4621d167f6c78516d3243c5a4fddfab, archived in docs/research/public_notebook_archive/",
+    "headline_against_own_recommendation": "The lever that motivated the proposal (OUTPUT_MIN_EDGE_PROB=0.15) FAILS the pre-registered jackknife: 60.6 percent of its gross positive contribution comes from one held-out movie (6bba_09961292), and dropping that movie flips the test-reweighted aggregate from +0.00236 to -0.00294. On current evidence NO measured candidate qualifies for a submission. The primary deliverable is therefore a measurement, not a bet.",
+    "gate_3_lb": ">=0.955 adopt | 0.954 small real gain, adopt and stop | 0.953 null, keep parent | <=0.952 revert to exp_064",
+    "budget": "Run 1 ~3.0 h (reserve 4.0), Run 2 ~0.3 h; total reserved 4.3 of 19.741056 GPU h. At most 1 submission.",
+    "private_lb": "privateScore is a column on our authenticated submission history and is EMPTY on all 30 submissions; exp_061 failed inside a hidden code rerun, so our notebook is genuinely re-executed server-side. Final standing is on data we have never scored. This is the real argument against LB-shotgunning and the reason this proposal spends at most one slot.",
+    "authorizes": "NOTHING. No implementation, no launch, no submission.",
+    "next_gates": "Second Codex challenge of v2 -> revision if needed -> explicit CONSENSUS -> build -> fresh experiment-specific Codex admission PASS -> snapshot smoke -> budget reservation -> ONE user-authorized launch of Run 1 -> evaluate Gate 1 and Gate 2 -> separately authorized Run 2 -> separately authorized submission.",
+    "codex_challenge_v1": {
+      "doc": "docs/research/exp065_codex_challenge_v1.md",
+      "reviewer": "Codex gpt-6-astra, effort low, read-only",
+      "verdict": "REVISE - seven blocking CORRECTNESS findings, no CONSENSUS",
+      "claude_verification": "ALL SEVEN independently re-derived from the notebook sources and CONFIRMED GENUINE. Nothing in the review was rejected; the non-blocking DESIGN/RISK/SCOPE findings are accepted as written.",
+      "blocking_findings": "(1) Empty FROZEN_PRESET_JSON / VAL_PRED_CACHE_DIR ENABLE auto-detection rather than disabling it - cell 0 line 178 globs /kaggle/input/*/ppsweep_selected.json when the string is empty and applies a hit before the base write. I had this exactly backwards. (2) The base control artifact is NOT preserved: write_test_submission(tag) always opens the same SUBMISSION_PATH with \"w\" (cell 5 line 2733); tag is only a statistics label, and cell 10 rewrites the file after selection. amanatar crash cannot evidence preservation - it happened AFTER the rewrite. (3) Cell-0 assignments are unconditional, so Run 1 and Run 2 cannot be configured at environment level as v1 describes; AND the REPAIR_DEADLINE_S difference I reported DOES NOT EXIST - cell 0 line 69 is 27000, identical to x138; the 30600 is cell 10 line 252, inside the pass-2 rewrite. (4) analyze_sweep_table.py does not implement the notebook prefix guard: cell 9 lines 126-134 use the CANDIDATE own weights and a single edge_jaccard over POOLED div tp/fp/fn, not base weights and averaged per-movie division Jaccards. (5) tight55 proves nothing - see tight_um_claim_withdrawn below. (6) The count multiplier is max(0, jaccard * (1 - 0.1*(t_pred-t_true)/t_true)), so under-prediction is actively REWARDED, not merely unpenalised; the 0.752 ratio I quoted for base on 44b6_12dfb391 is ep015 (base is 0.76263); and prune_to_node_count_target budgets against its own confident core, NOT ground-truth excess, so it gives no under-prediction protection and my mechanistic argument that cx repairs ep015 failure mode is unsupported. (7) PP_CANDIDATES holds 41 entries EXCLUDING base, so 29 declared candidates are unmeasured (not 27) and a full run yields 42 configurations including base, not 41.",
+      "what_codex_verified_correct": "All six SHA256 manifest entries; 112 rows = 14 configs x 8 stems; proxy = adjusted_edge_jaccard + 0.1 * division_jaccard with zero residual on all 14 rows; ep015 +0.0023641441, worst leave-one-out -0.0029492411, 60.5613 percent gross-positive concentration (independent JS recomputation); every non-label CSV field matches base for tight55, vel075, rescue085; pooled div TP=3 FN=9 for all 14 configs; the count multiplier improves on all 8 ep015 stems; the six pruning/sweep identifiers are absent from x138; the base write precedes validation; no measured candidate clears the proposed gate."
+    },
+    "doc_v1_superseded": "docs/research/exp065_metric_aligned_pruning_proposal.md (banner-marked SUPERSEDED; provenance only, do not act on it)",
+    "v2_fixes": "All 7 blocking findings addressed, all 5 non-blocking findings carried into the design. (1) The auto-attach defect: empty strings ENABLE the /kaggle/input/*/ppsweep_selected.json glob, so v2 adds a pre-launch mount audit (run: no ppsweep_selected.json and no cache_key.txt at the top level of any of the four mounts) PLUS a fail-closed runtime assertion on _V9_AUTO_SET_ENV and FROZEN_PRESET_OVERRIDES. Setting a nonexistent path is NOT a fix - line 215 would raise. (2) The control artifact: v2 adds a 4-line snapshot of submission.csv to submission_base.csv immediately after the write_test_submission(\"base\") try/finally at cell 5 line 2880, and Gate 1 hashes submission_base.csv. Without this Gate 1 is undeliverable. Also withdrew the claim that amanatar crash evidences preservation - it fired after the rewrite. (3) Environment-level configuration abandoned; v2 specifies exact cell-0 edits with an authored-line budget (Run 1: 2 changed + 6 added; Run 2: 3 changed +1 per extra lever key, + 6 added) and a diff gate asserting exactly that. VALIDATOR_ENABLE needs no edit for Run 1 - the vehicle already ships 1. The fabricated REPAIR_DEADLINE_S difference is withdrawn. (4) analyze_sweep_table.py rewritten to the notebook computation (candidate own weights, POOLED div tp/fp/fn) and now VALIDATED against the prefix_proxy column the notebook itself wrote, residual 0.0 on all 14 configs and both prefixes. It reproduces Codex own -0.0084939 for ep015 on 44b6. (5) The tight_um inertness claim is withdrawn everywhere. (6) The count multiplier is restated exactly; base ratio corrected to 0.76263; the cx mechanistic argument downgraded to what it supports (structure-relative, NOT under-prediction protection). (7) Arithmetic corrected: 41 candidates excluding base, 29 unmeasured, 42 configurations.",
+    "v2_new_evidence": "The 36 two-per-prefix subsets (Codex DESIGN finding 1) replace the globally-renormalised leave-one-out, holding the prefix mixture at the test shares instead of letting a deletion change it. They match the hidden test set shape exactly (two 44b6 + two 6bba movies) and are far more damning for ep015: 10 of 36 negative, min -0.00584, median +0.00319, max +0.01371. So under the real test shape 28 percent of draws LOSE. ep015 now fails three independent ways: 60.6 percent concentration in one movie, a -0.0084939 regression on the 44b6 prefix against the author own -0.001 limit, and 10/36 negative subsets.",
+    "design_current": "TWO runs, at most ONE submission. Run 1 fuses control and measurement: write_test_submission(\"base\") executes BEFORE the validator block, AND an authored 4-line snapshot copies submission.csv to submission_base.csv immediately after it (cell 5 line 2880). THE SNAPSHOT IS LOAD-BEARING: write_test_submission always opens the same SUBMISSION_PATH with \"w\" and cell 10 rewrites it after selection, so without the snapshot the control artifact does not exist once the sweep succeeds. The earlier argument that amanatar crash evidences preservation is WITHDRAWN - their AttributeError fired AFTER selection and the rewrite. Run 1: validator on (already 1 in the vehicle), FAST_TIER 1->0, prefix guard on, all v5 levers off, v9 deadline ladder unmodified; zero submissions. Run 2: VALIDATOR_ENABLE 1->0 plus the winning candidate keys set statically; deterministic, no validator, no sweep; one submission, only if Gate 2 selects.",
+    "authored_changes_current": "Run 1: 4 lines CHANGED, 8 lines ADDED. (a) cell 11 line 44 _v6env = os.environ.get -> os.environ; (b) cell 0 line 107 SWEEP_DEADLINE_S 26100 -> 12600; (c) cell 10 lines 135-136 _V7_FAST_TIER tuple -> the 15 eligible names (2 changed + 2 added); (d) +2 fail-closed assertions after cell 0 line 228; (e) +4 snapshot lines after cell 5 line 2880. VALIDATOR_ENABLE and FAST_TIER need NO edit - the vehicle already ships \"1\" for both. Run 2: (a)(d)(e) plus cell 0 line 67 VALIDATOR_ENABLE 1 -> 0 plus k lines for the selected candidate, where k is PER CANDIDATE and is NOT the key count: seg040L6 changes 1 line not 2 because SEG_PRUNE_MAX_LEN=6 is already the cell 0 line 110 default. ep*/leaf*/cx* = 1; seg030L3/seg035L4/ep_cx = 2; seg040L6 = 1; leaf_seg/seg_cx = 3; prune_pack = 5.",
+    "gate_1_control_current": "sha256(submission_base.csv) MUST equal d52a5da2. Pass -> the vehicle reproduces the parent on the four visible movies, the strongest available evidence that its 862 added lines are inert when off; it does NOT prove general inertness or hidden-rerun equivalence (Codex RISK 3). Fail -> STOP: no Run 2, no submission.",
+    "gate_2_current": "Eligible = the 15-member pruning family, which is also exactly what Run 1 sweeps. Rank by test-reweighted aggregate adjusted_edge_jaccard delta. Qualify only if ALL: (1) delta >= +0.0015; (2) at most 3 of the 36 test-shaped subsets STRICTLY NEGATIVE (exactly-unchanged subsets are NOT losses - that was the v2 bug); (3) no embryo prefix regressing more than 0.001 (the author guard, reimplemented and validated to residual 0.0 against the prefix_proxy column the notebook itself wrote). Nothing qualifies -> submit nothing, report H_null. MARGINAL (4-9 strictly-negative with (1) and (3) met) is NOT a Gate 2 outcome: it is reported with its full subset distribution and any decision to run it is a DOCUMENTED EXCEPTION to the record, not a PASS. Truncated sweep -> selection REFUSED; missing candidates are unmeasured, not rejected. The v2 claim that rejecting ep015 proved the thresholds were not reverse-engineered is WITHDRAWN - it is evidence about one candidate.",
+    "doc_superseded": "v1 docs/research/exp065_metric_aligned_pruning_proposal.md and v2 docs/research/exp065_metric_aligned_pruning_proposal_v2.md are both banner-marked SUPERSEDED; provenance only, do not act on them.",
+    "challenge_rounds": "round 1 REVISE (7 blocking) -> v2 -> round 2 REVISE (F1/F2/F4 fixed, F3/F5/F6/F7 partial, 5 new blocking) -> v3. TWELVE blocking findings total, ALL TWELVE independently verified GENUINE, none rejected.",
+    "v3_key_design_change": "THE SWEEP IS NARROWED FROM 41 CANDIDATES TO THE 15 Gate 2 CAN ACTUALLY SELECT FROM. Round 2 showed from the seconds column (14 configs, median 324.83 s) that all 41 costs 7000 + 29*324.83 = 16420 s = 4.56 h, exceeding the 4.0 h v2 reserved, and that SWEEP_DEADLINE_S = 26100 s is the notebook own bound so nothing would stop it at our reservation. Re-costed: fixed pipeline+validator = 7000 - 14*324.83 = 2452 s, so 15 eligible + base = 16 configs = 7650 s = 2.12 h (17 with a generated combo = 2.22 h). This is implemented by replacing the 12-name _V7_FAST_TIER tuple at cell 10 lines 135-136 with the 15 eligible names and LEAVING FAST_TIER = \"1\". It also answers the cost and multiplicity objections at once. Enforced bound: cell 0 line 107 SWEEP_DEADLINE_S 26100 -> 12600 (3.5 h); cell 10 lines 145-148 check it BETWEEN candidates and break keeping partial results, and a truncated table then hits the script missing-candidate check and selection is REFUSED.",
+    "budget_current": "Run 1 ~2.2 h estimated, 3.5 h enforced sweep bound, reserve 4.0 h; Run 2 ~0.3 h; total reserved 4.3 of 19.741056. At most 1 submission."
+  },
+  "exp065_run": {
+    "kernel": "lingxd/biohub-exp065-pruning-sweep",
+    "kernel_version": 2,
+    "launched_at_utc": "2026-09-25T18:33:57.130335Z",
+    "notebook_sha256": "6baeb36bd9d66a3f556c75741192f6e30320e065a1c51f7c213e101aeb1043be",
+    "state": "COMPLETE_EVALUATED",
+    "estimate": "~2.12 GPU h for 16 configurations; enforced sweep bound 3.5 h; 4.0 h reserved",
+    "record": "experiments/exp_065_metric_aligned_pruning/experiment.json",
+    "do_not": "DO NOT relaunch. DO NOT submit submission.csv before Gate 1 passes and ppsweep_selected.json is read -- if it selected \"base\" the file is the parent and submitting it spends a slot for zero information.",
+    "v1_failed": "Version 1 ERRORed in cell 1 within seconds: the vehicle's own config-drift guard pins BIOHUB_SWEEP_DEADLINE_S at 26100.0 and change (b) had moved only the cell-0 setting. Fixed by change (b2). Negligible GPU draw. FREE POSITIVE: cell 0 completed, so the change-(d) auto-attach assertions PASSED against live Kaggle mounts -- no preset or cache auto-attach fired.",
+    "gpu_hours_actual": 2.04425
+  },
+  "exp065_result": {
+    "gate_1": "PASS -- submission_base.csv sha256 d52a5da2... is BYTE-IDENTICAL to the exp_064 parent, 238260 rows. The vehicle IS the 0.953 parent with its levers off, so the 862 added lines are inert when off and the parent is inherited at zero submission cost. Runtime report also shows auto_attached = {} against live Kaggle mounts.",
+    "cross_check": "Our base / ep015 / leaf040 rows are BIT-IDENTICAL to amanatar published values to 16 decimals. The harvested third-party table did describe our pipeline.",
+    "headline": "H_NULL. All 15 eligible pruning candidates measured on 8 held-out stems; Gate 2 selects NOTHING, and the notebook own prefix-guarded rule independently also selected \"base\". NOT SUBMITTED, because submission.csv came out byte-identical to the parent and would have been a guaranteed 0.953 for zero information.",
+    "structural_finding": "THE PRUNING FAMILY IS ONE BINARY SWITCH, NOT 15 KNOBS. ep010, ep015, ep020, ep_cx and prune_pack are bit-identical in every field (adjEJ 0.9391861967544098, spurious 174790, missed 99): the OUTPUT_MIN_EDGE_PROB magnitude from 0.10 to 0.20 has ZERO effect (only on-vs-off), and stacking cx/leaf/seg on top of it adds nothing. seg* is ~0 with 18 of 36 subsets exactly unchanged; cx10 is exactly base; cx06 and seg_cx are slightly negative; cx03 is +0.00115 and fails the +0.0015 bar. So there is no threshold to tune and no stack to assemble - the family collapses to the single embryo-heterogeneous effect that fails robustness.",
+    "division": "div_tp = 3 of 12 and div_fn = 9 for all 16 configurations, extending the earlier result to the whole pruning family.",
+    "cost": "2.04425 GPU h, ZERO submissions."
+  },
+  "division_headroom_analysis_2026_09_25": {
+    "sample_size": "THE WHOLE DIVISION TERM IS ESTIMATED FROM 12 GROUND-TRUTH DIVISION EVENTS across the 8 held-out stems: per-stem GT divisions are 1,1,1,1,1,2,1,4. The validator deliberately ranks division-containing movies first, so these ARE the division-richest held-out movies available at VALIDATOR_N_PER_TYPE=4. base is tp=3 fp=2 fn=9, divJ = 3/14 = 0.2143.",
+    "what_moves_are_worth": "divisions carry weight 0.1, so: remove 1 FP -> +0.00165; remove both FP -> +0.00357; recover 3 of the 9 FN -> +0.02143; recover 6 of 9 -> +0.04286; perfect -> +0.07857. RECALL is where the prize is (4x the entire pruning family for just 3 recovered divisions); PRECISION is nearly worthless because fp is only 2.",
+    "divnet_is_the_wrong_tool": "giorgosi/biohub-divnet-v2 (mounted by haideptry 0.951 notebook, a 5.6 MB 3D-CNN best_overall.pt) is a VETO: BIOHUB_DIVNET_VERIFY=1 + BIOHUB_DIV_MIN_PROB=0.50 soft-vetoes candidates with p<0.50. That is a PRECISION mechanism. Our div_fp is already only 2, so the entire achievable gain is <= +0.0036 and it CANNOT touch div_fn=9. Do not spend a run on it expecting recall.",
+    "measurability_problem": "This is the binding constraint on all division work: with 12 GT events, any interventions effect on divJ is a quantised jump over a handful of events and cannot be distinguished from luck locally. sym075 swung divJ 0.2143 -> 0.1667 on just +4 FP. So division work can only be judged on the Public LB, against an unrevealed private split, which is exactly the shape that overfits. BIOHUB_VALIDATOR_N_PER_TYPE 4 -> 8 would enlarge the sample at roughly linear validator cost and is the cheapest way to make this territory measurable at all -- but it buys measurement capacity, not score.",
+    "CORRECTION_sample_is_not_maximal": "WITHDRAWN 2026-09-25 after an independent Codex strategy review: my claim that these 8 stems are the \"division-richest held-out movies available\" is WRONG. The selector is sorted(stems, key=lambda s: (not division_flags[s], s)) and _stem_has_gt_division returns a BOOLEAN, so it sorts by CONTAINS ANY DIVISION then LEXICOGRAPHICALLY by stem name -- not by division count. Twelve GT events is NOT a ceiling, and raising BIOHUB_VALIDATOR_N_PER_TYPE can expose more. The \"division work is essentially unmeasurable\" conclusion is correspondingly weakened.",
+    "RECOVERABILITY_AUDIT_already_ran_and_was_unread": "The vehicle contains division_recoverability_audit() and IT RAN IN OUR OWN exp_065 LOG. Result: reproduced_ok=2, recoverable_by_postprocess=7, missing_second_daughter=3, parent_unmatched=0. So SEVEN of the division FNs have BOTH GT daughters already matched to predicted nodes -- the detections exist and only the linking is missing -- against only THREE that are detection-limited. This CONTRADICTS the \"division recall is upstream-locked\" framing. Recovering 3 of the 7 is worth +0.02143 proxy. The audit itself names the family to try: dcsd010/dcsd015/divwide/sym075/diverge150 plus repd010/repd015/repd015w. TWO CAVEATS: (i) the audit reproduced_ok branch is UNSOUND -- line 5649 counts a matched parent with >=2 outgoing edges as reproduced WITHOUT checking those edges reach the correct daughters; (ii) concrete evidence of that: the audit says reproduced_ok=2 while the official scorer says div_tp=3 on the same base config, so THEY DISAGREE BY ONE EVENT and the audit must be reconciled against the scorer before its counts are trusted. Clean log archived at experiments/exp_065_metric_aligned_pruning/collection/run_log_clean.txt.",
+    "cost_of_narrowing_the_sweep": "Narrowing exp_065 from 41 candidates to the 15-member pruning family EXCLUDED exactly the division family the audit points at: dcsd010, diverge150, divgap60, divgap70, repd010, repd015, repd015w were never scored. Of the named family only the already-archived ones were measured and those were mostly harmful (sym075 -0.0054 proxy, repd_divgap -0.0066, dcsd015 +0.0018, divwide ~0)."
+  },
+  "codex_independent_strategy_2026_09_25": {
+    "doc": "docs/research/exp065_codex_independent_strategy_2026-09-25.md",
+    "method": "Codex gpt-6-astra, effort low, read-only, given a purely FACTUAL brief with Claude Code own ranking deliberately withheld so the judgement would not be anchored.",
+    "verdict": "CONTINUE with a small bounded portfolio, not four days of tuning. ~7 GPU h, <=5 slots, stop new research 2026-09-28.",
+    "its_order": "(1) probe cx03 alone ~0.3-0.5 h + 1 slot; (2) probe ep015 alone ~0.3-0.5 h + 1 slot, explicitly as a speculative exception to the rejected gate; (3) event-led division audit up to 4 h + 0-2 slots, tracing all 12 labelled events through detection, candidate generation, which gate rejects them, survival through the solve, and scorer identity, then AT MOST two targeted interventions; (4) V1284-removal A/B up to 2 h + 0-1 slot; (5) timeboxed inspection of the three unanalysed public artifacts, 0 h GPU.",
+    "what_it_would_deprioritise": "another pruning sweep; blind sweeps of named knobs; exp_061 Z-TTA deployment repair; new detector training or a framework rewrite; more public-ladder chasing; seyitkaangunes as a wholesale replacement; immediate DivNet adoption.",
+    "claude_verification": "THREE of its criticisms of my analysis are GENUINE and material: I omitted cx03 from the choice set entirely though it is the SAFER candidate (worst prefix regression 52.6x smaller than ep015 and it PASSES the author own -0.0005 cap where ep015 fails); my \"division-richest sample\" claim is wrong; and I never read the recoverability audit that already ran in our own log. All three are recorded above and in the doc. Codex plan is better founded than the binary choice I put to the user."
+  },
+  "plan_doc": "PLAN.md at the repo root -- the agreed checklist for the remaining four days, written 2026-09-25 after the independent Codex strategy review. STATE.json is the authority on state; PLAN.md is the authority on what we agreed to do next. Step 0 (reconciling the division recoverability audit against the official scorer) is FREE and gates Step 2. Nothing in it is authorized yet.",
+  "step0_division_reconciliation_2026_09_25": {
+    "doc": "docs/research/step0_division_audit_reconciliation_2026-09-25.md",
+    "script": "experiments/exp_065_metric_aligned_pruning/collection/reconcile_division_audit.py",
+    "cost": "zero GPU, zero submissions",
+    "verdict": "THE \"7 OF 9 RECOVERABLE\" NUMBER DOES NOT SURVIVE. PLAN.md Step 2 is CANCELLED per its own pre-registered decision rule.",
+    "reconciliation": "Denominators AGREE: 12 GT division events both ways. Derived reproduced_ok = 2 = the audit own total, against the scorer div_tp = 3. The entire discrepancy is ONE stem, 44b6_2a2eff9f: the scorer counts its division a TRUE POSITIVE while the audit classes it recoverable_by_postprocess.",
+    "root_cause": "THE SCORER CRITERION IS COMPONENT-LEVEL, THE AUDIT IS NODE-LEVEL. compute_division_confusion (cell 8 lines 100-187) awards a TP when ONE weakly-connected component (a) contains a node matched to the anchor -- the GT parent OR ITS OWN PARENT, (b) is touched by some matched descendant of the daughter-1 lineage, (c) likewise daughter 2, and (d) contains ANY node with out-degree >= 2. THE FORK NEED NOT BE AT THE MATCHED PARENT. The audit only asks whether the matched parent itself emits two edges. 44b6_2a2eff9f is the existence proof that these differ.",
+    "why_it_kills_step2": "The audit 7 is not a count of scorer-rewardable opportunities. And decisively: the 9 FNs failed the LOOSER test. Failing it requires a daughter lineage with no matched node anywhere, or an unmatched anchor, or a component with no fork at all, or THE TWO LINEAGES IN DIFFERENT COMPONENTS (fragmentation). The post-process division levers (dcsd010, diverge150, repd010/015/015w) only add or accept FORKS -- they do not merge fragmented components and cannot create missing detections. Precedent: exp_055 joint cut-and-reconnect repair scored +0.0148537 on the local proxy and moved the Public LB 0.000, which is exactly this territory.",
+    "fp_tp_coupling": "EVERY div_fp sits on a stem that also has a div_tp (44b6_2a2eff9f 1/1/0 and 6bba_062c8d37 1/1/0; the third TP stem 6bba_09961292 has fp=0). With the FP rule at lines 178-185 that is the signature of a fork landing on the WRONG NODE NEAR THE RIGHT PLACE. So \"remove the 2 FPs\" and \"recover the FNs\" are NOT independent levers, and the +0.00165-per-FP arithmetic in division_headroom_analysis_2026_09_25 is an UPPER BOUND ONLY.",
+    "what_revival_would_require": "The per-event assignment of each FN to one of the four failure branches, which needs the validator prediction graphs. The notebook holds them in memory as VAL_BASE_PROCESSED and never writes them out, so it costs a new run. Not justified against four days, an unrevealed private split, and the exp_055 precedent."
+  },
+  "exp066_probe_cx03": {
+    "title": "PLAN.md Step 1: cx03 core-relative node-budget probe (BIOHUB_COUNT_EXCESS_FRAC 0.0 -> 0.03)",
+    "parent": "exp_064_x138_verbatim_repro (Public LB 0.953, output sha d52a5da2)",
+    "vehicle": "docs/research/public_notebook_archive/optimized-biohub-max-score.ipynb (sha 371fc1f9), a strict superset of x138 whose base pass is byte-verified to reproduce the parent when its levers are off",
+    "builder": "scripts/build_exp066_probe.py cx03",
+    "kernel": "lingxd/biohub-exp066-cx03",
+    "kernel_version": 1,
+    "kernel_status": "COMPLETE",
+    "kernel_elapsed_s": 1116.4,
+    "gpu_hours_actual": 0.310111,
+    "authored_change": "two env lines on the vehicle: BIOHUB_COUNT_EXCESS_FRAC 0.0 -> 0.03 and BIOHUB_VALIDATOR_ENABLE 1 -> 0, plus the cell-11 AttributeError fix, two fail-closed asserts and an arm snapshot copy. No sweep, no runtime re-selection: the base pass IS the arm.",
+    "output_sha256": "135172dfefda1b5c8c43aca30eb8cc1357a84b7826ac0ada3bf80c0b53f11fef",
+    "void_test": "PASSED (i.e. the probe is live): output sha differs from parent d52a5da2, so the lever changed the submission.",
+    "lever_fired_evidence": "PIPELINE MANIFEST prints 'v6 metric-aligned layer: ... cx=0.03'; run_stats.csv gained count_target_removed/count_target_excess columns with nonzero values; log lines '[44b6_0b24845f] after count-target pruning: 18605 nodes, 17162 edges (removed=917)' and '[6bba_05b6850b] ... (removed=71)'.",
+    "determinism_evidence": "VALIDATOR: disabled (BIOHUB_VALIDATOR_ENABLE=0); 'SWEEP: validator unavailable -- keeping the base configuration'; shipped_config=base, sweep_results_count=0; auto_attached={}, frozen_preset_applied=false (the two exp_066 asserts); ppsweep_selected.json overrides={}.",
+    "effect": {
+      "rows": "238260 -> 236030 (-2230, -0.94%)",
+      "nodes": "121219 -> 120231 (-988)",
+      "edges": "117041 -> 115799 (-1242)",
+      "divisions_total": "62 -> 61",
+      "per_movie": {
+        "44b6_0113de3b": "unchanged (25728 nodes / 24986 edges / 35 divisions; count_target_excess=0)",
+        "44b6_0b24845f": "19522 -> 18605 nodes, 18323 -> 17162 edges, 6 -> 5 divisions (removed=917)",
+        "6bba_05b6850b": "6220 -> 6149 nodes, 6025 -> 5944 edges, 5 divisions unchanged (removed=71)",
+        "6bba_05db0fb1": "unchanged (69749 nodes / 67707 edges / 16 divisions; count_target_excess=0)"
+      }
+    },
+    "integrity": "No traceback, no AssertionError, no config-drift trip. ground_truth_accessed=false, status complete_label_free_runtime_integrity. checkpoint_sha256 (primary 12f6881e, secondary 9bac2fa0, deepcenter 8040999a) and support_repo_python_manifest_sha256 978b626d IDENTICAL to exp_064. Remote kernel source verified cell-for-cell identical to experiments/exp_066_probe_cx03/kaggle_kernel/biohub-exp066-cx03.ipynb before submitting.",
+    "lb_submission": {
+      "submission_id": 56567455,
+      "submitted_at_utc": "2026-09-26T02:56:41.973000Z",
+      "local_date_new_york": "2026-09-25",
+      "status": "PENDING",
+      "public_score": null,
+      "method": "competition_submit_code (kaggle competitions submit -k lingxd/biohub-exp066-cx03 -v 1 -f submission.csv)",
+      "user_authorized": true,
+      "gate": "1 of 5 used on America/New_York 2026-09-25; platform reported 4 remaining at submit; non-duplicate (sha differs from every prior submission)",
+      "recorded_in": "SUBMISSION_BUDGET.json submissions[-1]"
+    },
+    "decision_rule": "Pre-registered in PLAN.md Step 1 vs parent 0.953: >=0.955 adopt; 0.954 small real gain; 0.953 null, keep the parent; <=0.952 revert.",
+    "honest_status": "Registered exploratory probe, NOT a Gate 2 pass: cx03 measures +0.00115 test-reweighted against our +0.0015 aggregate bar, and missed the vehicle notebook's own 0.001 selection margin by 0.0001. It does PASS the vehicle author's own per-embryo cap (worst per-embryo regression -0.00016, 52.6x smaller than ep015), which is why it was ordered ahead of ep015.",
+    "governance_note": "Launched outside the controller by manual kaggle kernels push (the repro_059 / exp_060 / exp_065 precedent); there is no experiment.json for it, so active_experiment stays exp_065_metric_aligned_pruning. The local artefacts are experiments/exp_066_probe_cx03/kaggle_kernel/; the run output is not yet collected into experiments/exp_066_probe_cx03/collection/."
+  },
+  "exp066_cx03_result": {
+    "submission_id": 56567455,
+    "public_score": 0.953,
+    "status": "COMPLETE",
+    "score_source": "authenticated_kaggle_submission_history (read 2026-09-26T17:20Z)",
+    "verified_at_utc": "2026-09-26T17:30:00+00:00",
+    "parent_public_score": 0.953,
+    "delta": 0.0,
+    "pre_registered_rule": "PLAN.md Step 1 vs parent 0.953: >=0.955 adopt; 0.954 small real gain; 0.953 null, keep the parent; <=0.952 revert.",
+    "verdict": "NULL -- keep exp_064. cx03 is closed and must not be revived without new evidence.",
+    "probe_was_live_not_void": "Output sha 135172df differs from the parent d52a5da2, so the lever fired: 988 nodes and 1242 edges pruned, rows 238260 -> 236030, global divisions 62 -> 61. The null is a real measurement of the lever, not a failed deployment.",
+    "interpretation": "Registered null at reported score precision; exact unrounded delta is unknown. Retain exp064.",
+    "gpu_hours": 0.310111
+  },
+  "exp067_arc": {
+    "goal": "Learned temporal association/division model with joint lineage decoding, on exp_064.",
+    "stage": "Export complete; local closeout complete; stopped for competition. No trained head.",
+    "exp_067c": {
+      "kernel": "lingxd/biohub-exp067c-temporal-export",
+      "kernel_version": 1,
+      "result": "ERROR after 464 s (0.129 GPU h) at the dependency gate.",
+      "cause": "Own gate defect, NOT configuration drift: the stray-key allow-list was built from the value-asserted key set, which excludes wall clock, so the parent's own BIOHUB_KERNEL_START_TS was rejected as unexpected.",
+      "evidence_gained": "Everything before it passed against real Kaggle mounts: the 86-key environment value assertion, all three checkpoint SHA256s, the support-repo python manifest SHA256 and the pinned V1284 head SHA256. The check enumerated every runtime BIOHUB_/V1284_ key and found exactly one outside the allow-list, so no other unexpected key exists."
+    },
+    "exp_067d": {
+      "kernel": "lingxd/biohub-exp067d-temporal-export",
+      "kernel_version": 1,
+      "submitted_at_utc": "2026-09-26T17:26:19+00:00",
+      "status": "COMPLETE. All gates passed. 1817.7 s = 0.5049 GPU h, booked; reservation released.",
+      "diff_vs_exp_067c": "Exactly two cells, verified by diff: the stray-key allow-list gains BIOHUB_KERNEL_START_TS, and the recorded experiment id changes.",
+      "reserved_gpu_hours": 0.0,
+      "expected_timeline": "Once it starts, the dependency gate that failed in exp_067c is reached about 460 s in, so the fix is confirmed or refuted within ~8 minutes of execution. A full eight-movie export is longer and is bounded by the 5400 s watchdog.",
+      "gates": "config-drift PASS; dependency gate PASS (48 package versions observed); effective-configuration gate PASS (126 globals, 23 predictor arguments) -- the exp067c fix is confirmed on real data; representative parent parity identical on both sampled movies; export integrity gate_passed true; no traceback or fatal.",
+      "exported": "8 movies: 186803 nodes, 180368 edges, 1088256 bounded alternatives, 179745 reconsiderable (96.2%).",
+      "historical_launch_reservation_hours": 2.0
+    },
+    "admission": "Codex review WAIVED BY USER 2026-09-26, verdict NO_PASS. The review was requested and died on a Codex CLI usage limit without a verdict. No PASS exists and none is claimed; every other controller gate was executed, not skipped.",
+    "leaderboard": "NOT authorized. Export only.",
+    "blocking_finding": {
+      "headline": "Division supervision, not code, is the binding constraint.",
+      "gt_sparsity": "5935 GT nodes against 186803 predicted nodes (3.2%). Matching is NOT the problem: 99.1% of GT nodes matched. The annotation itself is sparse.",
+      "divisions": "Train split: 7 mothers, only 5 with mother AND both daughters matched. Holdout: 5 mothers, 4 complete. Density ~1.5 divisions per movie.",
+      "consequence": "At this export size the division head -- the entire mechanism of the hypothesis -- would be fit on 5 positives and evaluated on 4. train.py min_division_positives=3 is a wiring floor, not a sufficiency claim. A link-only fallback is just an edge re-ranking, the class this project has repeatedly measured null.",
+      "not_a_data_limit": "Repo records know 199 stems, 4 of them TEST, so roughly 195 TRAIN movies exist (CONFIRM by listing TRAIN_DIR before any scale-up). At the measured 227 s/movie: 48 movies ~3.0 GPU h ~54 train positives; 96 movies ~6.1 h ~108; all ~195 ~12.3 h ~230. Budget allows it; the 5400 s watchdog caps one kernel at ~23 movies so it must be sharded.",
+      "analysis": "docs/research/exp067d_export_analysis_2026-09-26.md"
+    },
+    "recommendation": "User accepted the local closeout recommendation. Stop competition work; future reopening requires separate authorization."
+  },
+  "stage0_result": {
+    "status": "CORRECTED_AT_CLOSEOUT",
+    "cost": "zero additional GPU and submissions",
+    "direct_edge_deficits": 7,
+    "direct_events_present": 2,
+    "scorer_tp_fp_fn": [
+      3,
+      2,
+      9
+    ],
+    "geometry_pass_counts": {
+      "base": 0,
+      "sym075": 0,
+      "tau_off_only": 4,
+      "distance14_only": 0,
+      "distance14_tau_off": 7
+    },
+    "interpretation": "Current geometry blocks these triples; no universal historical cause or architecture impossibility established.",
+    "not_run": "Q2/Q3; no learned decoder evaluation",
+    "report": "docs/research/closeout_review_2026-09-26.md",
+    "audit": "docs/research/closeout_audit_2026-09-26.json"
+  },
+  "closeout": {
+    "at_utc": "2026-09-27T01:50:58.432273+00:00",
+    "report": "docs/research/closeout_review_2026-09-26.md",
+    "audit": "docs/research/closeout_audit_2026-09-26.json",
+    "local_complete": true,
+    "final_selection_remote_verified": false,
+    "ep015_authorized": false,
+    "public_push_authorized": false,
+    "pre_edit_archive": ".private/closeout_20260926_before/manifest.json"
+  },
+  "ep015_authorization": {
+    "at_utc": "2026-09-27T02:00:32+00:00",
+    "user_instruction": "Then do as you recommended.",
+    "scope": "One ep015 candidate run and one LB probe after strategy consensus, admission PASS and output integrity; local CPU division scoring-potential diagnostic; no automatic final re-selection, second probe, exp067 training or public push.",
+    "gpu_remaining_user_reported": 30.0,
+    "daily_submission_policy": "Use conservative three/day from current user-supplied AGENTS; also obey remote cap. No burst authorized.",
+    "completion_policy": "After launch wait for user completion notice; no status polling. One check/collection then audit before authorized submission.",
+    "model_allowance": "Exact remaining allowance unavailable; disclosed; one bounded Claude proposal and one fresh formal Codex review, no automatic timeout/quota retry."
+  },
+  "ep068_status": {
+    "experiment": "exp_068_ep015_single_probe",
+    "state": "SUBMITTED",
+    "review": "PASS",
+    "cpu_report": "docs/research/ep015_continuation_2026-09-26/division_counterfactual_report.md",
+    "strategy": "docs/research/ep015_continuation_2026-09-26/strategy_consensus_v1.md",
+    "user_authorized_one_submission_after_audit": true,
+    "final_selection_change_authorized": false
   }
 }

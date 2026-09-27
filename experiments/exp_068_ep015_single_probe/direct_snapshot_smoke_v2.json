@@ -1,0 +1,52 @@
+{
+  "at_utc": "2026-09-27T02:24:23+00:00",
+  "status": "PASSED",
+  "command": [
+    "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+    "scripts/smoke_exp068.py",
+    "E:\\Project\\Biohub_CellTracking\\experiments\\exp_068_ep015_single_probe\\snapshot\\source\\biohub-exp068-ep015.ipynb"
+  ],
+  "stdout": "PASS: exact vehicle delta, embedded contract, all code syntax, threshold/boundary/orphan behavior, config drift and graph-negative fixtures.\n",
+  "executed_workspace_to_snapshot_hash_matches": [
+    {
+      "workspace_path": "scripts\\build_exp068_probe.py",
+      "snapshot_path": "experiments/exp_068_ep015_single_probe/snapshot/extra_files/build_exp068_probe.py",
+      "sha256": "67848b8dedd1a8b9668cd77c6fcff6c7ba4b3b838e1e3b98683b86dacccfbbeb",
+      "match": true
+    },
+    {
+      "workspace_path": "scripts\\exp068_build_support.py",
+      "snapshot_path": "experiments/exp_068_ep015_single_probe/snapshot/extra_files/exp068_build_support.py",
+      "sha256": "b6d34a8c581e8e28392d865686f53bef3d008dec828ddb2924794cdfc734fa39",
+      "match": true
+    },
+    {
+      "workspace_path": "scripts\\exp068_contract.py",
+      "snapshot_path": "experiments/exp_068_ep015_single_probe/snapshot/extra_files/exp068_contract.py",
+      "sha256": "b6be3a42e66a134502cdded9d3846d64a704e3864a01cba2f38da7c504fe1faa",
+      "match": true
+    },
+    {
+      "workspace_path": "scripts\\smoke_exp068.py",
+      "snapshot_path": "experiments/exp_068_ep015_single_probe/snapshot/extra_files/smoke_exp068.py",
+      "sha256": "93e8fb4176ef85c51048e6d7cb13031557d6d67eac1e7ab0de03e19e1bf7e063",
+      "match": true
+    },
+    {
+      "workspace_path": "scripts\\audit_exp068_collection.py",
+      "snapshot_path": "experiments/exp_068_ep015_single_probe/snapshot/extra_files/audit_exp068_collection.py",
+      "sha256": "4109407aa8a83b4bb4c78d1e921768cdf3a50c7bc8aa3111269a3a4b9463e882",
+      "match": true
+    }
+  ],
+  "comparison_vehicle_provenance": {
+    "archive": "docs\\research\\public_notebook_archive\\optimized-biohub-max-score.ipynb",
+    "archive_sha256": "371fc1f9f4f20f692e0586616ff7d3eab4621d167f6c78516d3243c5a4fddfab",
+    "builder_sha256": "bf5047d1325a9839060310cc2617a6598c8e1f62b5fae71e8dde35fb9ceb508d",
+    "comparison_path": "experiments\\exp_066_probe_cx03\\kaggle_kernel\\biohub-exp066-cx03.ipynb",
+    "comparison_sha256": "b9cda287c6b9255a35af756a95e630fb41ab6c29dad613f4bd874e4769175b2f",
+    "byte_exact_reproduction": true
+  },
+  "core_sha256": "7a0a8190c1c0c70b46a26a1269c50ac9c14660d7cdd68586ba95ddf475d3261e",
+  "python_executable": "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe"
+}

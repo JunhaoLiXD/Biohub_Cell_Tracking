@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_067b_temporal_feature_export_v2",
+  "parent": "exp_064_x138_verbatim_repro",
+  "state": "MANUAL_REVIEW_REQUIRED",
+  "hypothesis": "The frozen exp064 predictor can export measured temporal features and bounded top-k alternatives ranked by logits, mapped to its unchanged final graph on explicit TRAIN movies, enabling the agreed learned joint-lineage model.",
+  "change": {
+    "component": "measured_temporal_feature_export_v2",
+    "exact": "Add export hooks and identity metadata; run eight fixed TRAIN movies. Fix controller gate and both-role eligibility; assert dependencies/config and compare disabled-hook postprocessing on one raw movie per prefix. No repeated detector inference, TEST prediction, sweep or new trained head yet."
+  },
+  "signature": "8efa57fc439cc690e9a4dbbbe3a7970fc8eba4a218c92eade0e2d827f996a072",
+  "config": "configs/exp_067b_temporal_feature_export_v2.yaml",
+  "snapshot_config": "experiments/exp_067b_temporal_feature_export_v2/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_067b_temporal_feature_export_v2/snapshot/source/export_v2.ipynb",
+  "snapshot_manifest": "experiments/exp_067b_temporal_feature_export_v2/snapshot/manifest.json",
+  "git_commit": "dadb99e1b5984d4b4d7a06a1fd337d7922d1c712",
+  "validation_protocol": "exp067_train_export_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "CHANGES_REQUESTED",
+    "verdict": "BLOCK",
+    "path": "experiments/exp_067b_temporal_feature_export_v2/review.md",
+    "completed_at": "2026-09-26T13:42:48+00:00"
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-26T13:40:51+00:00",
+  "updated_at": "2026-09-26T13:42:48+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-26T13:42:48+00:00",
+      "note": "Codex verdict: BLOCK"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "at_utc": "2026-09-26T17:26:16+00:00",
+  "source_sha256": "a0ec283bd19995877fad06f2b990be77c29e541f7d69028833b79117346aa45a",
+  "review_waived": true,
+  "waiver_reason": "User instruction 2026-09-26: skip the Codex admission review and push directly to Kaggle. The review was requested for exp067c and failed on a Codex CLI usage limit without producing a verdict (experiments/exp_067c_temporal_feature_export_v3/codex-review-quota-stop-v1.json). v4 differs from the exp067c snapshot in exactly two places -- the stray-key allow-list gains the wall-clock key the parent assigns, and the recorded experiment id -- both verified by diff. No PASS exists and none is claimed.",
+  "checks": [
+    {
+      "name": "notebook_contract",
+      "command": [
+        "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+        "E:\\Project\\Biohub_CellTracking\\scripts\\validate_notebook.py",
+        "E:\\Project\\Biohub_CellTracking\\experiments\\exp_067d_temporal_feature_export_v4\\snapshot\\source\\export_v4.ipynb",
+        "--require-metrics-contract"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"cells\": 16,\n  \"code_cells\": 16,\n  \"saved_error_outputs\": 0\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "behavioral_tests",
+      "command": [
+        "E:\\Project\\Biohub_CellTracking\\.private\\runtime\\exp067_cpu\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_exp067.py",
+        "tests/test_exp067c_admission.py",
+        "-q",
+        "--tb=short",
+        "--basetemp",
+        ".private/runtime/exp067d_waiver_launch"
+      ],
+      "returncode": 0,
+      "stdout": "........................                                                 [100%]\n24 passed in 4.01s\n",
+      "stderr": ""
+    }
+  ]
+}

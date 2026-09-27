@@ -1,0 +1,37 @@
+{
+  "at_utc": "2026-09-26T17:05:33+00:00",
+  "source_sha256": "ce2bcf4068890523296e81fe39cbe83f2a2fe545c77375bab011f1d2fca855fe",
+  "review_waived": true,
+  "waiver_reason": "User instruction 2026-09-26: skip the Codex admission review and push directly to Kaggle. The review was requested and failed on a Codex CLI usage limit without producing a verdict (experiments/exp_067c_temporal_feature_export_v3/codex-review-quota-stop-v1.json). No PASS exists and none is claimed.",
+  "checks": [
+    {
+      "name": "notebook_contract",
+      "command": [
+        "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+        "E:\\Project\\Biohub_CellTracking\\scripts\\validate_notebook.py",
+        "E:\\Project\\Biohub_CellTracking\\experiments\\exp_067c_temporal_feature_export_v3\\snapshot\\source\\export_v3.ipynb",
+        "--require-metrics-contract"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"cells\": 16,\n  \"code_cells\": 16,\n  \"saved_error_outputs\": 0\n}\n",
+      "stderr": ""
+    },
+    {
+      "name": "behavioral_tests",
+      "command": [
+        "E:\\Project\\Biohub_CellTracking\\.private\\runtime\\exp067_cpu\\Scripts\\python.exe",
+        "-m",
+        "pytest",
+        "tests/test_exp067.py",
+        "tests/test_exp067c_admission.py",
+        "-q",
+        "--tb=short",
+        "--basetemp",
+        ".private/runtime/exp067_waiver_launch"
+      ],
+      "returncode": 0,
+      "stdout": "......................                                                   [100%]\n22 passed in 3.63s\n",
+      "stderr": ""
+    }
+  ]
+}

@@ -607,8 +607,14 @@ def reserve_budget(root: Path, experiment_id: str, expected_hours: float, *, use
         reserved = budget.setdefault("reserved_hours", {})
         if experiment_id in reserved:
             return
-        approval_threshold = float(budget.get("require_user_approval_above_hours", math.inf))
-        max_single = float(budget.get("max_single_experiment_hours", math.inf))
+        # An explicit null means the limit was released, which is not the same as absent; the
+        # 2026-09-24 budget epoch writes null for both and float(None) would raise.
+        def _limit(key: str) -> float:
+            value = budget.get(key)
+            return math.inf if value is None else float(value)
+
+        approval_threshold = _limit("require_user_approval_above_hours")
+        max_single = _limit("max_single_experiment_hours")
         if expected_hours > approval_threshold and not user_approved:
             raise ControllerError(
                 f"Experiment requests {expected_hours:.2f} GPU h; explicit user approval is required above {approval_threshold:.2f} h"

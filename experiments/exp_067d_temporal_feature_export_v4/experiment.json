@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_067d_temporal_feature_export_v4",
+  "parent": "exp_064_x138_verbatim_repro",
+  "state": "EVALUATED",
+  "hypothesis": "The frozen exp064 predictor can export measured temporal features and bounded top-k alternatives ranked by logits, mapped to its unchanged final graph on explicit TRAIN movies, enabling the agreed learned joint-lineage model.",
+  "change": {
+    "component": "measured_temporal_feature_export_v4",
+    "exact": "Add export hooks and identity metadata; run eight fixed TRAIN movies. Assert the resolved parent globals and the effective predictor argv against the frozen exp064 configuration before inference, allowing only the declared validator-enable difference; persist observed dependency hashes and package versions in metrics. No repeated detector inference, TEST prediction, sweep or trained head yet. v4 fixes the exp067c v1 gate defect: the stray-key allow-list is built from EVERY environment key the parent assigns, not from the value-asserted subset, so the wall-clock key the parent legitimately sets is no longer rejected as unexpected. No other change."
+  },
+  "signature": "8e255ecee7c5b12f6c50ee490135522a75f442add4ea5ed02bda317260f583bb",
+  "config": "configs/exp_067d_temporal_feature_export_v4.yaml",
+  "snapshot_config": "experiments/exp_067d_temporal_feature_export_v4/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_067d_temporal_feature_export_v4/snapshot/source/export_v4.ipynb",
+  "snapshot_manifest": "experiments/exp_067d_temporal_feature_export_v4/snapshot/manifest.json",
+  "git_commit": "dadb99e1b5984d4b4d7a06a1fd337d7922d1c712",
+  "validation_protocol": "exp067_train_export_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "actual_gpu_hours": 0.504912604086111
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "WAIVED_BY_USER_FOR_ONE_EXPORT_KERNEL_RUN",
+    "verdict": "NO_PASS",
+    "reason": "User instruction 2026-09-26: skip the Codex admission review and push directly to Kaggle. The review was requested for exp067c and failed on a Codex CLI usage limit without producing a verdict (experiments/exp_067c_temporal_feature_export_v3/codex-review-quota-stop-v1.json). v4 differs from the exp067c snapshot in exactly two places -- the stray-key allow-list gains the wall-clock key the parent assigns, and the recorded experiment id -- both verified by diff. No PASS exists and none is claimed.",
+    "failed_attempt": "experiments/exp_067c_temporal_feature_export_v3/codex-review-quota-stop-v1.json",
+    "predecessor": "exp_067c_temporal_feature_export_v3 kernel v1 ERROR after 464 s at the dependency gate",
+    "at_utc": "2026-09-26T17:26:16+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "type": "direct_immutable_snapshot_validation_and_test_suite_with_review_waiver",
+    "receipt": "experiments/exp_067d_temporal_feature_export_v4/user-waiver-smoke.json",
+    "at_utc": "2026-09-26T17:26:16+00:00"
+  },
+  "created_at": "2026-09-26T17:25:10+00:00",
+  "updated_at": "2026-09-26T20:05:56+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-26T17:26:16+00:00",
+      "note": "One-time user waiver; formal Codex PASS absent"
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-26T17:26:16+00:00",
+      "note": "Direct snapshot smoke and exp067 suite passed"
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-26T17:26:16+00:00",
+      "note": "Ready for one manually tracked Kaggle push"
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-26T17:26:19+00:00",
+      "note": "One-time user-authorized export kernel run; no LB submission"
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-26T20:05:56+00:00",
+      "note": "Kernel COMPLETE; output collected"
+    },
+    {
+      "from": "COLLECTING",
+      "to": "EVALUATED",
+      "at": "2026-09-26T20:05:56+00:00",
+      "note": "Export gate PASSED. Blocking downstream finding: only 5 usable division positives in the training split, so the division head is not trainable."
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp067d-temporal-export",
+    "submitted_at": "2026-09-26T17:26:19+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-26T20:05:56+00:00",
+    "launch_mode": "one_time_user_waiver_no_codex_pass",
+    "kernel_version": 1,
+    "runtime_seconds": 1817.68537471,
+    "output": ".private/runtime/exp067d_out"
+  },
+  "metrics": {
+    "gate_passed": true,
+    "primary_metric": 1.0,
+    "meaning": "engineering export integrity only; NOT accuracy",
+    "movies_exported": 8,
+    "nodes": 186803,
+    "edges": 180368,
+    "alternatives": 1088256,
+    "reconsiderable": 179745,
+    "matched_labels": 5881,
+    "gates": "dependency gate passed (48 package versions observed); effective-configuration gate passed (126 globals, 23 predictor arguments); representative parent parity identical on 44b6_12dfb391 and 6bba_062c8d37; no traceback, no fatal, config guard PASS.",
+    "blocking_finding": "SUPERVISION IS THE BINDING CONSTRAINT and it is far tighter than this arc assumed. The TRAIN ground truth is sparsely annotated: 5935 GT nodes against 186803 predicted nodes (3.2%). Matching is NOT the problem -- 99.1% of GT nodes matched. Divisions: 12 total; 7 mothers across the six training movies of which only 5 have mother AND both daughters matched; 5 across the two held-out movies of which 4 are complete. The division head -- the entire mechanism of the exp067 hypothesis -- would be fit on 5 positives and evaluated on 4. The link head has ~3.6k positives and is fine, but a link-only model is an edge intervention, the class this project has repeatedly measured null."
+  }
+}

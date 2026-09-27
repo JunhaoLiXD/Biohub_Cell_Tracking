@@ -1,0 +1,8 @@
+# Isolated CPU development environment, verified on Python 3.12 / Windows.
+# Do not install this over the parent's Kaggle CUDA environment.
+--extra-index-url https://download.pytorch.org/whl/cpu
+torch==2.14.0+cpu
+numpy==2.5.3
+scipy==1.18.1
+pytest==9.1.1
+PyYAML==6.0.3

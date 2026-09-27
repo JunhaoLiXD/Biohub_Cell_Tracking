@@ -1,0 +1,7 @@
+[2026-09-26T17:05:35+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "push", "-p", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_067c_temporal_feature_export_v3\\kaggle_kernel", "--accelerator", "NvidiaTeslaT4"]
+exit_code=0
+STDOUT
+Kernel version 1 successfully pushed.  Please check progress at https://www.kaggle.com/code/lingxd/biohub-exp067c-temporal-export
+
+STDERR
+

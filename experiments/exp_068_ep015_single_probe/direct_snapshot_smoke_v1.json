@@ -1,0 +1,50 @@
+{
+  "status": "PASSED",
+  "scope": "Direct immutable-snapshot smoke before review revision; formal controller smoke still follows admission PASS.",
+  "at_utc": "2026-09-27T02:21:16+00:00",
+  "command": [
+    "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+    "scripts/smoke_exp068.py",
+    "E:\\Project\\Biohub_CellTracking\\experiments\\exp_068_ep015_single_probe\\snapshot\\source\\biohub-exp068-ep015.ipynb"
+  ],
+  "exit_code": 0,
+  "stdout": "PASS: exact vehicle delta, embedded contract, all code syntax, threshold/boundary/orphan behavior, config drift and graph-negative fixtures.\n",
+  "stderr": "",
+  "hash_checks": [
+    {
+      "path": "experiments/exp_068_ep015_single_probe/snapshot/config.yaml",
+      "expected": "fa1265179a569aaae14e323e4c8163656da2a3b5aa8d3ef867eda273c1e66c15",
+      "actual": "fa1265179a569aaae14e323e4c8163656da2a3b5aa8d3ef867eda273c1e66c15"
+    },
+    {
+      "path": "experiments/exp_068_ep015_single_probe/snapshot/source/biohub-exp068-ep015.ipynb",
+      "expected": "4dfc2bb121d67a47ddefd75a25c5559df7dc58e202ddaa1efb1bd9a98100555f",
+      "actual": "4dfc2bb121d67a47ddefd75a25c5559df7dc58e202ddaa1efb1bd9a98100555f"
+    },
+    {
+      "path": "experiments/exp_068_ep015_single_probe/snapshot/extra_files/build_exp068_probe.py",
+      "expected": "67848b8dedd1a8b9668cd77c6fcff6c7ba4b3b838e1e3b98683b86dacccfbbeb",
+      "actual": "67848b8dedd1a8b9668cd77c6fcff6c7ba4b3b838e1e3b98683b86dacccfbbeb"
+    },
+    {
+      "path": "experiments/exp_068_ep015_single_probe/snapshot/extra_files/exp068_build_support.py",
+      "expected": "b6d34a8c581e8e28392d865686f53bef3d008dec828ddb2924794cdfc734fa39",
+      "actual": "b6d34a8c581e8e28392d865686f53bef3d008dec828ddb2924794cdfc734fa39"
+    },
+    {
+      "path": "experiments/exp_068_ep015_single_probe/snapshot/extra_files/exp068_contract.py",
+      "expected": "b6be3a42e66a134502cdded9d3846d64a704e3864a01cba2f38da7c504fe1faa",
+      "actual": "b6be3a42e66a134502cdded9d3846d64a704e3864a01cba2f38da7c504fe1faa"
+    },
+    {
+      "path": "experiments/exp_068_ep015_single_probe/snapshot/extra_files/smoke_exp068.py",
+      "expected": "93e8fb4176ef85c51048e6d7cb13031557d6d67eac1e7ab0de03e19e1bf7e063",
+      "actual": "93e8fb4176ef85c51048e6d7cb13031557d6d67eac1e7ab0de03e19e1bf7e063"
+    },
+    {
+      "path": "experiments/exp_068_ep015_single_probe/snapshot/extra_files/audit_exp068_collection.py",
+      "expected": "4109407aa8a83b4bb4c78d1e921768cdf3a50c7bc8aa3111269a3a4b9463e882",
+      "actual": "4109407aa8a83b4bb4c78d1e921768cdf3a50c7bc8aa3111269a3a4b9463e882"
+    }
+  ]
+}

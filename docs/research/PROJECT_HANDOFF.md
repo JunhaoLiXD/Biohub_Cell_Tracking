@@ -1,5 +1,38 @@
 # Biohub Cell Tracking — Project Handoff
 
+<!-- BEGIN EP068 CURRENT -->
+## Current ep068 continuation - 2026-09-27T02:26:01.458634+00:00
+
+Experiment `exp_068_ep015_single_probe`: **SUBMITTED**. Fresh review: **PASS**.
+The user authorized one ep015 run and one audited LB submission; 30 GPU hours were
+reported at the new epoch. Ledger now 30.000000 h, reservations
+`{"exp_068_ep015_single_probe": 2.0}`. No final re-selection, second probe or public push.
+
+Wait for user completion notice; do not poll, rebuild or relaunch. Then check/collect once, run scripts/audit_exp068_collection_v2.py (verify admission_supplement_manifest.json), bind remote version/source, check remote history and conservative three/day cap, and perform the one already authorized LB submission if all gates pass.
+
+CPU counterfactual is complete: all 128 subsets audited; original full per-movie
+metrics reproduced. True-edge repair can change TP/FP/FN from 3/2/9 to 9/2/3 in this
+restricted family. This is GT-assisted TRAIN diagnosis, not a learned result or LB
+forecast. Report: `docs/research/ep015_continuation_2026-09-26/division_counterfactual_report.md`.
+Older ep015-OFF and exp067-current instructions below are historical. exp067 training
+remains stopped. Final retained submission remains 56535761 (recorded Public LB 0.953).
+<!-- END EP068 CURRENT -->
+## Current closeout - 2026-09-26 (supersedes historical directives below)
+
+Local closeout is complete. Read `PLAN.md` v4 and
+`docs/research/closeout_review_2026-09-26.md`; `STATE.json` owns current status.
+exp067d is EVALUATED, export complete; exp067 is stopped for this competition.
+Retain exp064 submission 56535761, recorded Public LB 0.953. No training, GPU launch,
+submission, successor preparation or public push is authorized. ep015 remains OFF.
+Ledger remaining is 16.752765 h with no reservations. Next: verify the final selection
+on the site before close; this closeout did not verify live selection or remote quota.
+The corrected CPU audit reproduces scorer TP/FP/FN 3/2/9 and separates those semantics
+from two exact direct-edge events. Geometry-only controls give 4/7 for tau-off alone
+and 7/7 with distance14 plus tau-off; they do not establish decoded performance.
+Historical RUNNING, next-launch and broad causal claims below are superseded.
+Review waivers remain historical NO_PASS, never retroactively converted to PASS.
+
+
 Status: current repository checkpoint, 2026-09-18. This file is the operational
 handoff for Claude Code as primary author and Codex as independent reviewer. Read
 `HANDOUT.md` first, then `STATE.json`, `AGENTS.md`, `GOAL.md`,

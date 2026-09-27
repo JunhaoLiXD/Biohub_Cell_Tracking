@@ -1,0 +1,152 @@
+{
+  "experiment_id": "exp_065_metric_aligned_pruning",
+  "state": "EVALUATED_H_NULL_NOT_SUBMITTED",
+  "title": "Metric-aligned pruning sweep on the 0.953 x138 parent",
+  "parent": {
+    "experiment_id": "exp_064_x138_verbatim_repro",
+    "submission_id": 56535761,
+    "public_lb": 0.953,
+    "output_sha256_prefix": "d52a5da2"
+  },
+  "vehicle": {
+    "notebook": "amanatar/optimized-biohub-max-score",
+    "archived": "docs/research/public_notebook_archive/optimized-biohub-max-score.ipynb",
+    "sha256": "371fc1f9f4f20f692e0586616ff7d3eab4621d167f6c78516d3243c5a4fddfab",
+    "relation_to_parent": "Adds 862 lines over x138 and shares x138 89 BIOHUB_* keys and 4 datasets exactly. Omits 24 x138 lines, all enumerated and accounted for. Exactly one intended config difference: VALIDATOR_ENABLE 0 -> 1, which this run wants on."
+  },
+  "proposal": "docs/research/exp065_metric_aligned_pruning_proposal_v3.md",
+  "governance_note": "USER RULING 2026-09-25: skip the third Codex challenge and the fresh experiment-specific Codex admission review; go straight to build, run and submit, and judge the approach from the LB score. Recorded as a deliberate, user-authorized deviation from the standing workflow, not as a pass. Rounds 1 and 2 of the strategy challenge DID run and are on file (exp065_codex_challenge_v1.md, _v2.md); twelve blocking findings were raised across them and all twelve were independently verified genuine and addressed in v3.",
+  "build": {
+    "script": "scripts/build_exp065_pruning_sweep.py",
+    "authored_change_budget": "5 lines removed, 22 added, asserted by the build script",
+    "changes": [
+      "(a) cell 11 line 44: _v6env = os.environ.get -> os.environ (the AttributeError that failed the author own run under papermill)",
+      "(b) cell 0 line 107: BIOHUB_SWEEP_DEADLINE_S 26100 -> 12600, an enforced 3.5 h sweep bound",
+      "(b2) cell 1 line 19: the vehicle's own _EXPECTED_NUMERIC drift guard, expected 26100.0 -> 12600.0, so it agrees with change (b)",
+      "(c) cell 10 lines 135-136: the 12-name _V7_FAST_TIER tuple -> the 15 eligible pruning candidates, highest-value first",
+      "(d) cell 0 before the BIOHUB_PRESET print: +6 lines, fail-closed assertions on _V9_AUTO_SET_ENV and FROZEN_PRESET_OVERRIDES",
+      "(e) cell 5 after the base-write try/finally: +8 lines, snapshot submission.csv to submission_base.csv"
+    ],
+    "notebook_sha256": "6baeb36bd9d66a3f556c75741192f6e30320e065a1c51f7c213e101aeb1043be",
+    "validation": "all 12 cells compile; every edit present and every original absent; config gate OK; and every _EXPECTED_NUMERIC drift-guard entry now cross-checked against its cell-0 setting"
+  },
+  "sweep_scope": {
+    "candidates": [
+      "ep015",
+      "leaf040",
+      "cx03",
+      "cx06",
+      "cx10",
+      "ep010",
+      "ep020",
+      "seg035L4",
+      "seg030L3",
+      "seg040L6",
+      "leaf030",
+      "ep_cx",
+      "prune_pack",
+      "seg_cx",
+      "leaf_seg"
+    ],
+    "why_15_not_41": "Round 2 of the challenge showed all 41 costs ~4.5 h (median 324.83 s per config over 14 measured configs), exceeding the reservation, while these 15 are exactly what Gate 2 can select from. Re-costed at 16 configs = 7650 s = 2.12 h.",
+    "ordering_rationale": "ep015 and leaf040 first because amanatar already scored them, so they cross-check our table against theirs; then the untested cx* core-relative budget; then the rest. A deadline truncation therefore still leaves the cross-check and the new mechanism measured."
+  },
+  "launch": {
+    "kernel": "lingxd/biohub-exp065-pruning-sweep",
+    "url": "https://www.kaggle.com/code/lingxd/biohub-exp065-pruning-sweep",
+    "kernel_version": 1,
+    "pushed_at_utc": "2026-09-25T18:33:57.130335Z",
+    "user_authorized": true,
+    "gpu_estimate_hours": 2.12,
+    "gpu_enforced_sweep_bound_hours": 3.5,
+    "gpu_reserved_hours": 4.0
+  },
+  "expected_artifacts": [
+    "submission_base.csv -- the base pass, snapshotted BEFORE the sweep rewrites submission.csv; Gate 1 hashes THIS",
+    "ppsweep_results.csv / validator_results.csv -- the 15 candidates on 8 held-out TRAIN stems",
+    "ppsweep_selected.json -- what the notebook own prefix-guarded selection chose",
+    "submission.csv -- REWRITTEN by their selection; this is the candidate arm, not the control"
+  ],
+  "gate_1": {
+    "rule": "sha256(submission_base.csv) must equal the parent output d52a5da2...",
+    "pass_means": "the vehicle reproduces the parent on the four visible movies under this execution -- the strongest available evidence its 862 added lines are inert when off. It does NOT prove general inertness or hidden-rerun equivalence.",
+    "fail_means": "STOP. Do not submit. The base pass is not the parent and every comparison is confounded."
+  },
+  "submission_decision_rule": {
+    "if_selected_is_base": "submission.csv will be byte-identical to submission_base.csv and therefore to the parent. DO NOT SUBMIT -- it is a guaranteed 0.953 and would spend a slot for zero information. Report the measured table instead and apply Gate 2 by hand.",
+    "if_selected_is_a_pruning_candidate": "submission.csv IS a real single-mechanism arm chosen by the notebook own anti-overfit prefix guard. Submit it and read Gate 3."
+  },
+  "gate_3_lb_read": ">=0.955 adopt | 0.954 small real gain, adopt and stop | 0.953 null, keep the parent | <=0.952 revert to exp_064",
+  "rollback": "exp_064 (0.953, 56535761) and repro_059 (0.947, 56313491) are untouched and remain the fallbacks.",
+  "launch_history": [
+    {
+      "kernel_version": 1,
+      "result": "ERROR in cell 1 (papermill \"In [2]\") within seconds; negligible GPU draw",
+      "cause": "The VEHICLE'S OWN config-drift guard. Cell 1 _EXPECTED_NUMERIC pins BIOHUB_SWEEP_DEADLINE_S at 26100.0; change (b) moved the cell-0 setting to 12600 and left the guard untouched, so the notebook correctly raised \"Configuration drift detected: {\\\"BIOHUB_SWEEP_DEADLINE_S\\\": {\\\"actual\\\": 12600.0, \\\"expected\\\": 26100.0}}\". My miss: I had read that guard earlier and did not connect it to the change. Sixth instance in this project of a configuration claim not surviving contact with execution -- this time the guard was ours to satisfy, not to discover.",
+      "free_positive_result": "Cell 0 ran to completion and printed BIOHUB_PRESET / BIOHUB_SCORE_AXIS, which means the two fail-closed assertions from change (d) PASSED: _V9_AUTO_SET_ENV was empty and FROZEN_PRESET_OVERRIDES was None. The preset/cache auto-attach did NOT fire on our four mounts, confirming the pre-launch mount audit against live Kaggle inputs.",
+      "fix": "Change (b2): cell 1 line 19, drift-guard expected 26100.0 -> 12600.0, so the guard agrees with the setting. Build script now asserts 5 removed / 22 added and cross-checks EVERY drift-guard entry against its cell-0 value."
+    },
+    {
+      "kernel_version": 2,
+      "pushed_at_utc": "2026-09-25T18:35:34.621752Z",
+      "notebook_sha256": "6baeb36bd9d66a3f556c75741192f6e30320e065a1c51f7c213e101aeb1043be",
+      "state": "COMPLETE",
+      "user_authorized": true,
+      "gpu_hours_actual": 2.04425
+    }
+  ],
+  "result": {
+    "collected_at_utc": "2026-09-25T20:46:14.704593Z",
+    "kernel": "lingxd/biohub-exp065-pruning-sweep",
+    "kernel_version": 2,
+    "kernel_status": "COMPLETE",
+    "kernel_elapsed_s": 7359.3,
+    "gpu_hours_actual": 2.04425,
+    "gpu_estimate_was": 2.12,
+    "deadline_degraded": false,
+    "sweep_results_count": 16,
+    "auto_attached": {},
+    "gate_1": {
+      "verdict": "PASS",
+      "submission_base_sha256": "d52a5da2ae5cb0d1b22499f6ca51a00838a6c32ae9a1986ec756ea72e7909e03",
+      "parent_sha256": "d52a5da2ae5cb0d1b22499f6ca51a00838a6c32ae9a1986ec756ea72e7909e03",
+      "byte_identical_to_parent": true,
+      "rows": 238260,
+      "means": "The vehicle BYTE-REPRODUCES the exp_064 parent on all four visible movies with its levers off. amanatar 862 added lines are therefore inert when off, and this parent inherits the measured Public LB 0.953 at ZERO submission cost. Also confirms, against live Kaggle mounts, that the preset/cache auto-attach did not fire (runtime report auto_attached = {}) and that the change-(d) assertions passed."
+    },
+    "cross_check_vs_amanatar": {
+      "shared_rows": [
+        "base",
+        "ep015",
+        "leaf040"
+      ],
+      "max_abs_delta": 0.0,
+      "verdict": "BIT-IDENTICAL to 16 decimal places on all three shared rows. The harvested third-party table genuinely described our pipeline, which validates the whole zero-cost recon approach."
+    },
+    "structural_finding": {
+      "claim": "The 15-candidate \"pruning family\" is really ONE binary switch, not 15 knobs.",
+      "evidence": "ep010, ep015, ep020, ep_cx and prune_pack are bit-identical in EVERY field: adjusted_edge_jaccard 0.9391861967544098, spurious_pred_nodes 174790, missed_gt_nodes 99. So (i) the OUTPUT_MIN_EDGE_PROB magnitude between 0.10 and 0.20 has ZERO effect - only on-vs-off matters, the edge probabilities must be bimodal with nothing in that interval; and (ii) stacking cx06 + leaf030 + seg035L4 on top of ep015 adds NOTHING.",
+      "consequence": "There is no threshold to tune and no stack to assemble. The entire family collapses to the single +0.005126 proxy effect that regresses -0.0084939 on the 44b6 embryo prefix and loses in 10 of the 36 test-shaped subsets. seg* is ~0 (18 of 36 subsets exactly unchanged), cx10 is exactly base, cx06 and seg_cx are slightly negative, and cx03 is +0.00115 which fails the +0.0015 bar."
+    },
+    "division_result_extended": "div_tp = 3 of 12 and div_fn = 9 for ALL 16 configurations, as for amanatar 14. The division term is untouchable from the pruning family as well.",
+    "gate_2": {
+      "verdict": "SELECTS NOTHING -> H_null",
+      "detail": "All 15 eligible candidates measured. Best by aggregate is the ep/prune_pack group at +0.00236 test-reweighted, which fails condition (2) (10 of 36 subsets strictly negative, limit 3) and condition (3) (44b6 prefix regresses -0.0084939, limit -0.001). cx03 fails (1) at +0.00115. leaf030/leaf040/leaf_seg fail (1) and (2). seg*/cx10 are ~0. cx06/seg_cx are negative. Not even the MARGINAL band (4-9 negative subsets) is reached by anything.",
+      "script": "experiments/exp_065_metric_aligned_pruning/collection/analyze_sweep_table.py, fail-closed, reproduces the proxy identity and the prefix guard at residual 0.0"
+    },
+    "notebook_own_selection": {
+      "selected": "base",
+      "overrides": {},
+      "selected_proxy": 0.9554890014107248,
+      "base_proxy": 0.9554890014107248,
+      "means": "The notebook own prefix-guarded margin rule also rejected every candidate, independently agreeing with our Gate 2."
+    },
+    "submission_decision": {
+      "submitted": false,
+      "submission_csv_sha256": "d52a5da2ae5cb0d1b22499f6ca51a00838a6c32ae9a1986ec756ea72e7909e03",
+      "byte_identical_to_parent": true,
+      "reason": "Per the rule pre-registered in experiment.json BEFORE the run: the selection was \"base\", so submission.csv is byte-identical to submission_base.csv and to the parent exp_064 output. Submitting it is a guaranteed 0.953 for ZERO information and would spend one of ~25 remaining slots. NOT SUBMITTED.",
+      "what_a_submission_would_require": "A Run 2 that FORCES the ep015 switch on, overriding both the notebook own guard and our Gate 2. That is the only remaining way to learn whether the +0.00236 test-reweighted proxy gain transfers to the Public LB. It would be a DOCUMENTED EXCEPTION to a pre-registered rejection, not an adopt, and it needs explicit user authorization. Cost ~0.3 GPU h + 1 slot."
+    }
+  }
+}

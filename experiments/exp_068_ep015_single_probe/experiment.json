@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_068_ep015_single_probe",
+  "parent": "exp_064_x138_verbatim_repro",
+  "state": "SUBMITTED",
+  "hypothesis": "A fixed output edge-probability floor 0.15 on the exp064-compatible vehicle improves recorded Public LB from 0.953 to at least 0.954 at displayed precision.",
+  "change": {
+    "component": "output_edge_probability_floor",
+    "from": 0.0,
+    "to": 0.15,
+    "exact": "Same verified vehicle as exp066 cx03, but cx03 OFF and ep015 ON. Validator/sweep OFF, all other new levers OFF. Existing summary typo fix, auto-attach refusal and arm snapshot retained. Add prediction-neutral pre-write/final configuration and dependency assertions, output graph audit/metrics contract and 5400s process watchdog. No training, no alternative prediction algorithm."
+  },
+  "signature": "e87385db2f833b65c651bea3a92f406f371bb3169dbd392cda2adf468c6762ff",
+  "config": "configs/exp_068_ep015_single_probe.yaml",
+  "snapshot_config": "experiments/exp_068_ep015_single_probe/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_068_ep015_single_probe/snapshot/source/biohub-exp068-ep015.ipynb",
+  "snapshot_manifest": "experiments/exp_068_ep015_single_probe/snapshot/manifest.json",
+  "git_commit": "dadb99e1b5984d4b4d7a06a1fd337d7922d1c712",
+  "validation_protocol": "ep015_single_probe_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": true
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/exp_068_ep015_single_probe/review.md",
+    "completed_at": "2026-09-27T02:24:35+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/smoke_exp068.py",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\exp_068_ep015_single_probe\\snapshot\\source\\biohub-exp068-ep015.ipynb"
+    ],
+    "completed_at": "2026-09-27T02:25:43+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-27T02:17:34+00:00",
+  "updated_at": "2026-09-27T02:25:46+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-27T02:18:36+00:00",
+      "note": "Codex verdict: REVISE"
+    },
+    {
+      "from": "MANUAL_REVIEW_REQUIRED",
+      "to": "REVIEWED",
+      "at": "2026-09-27T02:24:35+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-27T02:25:43+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-27T02:25:43+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-27T02:25:46+00:00",
+      "note": null
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp068-ep015",
+    "kernel_version": 1,
+    "submitted_at": "2026-09-27T02:25:46+00:00",
+    "status": "SUBMITTED",
+    "last_checked_at": null
+  }
+}

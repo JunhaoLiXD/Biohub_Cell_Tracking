@@ -1,0 +1,86 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_067c_temporal_feature_export_v3",
+  "parent": "exp_064_x138_verbatim_repro",
+  "state": "REMOTE_FAILED",
+  "hypothesis": "The frozen exp064 predictor can export measured temporal features and bounded top-k alternatives ranked by logits, mapped to its unchanged final graph on explicit TRAIN movies, enabling the agreed learned joint-lineage model.",
+  "change": {
+    "component": "measured_temporal_feature_export_v3",
+    "exact": "Add export hooks and identity metadata; run eight fixed TRAIN movies. Assert the resolved parent globals and the effective predictor argv against the frozen exp064 configuration before inference, allowing only the declared validator-enable difference; persist observed dependency hashes and package versions in metrics. No repeated detector inference, TEST prediction, sweep or trained head yet."
+  },
+  "signature": "240ee34a57ef2810f47310b5f653dff4ca2038cba52f0453739db25d222eb5de",
+  "config": "configs/exp_067c_temporal_feature_export_v3.yaml",
+  "snapshot_config": "experiments/exp_067c_temporal_feature_export_v3/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_067c_temporal_feature_export_v3/snapshot/source/export_v3.ipynb",
+  "snapshot_manifest": "experiments/exp_067c_temporal_feature_export_v3/snapshot/manifest.json",
+  "git_commit": "dadb99e1b5984d4b4d7a06a1fd337d7922d1c712",
+  "validation_protocol": "exp067_train_export_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "actual_gpu_hours": 0.12901721890166667
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "WAIVED_BY_USER_FOR_ONE_EXPORT_KERNEL_RUN",
+    "verdict": "NO_PASS",
+    "reason": "User instruction 2026-09-26: skip the Codex admission review and push directly to Kaggle. The review was requested and failed on a Codex CLI usage limit without producing a verdict (experiments/exp_067c_temporal_feature_export_v3/codex-review-quota-stop-v1.json). No PASS exists and none is claimed.",
+    "failed_attempt": "experiments/exp_067c_temporal_feature_export_v3/codex-review-quota-stop-v1.json",
+    "at_utc": "2026-09-26T17:05:33+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "type": "direct_immutable_snapshot_validation_and_test_suite_with_review_waiver",
+    "receipt": "experiments/exp_067c_temporal_feature_export_v3/user-waiver-smoke.json",
+    "at_utc": "2026-09-26T17:05:33+00:00"
+  },
+  "created_at": "2026-09-26T16:29:15+00:00",
+  "updated_at": "2026-09-26T17:21:57+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-26T17:02:32+00:00",
+      "note": "One-time user waiver; formal Codex PASS absent"
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-26T17:02:32+00:00",
+      "note": "Direct snapshot smoke and exp067 suite passed"
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-26T17:02:32+00:00",
+      "note": "Ready for one manually tracked Kaggle push"
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-26T17:05:35+00:00",
+      "note": "One-time user-authorized export kernel run; no LB submission"
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "REMOTE_FAILED",
+      "at": "2026-09-26T17:21:36+00:00",
+      "note": "Kernel v1 ERROR at the dependency gate; own allow-list defect, not config drift"
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp067c-temporal-export",
+    "submitted_at": "2026-09-26T17:05:35+00:00",
+    "status": "ERROR",
+    "last_checked_at": "2026-09-26T17:21:36+00:00",
+    "launch_mode": "one_time_user_waiver_no_codex_pass",
+    "kernel_version": 1,
+    "runtime_seconds": 464.461988046,
+    "failure": "AssertionError at cell 8 (dependency gate): ['BIOHUB_KERNEL_START_TS'].",
+    "failure_class": "own_gate_false_positive_not_configuration_drift",
+    "failure_detail": "The stray-key check's allow-list was built from the VALUE-asserted key set, which deliberately excludes wall clock. BIOHUB_KERNEL_START_TS is assigned by parent cell 0, so it is legitimately present at runtime and was rejected as unexpected. No parent configuration drifted.",
+    "evidence_passed_before_failure": "86-key environment value assertion, all three checkpoint SHA256s, the support-repo python manifest SHA256 and the pinned V1284 head SHA256 all passed against real Kaggle mounts. The stray-key check enumerated every runtime BIOHUB_/V1284_ key and reported exactly one outside the allow-list, so no other unexpected key exists in that environment.",
+    "log": ".private/runtime/exp067c_out/biohub-exp067c-temporal-export.log"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "at_utc": "2026-09-27T02:24:23+00:00",
+  "purpose": "Versioned local post-collection audit supplement; frozen Kaggle notebook unchanged.",
+  "files": [
+    {
+      "path": "scripts/audit_exp068_collection_v2.py",
+      "sha256": "ebc1cda48f3cc462d55b19537a2cc42c62fd8e73b849fb6f04e6cf3d56a95b20"
+    },
+    {
+      "path": "scripts/exp068_contract.py",
+      "sha256": "b6be3a42e66a134502cdded9d3846d64a704e3864a01cba2f38da7c504fe1faa"
+    },
+    {
+      "path": "scripts/collect_exp064_x138.py",
+      "sha256": "40e3e5a36fff68ab23205b892f40e70ea63dd11e4dc700e3b0c757d9f53f1d0d"
+    },
+    {
+      "path": "experiments/exp_064_x138_verbatim_repro/collection/run_stats.csv",
+      "sha256": "6b523dd08ef496df392dc269ae88b79f23adeb7fe084d35bac93cce3eec598f1"
+    },
+    {
+      "path": "experiments/exp_064_x138_verbatim_repro/collection/metrics.json",
+      "sha256": "dfff5a795da2fce90a628b6eef2a2d00900e394c9897e841dad8ccda6da98feb"
+    }
+  ]
+}

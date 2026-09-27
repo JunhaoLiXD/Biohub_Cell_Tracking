@@ -1,0 +1,57 @@
+{
+  "generation": {
+    "max_alt_per_source": 4,
+    "max_alt_per_target": 4,
+    "min_alternatives_per_source": 2,
+    "n_geometric": 3,
+    "max_edge_um": 12.0,
+    "max_events_per_source": 4,
+    "event_require_geometry": true,
+    "safe_div_max_um": 9.0,
+    "safe_div_sister_max_um": 14.0,
+    "safe_div_sister_symmetry_tau": 0.6,
+    "safe_div_diverge_um": 2.25
+  },
+  "window": {
+    "half_span": 3,
+    "required_cap": 160,
+    "total_cap": 256,
+    "context_per_frame": 24,
+    "max_sources_per_batch": 32
+  },
+  "model": {
+    "d_model": 48,
+    "n_layers": 2,
+    "n_heads": 2,
+    "ff_mult": 2
+  },
+  "objective": {
+    "tau0": 0.0,
+    "mu0": 0.0,
+    "beta0": 0.0
+  },
+  "solve": {
+    "max_component_vars": 2000,
+    "max_component_seconds": 5.0,
+    "budget_seconds": 600.0,
+    "max_revert_fraction": 0.02,
+    "milp_mip_rel_gap": 0.0
+  },
+  "train": {
+    "seed": 20260925,
+    "epochs": 40,
+    "max_seconds": 1800.0,
+    "lr": 0.003,
+    "weight_decay": 0.01,
+    "lr_decay_at": [
+      28,
+      36
+    ],
+    "lr_decay_gamma": 0.1,
+    "link_loss_weight": 1.0,
+    "division_loss_weight": 1.0,
+    "min_link_positives": 200,
+    "min_division_positives": 3,
+    "inner_val_frac": 0.0
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-26T16:29:15+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_067c_temporal_feature_export_v3/snapshot/config.yaml",
+      "sha256": "103df5360b3cc2aa83aad3308c395a50f165b72ede97fa663f9340a0e125a53c"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_067c_temporal_feature_export_v3/snapshot/source/export_v3.ipynb",
+      "sha256": "ce2bcf4068890523296e81fe39cbe83f2a2fe545c77375bab011f1d2fca855fe"
+    }
+  ]
+}

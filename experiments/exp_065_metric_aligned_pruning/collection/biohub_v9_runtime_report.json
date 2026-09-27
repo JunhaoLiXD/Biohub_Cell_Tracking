@@ -1,0 +1,28 @@
+{
+  "auto_attached": {},
+  "deadline_degraded": false,
+  "fast_tier": true,
+  "frozen_preset_applied": false,
+  "frozen_preset_path": "",
+  "kernel_elapsed_s": 7359.3,
+  "kernel_start_ts": 1790361319.253057,
+  "ladder_s": {
+    "BIOHUB_ILP_TIMEOUT_S": 1200.0,
+    "BIOHUB_REPAIR_DEADLINE_S": 27000.0,
+    "BIOHUB_REPAIR_PER_DATASET_CAP_S": 0.0,
+    "BIOHUB_REWRITE_DEADLINE_S": 30600.0,
+    "BIOHUB_REWRITE_LATEST_START_S": 27600.0,
+    "BIOHUB_SWEEP_DEADLINE_S": 12600.0,
+    "BIOHUB_SWEEP_LATEST_START_S": 23400.0,
+    "BIOHUB_VALIDATOR_LATEST_START_S": 19800.0,
+    "BIOHUB_WALL_BUDGET_S": 32400.0
+  },
+  "repair_seconds_measured": 198.5,
+  "rewrite_fit_skipped": false,
+  "shipped_config": "base",
+  "shipped_overrides": {},
+  "sweep_candidates_total": 41,
+  "sweep_results_count": 16,
+  "val_pred_cache_used": false,
+  "wall_budget_s": 32400.0
+}

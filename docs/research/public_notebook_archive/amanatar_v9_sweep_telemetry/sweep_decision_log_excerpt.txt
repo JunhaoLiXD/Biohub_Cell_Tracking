@@ -1,0 +1,54 @@
+VALIDATOR: selected 8 held-out TRAIN samples (4 per embryo-type prefix, 2 prefixes found, 8 contain a GT division)
+POST-PROCESS SWEEP -- 41 candidates x 8 held-out videos
+V9 FAST TIER: 12 curated candidates, best-value first (set BIOHUB_PPSWEEP_FAST_TIER=0 to sweep all 41)
+SWEEP TABLE (sorted by PROXY_SCORE)
+  ep015                                    proxy=0.9606 (+0.0051)  adj=0.9392  divJ=0.2143 (tp/fp/fn=3/2/9)
+  dcsd015                                  proxy=0.9573 (+0.0018)  adj=0.9342  divJ=0.2308 (tp/fp/fn=3/1/9)
+  combo(dcsd015+divwide_dcsd010)           proxy=0.9573 (+0.0018)  adj=0.9342  divJ=0.2308 (tp/fp/fn=3/1/9)
+  divwide_dcsd010                          proxy=0.9573 (+0.0018)  adj=0.9342  divJ=0.2308 (tp/fp/fn=3/1/9)
+  leaf040                                  proxy=0.9558 (+0.0003)  adj=0.9343  divJ=0.2143 (tp/fp/fn=3/2/9)
+  base                                     proxy=0.9555 (+0.0000)  adj=0.9341  divJ=0.2143 (tp/fp/fn=3/2/9)
+  tight55                                  proxy=0.9555 (+0.0000)  adj=0.9341  divJ=0.2143 (tp/fp/fn=3/2/9)
+  vel075                                   proxy=0.9555 (+0.0000)  adj=0.9341  divJ=0.2143 (tp/fp/fn=3/2/9)
+  rescue085                                proxy=0.9555 (+0.0000)  adj=0.9341  divJ=0.2143 (tp/fp/fn=3/2/9)
+  divwide                                  proxy=0.9555 (-0.0000)  adj=0.9341  divJ=0.2143 (tp/fp/fn=3/2/9)
+  dcgap018                                 proxy=0.9553 (-0.0002)  adj=0.9339  divJ=0.2143 (tp/fp/fn=3/2/9)
+  minlen5                                  proxy=0.9550 (-0.0005)  adj=0.9335  divJ=0.2143 (tp/fp/fn=3/2/9)
+  sym075                                   proxy=0.9501 (-0.0054)  adj=0.9334  divJ=0.1667 (tp/fp/fn=3/6/9)
+  repd_divgap                              proxy=0.9489 (-0.0066)  adj=0.9331  divJ=0.1579 (tp/fp/fn=3/7/9)
+SELECTED: dcsd015  overrides={'DEEPCENTER_SAFE_DIV_THRESHOLD': 0.15}  (margin rule: >= +0.001 proxy and adj loss <= 0.0005)
+  base     proxy=0.9555 adj=0.9341 divJ=0.2143
+  selected proxy=0.9573 adj=0.9342 divJ=0.2308
+Exception encountered at "In [12]":
+AttributeError                            Traceback (most recent call last)
+AttributeError: 'function' object has no attribute 'get'
+Safe-div thresholds:     parent<=9.0um  sister<=14.0um  global_cap=0.00375  frame_cap=0.0076
+Validator:               enabled=True  held_out_samples=8  match_radius=7.0um
+Traceback (most recent call last):
+  File "<string>", line 1, in <module>
+  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 131, in execute_notebook
+    raise_for_execution_errors(nb, output_path)
+  File "/usr/local/lib/python3.12/dist-packages/papermill/execute.py", line 251, in raise_for_execution_errors
+    raise error
+papermill.exceptions.PapermillExecutionError: 
+---------------------------------------------------------------------------
+Exception encountered at "In [12]":
+---------------------------------------------------------------------------
+AttributeError                            Traceback (most recent call last)
+/tmp/ipykernel_23/2513719524.py in <cell line: 0>()
+     33 
+     34 _v6env = os.environ.get
+---> 35 print(f"v6 metric-aligned layer:  leaf={_v6env.get('BIOHUB_LEAF_PRUNE_MIN_EDGE_PROB')}  "
+     36       f"seg={_v6env.get('BIOHUB_SEG_PRUNE_MIN_PROB')}  ep={_v6env.get('BIOHUB_OUTPUT_MIN_EDGE_PROB')}  "
+     37       f"divgap={_v6env.get('BIOHUB_GAP_CLOSE_DIV_UM')}  repair={_v6env.get('BIOHUB_REPAIR_PARENT_MAX_UM')}  "
+
+AttributeError: 'function' object has no attribute 'get'
+
+/usr/local/lib/python3.12/dist-packages/mistune.py:435: SyntaxWarning: invalid escape sequence '\|'
+  cells[i][c] = re.sub('\\\\\|', '|', cell)
+/usr/local/lib/python3.12/dist-packages/nbconvert/filters/filter_links.py:36: SyntaxWarning: invalid escape sequence '\_'
+  text = re.sub(r'_', '\_', text) # Escape underscores in display text
+[NbConvertApp] Converting notebook __notebook__.ipynb to notebook
+[NbConvertApp] Writing 791734 bytes to __notebook__.ipynb
+[NbConvertApp] Converting notebook __notebook__.ipynb to html
+[NbConvertApp] Writing 1977051 bytes to __results__.html

@@ -1,0 +1,64 @@
+schema_version: 1
+experiment_id: exp_067a_temporal_feature_export
+parent: exp_064_x138_verbatim_repro
+hypothesis: The frozen exp064 predictor can export measured temporal features and
+  complete candidate alternatives mapped to its unchanged final graph on explicit
+  TRAIN movies, enabling the agreed learned joint-lineage model.
+change:
+  component: measured_temporal_feature_export
+  exact: Add export hooks and identity metadata; run eight fixed TRAIN movies, no
+    TEST prediction, no sweep, no new trained head yet.
+source_notebook: experiments/exp_067_temporal_joint_lineage/local_build/export_v1.ipynb
+strategy_record: experiments/exp_067_temporal_joint_lineage/revision_acceptance_v2.md
+execution_authorization: User 2026-09-26 explicitly requested direct Kaggle trial
+  after code completion. This first run produces data required to train the new head.
+validation:
+  protocol: exp067_train_export_v1
+  primary_metric: binary_export_integrity
+  limitations: Engineering export gate only; no gain claim. Eight movies inherited
+    from prior diagnostic coverage (historically label-enriched), split lexically
+    within prefix before new-head training. Later scores are a biased local proxy,
+    not pristine validation. Frozen backbone overlap unknown.
+admission:
+  require_codex_review: true
+  reviewer_provider: codex
+local:
+  smoke_test:
+  - '{python}'
+  - scripts/validate_notebook.py
+  - '{source_notebook}'
+  - --require-metrics-contract
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+  note: One attempt. Notebook watchdog kills descendant predictor processes and exits
+    at 5400 seconds after cell0; 2h reservation includes startup margin. No automatic
+    retries. Only export executes; pinned parent CUDA environment retained, CPU-training
+    requirements not installed.
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+evaluation:
+  mode: diagnostic
+kaggle:
+  owner: lingxd
+  slug: biohub-exp067a-temporal-export
+  title: biohub-exp067a-temporal-export
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: false
+  competition_sources:
+  - biohub-cell-tracking-during-development
+  dataset_sources:
+  - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+  - pilkwang/biohub-temporal-unet3d-seed314159-v1
+  - pilkwang/biohub-tracking-support-pack-50ep-v1
+  - anvithpothula/biohub-v1284-head-s075
+  required_dataset_sources: 4
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+leaderboard:
+  authorized: false
+stop_rule: Any identity/integrity/export failure stops the run. Do not train on incomplete
+  exports. Collect raw failure logs; do not auto-retry. No promotion or LB submission.

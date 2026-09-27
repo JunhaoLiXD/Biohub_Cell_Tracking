@@ -1,36 +1,16 @@
 # Latest Codex Review
 
-Experiment: `exp_062_mutual_best_edge_association`  
-Captured: 2026-09-24T04:54:51+00:00
+Experiment: `exp_068_ep015_single_probe`
+Captured: 2026-09-27T02:24:35+00:00
 
-## Summary
+The supplied supplement resolves both outstanding admission gaps: executed workspace helpers match frozen extras, the cx03 comparator has byte-exact reconstruction provenance, and audit v2 verifies hashed parent evidence and reports per-dataset parent/current fork counts and deltas.
 
-**PASS to snapshot smoke testing.** The [versioned v3 strategy](E:/Project/Biohub_CellTracking/docs/research/exp062_mutual_best_edge_association_proposal_v3.md) records Claude’s proposal, Codex objections, revisions, and explicit **CONSENSUS**, supported by the three challenge records.
+Audit v2 preserves graph, configuration, degradation, duplicate-output, and snapshot checks. Its fork comparison measures structure, not division accuracy; node/edge count reductions do not establish graph-subset identity or coordinate preservation. Neither limitation invalidates this bounded exploratory probe. The frozen docstring’s division-preservation claim remains unsupported.
 
-## Methodology
+The six-hour reserve and two-hour reservation are consistent. The watchdog excludes platform startup and is not a total platform billing bound.
 
-The fixed β=0.20 prior is a testable, single major intervention upstream of ILP. Earlier downstream nulls do not directly contradict it, but neither establish likely benefit.
+On the supplied evidence, no admission blocker remains. PASS permits controller smoke and then one authorized launch. Submission still requires audit **v2**, authenticated remote source/version binding, and fresh duplicate/history checks under the three-per-New-York-day cap. No retries, promotion, or change to selected submission 56535761.
 
-The inherited 44b6/6bba training-video validation is **not specimen-disjoint generalization evidence**. Retained adaptive postprocessing makes this a whole-pipeline intervention test. Public LB is the operational quality endpoint; displayed equality cannot establish exact numerical equivalence.
-
-## Implementation risks
-
-- All seven snapshot hashes matched. Removing marked injections reproduces the parent code exactly in both variants.
-- Rank axes, bonus formula, signature extension, checkpoint guards, and inherited graph checks are preserved.
-- The telemetry correction closes the demonstrated validation-for-test substitution defect. Memory-only execution rejected nine invalid-evidence cases, including validation-only records and missing test shards; valid mixed-stage evidence passed.
-- Notebook syntax passed. GPU numerical parity and full runtime behavior remain unverified here.
-- Git diff was unavailable: Git did not recognize the accessible directory as a repository.
-
-## Budget
-
-The 3.0-hour allocation fits the recorded 20.398674-hour balance, leaving **17.398674 hours**, including the protected six-hour reserve. One bounded probe offers reasonable information value; automatic beta escalation remains unjustified.
-
-## Required changes
-
-No blocking implementation changes found. Remaining execution gates are snapshot smoke, reservation, and explicit launch authorization. Require control SHA parity before proceeding; skip leaderboard submission for byte-identical candidate output. Submission and promotion retain separate authorization requirements.
-
-## Recommendation
-
-Proceed to the next controller stage: **local snapshot smoke testing**. This admission judgment does not authorize remote execution or claim the hypothesis will improve tracking quality. Review was read-only; no files were changed.
+This is evidence-only admission review; no tools were used and no accuracy claim is established.
 
 VERDICT: PASS

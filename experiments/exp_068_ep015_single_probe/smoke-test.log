@@ -1,0 +1,7 @@
+[2026-09-27T02:25:43+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/smoke_exp068.py", "E:\\Project\\Biohub_CellTracking\\experiments\\exp_068_ep015_single_probe\\snapshot\\source\\biohub-exp068-ep015.ipynb"]
+exit_code=0
+STDOUT
+PASS: exact vehicle delta, embedded contract, all code syntax, threshold/boundary/orphan behavior, config drift and graph-negative fixtures.
+
+STDERR
+

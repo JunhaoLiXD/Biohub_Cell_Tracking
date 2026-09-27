@@ -26,6 +26,7 @@ results/
 outputs/
 runs/
 logs/
+scratchpad/
 
 # ===== Remote experiment artifacts (large, re-downloadable from Kaggle) =====
 # The experiment RECORDS and immutable snapshots (small text/JSON/notebooks) ARE
@@ -35,6 +36,7 @@ experiments/**/artifacts/
 experiments/**/failure_artifacts/
 experiments/**/kaggle_kernel/
 experiments/**/kaggle_kernel_retry_*/
+experiments/**/collection/submission*.csv
 
 # ===== Jupyter =====
 .ipynb_checkpoints/

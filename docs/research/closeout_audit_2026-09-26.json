@@ -1,0 +1,244 @@
+{
+  "scope": "Local cached evidence only; no new prediction, training, decode, remote query or submission.",
+  "division_rows": [
+    {
+      "stem": "44b6_12dfb391",
+      "direct_parent_events": 0,
+      "div_tp": 0,
+      "div_fp": 0,
+      "div_fn": 1
+    },
+    {
+      "stem": "44b6_267148e4",
+      "direct_parent_events": 0,
+      "div_tp": 0,
+      "div_fp": 0,
+      "div_fn": 1
+    },
+    {
+      "stem": "44b6_2a2eff9f",
+      "direct_parent_events": 0,
+      "div_tp": 1,
+      "div_fp": 1,
+      "div_fn": 0
+    },
+    {
+      "stem": "44b6_341df25f",
+      "direct_parent_events": 0,
+      "div_tp": 0,
+      "div_fp": 0,
+      "div_fn": 1
+    },
+    {
+      "stem": "6bba_062c8d37",
+      "direct_parent_events": 1,
+      "div_tp": 1,
+      "div_fp": 1,
+      "div_fn": 0
+    },
+    {
+      "stem": "6bba_07e24132",
+      "direct_parent_events": 0,
+      "div_tp": 0,
+      "div_fp": 0,
+      "div_fn": 2
+    },
+    {
+      "stem": "6bba_085bf656",
+      "direct_parent_events": 0,
+      "div_tp": 0,
+      "div_fp": 0,
+      "div_fn": 1
+    },
+    {
+      "stem": "6bba_09961292",
+      "direct_parent_events": 1,
+      "div_tp": 1,
+      "div_fp": 0,
+      "div_fn": 3
+    }
+  ],
+  "division_totals": {
+    "direct_parent_events": 2,
+    "div_tp": 3,
+    "div_fp": 2,
+    "div_fn": 9
+  },
+  "missed_direct_cases": [
+    {
+      "stem": "44b6_12dfb391",
+      "gt_mother": 172000000050,
+      "pred_mother": 31885,
+      "raw_edges_present": true,
+      "d_a": 2.6675199547909387,
+      "d_b": 8.559809808780255,
+      "sister": 11.102266634661358,
+      "asymmetry": 1.0496333461421543,
+      "geometry_pass": {
+        "base": false,
+        "sym075": false,
+        "tau_off_only": true,
+        "distance14_only": false,
+        "distance14_tau_off": true
+      }
+    },
+    {
+      "stem": "44b6_267148e4",
+      "gt_mother": 16000000001,
+      "pred_mother": 647,
+      "raw_edges_present": true,
+      "d_a": 2.255488791253979,
+      "d_b": 9.691971378254754,
+      "sister": 11.526682061660738,
+      "asymmetry": 1.2448641772381912,
+      "geometry_pass": {
+        "base": false,
+        "sym075": false,
+        "tau_off_only": false,
+        "distance14_only": false,
+        "distance14_tau_off": true
+      }
+    },
+    {
+      "stem": "44b6_2a2eff9f",
+      "gt_mother": 160000000048,
+      "pred_mother": 6401,
+      "raw_edges_present": true,
+      "d_a": 11.517245968028806,
+      "d_b": 0.33992768466026757,
+      "sister": 11.515040311980114,
+      "asymmetry": 1.88532589818884,
+      "geometry_pass": {
+        "base": false,
+        "sym075": false,
+        "tau_off_only": false,
+        "distance14_only": false,
+        "distance14_tau_off": true
+      }
+    },
+    {
+      "stem": "44b6_341df25f",
+      "gt_mother": 79000000000,
+      "pred_mother": 476,
+      "raw_edges_present": true,
+      "d_a": 1.4964382178562152,
+      "d_b": 8.527733712804606,
+      "sister": 9.697181346062747,
+      "asymmetry": 1.4028680959555069,
+      "geometry_pass": {
+        "base": false,
+        "sym075": false,
+        "tau_off_only": true,
+        "distance14_only": false,
+        "distance14_tau_off": true
+      }
+    },
+    {
+      "stem": "6bba_07e24132",
+      "gt_mother": 66000550,
+      "pred_mother": 24363,
+      "raw_edges_present": true,
+      "d_a": 1.7426287555732658,
+      "d_b": 6.740321258763492,
+      "sister": 8.283919810097048,
+      "asymmetry": 1.1782911592650642,
+      "geometry_pass": {
+        "base": false,
+        "sym075": false,
+        "tau_off_only": true,
+        "distance14_only": false,
+        "distance14_tau_off": true
+      }
+    },
+    {
+      "stem": "6bba_09961292",
+      "gt_mother": 49001609,
+      "pred_mother": 16214,
+      "raw_edges_present": false,
+      "d_a": 1.0452009996431038,
+      "d_b": 9.083943590659826,
+      "sister": 10.029203011996973,
+      "asymmetry": 1.5872500425578997,
+      "geometry_pass": {
+        "base": false,
+        "sym075": false,
+        "tau_off_only": false,
+        "distance14_only": false,
+        "distance14_tau_off": true
+      }
+    },
+    {
+      "stem": "6bba_09961292",
+      "gt_mother": 53001680,
+      "pred_mother": 17390,
+      "raw_edges_present": true,
+      "d_a": 7.155777479880021,
+      "d_b": 1.0836150853391588,
+      "sister": 8.101068419031572,
+      "asymmetry": 1.4739344791442968,
+      "geometry_pass": {
+        "base": false,
+        "sym075": false,
+        "tau_off_only": true,
+        "distance14_only": false,
+        "distance14_tau_off": true
+      }
+    }
+  ],
+  "geometry_pass_counts": {
+    "base": 0,
+    "sym075": 0,
+    "tau_off_only": 4,
+    "distance14_only": 0,
+    "distance14_tau_off": 7
+  },
+  "caveat": "Geometry feasibility is not candidate/event availability, decoder selection, or scorer gain. Existing raw-edge flags come from the preserved Q1 artifact; candidate generation was not rerun.",
+  "budget": {
+    "epoch_start_hours": 20,
+    "charges": [
+      {
+        "experiment_id": "exp_064_x138_verbatim_repro",
+        "hours": 0.2589444444444445
+      },
+      {
+        "experiment_id": "exp_065_metric_aligned_pruning",
+        "hours": 2.04425
+      },
+      {
+        "experiment_id": "exp_066_probe_cx03",
+        "hours": 0.310111
+      },
+      {
+        "experiment_id": "exp_067c_temporal_feature_export_v3",
+        "hours": 0.12901721890166667
+      },
+      {
+        "experiment_id": "exp_067d_temporal_feature_export_v4",
+        "hours": 0.504912604086111
+      }
+    ],
+    "expected_remaining_hours": 16.752764732567776,
+    "ledger_remaining_hours": 16.752765177012222,
+    "rounding_residual_hours": 4.444444456908059e-07,
+    "tolerance_hours": 1e-06,
+    "reservations": 0
+  },
+  "input_sha256": {
+    ".private\\runtime\\exp067d_out\\exp067_export\\44b6_12dfb391.final.npz": "059905656c5db6ed5e870c0865c4b1f0bb880ed570e25b82d719986387a15cc5",
+    ".private\\runtime\\exp067d_out\\exp067_export\\labels\\44b6_12dfb391.npz": "84f5990d8aab053b8a0a74ed5f6ca22830e4c9bf12ba750f8de3cf34fda6c231",
+    ".private\\runtime\\exp067d_out\\exp067_export\\44b6_267148e4.final.npz": "ff78cb5ff26641001b5ca461a62078731355d3660d2fba9a3e6537a1962d4457",
+    ".private\\runtime\\exp067d_out\\exp067_export\\labels\\44b6_267148e4.npz": "d61dcfe4049f534ca599a6ca08537857d452fbd79dc05772610d886a08a96667",
+    ".private\\runtime\\exp067d_out\\exp067_export\\44b6_2a2eff9f.final.npz": "62c712f230d4a80eb53ceb249f45f74ee996066840f4634001abe31fe67c0b44",
+    ".private\\runtime\\exp067d_out\\exp067_export\\labels\\44b6_2a2eff9f.npz": "b54843a961f082de9ce246331c8f1d36591229d608457b5e1533f868c27161b6",
+    ".private\\runtime\\exp067d_out\\exp067_export\\44b6_341df25f.final.npz": "ced06a0710dc239452bdf4c3954a0091a166d51d2ff1ddb431ed10700c1fed07",
+    ".private\\runtime\\exp067d_out\\exp067_export\\labels\\44b6_341df25f.npz": "e2d677521df4eff377a843f69a18712e93ec12669e7391ca1e10095fc0eec8cb",
+    ".private\\runtime\\exp067d_out\\exp067_export\\6bba_062c8d37.final.npz": "b125be605e436ab7bfbb25b8e563aecbf1cb676e19a6651193128822108fed8e",
+    ".private\\runtime\\exp067d_out\\exp067_export\\labels\\6bba_062c8d37.npz": "b0aaf1110cd9280eecd8df75c21865f807286ad0b2eb1416a26cb69815d8fb1c",
+    ".private\\runtime\\exp067d_out\\exp067_export\\6bba_07e24132.final.npz": "46bb8383298c3e39e968e983e7d9f7d6598f6148deb45fcdd68b61637e6b54a6",
+    ".private\\runtime\\exp067d_out\\exp067_export\\labels\\6bba_07e24132.npz": "5c5052f4824eeb4459335783e988a1468f30226abd215470b54bf5a4182bbafb",
+    ".private\\runtime\\exp067d_out\\exp067_export\\6bba_085bf656.final.npz": "d6f95012fcb1b29d77ca88ec7cf9c374661f9f1d9317483e5ee803857875d0e9",
+    ".private\\runtime\\exp067d_out\\exp067_export\\labels\\6bba_085bf656.npz": "97696bd59b8c739f872dad5c5c243b66ed96b5defcd9f4a620a4c353bce932ae",
+    ".private\\runtime\\exp067d_out\\exp067_export\\6bba_09961292.final.npz": "1d83c9467133a6a7b4cd6a45d65f73f8ea1e3c89924f949f21d589750115b634",
+    ".private\\runtime\\exp067d_out\\exp067_export\\labels\\6bba_09961292.npz": "86747d98dd497fa18aa62053c5de1f852f0bdc9971176d70479cdb9b28b908fa"
+  }
+}

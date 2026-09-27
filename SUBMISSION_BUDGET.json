@@ -466,7 +466,7 @@
       "kernel_version": 2,
       "file_name": "submission.csv",
       "submission_sha256": "ba9431c1161ac89770cb1d1ffd268ac9248da31e3d738390b418c19fd3629cbb",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "submit_method": "competition_submit_code (Kaggle notebook/code submission API)",
       "gate_verdict": {
         "allowed": true,
@@ -491,8 +491,10 @@
       },
       "decision_rule": ">=0.948 adopt as new parent; ==0.947 CLOSE the probe (equality cannot distinguish cancellation, unannotated changes or rounding, so it does not license a larger beta); <=0.946 revert and keep repro_059 0.947",
       "rationale": "User-authorized single LB probe of the exp_062 candidate. First intervention in this arc placed UPSTREAM of the ILP solve and the first to target the ~85-90%-weighted edge term rather than the 0.1-weighted division term. Competition is notebook-only; kernel version 2's own submission.csv IS the candidate arm.",
-      "public_score": null,
-      "score_source": "pending_authenticated_kaggle_submission_history"
+      "public_score": 0.944,
+      "score_source": "authenticated kaggle competitions submissions -c biohub-cell-tracking-during-development -v, read 2026-09-25T12:50Z",
+      "score_read_at_utc": "2026-09-25T13:01:26.248062Z",
+      "decision_verdict": "REVERT. 0.944 is 0.003 BELOW the repro_059 0.947 parent, inside the rule's <=0.946 branch. The mutual-best / relative-rank edge prior (beta=0.20) is a measured LOSS on the Public LB. exp_062 arc is CLOSED; do not raise beta, do not retry a variant."
     },
     {
       "local_date": "2026-09-24",
@@ -505,7 +507,7 @@
       "kernel_version": 1,
       "file_name": "submission.csv",
       "submission_sha256": "d52a5da2ae5cb0d1b22499f6ca51a00838a6c32ae9a1986ec756ea72e7909e03",
-      "status": "PENDING",
+      "status": "COMPLETE",
       "submit_method": "competition_submit_code (kaggle competitions submit -k lingxd/biohub-exp064-x138-repro -v 1 -f submission.csv)",
       "gate_verdict": {
         "allowed": true,
@@ -532,9 +534,55 @@
       },
       "decision_rule": "The author is authenticated at rank 62 / 0.956, but that is THEIR score on THEIR pipeline and is not inherited. >= 0.953 would put us near the rank-200 cutoff and makes x138 the new parent; 0.948-0.952 is a real gain over 0.947 and still adopts; ~0.947 means the reproduction carries no advantage over our own parent; < 0.947 rejects it.",
       "rationale": "User-authorized LB probe. exp_064 completed COMPLETE; collected once; the adapter exit code was the submission gate and returned 0. Competition is notebook-only; kernel version 1's own submission.csv IS this arm.",
-      "public_score": null,
-      "score_source": "pending_authenticated_kaggle_submission_history"
+      "public_score": 0.953,
+      "score_source": "authenticated kaggle competitions submissions -c biohub-cell-tracking-during-development -v, read 2026-09-25T12:50Z",
+      "score_read_at_utc": "2026-09-25T13:01:26.248062Z",
+      "decision_verdict": "ADOPT as parent. 0.953 satisfies the pre-registered >=0.953 branch and equals the rank-200 cutoff. It is +0.006 over repro_059 0.947 and is now this project's best authenticated Public LB score. INDEPENDENTLY CORROBORATED: amanatar/optimized-biohub-max-score cell 0 states 'x138 base (LB 0.953)' -- a third party measured the same value for the same notebook."
+    },
+    {
+      "local_date": "2026-09-25",
+      "gate_checked_at_utc": "2026-09-26T02:55:00+00:00",
+      "submitted_at_utc": "2026-09-26T02:56:41.973000Z",
+      "competition": "biohub-cell-tracking-during-development",
+      "submission_id": 56567455,
+      "experiment_id": "exp_066_probe_cx03",
+      "kernel": "lingxd/biohub-exp066-cx03",
+      "kernel_version": 1,
+      "file_name": "submission.csv",
+      "submission_sha256": "135172dfefda1b5c8c43aca30eb8cc1357a84b7826ac0ada3bf80c0b53f11fef",
+      "status": "COMPLETE",
+      "submit_method": "competition_submit_code (kaggle competitions submit -k lingxd/biohub-exp066-cx03 -v 1 -f submission.csv)",
+      "gate_verdict": {
+        "allowed": true,
+        "cap": 5,
+        "remote_today": 0,
+        "local_today": 0,
+        "used": 1,
+        "remaining": 4,
+        "duplicate": false
+      },
+      "remote_history_checked_before_submit": true,
+      "platform_remaining_reported_at_submit": 4,
+      "duplicate_probe": false,
+      "user_authorized": true,
+      "arm": "PLAN.md Step 1 cx03: BIOHUB_COUNT_EXCESS_FRAC 0.0->0.03 with BIOHUB_VALIDATOR_ENABLE 1->0, single lever on the optimized-biohub-max-score vehicle (a strict superset of x138 whose base pass byte-reproduces exp_064).",
+      "byte_parity": "Output sha 135172df DIFFERS from parent exp_064 d52a5da2 -> the lever fired, the probe is live and not void (PLAN's own void test).",
+      "integrity": "Kernel COMPLETE in 1116 s (~0.31 GPU h), no traceback, no AssertionError, no config-drift trip. Manifest resolved cx=0.03; VALIDATOR disabled (BIOHUB_VALIDATOR_ENABLE=0); sweep skipped, shipped_config=base; auto_attached={}, frozen_preset_applied=false (both exp_066 fail-closed asserts passed). ground_truth_accessed=false. checkpoint_sha256 (primary 12f6881e, secondary 9bac2fa0, deepcenter 8040999a) and support_repo_python_manifest_sha256 978b626d all IDENTICAL to exp_064. Remote kernel source verified cell-for-cell identical to experiments/exp_066_probe_cx03/kaggle_kernel/biohub-exp066-cx03.ipynb before submitting.",
+      "effect": "count-target pruning removed 988 nodes / 1242 edges; rows 238260 -> 236030 (-0.94%). Confined to two of four test movies: 44b6_0b24845f removed=917 (nodes 19522->18605, edges 18323->17162, divisions 6->5) and 6bba_05b6850b removed=71 (nodes 6220->6149, edges 6025->5944). 44b6_0113de3b and 6bba_05db0fb1 untouched (excess=0). Global divisions 62 -> 61.",
+      "decision_rule": "Pre-registered in PLAN.md Step 1 vs parent 0.953: >=0.955 adopt; 0.954 small real gain; 0.953 null, keep the parent; <=0.952 revert.",
+      "risk_note": "Registered exploratory probe, NOT a Gate 2 pass: cx03 measures +0.00115 test-reweighted against our +0.0015 aggregate bar. It does pass the vehicle author's own per-embryo cap (worst per-embryo regression -0.00016, 52.6x smaller than ep015). Unmodelled risk: 917 of the 988 pruned nodes sit on 44b6_0b24845f, the worst-retention test movie (median retention 0.86, 64/100 fallback frames), and that movie also loses one division. That concentration is outside the harvested held-out table.",
+      "public_score": 0.953,
+      "score_source": "authenticated_kaggle_submission_history (read 2026-09-26T17:20Z)",
+      "score_verified_at_utc": "2026-09-26T17:30:00+00:00",
+      "delta_vs_parent_0953": 0.0,
+      "verdict": "NULL against the pre-registered PLAN.md Step 1 rule: 0.953 == parent exp_064 0.953, which is the \"null, keep the parent\" branch. cx03 is NOT adopted and the lever is closed. The probe was valid, not void -- output sha 135172df differs from the parent d52a5da2, so the lever demonstrably fired and removed 988 nodes / 1242 edges; it simply bought nothing on the Public LB. Working parent remains exp_064 x138 at 0.953 (submission 56535761)."
     }
   ],
-  "platform_max_daily_submissions": 5
+  "platform_max_daily_submissions": 5,
+  "closeout_audit_2026_09_26": {
+    "at_utc": "2026-09-27T01:50:58.432273+00:00",
+    "report": "docs/research/closeout_review_2026-09-26.md",
+    "audit": "docs/research/closeout_audit_2026-09-26.json",
+    "scope": "Local records only; historical entries and balances unchanged; no remote query or new consumption/submission."
+  }
 }

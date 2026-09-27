@@ -1,0 +1,22 @@
+{
+  "protocol": "within_prefix_movie_holdout",
+  "protocol_note": "Fixed within-prefix movie holdout: six TRAIN movies fit the new head, two are held out, both prefixes present on each side. This is NOT leave-one-movie-out cross-validation and NOT a cross-domain split; the 44b6 and 6bba domains both appear in training, so it cannot establish cross-domain generalization.",
+  "train": [
+    "44b6_12dfb391",
+    "44b6_267148e4",
+    "44b6_2a2eff9f",
+    "6bba_062c8d37",
+    "6bba_07e24132",
+    "6bba_085bf656"
+  ],
+  "holdout": [
+    "44b6_341df25f",
+    "6bba_09961292"
+  ],
+  "test_stems": [
+    "44b6_0113de3b",
+    "44b6_0b24845f",
+    "6bba_05b6850b",
+    "6bba_05db0fb1"
+  ]
+}
