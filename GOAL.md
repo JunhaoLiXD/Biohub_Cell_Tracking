@@ -1,5 +1,16 @@
 ﻿# Project Goal
 
+## Current agent workflow — 2026-09-27
+
+The user approved `docs/research/AGENT_WORKFLOW_V2.md`. It supersedes older
+requirements that forced every change through a multi-round Claude strategy and
+Codex consensus loop. Use Tier A for maintenance with no model review, Tier B for
+bounded inherited experiments with one compact post-implementation review, and
+Tier C for research/framework changes with bounded Claude/Codex consensus plus
+implementation review. A REVISE receives at most one delta-only review. Remote
+launch, budget, leakage, snapshot, provenance, submission, and promotion gates
+remain mandatory. Read historical sections below only for concrete evidence.
+
 <!-- BEGIN EP068 CURRENT -->
 ## Current ep068 continuation - 2026-09-27T02:26:01.458634+00:00
 

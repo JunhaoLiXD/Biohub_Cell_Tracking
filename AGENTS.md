@@ -16,30 +16,23 @@ _Generated from `STATE.json` (updated 2026-09-27T02:26:01.458634+00:00). Do not 
 The full active authorization detail lives once in `GOAL.md` (section
 "Active authorization detail (diag_044) — canonical"). This file does not restate it.
 
-## Current collaboration contract (effective 2026-09-15)
+## Current collaboration contract (effective 2026-09-27)
 
-The detailed state and execution strategy are maintained in
-`docs/research/PROJECT_HANDOFF.md`. The working loop is deliberative:
-Claude Code is the primary strategy author and implementation owner; Codex is an
-independent, adversarial reviewer. Claude Code proposes a falsifiable hypothesis,
-actual parent, exact change, validation protocol, budget, artifacts, risks, and
-rollback/stop rule. Codex checks those claims against source, tests, leakage,
-graph semantics, numerical behavior, reproducibility, and budget, and may require
-revision. The proposal may be implemented or executed only after a versioned
-record contains the proposal, critique, revisions, and explicit `CONSENSUS`.
-`NO_CONSENSUS` is a stop condition that is returned to the user for direction.
+The canonical process is `docs/research/AGENT_WORKFLOW_V2.md`. Classify work as
+Tier A maintenance, Tier B inherited bounded experiment, or Tier C research or
+framework change. Tier A needs no model review. Tier B uses one compact
+experiment card, targeted deterministic checks, and one independent admission
+review; it does not require a separate Claude/Codex strategy-consensus exchange.
+Tier C retains Claude strategy authorship, independent Codex challenge, explicit
+`CONSENSUS`, and implementation review. A REVISE gets at most one delta-only
+review; do not resend complete historical evidence. `NO_CONSENSUS` returns the
+decision to the user.
 
-Claude Code may lead implementation after consensus, but implementation does not
-replace review: Codex must independently inspect the diff and run proportionate
-validation. Future experiments must set
-`admission.require_codex_review: true` (and may set
-`reviewer_provider: codex`), request review with
-`scripts/request_codex_review.py`, and require a fresh experiment-specific Codex
-`PASS` before execution. Legacy experiment configs and receipts, including
-exp_055, remain Claude-based and are preserved without retroactive rewriting.
-After execution, Codex audits raw artifacts and metrics before Claude interprets
-the result and proposes the next strategy. Historical records are immutable
-evidence and must not be silently rewritten.
+Before every remote launch, every experimental tier still requires a tracked
+hypothesis, parent, exact change, immutable snapshot, targeted smoke PASS,
+sufficient budget, leakage and output-contract checks, rollback/stop rule, and a
+fresh experiment-specific independent `PASS`. Historical records remain
+immutable evidence and must not be silently rewritten.
 
 The project is in a late-stage accuracy push. With explicit user authorization,
 high-risk/high-reward experiments are encouraged, including potentially
@@ -112,17 +105,18 @@ experiment-specific Codex review recorded as `PASS`. New experiment configs must
 launch. Historical Claude-based configs and receipts remain valid historical evidence.
 Public leaderboard results are secondary evidence.
 
-At the start of a resumed research session, Codex must read `GOAL.md` and
-`.private/current/CONTINUATION.md`, then inspect the active experiment record before creating,
-rebuilding, collecting, or launching an experiment.
+At the start of a resumed session, Codex reads `STATE.json`, the active experiment
+record, and `.private/current/CONTINUATION.md`. Read `GOAL.md`, `MEMORY.md`, or
+historical plans only when a concrete question requires them.
 
 ## Claude Code
 
-Role: primary research strategist and implementation owner. For agreed work,
-Claude Code's default mode includes authoring and editing. Claude switches to
-read-only inspection only while acting in an explicit review or audit role; the
-review output is captured in the experiment directory and mirrored to
-`CLAUDE_REVIEW.md`.
+Role: implementation owner and Tier C strategy author. For Tier A and Tier B,
+Claude may implement directly within the declared tier; Tier B receives one
+independent post-implementation admission review. For Tier C, Claude authors the
+strategy before Codex challenge and consensus. Claude switches to read-only
+inspection only while acting in an explicit review or audit role; review output
+is captured in the experiment directory and mirrored to `CLAUDE_REVIEW.md`.
 
 Claude must not edit training or controller code during a review.
 Claude reviews should be narrowly scoped and must not be retried automatically after a timeout or

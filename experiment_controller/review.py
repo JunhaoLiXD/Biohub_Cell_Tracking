@@ -21,6 +21,7 @@ from .core import (
 
 
 VERDICT_RE = re.compile(r"(?im)^\s*VERDICT\s*:\s*(PASS|REVISE|BLOCK)\s*$")
+MAX_TIER_B_REVIEW_PACKET_BYTES = 15 * 1024
 
 
 def claude_command() -> list[str]:
@@ -52,6 +53,11 @@ def _review_provider(root: Path, record: dict[str, Any]) -> str:
 def build_review_prompt(root: Path, record: dict[str, Any]) -> str:
     experiment_id = str(record["experiment_id"])
     parent_id = str(record.get("parent") or "")
+    _, config = load_config(root / str(record["snapshot_config"]), root)
+    workflow = config.get("workflow") or {}
+    risk_tier = str(workflow.get("risk_tier") or "C").strip().upper()
+    if risk_tier not in {"B", "C"}:
+        risk_tier = "C"
     parent_context = []
     if parent_id:
         for relative in (
@@ -60,15 +66,18 @@ def build_review_prompt(root: Path, record: dict[str, Any]) -> str:
         ):
             if (root / relative).exists():
                 parent_context.append(relative)
-    optional_context = [
-        "research/PUBLIC_SOLUTIONS.md",
-        "research/BASELINE_CANDIDATES.md",
-        ".private/automation/agent_quota_policy.json",
-        ".private/research/public_solution_review_2026-08-31.md",
-        ".private/archive/docs/v9_division_aware_tracking_plan.md",
-        ".private/archive/docs/optimization_audit.md",
-    ]
-    context_paths = [*parent_context, *[path for path in optional_context if (root / path).exists()]]
+    packet = f"experiments/{experiment_id}/review_packet.md"
+    packet_path = root / packet
+    if risk_tier == "B":
+        if not packet_path.exists():
+            raise ControllerError(f"Tier B review requires compact packet: {packet}")
+        packet_size = packet_path.stat().st_size
+        if packet_size > MAX_TIER_B_REVIEW_PACKET_BYTES:
+            raise ControllerError(
+                f"Tier B review packet is {packet_size} bytes; limit is "
+                f"{MAX_TIER_B_REVIEW_PACKET_BYTES} bytes"
+            )
+    context_paths = [*parent_context, *([packet] if packet_path.exists() else [])]
     context_list = "\n".join(f"- {path}" for path in context_paths)
     return f"""You are the independent research reviewer for a Kaggle cell-tracking project.
 
@@ -78,23 +87,20 @@ the experiment author or assume the proposal is correct.
 
 Review experiment: {experiment_id}
 
-Read these project files:
-- GOAL.md
-- AGENTS.md
-- CURRENT_BEST.json
-- GPU_BUDGET.json
-- results.json
-- EXPERIMENTS.md
+Risk tier: {risk_tier}
+
+Read only these files first:
+- docs/research/AGENT_WORKFLOW_V2.md
 - {record['snapshot_config']}
-- {record['snapshot_source']}
 {context_list}
 
-Also inspect the current git diff read-only if available.
+Use targeted reads from the snapshot source only when the compact packet or diff
+leaves a concrete implementation question unresolved. Do not inspect historical
+plans, complete logs, prior prompts, or the full repository diff by default.
 
-Before recommending execution, locate the versioned strategy record and verify that the
-Claude-authored strategy, Codex objections, and resulting revisions are all recorded there and
-that they reached an explicit ``CONSENSUS``. Missing, ambiguous, or unrecorded consensus is a
-blocker for execution.
+For Tier C, verify that the versioned Claude strategy, Codex objections, and
+revision reached explicit ``CONSENSUS``. Tier B does not require a separate
+strategy-consensus exchange; verify its compact experiment card instead.
 
 Conserve the user's weekly model allowance: inspect only the cells relevant to configuration,
 dependencies, graph audit, validation, and the final metrics contract. Do not load or restate the
@@ -114,13 +120,13 @@ Evaluate:
 7. Does the parent result logically justify this next experiment, and are the stated reasons for
    the change supported by the recorded evidence?
 8. What concrete changes are required before launch?
-9. Is the recorded Claude strategy plus Codex objection/revision history explicitly marked
-   ``CONSENSUS`` before execution? If not, recommend BLOCK.
+9. Does the declared risk tier match the actual scope, and are that tier's
+   strategy or experiment-card requirements satisfied?
 10. If this is a bold or framework-changing experiment, verify that it does not relax any
     leakage, provenance, hash-integrity, budget, leaderboard-submission, or promotion gate.
 
-Return concise Markdown with sections: Summary, Methodology, Implementation risks, Budget,
-Required changes, and Recommendation. End with exactly one line:
+Return concise Markdown. Give every required change a stable finding ID such as
+F1 or F2 so a single delta-only revision can address it. End with exactly one line:
 
 VERDICT: PASS
 

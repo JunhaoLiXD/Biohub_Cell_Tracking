@@ -17,6 +17,34 @@ forecast. Report: `docs/research/ep015_continuation_2026-09-26/division_counterf
 Older ep015-OFF and exp067-current instructions below are historical. exp067 training
 remains stopped. Final retained submission remains 56535761 (recorded Public LB 0.953).
 <!-- END EP068 CURRENT -->
+
+## Agent Workflow v2 (effective 2026-09-27)
+
+`docs/research/AGENT_WORKFLOW_V2.md` is the canonical process and supersedes
+every older passage in this document (including "Strategy and review
+workflow" below) insofar as it demanded a multi-round Claude/Codex
+strategy-consensus exchange for *all* work. Classify each task first: **Tier
+A** maintenance (docs, state sync, log collection, deterministic formatting,
+non-behavioral fixes) needs no model review. **Tier B** inherited bounded
+experiments (single parameter or small localized change on a verified parent,
+unchanged validation/data/metric/graph-semantics/execution vehicle) use one
+compact experiment card, targeted deterministic checks, and one independent
+post-implementation admission review — no separate consensus round. **Tier
+C** research/framework changes (new models, objectives, data/splits,
+validation/metrics, graph semantics, leakage boundaries, major decoding
+behavior, or coupled changes) keep the full bounded Claude-strategy /
+Codex-challenge / explicit `CONSENSUS` / implementation-review loop described
+in "Strategy and review workflow" below — that section remains the correct
+procedure for Tier C. A `REVISE` gets at most one delta-only review; further
+disagreement is `NO_CONSENSUS`, returned to the user. Remote launch, budget,
+leakage, immutable-snapshot, provenance, submission, and promotion safeguards
+are unchanged at every tier.
+
+Session startup reads only `STATE.json`, the active experiment record, and
+`.private/current/CONTINUATION.md`. Read `HANDOUT.md`, `GOAL.md`,
+`.private/current/MEMORY.md`, `AGENTS.md`, and historical plans only when a
+concrete question requires them — not by default on every session.
+
 ## Current closeout - 2026-09-26 (supersedes historical directives below)
 
 Local closeout is complete. Read `PLAN.md` v4 and
@@ -33,13 +61,14 @@ Historical RUNNING, next-launch and broad causal claims below are superseded.
 Review waivers remain historical NO_PASS, never retroactively converted to PASS.
 
 
-Status: current repository checkpoint, 2026-09-18. This file is the operational
+Historical checkpoint, 2026-09-18. This section is preserved evidence and is
+superseded by the current EP068 and Workflow v2 sections above. It described the operational
 handoff for Claude Code as primary author and Codex as independent reviewer. Read
 `HANDOUT.md` first, then `STATE.json`, `AGENTS.md`, `GOAL.md`,
 `.private/current/CONTINUATION.md`, and the active experiment record before acting.
 Historical records remain evidence and are not implicit authorization.
 
-## Claude Code startup action
+## Claude Code startup action (historical 2026-09-18; do not execute)
 
 Read `HANDOUT.md` and `STATE.json` first. **Current state (2026-09-18):** the new best
 Public LB is **0.947** (`repro_059`, authenticated submission 56313491) — a verbatim copy
@@ -232,7 +261,11 @@ structural proposal), Codex challenges it, and Claude revises to a versioned
 leaderboard submission is authorized until `CONSENSUS` plus a fresh Codex `PASS`
 and the standard admission gates. KEEP authorizes neither promotion nor LB.
 
-## Strategy and review workflow
+## Strategy and review workflow (Tier C only — see Workflow v2 above)
+
+This section is the Tier C procedure under `docs/research/AGENT_WORKFLOW_V2.md`.
+It applies to research/framework changes; Tier A maintenance and Tier B
+inherited bounded experiments use the lighter gates in Workflow v2 instead.
 
 1. Claude Code proposes the next strategy and owns implementation. Each proposal
    states the actual parent, one falsifiable hypothesis, exact change, validation

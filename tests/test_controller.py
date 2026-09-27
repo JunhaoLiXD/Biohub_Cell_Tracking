@@ -581,8 +581,11 @@ def test_codex_review_uses_read_only_command_and_provider_artifacts(project_fact
         ["codex", "exec", "--ephemeral", "--sandbox", "read-only", "--skip-git-repo-check", "-"],
     )
     assert "Challenge the proposed strategy, methodology, and implementation independently" in captured["input"]
-    assert "Claude-authored strategy, Codex objections, and resulting revisions" in captured["input"]
+    assert "Risk tier: C" in captured["input"]
+    assert "For Tier C" in captured["input"]
     assert "explicit ``CONSENSUS``" in captured["input"]
+    assert "Tier B does not require a separate" in captured["input"]
+    assert "complete logs, prior prompts, or the full repository diff by default" in captured["input"]
     assert "high-risk or framework-changing experiment may bundle coupled" in captured["input"]
     for gate in ("leakage", "provenance", "hash-integrity", "budget", "leaderboard-submission", "promotion"):
         assert gate in captured["input"]
@@ -592,3 +595,36 @@ def test_codex_review_uses_read_only_command_and_provider_artifacts(project_fact
     assert (exp_dir / "codex-review-run.json").exists()
     assert (root / "CODEX_REVIEW.md").exists()
     assert not (root / "CLAUDE_REVIEW.md").exists()
+
+
+def test_tier_b_review_uses_compact_packet_without_consensus_requirement(project_factory):
+    root, config = project_factory()
+    config_text = config.read_text(encoding="utf-8")
+    config.write_text("workflow:\n  risk_tier: B\n" + config_text, encoding="utf-8")
+    record = create_experiment(config, root=root)
+    packet = root / "experiments" / record["experiment_id"] / "review_packet.md"
+    packet.write_text("# Compact review packet\n", encoding="utf-8")
+
+    prompt = review_module.build_review_prompt(root, record)
+
+    assert "Risk tier: B" in prompt
+    assert str(packet.relative_to(root)).replace("\\", "/") in prompt
+    assert "Tier B does not require a separate" in prompt
+    assert "GOAL.md" not in prompt
+    assert "CURRENT_BEST.json" not in prompt
+    assert record["snapshot_source"] not in prompt
+
+
+def test_tier_b_review_rejects_missing_or_oversized_packet(project_factory):
+    root, config = project_factory()
+    config_text = config.read_text(encoding="utf-8")
+    config.write_text("workflow:\n  risk_tier: B\n" + config_text, encoding="utf-8")
+    record = create_experiment(config, root=root)
+
+    with pytest.raises(ControllerError, match="requires compact packet"):
+        review_module.build_review_prompt(root, record)
+
+    packet = root / "experiments" / record["experiment_id"] / "review_packet.md"
+    packet.write_text("x" * (15 * 1024 + 1), encoding="utf-8")
+    with pytest.raises(ControllerError, match="limit is 15360 bytes"):
+        review_module.build_review_prompt(root, record)

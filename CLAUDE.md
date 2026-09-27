@@ -17,19 +17,35 @@ The current authority is `STATE.json`, the active experiment record, the current
 workflow block in `GOAL.md`, and `docs/research/PROJECT_HANDOFF.md`. Older dated
 sections below are historical evidence and cannot override those sources.
 
+## Agent Workflow v2 (effective 2026-09-27, supersedes the startup list and the
+## consensus-for-everything text below)
+
+The canonical process is `docs/research/AGENT_WORKFLOW_V2.md`. Classify every
+task before substantial work: **Tier A** maintenance (docs, state sync, log
+collection, deterministic formatting, small non-behavioral fixes) needs no
+model review at all. **Tier B** inherited bounded experiments (a single
+parameter or small localized change on a verified parent, same validation
+protocol/data/metric/graph semantics/execution vehicle) use one compact
+experiment card plus targeted deterministic checks plus one independent
+post-implementation admission review — no separate strategy-consensus
+exchange. **Tier C** research/framework changes (new models, objectives,
+data/splits, validation/metrics, graph semantics, leakage boundaries, major
+decoding behavior, or coupled changes) keep the full bounded Claude-strategy /
+Codex-challenge / explicit `CONSENSUS` / implementation-review loop described
+lower in this file. A `REVISE` gets at most one delta-only review; further
+disagreement is `NO_CONSENSUS`, returned to the user. Remote launch, budget,
+leakage, immutable-snapshot, provenance, submission, and promotion safeguards
+apply at every tier and are never weakened.
+
 ## Startup directive for Claude Code
 
-On every new Claude Code session, read these files in order before proposing or
-editing anything:
-
-1. `STATE.json`.
-2. `HANDOUT.md`, then the active experiment's `experiment.json` named by
-   `STATE.json.active_experiment`. Read that field rather than a name written
-   here; a hardcoded pointer in this file has gone stale twice. The exp_055
-   reference that stood here is historical; exp_055 is long terminal.
-3. `.private/current/CONTINUATION.md`.
-4. `docs/research/PROJECT_HANDOFF.md`.
-5. The current workflow section of `GOAL.md` and the role contract in `AGENTS.md`.
+At the start of a resumed session, read only `STATE.json`, the active
+experiment's `experiment.json` (named by `STATE.json.active_experiment` — read
+that field rather than any name hardcoded here or below, which has gone stale
+before), and `.private/current/CONTINUATION.md`. Read `HANDOUT.md`,
+`GOAL.md`, `.private/current/MEMORY.md`, `docs/research/PROJECT_HANDOFF.md`,
+`AGENTS.md`, and any historical plan only when a concrete question requires
+them; do not read them by default on every session.
 
 exp_055 is now terminal `KEEP` and has been independently audited (2026-09-15);
 the single check/collection is complete and must not be repeated. Do not
@@ -39,39 +55,43 @@ receipt, `metrics.json`, and submission integrity were verified against the
 zero-GPU `local_052` original-score pilot; the audit is
 `.private/research/exp055_completed_analysis_2026-09-15.md`.
 
-The project is in the Valid-KEEP branch. Claude Code's active task is to author a
-versioned strategy proposal (an independent exact reproduction of the
-original-score gain, or a bounded structural proposal). Codex must challenge it,
-Claude must revise it, and no implementation or execution starts until the record
-says `CONSENSUS` and the future experiment clears a fresh Codex review. KEEP does
-not authorize promotion or leaderboard submission.
+(Historical, Valid-KEEP branch, exp_055 era.) This paragraph described a
+Tier C-style strategy loop for one now-closed arc; exp_055 is long terminal and
+this no longer names live work. It is preserved as evidence, not instruction —
+see Workflow v2 above for the current tiering, and `STATE.json` for the active
+experiment.
 
 ## Current workflow
 
-The canonical operational handoff is `docs/research/PROJECT_HANDOFF.md`.
-Claude Code is the primary strategy author and implementation lead. It must
-propose the actual parent, falsifiable hypothesis, exact change, validation,
-budget, artifacts, risks, and rollback/stop rule. Codex independently challenges
-the strategy and reviews the implementation for provenance, leakage, graph
-semantics, numerical stability, reproducibility, tests, and budget. Claude Code
-revises until the versioned strategy record contains explicit `CONSENSUS`; a
-`NO_CONSENSUS` record stops execution and returns the disagreement to the user.
-For agreed authoring work, Claude Code may edit the repository by default; it is
-read-only only while acting in an explicit review or audit role.
+The canonical operational handoff is `docs/research/PROJECT_HANDOFF.md` and,
+for tiering, `docs/research/AGENT_WORKFLOW_V2.md`. Claude Code is the primary
+strategy author and implementation lead for Tier C research/framework changes:
+it proposes the actual parent, falsifiable hypothesis, exact change,
+validation, budget, artifacts, risks, and rollback/stop rule, and Codex
+independently challenges the strategy and reviews the implementation for
+provenance, leakage, graph semantics, numerical stability, reproducibility,
+tests, and budget, until a versioned record says explicit `CONSENSUS` (or
+`NO_CONSENSUS`, which stops execution and returns the disagreement to the
+user). Tier A and Tier B do not require this strategy-consensus exchange —
+see Workflow v2. For agreed authoring work, Claude Code may edit the
+repository by default; it is read-only only while acting in an explicit
+review or audit role.
 
-After consensus, existing experiment admission remains mandatory: fresh
-experiment-specific review, snapshot smoke, tracked budget, explicit
-parent/change/hypothesis, and controller gates. Future successor configs must
-set `admission.require_codex_review: true` (optionally
+Existing experiment admission remains mandatory at every tier: a fresh
+experiment-specific independent review (one compact post-implementation
+review for Tier B; strategy consensus plus implementation review for Tier C),
+snapshot smoke, tracked budget, explicit parent/change/hypothesis, and
+controller gates. Successor configs must set
+`admission.require_codex_review: true` (optionally
 `reviewer_provider: codex`), use `scripts/request_codex_review.py`, and record a
 fresh Codex `PASS`; historical Claude-based configs and receipts, including
-exp_055, remain valid evidence and are not rewritten. Codex's independent audit
-is an additional gate. Late-stage, high-risk/high-reward and potentially
-framework-changing experiments are encouraged when explicitly authorized, but
-must remain bounded, reversible, fail-fast, leakage-free, reproducible, and
-honest about local proxy versus Public LB evidence. No automatic leaderboard
-submission or promotion is implied. The migrated controller accepts the Codex
-admission field while remaining backward-compatible with historical configs and
+exp_055, remain valid evidence and are not rewritten. Late-stage,
+high-risk/high-reward and potentially framework-changing experiments (always
+Tier C) are encouraged when explicitly authorized, but must remain bounded,
+reversible, fail-fast, leakage-free, reproducible, and honest about local
+proxy versus Public LB evidence. No automatic leaderboard submission or
+promotion is implied. The migrated controller accepts the Codex admission
+field while remaining backward-compatible with historical configs and
 records; historical Claude receipts are not rewritten.
 
 
