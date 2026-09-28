@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "experiment_id": "exp_068_ep015_single_probe",
+  "submission_sha256": "f09854c3f3c365ad6247ee07932689ac6d9540eadebfcf378677648c1d197427",
+  "parent_deltas": {
+    "44b6_0113de3b": {
+      "nodes": -681,
+      "edges": -835,
+      "parent_forks": 35,
+      "candidate_forks": 24,
+      "fork_delta": -11
+    },
+    "44b6_0b24845f": {
+      "nodes": -1824,
+      "edges": -2074,
+      "parent_forks": 6,
+      "candidate_forks": 5,
+      "fork_delta": -1
+    },
+    "6bba_05b6850b": {
+      "nodes": -178,
+      "edges": -217,
+      "parent_forks": 5,
+      "candidate_forks": 5,
+      "fork_delta": 0
+    },
+    "6bba_05db0fb1": {
+      "nodes": -2789,
+      "edges": -4209,
+      "parent_forks": 16,
+      "candidate_forks": 13,
+      "fork_delta": -3
+    }
+  },
+  "per_dataset": {
+    "44b6_0113de3b": {
+      "nodes": 25047,
+      "edges": 24151,
+      "forks": 24
+    },
+    "44b6_0b24845f": {
+      "nodes": 17698,
+      "edges": 16249,
+      "forks": 5
+    },
+    "6bba_05b6850b": {
+      "nodes": 6042,
+      "edges": 5808,
+      "forks": 5
+    },
+    "6bba_05db0fb1": {
+      "nodes": 66960,
+      "edges": 63498,
+      "forks": 13
+    }
+  },
+  "runtime_seconds": 1415.642802378,
+  "scope": "Current collected output only. Before submission also bind authenticated remote kernel/version/source to staged snapshot and query remote submission history; this audit does not perform or waive those checks."
+}

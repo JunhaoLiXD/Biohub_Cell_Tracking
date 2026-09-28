@@ -1,0 +1,58 @@
+schema_version: 1
+experiment_id: diag_072_fork_protected_ep015_stage0
+parent: exp_065_metric_aligned_pruning
+hypothesis: A 0.15 weak-edge floor can retain precision benefit without exp071 lineage loss when both outgoing edges of each pre-pruning out-degree-two source are exempt.
+change:
+  component: fork_protected_output_edge_floor
+  from: flat OUTPUT_MIN_EDGE_PROB 0.15
+  to: FORK_PROTECTED_EP_MIN_EDGE_PROB 0.15
+  exact: Compute source out-degree on the graph immediately before weak-edge filtering. Exempt both outgoing edges of every degree-two source; prune other finite learned probabilities below 0.15. Evaluate base and the single primary only. Disable preset auto-load, selection, submission rewrite and confirmatory arms.
+source_notebook: experiments/diag_072_fork_protected_ep015_stage0/snapshot/source/biohub-diag072-fork-protected-stage0.ipynb
+strategy_record: docs/research/adaptive_pruning_consensus_manifest_2026-09-28.md
+execution_authorization: User explicitly authorized continuation on 2026-09-28; one bounded diagnostic run, no leaderboard submission.
+validation:
+  protocol: diag072_primary_only_v1
+  primary_metric: diag072_primary_raw_receipt
+  limitations: Eight reused held-out TRAIN movies are proxy evidence only. The pre-registered label-free under-prediction bypass is not implemented by this primary and remains a binding failure unless the intervention is structurally void on those cases.
+admission:
+  require_codex_review: true
+  reviewer_provider: codex
+local:
+  smoke_test:
+  - '{python}'
+  - scripts/smoke_diag072.py
+  adjudicator: experiments/diag_072_fork_protected_ep015_stage0/snapshot/extra_files/adjudicate_diag072.py
+budget:
+  tier: 1
+  expected_gpu_hours: 1.0
+  note: Cache-first validation run. Hard stop is one run and no retry; no LB submission.
+success:
+  minimum_improvement: 0.0015
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: diag072_primary_passed
+kaggle:
+  owner: lingxd
+  slug: biohub-diag072-fork-protected-stage0
+  title: biohub-diag072-fork-protected-stage0
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: false
+  competition_sources:
+  - biohub-cell-tracking-during-development
+  dataset_sources:
+  - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+  - pilkwang/biohub-temporal-unet3d-seed314159-v1
+  - pilkwang/biohub-tracking-support-pack-50ep-v1
+  - anvithpothula/biohub-v1284-head-s075
+  kernel_sources:
+  - lingxd/biohub-exp065-pruning-sweep
+  required_dataset_sources: 4
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+leaderboard:
+  authorized: false
+  max_submissions: 0
+stop_rule: Stop on cache miss, base parity failure, runtime failure, any scientific gate failure, or one-hour budget overrun. No retry, confirmatory computation or LB submission.

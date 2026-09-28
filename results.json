@@ -553,6 +553,21 @@
       "git_commit": "6fcddffa66fb8f7660d1b181a0e5ca35ae25455d",
       "metrics_path": "experiments/exp_057_0944_motion_ema/metrics.json",
       "evaluated_at": "2026-09-16T14:34:24+00:00"
+    },
+    {
+      "experiment_id": "exp_068_ep015_single_probe",
+      "status": "KEEP",
+      "parent": "exp_064_x138_verbatim_repro",
+      "hypothesis": "A fixed output edge-probability floor 0.15 on the exp064-compatible vehicle improves recorded Public LB from 0.953 to at least 0.954 at displayed precision.",
+      "validation_score": 1.0,
+      "validation_protocol": "ep015_single_probe_v1",
+      "previous_best": null,
+      "delta": null,
+      "runtime_hours": 0.3932341117716667,
+      "decision": "KEEP",
+      "git_commit": "dadb99e1b5984d4b4d7a06a1fd337d7922d1c712",
+      "metrics_path": "experiments/exp_068_ep015_single_probe/metrics.json",
+      "evaluated_at": "2026-09-27T04:29:47+00:00"
     }
   ]
 }

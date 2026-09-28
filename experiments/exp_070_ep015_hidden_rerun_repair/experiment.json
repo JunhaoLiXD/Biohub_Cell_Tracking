@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_070_ep015_hidden_rerun_repair",
+  "parent": "exp_068_ep015_single_probe",
+  "state": "MANUAL_REVIEW_REQUIRED",
+  "hypothesis": "Submission 56597763 produced no score because the locally added 5400-second process killer terminated Kaggle's larger hidden rerun before the vehicle's native 32400-second budget. Removing that contradictory killer will allow the unchanged ep015 output policy to produce a score.",
+  "change": {
+    "component": "hidden_rerun_execution_governor",
+    "from": "5400-second daemon hard kill plus runtime less-than-5400 assertion",
+    "to": "passive monotonic timer plus runtime less-than-BIOHUB_WALL_BUDGET_S assertion",
+    "exact": "Derived from immutable exp068. Only code-cell 0, the final runtime bound, and metrics experiment_id change. Inference, graph, threshold, models, data, dependencies, output writer, and CSV audit are byte-unchanged after normalization."
+  },
+  "signature": "50e587fbd7e2e6ca4c7f6e6bcb60ebe126d49d249c750c448cbbbe59c6ffe22d",
+  "config": "configs/exp_070_ep015_hidden_rerun_repair.yaml",
+  "snapshot_config": "experiments/exp_070_ep015_hidden_rerun_repair/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_070_ep015_hidden_rerun_repair/snapshot/source/biohub-exp070-ep015-hidden-rerun-repair.ipynb",
+  "snapshot_manifest": "experiments/exp_070_ep015_hidden_rerun_repair/snapshot/manifest.json",
+  "git_commit": "7f39e7eb9fd4bd180a177e75e031c8f8281e472c",
+  "validation_protocol": "exp070_prediction_neutral_source_delta_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "CHANGES_REQUESTED",
+    "verdict": "REVISE",
+    "path": "experiments/exp_070_ep015_hidden_rerun_repair/review.md",
+    "completed_at": "2026-09-27T15:21:55+00:00"
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-27T15:20:23+00:00",
+  "updated_at": "2026-09-27T15:21:55+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-27T15:21:55+00:00",
+      "note": "Codex verdict: REVISE"
+    }
+  ]
+}

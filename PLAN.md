@@ -1,21 +1,149 @@
-# PLAN - v4, local closeout
+# PLAN - v5, post-exp071 accuracy recovery proposal
+
+## Current result and decision - 2026-09-27
+
+Authenticated submission `56616854` from `exp_071_ep015_hidden_rerun_repair`
+completed at Public LB **0.950**, down **0.003** from retained exp064 submission
+`56535761` at **0.953**. The exp071 submission is byte-identical to the exp068
+candidate (`f09854c3`), and the repaired code-submission transport returned a real
+score, so this is a valid negative accuracy result rather than a transport failure.
+
+The intervention demonstrably fired: `OUTPUT_MIN_EDGE_PROB=0.15` removed 4,163
+weak edges, 5,472 nodes and 7,335 final edges, and reduced structural forks from
+62 to 47. The harvested eight-movie proxy had estimated a test-reweighted
+adjusted-edge gain of +0.00236, but it also showed strong heterogeneity: the 44b6
+prefix regressed about -0.0085 and 10 of 36 test-shaped subset draws were negative.
+The Public LB result establishes that the apparent average proxy gain did not
+transfer. Apply the pre-registered `<=0.952` branch: **REVERT, retain exp064, and
+close the global `ep010`/`ep015`/`ep020` output-edge-floor family.** Do not run
+`ep_cx`; it combines exp071's measured negative lever with exp066's measured-null
+count-pruning lever.
+
+Evidence:
+
+- `experiments/exp_071_ep015_hidden_rerun_repair/leaderboard-result.json`
+- `experiments/exp_071_ep015_hidden_rerun_repair/independent_collection_audit.json`
+- `SUBMISSION_BUDGET.json`, submission `56616854`
+
+## Final accuracy-recovery direction - Tier C consensus reached
+
+This is a new graph-policy direction, not a continuation or retuning of ep015.
+It is **Tier C** because it changes which graph edges are eligible for pruning and
+introduces adaptive behavior. Claude strategy input and the independent Codex
+challenge have reached explicit `CONSENSUS`. Only the zero-GPU Stage 0 diagnostic
+is authorized; no GPU launch or leaderboard submission is authorized.
+
+### Hypothesis
+
+Some low-confidence output edges belong to false-positive fragments, but a flat
+movie-independent floor destroys true lineage structure and divisions. A pruning
+policy may retain the useful precision effect only if it is disabled on
+under-predicted movies/regions and explicitly protects division topology.
+
+### Stage 0 - zero-GPU counterfactual only
+
+Start from exp064 graphs and reuse existing held-out TRAIN artifacts. The single
+pre-registered primary hypothesis is:
+
+1. `fork_protected_ep015`: apply the 0.15 edge floor except to both outgoing edges
+   of every pre-pruning out-degree-two source.
+
+The following policies are confirmatory diagnostics only. They may explain the
+result but cannot be promoted in this arc, even if they outscore the primary.
+They must not be computed until the primary's metrics, gate decisions and terminal
+PASS/FAIL disposition have been written to an immutable receipt:
+
+2. `lineage_protected_ep015`: additionally protect the local lineage neighborhood
+   one or two frames before and after each fork, with the exact radius frozen
+   before aggregate metrics are read.
+3. `adaptive_protected_ep`: enable protected pruning only when a pre-registered,
+   label-free density signal indicates over-prediction. Candidate signals may use
+   node density, edge/node ratio and short-isolated-track fraction, but may not use
+   movie identity, prefix, ground truth, hidden-test statistics or Public LB.
+
+The diagnostic must replay the official held-out scorer and report aggregate,
+each embryo prefix, every movie, division TP/FP/FN, node/edge/fork deltas, and all
+36 two-per-prefix test-shaped subset draws. It must include exp064, exp066/cx03 and
+flat ep015 as frozen controls. Nested leave-one-movie-out evaluation is mandatory;
+no threshold, radius or policy may be selected and evaluated on the same movies.
+
+### Gate to one candidate experiment
+
+Only the pre-registered `fork_protected_ep015` primary may advance. Gates are
+adjudicated in the following order, with no discretion:
+
+- test-shaped negative draws are at most 3 of 36, versus ep015's 10 of 36;
+- worst movie delta is at least -0.002;
+- intervention is non-void on at least four of eight movies and automatically
+  bypasses the known under-predicted cases using only the frozen label-free rule;
+- neither embryo prefix regresses by more than 0.0005 adjusted edge;
+- division TP does not decrease and division FN does not increase;
+- every individually credited held-out fork is preserved; losing one credited
+  fork fails even if another credited fork is gained;
+- pooled proxy improvement is at least +0.0015 over exp064 with each of the eight
+  movies dropped in turn, and the delta remains positive with movie 44b6 dropped;
+- deterministic output-contract, rollback and leakage tests pass.
+
+Failure of any gate closes this direction with zero GPU and zero submissions.
+The primary disposition is irreversible after its receipt is written; later
+confirmatory results cannot reopen, promote or change it.
+Passing the diagnostic budgets at most one future LB slot and permits only a
+compact implementation card and independent
+admission review; it does not itself authorize a launch. Any later Kaggle run and
+LB submission require fresh explicit user authorization, budget reservation,
+immutable snapshot, smoke PASS, independent implementation PASS, remote source
+binding and authenticated submission-history checks.
+
+### Claude strategy-review status - 2026-09-28
+
+Claude judged the scientific direction, scorer coverage and feasibility sound,
+but returned `REVISE` because selecting the best of three policies on the same
+eight movies would leave a multiplicity/overfit path. This revision incorporates
+all requested controls: one pre-registered promotable primary, mandatory nested
+leave-one-movie-out evaluation, absolute preservation of each credited fork,
+dispersion-first gate ordering, and at most one LB slot only when the primary
+passes every gate. Its delta call correctly refused to self-certify under the
+Tier C Claude-authors/Codex-challenges rule and flagged that visible confirmatory
+results could still influence the primary decision. Codex independently confirmed
+that finding and closed it structurally by requiring the primary disposition to
+be sealed before confirmatory computation. **Tier C strategy status: CONSENSUS.**
+This authorizes only the zero-GPU Stage 0 diagnostic; it does not authorize a
+remote run or leaderboard submission.
+
+### Expected value and stop rule
+
+The realistic target is a displayed +0.001, not recovery of the full held-out
+estimate. The mechanism could recover exp071's lost division/lineage score while
+retaining a subset of its false-positive pruning benefit. Evidence is currently
+insufficient to predict a gain. If Stage 0 does not produce a robust candidate,
+freeze exp064 at 0.953 as the final result and stop accuracy work for this
+competition. Do not fall back to threshold sweeps, `ep_cx`, tight-UM guessing,
+additional public-notebook copying or unvalidated exp067 training.
 
 <!-- BEGIN EP068 CURRENT -->
-## Current ep068 continuation - 2026-09-27T02:26:01.458634+00:00
+## Current ep068 status - 2026-09-27T04:40Z
 
-Experiment `exp_068_ep015_single_probe`: **SUBMITTED**. Fresh review: **PASS**.
-The user authorized one ep015 run and one audited LB submission; 30 GPU hours were
-reported at the new epoch. Ledger now 30.000000 h, reservations
-`{"exp_068_ep015_single_probe": 2.0}`. No final re-selection, second probe or public push.
+**The authorized ep015 LB probe is DONE and SUBMITTED: `56597763`, PENDING.**
+`exp_068_ep015_single_probe` is collected, independently audited **PASS**, remote-source bound,
+controller state `KEEP`. 1415.64 s = 0.393 GPU h; ledger 29.606766 h, no reservations.
+Output sha `f09854c3`, the lever fired (4163 weak edges dropped, -7335 edges, forks 62 -> 47).
 
-Wait for user completion notice; do not poll, rebuild or relaunch. Then check/collect once, run scripts/audit_exp068_collection_v2.py (verify admission_supplement_manifest.json), bind remote version/source, check remote history and conservative three/day cap, and perform the one already authorized LB submission if all gates pass.
+**The single-submission authorization is now SPENT. Do not submit again.** Any earlier text in this
+file directing you to carry out the pre-authorized ep015 leaderboard submission is **superseded** -
+that action has been performed.
 
-CPU counterfactual is complete: all 128 subsets audited; original full per-movie
-metrics reproduced. True-edge repair can change TP/FP/FN from 3/2/9 to 9/2/3 in this
-restricted family. This is GT-assisted TRAIN diagnosis, not a learned result or LB
-forecast. Report: `docs/research/ep015_continuation_2026-09-26/division_counterfactual_report.md`.
-Older ep015-OFF and exp067-current instructions below are historical. exp067 training
-remains stopped. Final retained submission remains 56535761 (recorded Public LB 0.953).
+Next: **do not poll.** Wait for the user to report the score, read it back once from authenticated
+`kaggle competitions submissions`, record it in `SUBMISSION_BUDGET.json` (entry 18) and
+`STATE.json.exp068_ep015_submission`, then apply the pre-registered rule vs retained 0.953:
+**>=0.955 adopt; 0.954 small real gain; 0.953 NULL keep exp_064 and close the `ep` family;
+<=0.952 revert.** No second probe, no final re-selection, no exp067 training, no public push
+without fresh authorization. Deadline 2026-09-29 23:59 NY.
+
+**Full detail, gate evidence and the honest two-sided read of the ep015 evidence live in
+`HANDOUT.md`'s CURRENT STATE block.** `STATE.json` remains authoritative.
+Retained best is still 56535761 at recorded 0.953 until 56597763 resolves.
+exp067 training remains stopped. The CPU counterfactual is complete and is GT-assisted TRAIN
+diagnosis only: `docs/research/ep015_continuation_2026-09-26/division_counterfactual_report.md`.
 <!-- END EP068 CURRENT -->
 ## Active authorization - ep015 continuation, 2026-09-26
 

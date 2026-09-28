@@ -1,0 +1,45 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_069_ep015_hidden_rerun_repair",
+  "parent": "exp_068_ep015_single_probe",
+  "state": "MANUAL_REVIEW_REQUIRED",
+  "hypothesis": "Submission 56597763 produced no score because the locally added 5400-second process killer terminated Kaggle's larger hidden rerun before the vehicle's native 32400-second budget. Removing that contradictory killer will allow the unchanged ep015 output policy to produce a score.",
+  "change": {
+    "component": "hidden_rerun_execution_governor",
+    "from": "5400-second daemon hard kill plus runtime less-than-5400 assertion",
+    "to": "passive monotonic timer plus runtime less-than-BIOHUB_WALL_BUDGET_S assertion",
+    "exact": "Derive from the immutable exp068 snapshot. Change code-cell 0 from the psutil/os._exit watchdog to a passive timer; change the embedded final runtime bound from 5400 to the already-declared 32400-second wall budget; update only the metrics experiment_id. No inference, graph, threshold, model, data, dependency, output writer, or CSV-audit change."
+  },
+  "signature": "feddede068f2188e3340cf6661e3dafad45f9745a2a263c13cafe6cfb204404d",
+  "config": "configs/exp_069_ep015_hidden_rerun_repair.yaml",
+  "snapshot_config": "experiments/exp_069_ep015_hidden_rerun_repair/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_069_ep015_hidden_rerun_repair/snapshot/source/biohub-exp069-ep015-hidden-rerun-repair.ipynb",
+  "snapshot_manifest": "experiments/exp_069_ep015_hidden_rerun_repair/snapshot/manifest.json",
+  "git_commit": "7f39e7eb9fd4bd180a177e75e031c8f8281e472c",
+  "validation_protocol": "exp069_prediction_neutral_source_delta_v1",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "CHANGES_REQUESTED",
+    "verdict": "REVISE",
+    "path": "experiments/exp_069_ep015_hidden_rerun_repair/review.md",
+    "completed_at": "2026-09-27T15:19:26+00:00"
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-27T15:17:19+00:00",
+  "updated_at": "2026-09-27T15:19:26+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-27T15:17:36+00:00",
+      "note": "Required Codex review is missing before smoke test"
+    }
+  ]
+}

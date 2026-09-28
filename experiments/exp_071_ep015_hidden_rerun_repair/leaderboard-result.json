@@ -1,0 +1,14 @@
+{
+  "submission_id": 56616854,
+  "status": "COMPLETE",
+  "public_score": 0.950,
+  "score_source": "authenticated kaggle competitions submissions (single post-user-notice read 2026-09-27)",
+  "baseline_submission_id": 56535761,
+  "baseline_public_score": 0.953,
+  "displayed_delta": -0.003,
+  "decision_rule_branch": "<=0.952: revert and close",
+  "verdict": "REVERT_CLOSE_EP_FAMILY",
+  "working_parent": "exp_064_x138_verbatim_repro",
+  "interpretation": "Valid negative accuracy result. The exp071 prediction bytes equal exp068 f09854c3, so the repaired hidden-rerun transport resolves the ep015 question: the global 0.15 output edge floor hurts the Public LB.",
+  "no_further_action": "No ep010/ep015/ep020 threshold retry, no second transport retry, no automatic successor, launch, submission, promotion, or public push."
+}

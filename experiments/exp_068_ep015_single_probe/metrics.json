@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_068_ep015_single_probe",
+  "validation": {
+    "protocol": "ep015_single_probe_v1"
+  },
+  "primary_metric": 1.0,
+  "primary_metric_meaning": "Engineering integrity only; no accuracy claim",
+  "ep015_probe_integrity_passed": true,
+  "runtime_seconds": 1415.642802378,
+  "reproducible": false,
+  "submission_sha256": "f09854c3f3c365ad6247ee07932689ac6d9540eadebfcf378677648c1d197427",
+  "effective_config": {
+    "OUTPUT_MIN_EDGE_PROB": 0.15,
+    "COUNT_EXCESS_FRAC": 0.0,
+    "SEG_PRUNE_MIN_PROB": 0.0,
+    "LEAF_PRUNE_MIN_EDGE_PROB": 0.0,
+    "GAP_CLOSE_DIV_UM": 0.0,
+    "REPAIR_PARENT_MAX_UM": 0.0,
+    "LINEFIT_MAX_SHIFT_UM": 0.0
+  },
+  "weak_edge_dropped": 4163,
+  "per_dataset": {
+    "44b6_0113de3b": {
+      "nodes": 25047,
+      "edges": 24151,
+      "forks": 24
+    },
+    "44b6_0b24845f": {
+      "nodes": 17698,
+      "edges": 16249,
+      "forks": 5
+    },
+    "6bba_05b6850b": {
+      "nodes": 6042,
+      "edges": 5808,
+      "forks": 5
+    },
+    "6bba_05db0fb1": {
+      "nodes": 66960,
+      "edges": 63498,
+      "forks": 13
+    }
+  },
+  "checkpoint_sha256": {
+    "deepcenter": "8040999a92f6b7bbd98fa8cf458141e045c0f9ad7c936bdb3b18e1f7edafe2a0",
+    "primary": "12f6881ee3620a831697ca098ff8f48e687a24225f4e048b538deec3562fe771",
+    "secondary": "9bac2fa0dadc4a6fc1899e0caf187f4b553e0a7cd90ba1261a68b35ffe9e305f"
+  },
+  "quality_status": "Unknown until separately audited authorized LB probe; never auto-promote.",
+  "parsed_at": "2026-09-27T04:29:47+00:00",
+  "source": "E:\\Project\\Biohub_CellTracking\\experiments\\exp_068_ep015_single_probe\\artifacts\\metrics.json"
+}

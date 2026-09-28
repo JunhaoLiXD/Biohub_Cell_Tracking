@@ -1,0 +1,9 @@
+The repair is narrowly attributable and plausibly worthwhile, but it is not yet admissible.
+
+- **F1 — Missing Tier C consensus.** The named `strategy_record` is merely a copy of the experiment configuration. No versioned Claude strategy, Codex challenge, revision, or explicit `CONSENSUS` exists for exp069. Add the required Tier C strategy record and explicit consensus before admission. Alternatively, formally reclassify this localized prediction-neutral repair as Tier B with user approval and a complete experiment card.
+- **F2 — Validation contract mismatch.** The configuration declares `exp069_prediction_neutral_source_delta_v1`, while emitted metrics still declare `ep015_single_probe_v1`. Update the metrics protocol to the exp069 protocol and extend the deterministic delta smoke check accordingly. The inherited `ep015_probe_integrity_passed` field may remain as a subordinate compatibility gate.
+- **F3 — Causal claim is too strong.** Evidence establishes that the 5,400-second killer could terminate a larger hidden rerun, not that it caused submission 56597763’s missing score. Rephrase the hypothesis as a leading-cause test and record that a successful rerun demonstrates operational repair but does not uniquely prove historical causality.
+
+The source-level implementation otherwise preserves the parent algorithm: only cells 0 and 6 are intended to change; effective configuration checks include the 32,400-second wall budget; inference, graph processing, dataset sources, 44b6/6bba coverage, checkpoint hashes, CSV graph audit, leakage boundaries, and submission restrictions remain intact. Before remote launch, the controller must still record smoke PASS, reserve sufficient GPU budget, obtain the revised independent PASS, and receive fresh user launch authorization. Leaderboard submission remains separately unauthorized.
+
+VERDICT: REVISE

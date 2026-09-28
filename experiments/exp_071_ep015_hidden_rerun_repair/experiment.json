@@ -1,0 +1,88 @@
+{
+  "schema_version": 1,
+  "experiment_id": "exp_071_ep015_hidden_rerun_repair",
+  "parent": "exp_068_ep015_single_probe",
+  "state": "INVALID_METRIC",
+  "hypothesis": "Submission 56597763 failed to score because the exp068-only 5400-second process killer was incompatible with the larger hidden rerun. Removing it and aligning the non-degraded repair deadline with the inherited 32400-second wall budget will let the unchanged ep015 policy produce a valid scoreable output.",
+  "change": {
+    "component": "hidden_rerun_execution_contract",
+    "from": "5400-second hard kill; 27000-second degradation point; contradictory non-degraded final assertion",
+    "to": "passive timer; 32400-second repair deadline and runtime bound; non-degraded output remains mandatory",
+    "exact": "Derived from immutable exp068. Replace only the custom killer, align both declared/guarded REPAIR_DEADLINE_S values 27000->32400, align final runtime assertion to WALL_BUDGET_S, and correct experiment/protocol metadata. No model, inference, threshold, graph, fallback acceptance, writer, or CSV audit change."
+  },
+  "signature": "58b7b301098da54308e00ba869fd6bbf79c8f281358ccfcdf2da9997d34ad186",
+  "config": "configs/exp_071_ep015_hidden_rerun_repair.yaml",
+  "snapshot_config": "experiments/exp_071_ep015_hidden_rerun_repair/snapshot/config.yaml",
+  "snapshot_source": "experiments/exp_071_ep015_hidden_rerun_repair/snapshot/source/biohub-exp071-ep015-hidden-rerun-repair.ipynb",
+  "snapshot_manifest": "experiments/exp_071_ep015_hidden_rerun_repair/snapshot/manifest.json",
+  "git_commit": "7f39e7eb9fd4bd180a177e75e031c8f8281e472c",
+  "validation_protocol": "exp071_prediction_neutral_source_delta_v2",
+  "budget": {
+    "expected_gpu_hours": 2.0,
+    "reserved": false,
+    "consumed_gpu_hours": 2.0
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/exp_071_ep015_hidden_rerun_repair/review.md",
+    "completed_at": "2026-09-27T15:27:40+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/smoke_exp071.py"
+    ],
+    "completed_at": "2026-09-27T15:28:58+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-27T15:25:48+00:00",
+  "updated_at": "2026-09-27T18:45:51+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "REVIEWED",
+      "at": "2026-09-27T15:27:40+00:00",
+      "note": null
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-27T15:28:58+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-27T15:28:58+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-27T15:29:11+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-27T18:45:00+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "INVALID_METRIC",
+      "at": "2026-09-27T18:45:51+00:00",
+      "note": "Validation protocol mismatch: expected exp071_prediction_neutral_source_delta_v2, got 'ep015_single_probe_v1'"
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-exp071-ep015-rerun-repair",
+    "submitted_at": "2026-09-27T15:29:11+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-27T18:45:00+00:00"
+  }
+}

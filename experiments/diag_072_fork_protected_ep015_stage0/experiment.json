@@ -1,0 +1,75 @@
+{
+  "id": "diag_072_fork_protected_ep015_stage0",
+  "experiment_id": "diag_072_fork_protected_ep015_stage0",
+  "tier": "C",
+  "state": "RUNNING",
+  "consensus_status": "CONSENSUS",
+  "authorization_reopened": "On 2026-09-28 the user explicitly instructed Codex to push this fork-protected diagnostic to Kaggle after being told admission was blocked. This reopens admission and authorizes one bounded diagnostic launch, but no LB submission. New evidence is the recovered immutable exp065 raw prediction cache and all eight exact GT graphs; this tests fork protection rather than retrying the closed flat edge-floor policy.",
+  "snapshot_config": "experiments/diag_072_fork_protected_ep015_stage0/snapshot/config.yaml",
+  "source_notebook": "experiments/diag_072_fork_protected_ep015_stage0/snapshot/source/biohub-diag072-fork-protected-stage0.ipynb",
+  "strategy_record": "docs/research/adaptive_pruning_consensus_manifest_2026-09-28.md",
+  "expected_gpu_hours": 1.0,
+  "hypothesis": "A 0.15 weak-edge floor can retain some precision benefit without the exp071 lineage loss if both outgoing edges of every pre-pruning out-degree-two source are exempt.",
+  "parent": "exp_065_metric_aligned_pruning immutable version 2 notebook; scientific baseline exp_064 at Public LB 0.953",
+  "exact_change": "Add FORK_PROTECTED_EP_MIN_EDGE_PROB=0.15; compute pre-filter out-degree and exempt all edges whose source has out-degree exactly two. Evaluate base and this primary only. Disable preset auto-load, candidate selection, submission rewrite and confirmatory arms.",
+  "validation": "Eight frozen held-out TRAIN stems from exp065 using its raw prediction cache and official scorer. Raw receipt only during the run; deterministic post-collection gate seals PASS/FAIL before any confirmatory work.",
+  "budget": {
+    "gpu_cap_hours": 1.0,
+    "leaderboard_submissions": 0
+  },
+  "stop_rule": "Stop without another run or submission on runtime failure, cache miss, parity failure, any pre-registered scientific gate failure, or elapsed GPU time above 1.0 h.",
+  "rollback": "No baseline or production artifact is modified. Retain exp064 and delete nothing.",
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/diag_072_fork_protected_ep015_stage0/embedded_admission_review.md",
+    "completed_at": "2026-09-28T04:19:45+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "{python}",
+      "scripts/smoke_diag072.py"
+    ],
+    "exit_code": 0
+  },
+  "artifacts": {
+    "plan": "PLAN.md",
+    "strategy_consensus": "docs/research/adaptive_pruning_codex_challenge_2026-09-28.md",
+    "build_manifest": "experiments/diag_072_fork_protected_ep015_stage0/build_manifest.json",
+    "notebook": "experiments/diag_072_fork_protected_ep015_stage0/kaggle_kernel/biohub-diag072-fork-protected-stage0.ipynb",
+    "smoke": "experiments/diag_072_fork_protected_ep015_stage0/smoke-test.log",
+    "adjudicator": "scripts/adjudicate_diag072.py"
+  },
+  "remote": {
+    "provider": "kaggle",
+    "kernel_id": "lingxd/biohub-diag072-fork-protected-stage0",
+    "kernel_version": 1,
+    "url": "https://www.kaggle.com/code/lingxd/biohub-diag072-fork-protected-stage0",
+    "pushed_at": "2026-09-28T04:23:03.4328233Z",
+    "leaderboard_submission_authorized": false
+  },
+  "updated_at": "2026-09-28T04:23:03.4328233Z",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-28T04:06:58+00:00",
+      "note": "Codex verdict: REVISE"
+    },
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-28T04:19:45+00:00",
+      "note": "Codex verdict: BLOCK"
+    },
+    {
+      "from": "READY",
+      "to": "RUNNING",
+      "at": "2026-09-28T04:23:03.4328233Z",
+      "note": "Kaggle kernel version 1 pushed after smoke PASS, consensus, independent Codex admission PASS, immutable hash verification, and 1.0 GPU-hour reservation. No leaderboard submission authorized."
+    }
+  ]
+}

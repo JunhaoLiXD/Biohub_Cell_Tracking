@@ -1,0 +1,35 @@
+{
+  "status": "PASS_WITH_CONTROLLER_METADATA_MISMATCH",
+  "experiment_id": "exp_071_ep015_hidden_rerun_repair",
+  "remote_status": "COMPLETE",
+  "controller_state": "INVALID_METRIC",
+  "controller_failure": "Validation protocol mismatch: expected exp071_prediction_neutral_source_delta_v2, got ep015_single_probe_v1",
+  "interpretation": "The controller failure is metadata-only. It is not an inference, graph, CSV, fallback, degradation, or remote execution failure.",
+  "runtime_seconds": 988.3845746779999,
+  "runtime_gpu_hours_observed": 0.2745512707438889,
+  "gpu_ledger_charge_hours": 2.0,
+  "gpu_charge_note": "Controller conservatively charged the full reservation after parse_metrics rejected the protocol field.",
+  "submission_sha256": "f09854c3f3c365ad6247ee07932689ac6d9540eadebfcf378677648c1d197427",
+  "submission_equals_arm": true,
+  "submission_equals_exp068": true,
+  "source_binding": {
+    "snapshot_cells": 14,
+    "staged_cells": 14,
+    "all_cell_sources_equal": true
+  },
+  "runtime_integrity": {
+    "ep015_probe_integrity_passed": true,
+    "deadline_degraded": false,
+    "repair_fallback_all_datasets": 0,
+    "weak_edge_dropped": 4163,
+    "datasets": 4,
+    "rows": 225453,
+    "nodes": 115747,
+    "edges": 109706,
+    "forks": 47,
+    "traceback_found": false,
+    "assertion_error_found": false,
+    "hard_walltime_found": false
+  },
+  "decision": "No accuracy evidence was produced by this development run. Do not submit to the leaderboard without fresh explicit authorization. Do not alter the immutable remote metrics artifact to satisfy the controller."
+}

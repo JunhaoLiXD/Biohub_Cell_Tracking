@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-09-27T15:20:23+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/exp_070_ep015_hidden_rerun_repair/snapshot/config.yaml",
+      "sha256": "26aa21493d17cd72b88d82250e676997981263f04586e623e2f7a50e78a246c0"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/exp_070_ep015_hidden_rerun_repair/snapshot/source/biohub-exp070-ep015-hidden-rerun-repair.ipynb",
+      "sha256": "442bf47e0db24ebadc512d482c25a4a1fd2a5aaad33ced7782bb401e2aae3c68"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_070_ep015_hidden_rerun_repair/snapshot/extra_files/build_exp069_ep015_hidden_rerun_repair.py",
+      "sha256": "90532ce0bb549e8cf1b84566d24ee4f5aaf8f9138cac3d058be5208b479b4be1"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_070_ep015_hidden_rerun_repair/snapshot/extra_files/build_exp070_ep015_hidden_rerun_repair.py",
+      "sha256": "b5da5ad7c0d37ef2bafec2a6be57e3b2c6761ee6215365e9f5eaa45e1b5c1c01"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/exp_070_ep015_hidden_rerun_repair/snapshot/extra_files/smoke_exp070.py",
+      "sha256": "5124f52bf034f6a1cdaef4c08e3aeeb0aa0caa52a09dbcce56bfb03156bc7ecf"
+    }
+  ]
+}

@@ -1,0 +1,75 @@
+schema_version: 1
+experiment_id: exp_070_ep015_hidden_rerun_repair
+parent: exp_068_ep015_single_probe
+workflow:
+  risk_tier: B
+hypothesis: >-
+  Submission 56597763 produced no score because the locally added 5400-second
+  process killer terminated Kaggle's larger hidden rerun before the vehicle's
+  native 32400-second budget. Removing that contradictory killer will allow the
+  unchanged ep015 output policy to produce a score.
+change:
+  component: hidden_rerun_execution_governor
+  from: 5400-second daemon hard kill plus runtime less-than-5400 assertion
+  to: passive monotonic timer plus runtime less-than-BIOHUB_WALL_BUDGET_S assertion
+  exact: >-
+    Derived from immutable exp068. Only code-cell 0, the final runtime bound, and
+    metrics experiment_id change. Inference, graph, threshold, models, data,
+    dependencies, output writer, and CSV audit are byte-unchanged after normalization.
+source_notebook: .private/current/biohub-exp070-ep015-hidden-rerun-repair.ipynb
+strategy_record: configs/exp_070_ep015_hidden_rerun_repair.yaml
+execution_authorization: >-
+  User authorized implementation of the repair on 2026-09-27. No remote launch
+  or leaderboard submission is authorized.
+validation:
+  protocol: exp070_prediction_neutral_source_delta_v1
+  primary_metric: source_delta_is_prediction_neutral
+  limitations: >-
+    Hidden traceback is unavailable. Timeout is the leading evidence-based cause,
+    not proven ground truth; only a separately authorized remote run can decide it.
+admission:
+  require_codex_review: true
+  reviewer_provider: codex
+local:
+  smoke_test:
+    - "{python}"
+    - scripts/smoke_exp070.py
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+  note: Reserve before launch; native Kaggle limit and existing 32400-second governor remain.
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: ep015_probe_integrity_passed
+kaggle:
+  owner: lingxd
+  slug: biohub-exp070-ep015-rerun-repair
+  title: biohub-exp070-ep015-rerun-repair
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: false
+  competition_sources:
+    - biohub-cell-tracking-during-development
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+    - anvithpothula/biohub-v1284-head-s075
+  required_dataset_sources: 4
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+    - scripts/build_exp069_ep015_hidden_rerun_repair.py
+    - scripts/build_exp070_ep015_hidden_rerun_repair.py
+    - scripts/smoke_exp070.py
+leaderboard:
+  authorized: false
+  max_submissions: 0
+  rule: Fresh user authorization and all live submission gates are required.
+stop_rule: >-
+  Stop on any undeclared source delta, smoke/review/snapshot/budget/output failure.
+  No automatic launch, retry, submission, promotion, or public push.

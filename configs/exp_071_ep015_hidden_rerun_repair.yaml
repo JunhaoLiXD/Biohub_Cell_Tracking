@@ -1,0 +1,67 @@
+schema_version: 1
+experiment_id: exp_071_ep015_hidden_rerun_repair
+parent: exp_068_ep015_single_probe
+workflow:
+  risk_tier: B
+hypothesis: >-
+  Submission 56597763 failed to score because the exp068-only 5400-second process
+  killer was incompatible with the larger hidden rerun. Removing it and aligning
+  the non-degraded repair deadline with the inherited 32400-second wall budget
+  will let the unchanged ep015 policy produce a valid scoreable output.
+change:
+  component: hidden_rerun_execution_contract
+  from: 5400-second hard kill; 27000-second degradation point; contradictory non-degraded final assertion
+  to: passive timer; 32400-second repair deadline and runtime bound; non-degraded output remains mandatory
+  exact: >-
+    Derived from immutable exp068. Replace only the custom killer, align both
+    declared/guarded REPAIR_DEADLINE_S values 27000->32400, align final runtime
+    assertion to WALL_BUDGET_S, and correct experiment/protocol metadata. No
+    model, inference, threshold, graph, fallback acceptance, writer, or CSV audit change.
+source_notebook: .private/current/biohub-exp071-ep015-hidden-rerun-repair.ipynb
+strategy_record: configs/exp_071_ep015_hidden_rerun_repair.yaml
+execution_authorization: >-
+  User authorized continuing through gates and one Kaggle kernel launch on
+  2026-09-27. Leaderboard submission remains separately unauthorized.
+validation:
+  protocol: exp071_prediction_neutral_source_delta_v2
+  primary_metric: source_delta_is_prediction_neutral
+  inherited_output_protocol: ep015_single_probe_v1
+  limitations: Hidden traceback is unavailable; timeout remains a falsifiable leading diagnosis.
+admission:
+  require_codex_review: true
+  reviewer_provider: codex
+local:
+  smoke_test: ["{python}", scripts/smoke_exp071.py]
+budget:
+  tier: 1
+  expected_gpu_hours: 2.0
+  note: Reserve two hours before launch; six-hour protected reserve remains intact.
+success: {minimum_improvement: 0.0, regression_threshold: 0.0}
+evaluation: {mode: gate, gate_field: ep015_probe_integrity_passed}
+kaggle:
+  owner: lingxd
+  slug: biohub-exp071-ep015-rerun-repair
+  title: biohub-exp071-ep015-rerun-repair
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: false
+  competition_sources: [biohub-cell-tracking-during-development]
+  dataset_sources:
+    - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+    - pilkwang/biohub-temporal-unet3d-seed314159-v1
+    - pilkwang/biohub-tracking-support-pack-50ep-v1
+    - anvithpothula/biohub-v1284-head-s075
+  required_dataset_sources: 4
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+    - scripts/build_exp071_ep015_hidden_rerun_repair.py
+    - scripts/smoke_exp071.py
+leaderboard:
+  authorized: false
+  max_submissions: 0
+  rule: Separate explicit authorization after valid collected output and all live gates.
+stop_rule: >-
+  Stop on any undeclared delta, degraded/fallback output, review/smoke/snapshot/budget
+  failure, or output-contract failure. No automatic retry, LB submission, promotion, or push.

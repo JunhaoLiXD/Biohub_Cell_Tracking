@@ -1,0 +1,9 @@
+{
+  "parent": "experiments/exp_065_metric_aligned_pruning/kaggle_kernel/biohub-exp065-pruning-sweep.ipynb",
+  "parent_sha256": "6baeb36bd9d66a3f556c75741192f6e30320e065a1c51f7c213e101aeb1043be",
+  "notebook_sha256": "5b7c0249547c213127909e69bd319e1a0ff4f1cb623ba97cf428f06cf3090c0d",
+  "adjudicator_sha256": "c467eaaaf0fc07b75b643e450bfbf1f6fc8d163167bd5096a6ced2a3c9ce4597",
+  "primary": "fork_protected_ep015",
+  "gpu_cap_hours": 1.0,
+  "lb_submissions": 0
+}

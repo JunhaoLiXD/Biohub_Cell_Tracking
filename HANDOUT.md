@@ -1,23 +1,150 @@
-# Session Handout — updated 2026-09-25T13:10Z
+# Session Handout - updated 2026-09-27T04:40Z
+
+Purpose: hand the current state to the next session AND to the user. Read this FIRST, then
+`STATE.json`, then `docs/research/lb_recon_2026-09-25_amanatar_sweep.md`.
+
+If anything here disagrees with `STATE.json`, **`STATE.json` wins.**
+
+**Competition closes 2026-09-29 23:59.**
+
+---
+
+Section order: the **CURRENT STATE** block is first and wins. Everything under a heading marked
+`Historical` or `SUPERSEDED` is provenance - its *analysis* is usually still good, but its
+*instructions* are dead. Read `AGENTS.md` for the review tiering before doing substantial work.
+
+---
+
 
 <!-- BEGIN EP068 CURRENT -->
-## Current ep068 continuation - 2026-09-27T02:26:01.458634+00:00
+## >>> CURRENT STATE - exp_068 ep015, 2026-09-27T04:40Z <<<
 
-Experiment `exp_068_ep015_single_probe`: **SUBMITTED**. Fresh review: **PASS**.
-The user authorized one ep015 run and one audited LB submission; 30 GPU hours were
-reported at the new epoch. Ledger now 30.000000 h, reservations
-`{"exp_068_ep015_single_probe": 2.0}`. No final re-selection, second probe or public push.
+**One LB submission is PENDING: `56597763`. Nothing is running. No GPU is committed. No further
+submission, training, re-selection or public push is authorized.**
 
-Wait for user completion notice; do not poll, rebuild or relaunch. Then check/collect once, run scripts/audit_exp068_collection_v2.py (verify admission_supplement_manifest.json), bind remote version/source, check remote history and conservative three/day cap, and perform the one already authorized LB submission if all gates pass.
+`exp_068_ep015_single_probe` is **complete, collected, independently audited PASS, remote-source
+bound, and submitted**. Controller state `KEEP`. This block supersedes every "nothing is
+authorized", "ep015 remains OFF" and "nothing qualifies for a submission" statement below.
 
-CPU counterfactual is complete: all 128 subsets audited; original full per-movie
-metrics reproduced. True-edge repair can change TP/FP/FN from 3/2/9 to 9/2/3 in this
-restricted family. This is GT-assisted TRAIN diagnosis, not a learned result or LB
-forecast. Report: `docs/research/ep015_continuation_2026-09-26/division_counterfactual_report.md`.
-Older ep015-OFF and exp067-current instructions below are historical. exp067 training
-remains stopped. Final retained submission remains 56535761 (recorded Public LB 0.953).
+| | |
+|---|---|
+| submission | **56597763**, PENDING, no score yet |
+| kernel | `lingxd/biohub-exp068-ep015` **v1** (single push) |
+| submitted | 2026-09-27T04:33:47Z (NY 2026-09-27) |
+| output sha256 | `f09854c3f3c365ad6247ee07932689ac6d9540eadebfcf378677648c1d197427` |
+| arm | `OUTPUT_MIN_EDGE_PROB` `0.0 -> 0.15`, **sole active lever** |
+| cost | 1415.64 s = **0.393 GPU h** (2.0 h reserved, reconciled) |
+| retained best | **unchanged: 56535761 (exp_064) at recorded 0.953** |
+
+### What the next session must do - and must not do
+
+**Do not poll.** The user reports the score. When they do: read it back **once** from authenticated
+`kaggle competitions submissions`, write `public_score` + `score_source` into **both**
+`SUBMISSION_BUDGET.json` (entry 18) and `STATE.json.exp068_ep015_submission`, then apply the
+**pre-registered rule, written down before the score was known**:
+
+| displayed score vs 0.953 | action |
+|---|---|
+| **>= 0.955** | adopt exp_068 as working parent |
+| **0.954** | small real gain; adopt, but treat the margin as within display noise |
+| **0.953** | **NULL** - keep exp_064, close the `ep` family |
+| **<= 0.952** | revert and close |
+
+No second probe, no final re-selection, no exp067 training, no public push without fresh user
+authorization. **Competition closes 2026-09-29 23:59 NY.** Platform reported **4 of 5 remaining**
+for NY 2026-09-27 immediately after this submission.
+
+### Gate evidence on file (all passed before submitting)
+
+- **Run clean.** COMPLETE in 1415.64 s. Log carries `EXP068 postflight PASS f09854c3` and
+  `Found 4 test videos`; no traceback, no `AssertionError`, none of the five exp_064
+  silent-degradation signatures, `deadline_degraded false`.
+- **Exactly one lever, and the vehicle's own machinery stayed off.** `metrics.json`
+  `effective_config` is `OUTPUT_MIN_EDGE_PROB 0.15` with all six other levers at `0.0`;
+  `shipped_config base`, `sweep_results_count 0`, `auto_attached {}`,
+  `frozen_preset_applied false`. `ep015_probe_integrity_passed true`.
+- **Independent audit PASS.** `scripts/audit_exp068_collection_v2.py` exit 0 -> report
+  `experiments/exp_068_ep015_single_probe/independent_collection_audit.json`. It verified every
+  hash in `admission_supplement_manifest.json`, the snapshot, `submission.csv ==
+  submission_arm.csv`, and checkpoint + support-repo manifest parity with exp_064.
+  WARNING: **re-running it now exits with `AssertionError: Preserve prior audit`. That is the script
+  protecting the first report by design - it is not a failure and must not be "fixed".**
+- **Remote source bound.** Pulled kernel v1: **14/14 cell sources byte-identical** to the staged
+  snapshot `4dfc2bb1`. The raw file sha differs (`8b170d13`) only because Kaggle re-serializes the
+  JSON and strips outputs - compare cell sources, not the file hash.
+- **The probe is live, not void.** `f09854c3` differs from parent `d52a5da2` and from every prior
+  ledger entry, so neither the activation gate nor the no-information duplicate rule fired.
+  `weak_edge_dropped 4163`; **-5472 nodes / -7335 edges**, 238260 -> 225453 rows; pruning monotone
+  (nodes and edges non-positive on all four datasets).
+- **Cap gate.** Authenticated remote history showed 0 submissions for NY 2026-09-27 before
+  submitting; recorded in the ledger as `gate_verdict` with `remote_history_checked_before_submit`.
+- GPU ledger now **29.606766 h**, **no outstanding reservations**.
+
+### Read the evidence for ep015 honestly - it cuts both ways
+
+This probe was authorized as a **deliberate, bounded LB measurement of a contested lever**, not as a
+confident bet. Both sides are on record and the next session must not collapse them:
+
+**For:** in amanatar's published held-out sweep (8 TRAIN stems, 14 configs) `ep015` is the only
+config that moves anything worth having - proxy +0.0051, test-reweighted adjEJ **+0.00236**, 6 stems
+up / 2 down, roughly 13x the runner-up. `ep010`/`ep015`/`ep020` are bit-identical, so 0.15 sits on a
+**plateau, not a knife edge**. Mechanism is understood: the count adjustment is one-sided, so
+pruning improves the count factor on 8 of 8 stems.
+
+**Against - and this was known before submitting:**
+1. The strategy author's own words: **"+0.00236 ... I regard as optimistic"**, with *no reliable
+   transfer forecast* from a 2-movie proxy to the hidden test set. ~0.955 is neither an expectation
+   nor an upper bound.
+2. Per prefix the aggregate is **one movie carrying the other**: `6bba` +0.0099 but
+   `44b6` **-0.0085** - which is why amanatar's own selection guard rejected `ep015` and shipped
+   `dcsd015` instead.
+3. The 36 test-shaped subset draws recorded lower in this handout: **10 of 36 are negative**, i.e.
+   ~28 % of two-per-prefix draws lose. The flat global threshold is **not per-movie adaptive**, and
+   its two losses were on movies that already **under-predict** (pruning those further is wrong).
+
+WARNING - **new, unexplained, and the most important thing this run added:** on the held-out sweep
+`ep015` left divisions **completely untouched** (`div_tp 3`, `div_fn 9` for all 14 configs; the
+strategy doc states "this lever does not touch divisions"). **On the real test movies it dropped
+forks 62 -> 47** (per dataset -11 / -1 / 0 / -3). Divisions carry weight 0.1 with
+`division_jaccard ~= 0.214`, so if those 15 forks included true positives they eat into the gain.
+**The harvest does not cover this behavior. Do not reason about the returning score as if divisions
+were held fixed.**
+
+### Provenance for this arc
+
+- Authorization: `STATE.json.ep015_authorization` (2026-09-27T02:00:32Z, "Then do as you
+  recommended") - one ep015 run, one LB probe after gates, one zero-GPU CPU diagnostic.
+- Strategy consensus: `docs/research/ep015_continuation_2026-09-26/strategy_consensus_v1.md`
+  (**CONSENSUS**; ten Codex findings, all addressed; consensus is *not* an accuracy claim).
+  Proposal `claude_strategy_v1.md` -> critique `codex_critique_v1.md` -> `claude_strategy_v3.md`.
+- Admission: `experiments/exp_068_ep015_single_probe/review.md` (Codex **PASS**, after one
+  `REVISE`), snapshot smoke `scripts/smoke_exp068.py` exit 0.
+- CPU counterfactual, complete and separate: all 128 subsets audited, original full per-movie
+  metrics reproduced, true-edge repair moves TP/FP/FN 3/2/9 -> 9/2/3 **in that restricted family**.
+  This is **GT-assisted TRAIN diagnosis** - not a learned result, not deployable, not an LB
+  forecast. `docs/research/ep015_continuation_2026-09-26/division_counterfactual_report.md`.
+- exp067 training remains **stopped** for this competition.
+
+### Resolved LB history (all authenticated)
+
+| submission | arm | Public LB | verdict |
+|---|---|---|---|
+| **56597763** | exp_068 - ep015 edge floor 0.15 | **PENDING** | awaiting score; rule above |
+| 56567455 | exp_066 - cx03 count-excess 0.03 | 0.953 | **NULL**, lever fired but delta 0; closed |
+| **56535761** | exp_064 - x138 byte-verbatim | **0.953** | **RETAINED BEST / parent** |
+| 56530197 | exp_062 k2 - mutual-best beta=0.20 | 0.944 | REVERT, arc closed |
+
+`exp_066` is the cautionary precedent: a lever that **provably fired** (sha differed, 1242 edges
+pruned) still returned exactly 0.953. Firing is not scoring.
 <!-- END EP068 CURRENT -->
-## Current closeout - 2026-09-26 (supersedes historical directives below)
+## Historical closeout - 2026-09-26 (SUPERSEDED by the CURRENT STATE block above)
+
+> WARNING: kept as provenance. Three statements below are **no longer true**: "ep015 remains OFF"
+> (ep015 ran as `exp_068` and is submitted), "no ... submission ... is authorized" (one probe was
+> authorized on 2026-09-27 and used), and "Ledger remaining is 16.752765 h" (a new budget epoch was
+> reported at 30 h; the ledger is now **29.606766 h**). Its `PLAN.md` v4 and CPU-audit statements
+> still hold.
+
 
 Local closeout is complete. Read `PLAN.md` v4 and
 `docs/research/closeout_review_2026-09-26.md`; `STATE.json` owns current status.
@@ -33,16 +160,16 @@ Historical RUNNING, next-launch and broad causal claims below are superseded.
 Review waivers remain historical NO_PASS, never retroactively converted to PASS.
 
 
-Purpose: hand the current state to the next session AND to the user. Read this FIRST, then
-`STATE.json`, then `docs/research/lb_recon_2026-09-25_amanatar_sweep.md`.
+## Historical: the 2026-09-25 "START HERE" board (SUPERSEDED)
 
-If anything here disagrees with `STATE.json`, **`STATE.json` wins.**
-
-**Competition closes 2026-09-29 23:59.**
-
----
-
-## >>> NEXT SESSION: START HERE <<<
+> WARNING: **superseded by the CURRENT STATE block at the top of this file (2026-09-27).**
+> Everything from here down is the 2026-09-25/26 board, kept as provenance. Two things in it are now
+> specifically wrong as instructions: "Nothing is authorized" (one ep015 probe was authorized and has
+> been submitted as **56597763**) and "on current evidence nothing qualifies for a submission" (the
+> user authorized it anyway, as a measurement). The `exp_065` v3 proposal described below was
+> **never built**; `exp_068` is the narrower arm that actually ran. The *analysis* below - the
+> plateau, the harvested sweep table, the dead levers, the 36-subset ep015 breakdown - remains valid
+> and is still the right thing to read before proposing any knob.
 
 **Nothing is running. No GPU is committed. Both submissions are RESOLVED. Nothing is authorized.**
 
@@ -209,7 +336,15 @@ offset and an 8-movie proxy and must not be quoted as an expected score.
 
 ---
 
-## Next steps, ranked
+## Historical: next steps as ranked on 2026-09-25 (SUPERSEDED)
+
+> WARNING: item 1 below names "`exp_065` proposal v3" as the live work item. **That proposal was
+> never written and exp_065 never ran.** What actually happened instead: the narrower
+> `exp_068_ep015_single_probe` was proposed, reached CONSENSUS, passed admission, ran, and is
+> submitted as **56597763** (see the CURRENT STATE block). Items 2-5 are still sound standing
+> guidance - especially item 4 (a knob must earn its slot) and item 5 (do not port exp_062).
+> The `readmit-v1` fallback in item 2 is still unrun and still unquantified.
+
 
 1. ~~Write the proposal~~, ~~challenge round 1~~, ~~write v2~~, ~~challenge round 2~~ — all **done**.
    v2 is at `exp065_metric_aligned_pruning_proposal_v2.md`; both challenges returned **REVISE**
@@ -250,7 +385,24 @@ offset and an 8-movie proxy and must not be quoted as an expected score.
 
 ---
 
-## Budget — user ruling 2026-09-24 (late stage)
+## Budget - CURRENT epoch (2026-09-27), with the 2026-09-24 ruling below it
+
+**A new GPU epoch was reported by the user at 2026-09-27T02:00:32Z: 30 h.** Authoritative numbers
+live in `GPU_BUDGET.json` and `SUBMISSION_BUDGET.json`; the table in this section is the **stale
+09-24 epoch** and is kept for provenance only.
+
+| | current |
+|---|---|
+| GPU remaining | **29.606766 h**, no outstanding reservations (exp_068 charged 0.393234 h) |
+| weekly budget / protected reserve | 30 h / 6 h |
+| LB cap | **5 per America/New_York day** (platform-confirmed) |
+| used today (NY 2026-09-27) | **1 of 5** - submission 56597763; platform reported 4 remaining |
+
+Note the cap has a documented conflict: `ep015_authorization` says use a conservative **3**/day, the
+ledger's `max_submissions_per_day_source` records the user's 09-24 ruling of **5**/day. Both were
+satisfied here (1 used). If it matters again, take the lower number and check remote history first.
+
+### The superseded 2026-09-24 epoch
 
 > Treat GPU as 20 h with **all limits released**; raise the daily LB cap to 5.
 
@@ -310,6 +462,12 @@ slots as wasted.
   `STATE.json`; never hand-edit that block.
 
 ## Key pointers
+
+- **The live arc:** `experiments/exp_068_ep015_single_probe/` - `experiment.json` (KEEP),
+  `review.md` (Codex PASS), `artifacts/` (collected output, `metrics.json`, `run_stats.csv`,
+  `submission.csv`), `independent_collection_audit.json` (the audit report). Strategy and the CPU
+  counterfactual: `docs/research/ep015_continuation_2026-09-26/`. Submission 56597763 is recorded as
+  entry 18 of `SUBMISSION_BUDGET.json`.
 
 - **Current recon (read this first):** `docs/research/lb_recon_2026-09-25_amanatar_sweep.md`.
   Supersedes the "next step" in `docs/research/lb_mining_2026-09-25.md`, whose §"correction #1"

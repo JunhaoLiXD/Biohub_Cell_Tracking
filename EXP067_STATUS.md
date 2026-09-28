@@ -1,21 +1,29 @@
 # exp067 status and handoff
 
 <!-- BEGIN EP068 CURRENT -->
-## Current ep068 continuation - 2026-09-27T02:26:01.458634+00:00
+## Current ep068 status - 2026-09-27T04:40Z
 
-Experiment `exp_068_ep015_single_probe`: **SUBMITTED**. Fresh review: **PASS**.
-The user authorized one ep015 run and one audited LB submission; 30 GPU hours were
-reported at the new epoch. Ledger now 30.000000 h, reservations
-`{"exp_068_ep015_single_probe": 2.0}`. No final re-selection, second probe or public push.
+**The authorized ep015 LB probe is DONE and SUBMITTED: `56597763`, PENDING.**
+`exp_068_ep015_single_probe` is collected, independently audited **PASS**, remote-source bound,
+controller state `KEEP`. 1415.64 s = 0.393 GPU h; ledger 29.606766 h, no reservations.
+Output sha `f09854c3`, the lever fired (4163 weak edges dropped, -7335 edges, forks 62 -> 47).
 
-Wait for user completion notice; do not poll, rebuild or relaunch. Then check/collect once, run scripts/audit_exp068_collection_v2.py (verify admission_supplement_manifest.json), bind remote version/source, check remote history and conservative three/day cap, and perform the one already authorized LB submission if all gates pass.
+**The single-submission authorization is now SPENT. Do not submit again.** Any earlier text in this
+file directing you to carry out the pre-authorized ep015 leaderboard submission is **superseded** -
+that action has been performed.
 
-CPU counterfactual is complete: all 128 subsets audited; original full per-movie
-metrics reproduced. True-edge repair can change TP/FP/FN from 3/2/9 to 9/2/3 in this
-restricted family. This is GT-assisted TRAIN diagnosis, not a learned result or LB
-forecast. Report: `docs/research/ep015_continuation_2026-09-26/division_counterfactual_report.md`.
-Older ep015-OFF and exp067-current instructions below are historical. exp067 training
-remains stopped. Final retained submission remains 56535761 (recorded Public LB 0.953).
+Next: **do not poll.** Wait for the user to report the score, read it back once from authenticated
+`kaggle competitions submissions`, record it in `SUBMISSION_BUDGET.json` (entry 18) and
+`STATE.json.exp068_ep015_submission`, then apply the pre-registered rule vs retained 0.953:
+**>=0.955 adopt; 0.954 small real gain; 0.953 NULL keep exp_064 and close the `ep` family;
+<=0.952 revert.** No second probe, no final re-selection, no exp067 training, no public push
+without fresh authorization. Deadline 2026-09-29 23:59 NY.
+
+**Full detail, gate evidence and the honest two-sided read of the ep015 evidence live in
+`HANDOUT.md`'s CURRENT STATE block.** `STATE.json` remains authoritative.
+Retained best is still 56535761 at recorded 0.953 until 56597763 resolves.
+exp067 training remains stopped. The CPU counterfactual is complete and is GT-assisted TRAIN
+diagnosis only: `docs/research/ep015_continuation_2026-09-26/division_counterfactual_report.md`.
 <!-- END EP068 CURRENT -->
 ## Current closeout - 2026-09-26 (supersedes historical directives below)
 

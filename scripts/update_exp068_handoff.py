@@ -1,9 +1,34 @@
-"""Refresh current handoffs from the tracked ep068 record, without remote actions."""
+"""Refresh current handoffs from the tracked ep068 record, without remote actions.
+
+SPENT-AUTHORIZATION GUARD (added 2026-09-27, after the probe was submitted). This script's
+templates were written while exp_068 was pre-submission, so its `next_action` still says
+"perform the one already authorized LB submission". That authorization has since been USED
+(submission 56597763). Re-running the script would overwrite the hand-written post-submission
+handoff blocks and instruct a future session to submit a second time, which nobody authorized.
+So it now refuses to run once the submission is on record. If the templates are ever brought
+up to date, update them and delete the guard together -- do not just delete the guard.
+"""
 import json
+import sys
 from pathlib import Path
 from datetime import datetime, timezone
 ROOT = Path(__file__).resolve().parents[1]
 exp = 'exp_068_ep015_single_probe'
+
+_state_preview = json.loads((ROOT / 'STATE.json').read_text(encoding='utf-8'))
+_ledger_preview = json.loads((ROOT / 'SUBMISSION_BUDGET.json').read_text(encoding='utf-8'))
+_submitted = _state_preview.get('exp068_ep015_submission') or next(
+    (s for s in _ledger_preview.get('submissions', []) if s.get('experiment_id') == exp), None)
+if _submitted:
+    sys.exit(
+        f"REFUSING TO RUN: the one authorized ep015 LB submission is already on record "
+        f"(id {_submitted.get('submission_id')}, {_submitted.get('status')}). This script's "
+        f"templates predate that and would (a) overwrite the hand-written post-submission "
+        f"handoff blocks in HANDOUT.md/GOAL.md/CONTINUATION.md and (b) reinstate a next_action "
+        f"telling the next session to submit again. Edit STATE.json and the handoffs directly, "
+        f"or update this script's templates and this guard together."
+    )
+
 record = json.loads((ROOT / 'experiments' / exp / 'experiment.json').read_text(encoding='utf-8'))
 phase = record['state']
 review = record['review'].get('verdict', record['review']['status'])
