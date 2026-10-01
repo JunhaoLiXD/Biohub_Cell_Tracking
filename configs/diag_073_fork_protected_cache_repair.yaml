@@ -1,0 +1,43 @@
+schema_version: 1
+experiment_id: diag_073_fork_protected_cache_repair
+tier: B
+workflow:
+  risk_tier: B
+parent: diag_072_fork_protected_ep015_stage0
+source_notebook: .private/current/biohub-diag073-fork-protected-cache-repair.ipynb
+hypothesis: The diag072 scientific diagnostic is runnable without inference fallback when the recovered exp065 GEFF cache is authenticated by its actual recursive contents rather than a cache_key.txt file that exp065 never produced.
+change:
+  component: validator_cache_transport
+  exact: Replace the impossible cache_key.txt gate with an eight-stem recursive tree-SHA256 manifest and copy each GEFF directory with shutil.copytree. No scientific policy, stem, threshold, scorer, adjudicator, or selection rule changes.
+validation:
+  protocol: diag072_primary_only_v1_unchanged
+  primary_metric: diag072_primary_raw_receipt
+  evidence: All eight recovered GEFF trees match the embedded immutable hashes; a one-byte tamper negative control fails; directory copy preserves the digest; only notebook cell 7 differs from the diag072 snapshot.
+admission:
+  require_codex_review: true
+  reviewer_provider: codex
+local:
+  smoke_test:
+  - '{python}'
+  - scripts/smoke_diag072.py
+  - '{source_notebook}'
+budget:
+  tier: 1
+  expected_gpu_hours: 1.0
+success:
+  minimum_improvement: 0.0015
+  regression_threshold: 0.0
+leaderboard:
+  authorized: false
+  max_submissions: 0
+kaggle:
+  owner: lingxd
+  slug: biohub-diag073-fork-protected-cache-repair
+  title: biohub-diag073-fork-protected-cache-repair
+  accelerator: NvidiaTeslaT4
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+  - scripts/adjudicate_diag072.py
+stop_rule: Stop on any cache tree hash mismatch, missing stem, base parity failure, runtime failure, scientific gate failure, or one-hour budget overrun. No fallback inference, confirmatory computation, or LB submission.

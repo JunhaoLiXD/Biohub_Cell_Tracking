@@ -1,0 +1,59 @@
+schema_version: 1
+experiment_id: repro_080_kunal_public_verbatim_admission_repair
+workflow:
+  risk_tier: B
+parent: exp_064_x138_verbatim_repro
+hypothesis: The frozen public Kunal Desale notebook, which preserves the verified x138 inference pipeline and enables a bounded held-out post-process sweep, produces a valid and materially distinct submission under our Kaggle account.
+change:
+  component: public_notebook_verbatim_reproduction
+  exact: Execute the same SHA256-frozen public notebook byte-for-byte. Relative to the verified x138 source, deterministic admission evidence proves only four validator settings, seven exactly enumerated post-process candidates, and one empty code cell differ. No model or inference source changes.
+source_notebook: .private/current/repro079_kunal_public/biohub-cell-tracking.ipynb
+validation:
+  protocol: public_source_byte_verbatim_output_integrity_v2
+  primary_metric: output_integrity_passed
+  evidence: Source SHA256 is fixed; an exact source-delta checker and a frozen structural submission checker are admission evidence and required collection gates.
+admission:
+  require_codex_review: true
+  reviewer_provider: codex
+local:
+  smoke_test:
+  - '{python}'
+  - scripts/smoke_repro079.py
+  - '{source_notebook}'
+budget:
+  tier: 1
+  expected_gpu_hours: 3.0
+  note: The author's public run reports approximately 2.16 hours; reserve 3.0 hours. One launch only and no automatic retry.
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: output_integrity_passed
+kaggle:
+  owner: lingxd
+  slug: biohub-repro080-kunal-verbatim
+  title: biohub-repro080-kunal-verbatim
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: false
+  competition_sources:
+  - biohub-cell-tracking-during-development
+  dataset_sources:
+  - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+  - pilkwang/biohub-temporal-unet3d-seed314159-v1
+  - pilkwang/biohub-tracking-support-pack-50ep-v1
+  - anvithpothula/biohub-v1284-head-s075
+  required_dataset_sources: 4
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+  - scripts/smoke_repro079.py
+  - scripts/audit_repro079_source_delta.py
+  - scripts/audit_repro079_output.py
+  - scripts/audit_biohub_submission_csv.py
+leaderboard:
+  authorized: false
+  max_submissions: 0
+stop_rule: One kernel launch only. After collection, run the frozen repro080 output checker and require output_integrity_passed=true. Stop on source mismatch, runtime error, missing/malformed output, audit failure, or budget overrun. No automatic retry and no leaderboard submission.

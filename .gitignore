@@ -59,6 +59,7 @@ Thumbs.db
 .vscode/
 .idea/
 .pytest_cache/
+.pytest-tmp-*/
 .pytest_tmp_*/
 
 # ===== Local credentials and private workspace (never share) =====

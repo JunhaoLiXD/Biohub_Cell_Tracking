@@ -43,3 +43,11 @@ in `docs/experiments.md`.
 | `exp_055_original_score_joint_bootstrap_smoke_fix` | KEEP | KEEP | 0.953587 | - | `public_0941_frozen_train16_stratified_proxy_v1` |
 | `exp_057_0944_motion_ema` | KEEP | KEEP | 1.000000 | - | `public_0944_plus_ema_submission_integrity_lb_probe_v1` |
 | `exp_068_ep015_single_probe` | KEEP | KEEP | 1.000000 | - | `ep015_single_probe_v1` |
+| `exp_064_x138_verbatim_repro` | COMPLETE | FINAL KEEP | Public LB 0.953 | - | `public_notebook_exact_reproduction` |
+| `exp_066_probe_cx03` | COMPLETE | FINAL KEEP | Public LB 0.953 | 0.000 | `x138_cx03_probe` |
+| `repro_074_amanatar_claimed_0965_verbatim` | COMPLETE | REJECT | Public LB 0.901 | -0.052 | `public_notebook_hidden_rerun` |
+| `repro_081_kunal_runtime_receipt` | INVALID_METRIC | REJECT | Public LB 0.904 | -0.049 | `public_notebook_runtime_selector` |
+
+`exp_064` and `exp_066` were the final selected submissions. The later exact
+public-notebook reproductions are retained because their hidden-rerun failures
+are important negative evidence about runtime selection and transferability.

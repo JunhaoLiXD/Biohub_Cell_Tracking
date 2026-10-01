@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_077_fork_protected_namespaced_cache",
+  "parent": "diag_076_fork_protected_remote_sources_repair",
+  "state": "PROPOSED",
+  "hypothesis": "The unchanged fork-protected diagnostic will execute when the authenticated exp065 validator cache is read from Kaggle's current namespaced kernel-source mount.",
+  "change": {
+    "component": "kaggle_kernel_source_mount_path",
+    "exact": "Replace only the legacy flat exp065 cache root with /kaggle/input/kernels/lingxd/biohub-exp065-pruning-sweep and duplicate the same eight-tree SHA256 validation in cell 0 so a bad mount fails before TEST inference. Scientific policy and adjudicator are unchanged."
+  },
+  "signature": "8901699c8cc9d556c4220b4e4a38aca67cf6e31a083c04bbca55d64b688e3f84",
+  "config": "configs/diag_077_fork_protected_namespaced_cache.yaml",
+  "snapshot_config": "experiments/diag_077_fork_protected_namespaced_cache/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_077_fork_protected_namespaced_cache/snapshot/source/biohub-diag077-namespaced-cache-mount.ipynb",
+  "snapshot_manifest": "experiments/diag_077_fork_protected_namespaced_cache/snapshot/manifest.json",
+  "git_commit": "b3cffe55c516ecb63b0694ec5c7dce47fef4f47f",
+  "validation_protocol": "diag072_primary_only_v1_unchanged",
+  "budget": {
+    "expected_gpu_hours": 1.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-29T01:17:18+00:00",
+  "updated_at": "2026-09-29T01:17:18+00:00",
+  "state_history": []
+}

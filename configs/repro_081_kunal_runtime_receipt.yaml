@@ -1,0 +1,63 @@
+schema_version: 1
+experiment_id: repro_081_kunal_runtime_receipt
+workflow:
+  risk_tier: B
+parent: repro_080_kunal_public_verbatim_admission_repair
+hypothesis: The frozen Kunal inference and validator-selection pipeline produces a valid distinct submission while a prediction-neutral runtime receipt proves the validator and selected override were effective during final TEST publication.
+change:
+  component: prediction_neutral_runtime_receipt
+  exact: Preserve every upstream source byte after removing lines marked '# repro081 receipt'. Add only fail-closed assertions and a JSON receipt around the existing selected-config TEST write, plus final artifact-hash and contract receipts. No model, inference, selection, graph, or submission rows are changed.
+source_notebook: .private/current/repro081_kunal_receipt.ipynb
+validation:
+  protocol: public_source_instrumented_runtime_receipt_v1
+  primary_metric: runtime_receipt_integrity_passed
+  evidence: Byte-reconstruction smoke proves the instrumented notebook strips exactly to upstream SHA256 5c370da1; positive and negative receipt tests validate effective-config enforcement.
+admission:
+  require_codex_review: true
+  reviewer_provider: codex
+local:
+  smoke_test:
+  - '{python}'
+  - scripts/smoke_repro081.py
+  - .private/current/repro079_kunal_public/biohub-cell-tracking.ipynb
+  - '{source_notebook}'
+budget:
+  tier: 1
+  expected_gpu_hours: 3.0
+  note: Upstream public runtime approximately 2.16 hours; receipt work is negligible. One launch and no retry.
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: runtime_receipt_integrity_passed
+kaggle:
+  owner: lingxd
+  slug: biohub-repro081-kunal-receipt
+  title: biohub-repro081-kunal-receipt
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: false
+  competition_sources:
+  - biohub-cell-tracking-during-development
+  dataset_sources:
+  - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+  - pilkwang/biohub-temporal-unet3d-seed314159-v1
+  - pilkwang/biohub-tracking-support-pack-50ep-v1
+  - anvithpothula/biohub-v1284-head-s075
+  required_dataset_sources: 4
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  extra_files:
+  - scripts/build_repro081_runtime_receipt.py
+  - scripts/smoke_repro081.py
+  - scripts/audit_repro079_output.py
+  - scripts/audit_biohub_submission_csv.py
+  - scripts/audit_repro080_sweep_receipts.py
+  - scripts/audit_repro081_runtime_receipt.py
+  - scripts/test_repro081_runtime_receipt.py
+leaderboard:
+  authorized: false
+  max_submissions: 0
+stop_rule: One kernel launch only. Collection must pass structural output, sweep receipt, and repro081 runtime receipt gates. Stop on any mismatch, runtime error, missing artifact, fallback, degradation, budget overrun, or review failure. No retry and no leaderboard submission.

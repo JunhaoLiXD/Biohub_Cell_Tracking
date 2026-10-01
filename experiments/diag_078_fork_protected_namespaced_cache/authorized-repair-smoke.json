@@ -1,0 +1,51 @@
+{
+  "at_utc": "2026-09-29T01:35:31+00:00",
+  "source_sha256": "7991ff30a975bd3d9f77498e692f299fe33fe70c23c30d71385cdb47cce8b03b",
+  "review_waived": true,
+  "authorization": "User instruction 2026-09-28: fix the namespaced cache mount and rerun. The fresh reviewer failed before reading any file and explicitly reported an infrastructure-only BLOCK. No PASS is claimed. Authorization covers one diag078 kernel push only, with no automatic retry, confirmatory work, leaderboard submission, or promotion.",
+  "checks": [
+    {
+      "name": "namespaced_cache_snapshot_smoke",
+      "command": [
+        "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+        "E:\\Project\\Biohub_CellTracking\\scripts\\smoke_diag077.py",
+        "E:\\Project\\Biohub_CellTracking\\experiments\\diag_078_fork_protected_namespaced_cache\\snapshot\\source\\biohub-diag078-namespaced-cache-mount.ipynb"
+      ],
+      "returncode": 0,
+      "stdout": "PASS: namespaced cache preflight plus unchanged diag073 scientific gates\n",
+      "stderr": ""
+    }
+  ],
+  "generated_kernel_dir": "experiments\\diag_078_fork_protected_namespaced_cache\\kaggle_kernel",
+  "generated_metadata": {
+    "id": "lingxd/biohub-diag078-fork-protected-cache-path",
+    "title": "biohub-diag078-fork-protected-cache-path",
+    "code_file": "biohub-diag078-namespaced-cache-mount.ipynb",
+    "language": "python",
+    "kernel_type": "notebook",
+    "is_private": true,
+    "enable_gpu": true,
+    "enable_internet": false,
+    "machine_shape": "NvidiaTeslaT4",
+    "dataset_sources": [
+      "pilkwang/biohub-deepcenter-unet3d-center-prior-v1",
+      "pilkwang/biohub-temporal-unet3d-seed314159-v1",
+      "pilkwang/biohub-tracking-support-pack-50ep-v1",
+      "anvithpothula/biohub-v1284-head-s075"
+    ],
+    "competition_sources": [
+      "biohub-cell-tracking-during-development"
+    ],
+    "kernel_sources": [
+      "lingxd/biohub-exp065-pruning-sweep"
+    ],
+    "docker_image": "gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461",
+    "docker_image_pinning_type": "original"
+  },
+  "generated_metadata_checks": {
+    "dataset_sources": true,
+    "competition_sources": true,
+    "kernel_sources": true,
+    "docker_image": true
+  }
+}

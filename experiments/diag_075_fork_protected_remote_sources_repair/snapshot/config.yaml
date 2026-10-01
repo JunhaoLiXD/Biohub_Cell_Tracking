@@ -1,0 +1,55 @@
+schema_version: 1
+experiment_id: diag_075_fork_protected_remote_sources_repair
+tier: B
+workflow:
+  risk_tier: B
+parent: diag_073_fork_protected_cache_repair
+source_notebook: .private/current/biohub-diag073-fork-protected-cache-repair.ipynb
+hypothesis: The unchanged fork-protected diagnostic will reach its cache and scientific gates when every required Kaggle input and the pinned runtime image are declared in the tracked config used to generate remote metadata.
+change:
+  component: kaggle_remote_metadata_transport
+  exact: Pin the four model datasets, competition source, exp065 kernel-output source, and original Docker image in tracked config. The notebook, adjudicator, cache hashes, held-out stems, threshold, scientific policy, and decision gates are byte-identical to diag073.
+validation:
+  protocol: diag072_primary_only_v1_unchanged
+  primary_metric: diag072_primary_raw_receipt
+  evidence: diag073 failed after about 12 seconds before cache or scientific execution because its generated retry metadata had empty source arrays; the prebuilt metadata documents the exact required remote sources.
+admission:
+  require_codex_review: true
+  reviewer_provider: codex
+local:
+  smoke_test:
+  - '{python}'
+  - scripts/smoke_diag075.py
+  - '{source_notebook}'
+  - '{config}'
+budget:
+  tier: 1
+  expected_gpu_hours: 1.0
+success:
+  minimum_improvement: 0.0015
+  regression_threshold: 0.0
+leaderboard:
+  authorized: false
+  max_submissions: 0
+kaggle:
+  owner: lingxd
+  slug: biohub-diag075-fork-protected-sources
+  title: biohub-diag075-fork-protected-sources
+  accelerator: NvidiaTeslaT4
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  dataset_sources:
+  - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+  - pilkwang/biohub-temporal-unet3d-seed314159-v1
+  - pilkwang/biohub-tracking-support-pack-50ep-v1
+  - anvithpothula/biohub-v1284-head-s075
+  competition_sources:
+  - biohub-cell-tracking-during-development
+  kernel_sources:
+  - lingxd/biohub-exp065-pruning-sweep
+  required_dataset_sources: 4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  extra_files:
+  - scripts/adjudicate_diag072.py
+stop_rule: Stop on any generated-metadata mismatch, missing remote source, cache tree hash mismatch, missing stem, base parity failure, runtime failure, scientific gate failure, or one-hour budget overrun. No fallback inference, automatic retry, confirmatory computation, or LB submission.

@@ -1,0 +1,30 @@
+{
+  "created_at": "2026-09-29T02:32:28+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_082_fork_protected_path_annotation_fix/snapshot/config.yaml",
+      "sha256": "ad4934d3e17e5a4e363bf46425bdfae31d45c150ea8aae3c427d50950dadb0aa"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_082_fork_protected_path_annotation_fix/snapshot/source/biohub-diag078-namespaced-cache-mount.ipynb",
+      "sha256": "5831bb89e2f18d8f153555f76fd6e2be7f430dfa38d81c2ef757b534b281fd35"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/diag_082_fork_protected_path_annotation_fix/snapshot/extra_files/adjudicate_diag072.py",
+      "sha256": "c467eaaaf0fc07b75b643e450bfbf1f6fc8d163167bd5096a6ced2a3c9ce4597"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/diag_082_fork_protected_path_annotation_fix/snapshot/extra_files/build_diag077_namespaced_cache_mount.py",
+      "sha256": "7f139de2bf3e0db7a28fee36f6b212b7906e404aa2f4fee9a1771eb8ccd1ac54"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/diag_082_fork_protected_path_annotation_fix/snapshot/extra_files/smoke_diag077.py",
+      "sha256": "508d0ddee77c9afe01d06772d35adc8c448cfc96af83ad11503d57489052544f"
+    }
+  ]
+}

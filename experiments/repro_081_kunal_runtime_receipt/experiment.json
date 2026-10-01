@@ -1,0 +1,154 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_081_kunal_runtime_receipt",
+  "parent": "repro_080_kunal_public_verbatim_admission_repair",
+  "state": "INVALID_METRIC",
+  "hypothesis": "The frozen Kunal inference and validator-selection pipeline produces a valid distinct submission while a prediction-neutral runtime receipt proves the validator and selected override were effective during final TEST publication.",
+  "change": {
+    "component": "prediction_neutral_runtime_receipt",
+    "exact": "Preserve every upstream source byte after removing lines marked '# repro081 receipt'. Add only fail-closed assertions and a JSON receipt around the existing selected-config TEST write, plus final artifact-hash and contract receipts. No model, inference, selection, graph, or submission rows are changed."
+  },
+  "signature": "90a42faf78d5a97ab273d8a38400a5b2026ea5e7c002d5d85c8f6fe568ed0002",
+  "config": "configs/repro_081_kunal_runtime_receipt.yaml",
+  "snapshot_config": "experiments/repro_081_kunal_runtime_receipt/snapshot/config.yaml",
+  "snapshot_source": "experiments/repro_081_kunal_runtime_receipt/snapshot/source/repro081_kunal_receipt.ipynb",
+  "snapshot_manifest": "experiments/repro_081_kunal_runtime_receipt/snapshot/manifest.json",
+  "git_commit": "b3cffe55c516ecb63b0694ec5c7dce47fef4f47f",
+  "validation_protocol": "public_source_instrumented_runtime_receipt_v1",
+  "budget": {
+    "expected_gpu_hours": 3.0,
+    "reserved": false,
+    "consumed_gpu_hours": 3.0
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "PASSED",
+    "verdict": "PASS",
+    "path": "experiments/repro_081_kunal_runtime_receipt/review_delta_round1.md",
+    "completed_at": "2026-09-29T02:25:31+00:00",
+    "mode": "tool_free_delta_only",
+    "prior_review": "experiments/repro_081_kunal_runtime_receipt/review_selfcontained.md",
+    "delta": "experiments/repro_081_kunal_runtime_receipt/admission_delta_round1.md"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "command": [
+      "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+      "scripts/smoke_repro081.py",
+      ".private/current/repro079_kunal_public/biohub-cell-tracking.ipynb",
+      "E:\\Project\\Biohub_CellTracking\\experiments\\repro_081_kunal_runtime_receipt\\snapshot\\source\\repro081_kunal_receipt.ipynb"
+    ],
+    "completed_at": "2026-09-29T02:25:49+00:00",
+    "exit_code": 0
+  },
+  "created_at": "2026-09-29T02:20:08+00:00",
+  "updated_at": "2026-09-29T12:56:49+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-29T02:21:06+00:00",
+      "note": "Codex verdict: BLOCK"
+    },
+    {
+      "from": "MANUAL_REVIEW_REQUIRED",
+      "to": "REVIEWED",
+      "at": "2026-09-29T02:25:31+00:00",
+      "note": "Independent delta-only Codex PASS"
+    },
+    {
+      "from": "REVIEWED",
+      "to": "LOCAL_TESTING",
+      "at": "2026-09-29T02:25:49+00:00",
+      "note": null
+    },
+    {
+      "from": "LOCAL_TESTING",
+      "to": "READY",
+      "at": "2026-09-29T02:25:49+00:00",
+      "note": null
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-29T02:26:01+00:00",
+      "note": null
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "COLLECTING",
+      "at": "2026-09-29T12:54:20+00:00",
+      "note": null
+    },
+    {
+      "from": "COLLECTING",
+      "to": "INVALID_METRIC",
+      "at": "2026-09-29T12:56:49+00:00",
+      "note": "Remote output did not contain metrics.json under E:\\Project\\Biohub_CellTracking\\experiments\\repro_081_kunal_runtime_receipt\\artifacts"
+    }
+  ],
+  "authorization": {
+    "tier_b_exception": true,
+    "user_approved_at_context": "2026-09-29",
+    "scope": "One prediction-neutral receipt-instrumented private repro081 run; no retry or leaderboard submission.",
+    "parent_exception": "User directed repro081 continuation after repro080 remained unlaunched solely for missing effective-runtime receipts. Repro081 preserves all repro080 findings already closed and supersedes that unlaunched parent."
+  },
+  "admission_evidence": {
+    "test_receipt": "experiments/repro_081_kunal_runtime_receipt/admission_test_receipts.json",
+    "tests_passed": true,
+    "budget_receipt": {
+      "remaining_hours": 24.281728888228336,
+      "reservations": {
+        "diag_078_fork_protected_namespaced_cache": 1.0,
+        "repro_081_kunal_runtime_receipt": 3.0
+      },
+      "remaining_after_reservations": 20.281728888228336
+    }
+  },
+  "remote": {
+    "kernel_id": "lingxd/biohub-repro081-kunal-receipt",
+    "submitted_at": "2026-09-29T02:26:01+00:00",
+    "status": "COMPLETE",
+    "last_checked_at": "2026-09-29T12:54:11+00:00"
+  },
+  "manual_collection": {
+    "collected_at": "2026-09-29T12:56:00+00:00",
+    "note": "scripts/collect_results.py downloaded the full remote output but exited non-zero because a public-source reproduction writes no controller metrics.json. Artifacts are complete under experiments/repro_081_kunal_runtime_receipt/artifacts. Collected exactly once.",
+    "submission_sha256": "e424b8c4feadc8d5520d71985ed8f20722e49bab17cd469f543e04681fc8a978"
+  },
+  "audits": {
+    "sweep_receipts": {
+      "script": "scripts/audit_repro080_sweep_receipts.py",
+      "status": "PASS",
+      "output": "experiments/repro_081_kunal_runtime_receipt/audits/sweep_receipts.json",
+      "source_notebook": ".private/current/repro079_kunal_public/biohub-cell-tracking.ipynb",
+      "selected": "dcsafediv020"
+    },
+    "runtime_receipt": {
+      "script": "scripts/audit_repro081_runtime_receipt.py",
+      "status": "PASS",
+      "output": "experiments/repro_081_kunal_runtime_receipt/audits/runtime_receipt.json"
+    },
+    "structural_output": {
+      "script": "scripts/audit_repro079_output.py",
+      "status": "PASS",
+      "output": "experiments/repro_081_kunal_runtime_receipt/audits/structural_output.json"
+    }
+  },
+  "leaderboard_submission": {
+    "authorized_by_user": true,
+    "submission_id": 56676153,
+    "submitted_at": "2026-09-29T12:59:45.367000Z",
+    "status": "PENDING",
+    "submission_sha256": "e424b8c4feadc8d5520d71985ed8f20722e49bab17cd469f543e04681fc8a978",
+    "kernel_version": 1,
+    "note": "All three frozen audits PASS before submission; score pending."
+  },
+  "lb_result": {
+    "submission_id": 56676153,
+    "public_score": 0.904,
+    "score_source": "authenticated_kaggle_submission_history (Kaggle web UI, logged-in session, read 2026-09-29T23:13Z)",
+    "verdict": "REJECT_CLOSE_LINE"
+  }
+}

@@ -1,0 +1,89 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_073_fork_protected_cache_repair",
+  "parent": "diag_072_fork_protected_ep015_stage0",
+  "state": "REMOTE_FAILED",
+  "hypothesis": "The diag072 scientific diagnostic is runnable without inference fallback when the recovered exp065 GEFF cache is authenticated by its actual recursive contents rather than a cache_key.txt file that exp065 never produced.",
+  "change": {
+    "component": "validator_cache_transport",
+    "exact": "Replace the impossible cache_key.txt gate with an eight-stem recursive tree-SHA256 manifest and copy each GEFF directory with shutil.copytree. No scientific policy, stem, threshold, scorer, adjudicator, or selection rule changes."
+  },
+  "signature": "cf3cc09d0b0074729a01d46a99271de14984c3f2b8889c6d54061f3bcf0a639b",
+  "config": "configs/diag_073_fork_protected_cache_repair.yaml",
+  "snapshot_config": "experiments/diag_073_fork_protected_cache_repair/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_073_fork_protected_cache_repair/snapshot/source/biohub-diag073-fork-protected-cache-repair.ipynb",
+  "snapshot_manifest": "experiments/diag_073_fork_protected_cache_repair/snapshot/manifest.json",
+  "git_commit": "b3cffe55c516ecb63b0694ec5c7dce47fef4f47f",
+  "validation_protocol": "diag072_primary_only_v1_unchanged",
+  "budget": {
+    "expected_gpu_hours": 1.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.0
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "WAIVED_BY_USER_FOR_ONE_DIAGNOSTIC_KERNEL_RUN",
+    "verdict": "NO_PASS",
+    "reason": "User instruction 2026-09-28: accept Codex's judgment that the admission gate may be waived and run diag073 once. Round 1's sole substantive destination-reuse finding was fixed and its positive and negative controls pass. The delta review then failed during environment setup three times before reading any file, so no substantive second finding exists. No PASS is claimed. This waiver covers one diagnostic kernel push only.",
+    "failed_review": {
+      "required": true,
+      "provider": "codex",
+      "status": "CHANGES_REQUESTED",
+      "verdict": "BLOCK",
+      "path": "experiments/diag_073_fork_protected_cache_repair/review.md",
+      "completed_at": "2026-09-28T15:24:41+00:00"
+    },
+    "at_utc": "2026-09-28T15:58:57+00:00"
+  },
+  "admission_conclusion": {
+    "status": "NO_CONSENSUS",
+    "round1": "REVISE F1: reject or verify a pre-existing cache destination.",
+    "delta": "F1 fixed by rejecting any pre-existing destination and verifying each copied tree digest before cache-hit becomes true.",
+    "round2": "BLOCK without file access: reviewer command runner failed environment setup on three read-only attempts.",
+    "launch_allowed": true,
+    "note": "Tier B permits at most one delta-only review. No automatic third review was issued.",
+    "waiver": "User instruction 2026-09-28: accept Codex's judgment that the admission gate may be waived and run diag073 once. Round 1's sole substantive destination-reuse finding was fixed and its positive and negative controls pass. The delta review then failed during environment setup three times before reading any file, so no substantive second finding exists. No PASS is claimed. This waiver covers one diagnostic kernel push only."
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "type": "direct_immutable_snapshot_validation_with_review_waiver",
+    "receipt": "experiments/diag_073_fork_protected_cache_repair/user-waiver-smoke.json",
+    "at_utc": "2026-09-28T15:58:57+00:00"
+  },
+  "created_at": "2026-09-28T14:42:15+00:00",
+  "updated_at": "2026-09-28T16:07:40+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-28T14:49:16+00:00",
+      "note": "Codex verdict: REVISE"
+    },
+    {
+      "from": "MANUAL_REVIEW_REQUIRED",
+      "to": "READY",
+      "at": "2026-09-28T15:58:57+00:00",
+      "note": "One-time user waiver; formal Codex PASS absent; immutable smoke passed"
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-28T15:59:00+00:00",
+      "note": "One-time user-authorized diagnostic; no LB submission"
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "REMOTE_FAILED",
+      "at": "2026-09-28T16:07:40+00:00",
+      "note": "Kaggle reported an error state"
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-diag073-fork-protected-cache-repair",
+    "submitted_at": "2026-09-28T15:59:00+00:00",
+    "status": "ERROR",
+    "last_checked_at": "2026-09-28T16:07:40+00:00",
+    "launch_mode": "one_time_user_waiver_no_codex_pass"
+  }
+}

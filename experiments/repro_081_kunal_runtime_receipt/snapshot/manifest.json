@@ -1,0 +1,50 @@
+{
+  "created_at": "2026-09-29T02:20:08+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/repro_081_kunal_runtime_receipt/snapshot/config.yaml",
+      "sha256": "374928440c22b78788e36015932de8b1f712fe8b934004ead522cad1e542a55a"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/repro_081_kunal_runtime_receipt/snapshot/source/repro081_kunal_receipt.ipynb",
+      "sha256": "1028ff66dcf2539dc90a4c6cfe6e28048ff28e9f8e73fd96752bb1d5170e7572"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_081_kunal_runtime_receipt/snapshot/extra_files/build_repro081_runtime_receipt.py",
+      "sha256": "e6635108f6e06843c969955f9a3fee2560e35da2af4ecba81307f7abb27d7009"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_081_kunal_runtime_receipt/snapshot/extra_files/smoke_repro081.py",
+      "sha256": "c3b20bc2c40ab1c7ad198868d3572dccdbbfba9639d55f1a9f5084bb52ce6b86"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_081_kunal_runtime_receipt/snapshot/extra_files/audit_repro079_output.py",
+      "sha256": "b9a2aa33b9e9e4f52c308798d5c7e76cfb453af806319cc28774904089725be0"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_081_kunal_runtime_receipt/snapshot/extra_files/audit_biohub_submission_csv.py",
+      "sha256": "5ff64e2fcf6d84c4acc60a83d3f5bfad2c27de9cfb83797b080755c5e03595de"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_081_kunal_runtime_receipt/snapshot/extra_files/audit_repro080_sweep_receipts.py",
+      "sha256": "0073819ddd247250175883a2da42c3d899a54f73d5ef0c86b2516c39aa250a21"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_081_kunal_runtime_receipt/snapshot/extra_files/audit_repro081_runtime_receipt.py",
+      "sha256": "038f20681ca7e02c38defa5b5b3ed93fdf7948ebd81c7196774512249040b9fb"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_081_kunal_runtime_receipt/snapshot/extra_files/test_repro081_runtime_receipt.py",
+      "sha256": "d67084eb6e3dafa4c8947cc80b6d8c5fe19e9840a96aad67df99807cd478466c"
+    }
+  ]
+}

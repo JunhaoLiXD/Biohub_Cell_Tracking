@@ -1,0 +1,20 @@
+{
+  "created_at": "2026-09-29T01:33:47+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_078_fork_protected_namespaced_cache/snapshot/config.yaml",
+      "sha256": "015666a3b77a92f52b31120c1e86ad063604f0957ab40feada6ddfb731f1c68c"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_078_fork_protected_namespaced_cache/snapshot/source/biohub-diag078-namespaced-cache-mount.ipynb",
+      "sha256": "7991ff30a975bd3d9f77498e692f299fe33fe70c23c30d71385cdb47cce8b03b"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/diag_078_fork_protected_namespaced_cache/snapshot/extra_files/adjudicate_diag072.py",
+      "sha256": "c467eaaaf0fc07b75b643e450bfbf1f6fc8d163167bd5096a6ced2a3c9ce4597"
+    }
+  ]
+}

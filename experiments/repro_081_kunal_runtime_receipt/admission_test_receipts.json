@@ -1,0 +1,63 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_081_kunal_runtime_receipt",
+  "at_utc": "2026-09-29T02:24:32+00:00",
+  "snapshot_source_sha256": "1028ff66dcf2539dc90a4c6cfe6e28048ff28e9f8e73fd96752bb1d5170e7572",
+  "upstream_source_sha256": "5c370da1bf31d28215e023c4e4208c0bb658943c6ea4840d0af996aac5305b30",
+  "public_fixture_hashes": {
+    "ppsweep_selected.json": "738402267dcec524f3eed28b9c90bb74b3b73ecc38f58517c34c0ff6c0f7f236",
+    "ppsweep_results.csv": "d231a18f77feb07edf116d6e20157bf1a0d0724f80949121122b27977c0d1579",
+    "run_stats.csv": "fe93beae3ff3e422a07a6dc674a23ad264e952a84bff53d3c3fdd0a2ae6ec8b2",
+    "submission.csv": "e424b8c4feadc8d5520d71985ed8f20722e49bab17cd469f543e04681fc8a978"
+  },
+  "checks": [
+    {
+      "command": [
+        "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+        "E:\\Project\\Biohub_CellTracking\\experiments\\repro_081_kunal_runtime_receipt\\snapshot\\extra_files\\smoke_repro081.py",
+        "E:\\Project\\Biohub_CellTracking\\experiments\\repro_080_kunal_public_verbatim_admission_repair\\snapshot\\source\\biohub-cell-tracking.ipynb",
+        "E:\\Project\\Biohub_CellTracking\\experiments\\repro_081_kunal_runtime_receipt\\snapshot\\source\\repro081_kunal_receipt.ipynb"
+      ],
+      "returncode": 0,
+      "stdout": "PASS: repro081 is upstream-byte-reconstructable with prediction-neutral runtime receipt instrumentation\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+        "E:\\Project\\Biohub_CellTracking\\experiments\\repro_081_kunal_runtime_receipt\\snapshot\\extra_files\\test_repro081_runtime_receipt.py",
+        "C:\\Users\\Ling\\AppData\\Local\\Temp\\kunal_biohub_output_20260929",
+        "E:\\Project\\Biohub_CellTracking\\experiments\\repro_081_kunal_runtime_receipt\\snapshot\\source\\repro081_kunal_receipt.ipynb"
+      ],
+      "returncode": 0,
+      "stdout": "PASS: valid receipt accepted; disabled validator, missing effective override, and bad artifact hash rejected\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+        "E:\\Project\\Biohub_CellTracking\\experiments\\repro_081_kunal_runtime_receipt\\snapshot\\extra_files\\audit_repro080_sweep_receipts.py",
+        "C:\\Users\\Ling\\AppData\\Local\\Temp\\kunal_biohub_output_20260929",
+        "E:\\Project\\Biohub_CellTracking\\experiments\\repro_080_kunal_public_verbatim_admission_repair\\snapshot\\source\\biohub-cell-tracking.ipynb",
+        "--output",
+        "C:\\Users\\Ling\\AppData\\Local\\Temp\\tmp0nnmnek6\\sweep.json"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"candidate_count\": 15,\n  \"candidate_set_complete\": true,\n  \"fallback_or_deadline_degradation\": false,\n  \"final_run_stats_use_selected_label\": true,\n  \"held_out_stems\": [\n    \"44b6_12dfb391\",\n    \"44b6_267148e4\",\n    \"44b6_2a2eff9f\",\n    \"44b6_341df25f\",\n    \"6bba_062c8d37\",\n    \"6bba_07e24132\",\n    \"6bba_085bf656\",\n    \"6bba_09961292\"\n  ],\n  \"no_train_test_stem_overlap\": true,\n  \"overrides\": {\n    \"DEEPCENTER_SAFE_DIV_THRESHOLD\": 0.2\n  },\n  \"prefix_counts\": {\n    \"44b6\": 4,\n    \"6bba\": 4\n  },\n  \"selected\": \"dcsafediv020\",\n  \"selection_rule_recomputed\": true,\n  \"source_sha256\": \"5c370da1bf31d28215e023c4e4208c0bb658943c6ea4840d0af996aac5305b30\",\n  \"status\": \"PASS\",\n  \"test_datasets\": [\n    \"44b6_0113de3b\",\n    \"44b6_0b24845f\",\n    \"6bba_05b6850b\",\n    \"6bba_05db0fb1\"\n  ],\n  \"validator_enabled_effective\": true\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+        "E:\\Project\\Biohub_CellTracking\\experiments\\repro_081_kunal_runtime_receipt\\snapshot\\extra_files\\audit_repro079_output.py",
+        "C:\\Users\\Ling\\AppData\\Local\\Temp\\kunal_biohub_output_20260929\\submission.csv",
+        "--output",
+        "C:\\Users\\Ling\\AppData\\Local\\Temp\\tmp0nnmnek6\\output.json"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"contract\": {\n    \"columns\": [\n      \"id\",\n      \"dataset\",\n      \"row_type\",\n      \"node_id\",\n      \"t\",\n      \"z\",\n      \"y\",\n      \"x\",\n      \"source_id\",\n      \"target_id\"\n    ],\n    \"coordinate_bounds_zyx_exclusive\": [\n      64,\n      256,\n      256\n    ],\n    \"expected_datasets\": [\n      \"44b6_0113de3b\",\n      \"44b6_0b24845f\",\n      \"6bba_05b6850b\",\n      \"6bba_05db0fb1\"\n    ],\n    \"requires\": [\n      \"contiguous unique row ids\",\n      \"unique nodes per dataset\",\n      \"valid edge endpoints\",\n      \"adjacent-frame temporal edges\",\n      \"indegree at most one\",\n      \"outdegree at most two\",\n      \"nonempty node output\",\n      \"SHA256 artifact identity\"\n    ]\n  },\n  \"datasets\": {\n    \"44b6_0113de3b\": 50717,\n    \"44b6_0b24845f\": 37877,\n    \"6bba_05b6850b\": 12245,\n    \"6bba_05db0fb1\": 137469\n  },\n  \"edge_rows\": 117076,\n  \"errors\": [],\n  \"node_rows\": 121232,\n  \"output_integrity_passed\": true,\n  \"path\": \"C:\\\\Users\\\\Ling\\\\AppData\\\\Local\\\\Temp\\\\kunal_biohub_output_20260929\\\\submission.csv\",\n  \"rows\": 238308,\n  \"scope\": \"Project-side structural audit; not an official Kaggle scorer replica.\",\n  \"sha256\": \"e424b8c4feadc8d5520d71985ed8f20722e49bab17cd469f543e04681fc8a978\",\n  \"status\": \"PASS\"\n}\n",
+      "stderr": ""
+    }
+  ],
+  "all_passed": true
+}

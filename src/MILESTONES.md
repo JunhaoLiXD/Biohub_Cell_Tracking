@@ -1,5 +1,9 @@
 # Milestone Notebooks
 
+The earlier exploratory sequence is preserved separately in
+[`early_versions/`](early_versions/README.md). The table below begins with the
+later controlled-validation milestones.
+
 Milestone notebooks are cleaned, local snapshots of substantial completed research stages. Routine
 fixes and inconclusive experiments remain in the experiment controller history and are not copied
 here. Existing milestone versions are immutable and must not be overwritten.

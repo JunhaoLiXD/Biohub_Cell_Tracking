@@ -1,0 +1,35 @@
+{
+  "created_at": "2026-09-29T02:05:25+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/repro_080_kunal_public_verbatim_admission_repair/snapshot/config.yaml",
+      "sha256": "d028b00e2c162208dc8346f48a2655c1247d5a023c5ab71d25337608e8b452e8"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/repro_080_kunal_public_verbatim_admission_repair/snapshot/source/biohub-cell-tracking.ipynb",
+      "sha256": "5c370da1bf31d28215e023c4e4208c0bb658943c6ea4840d0af996aac5305b30"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_080_kunal_public_verbatim_admission_repair/snapshot/extra_files/smoke_repro079.py",
+      "sha256": "a74cd08795886cd1d852b8479cde6f9db2238a334d5fd3c02ca0205555a1beba"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_080_kunal_public_verbatim_admission_repair/snapshot/extra_files/audit_repro079_source_delta.py",
+      "sha256": "8e1ee2431d33c6d104e30a207e62ce21c4591e9b5f606fbd6b77179af420f315"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_080_kunal_public_verbatim_admission_repair/snapshot/extra_files/audit_repro079_output.py",
+      "sha256": "b9a2aa33b9e9e4f52c308798d5c7e76cfb453af806319cc28774904089725be0"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/repro_080_kunal_public_verbatim_admission_repair/snapshot/extra_files/audit_biohub_submission_csv.py",
+      "sha256": "5ff64e2fcf6d84c4acc60a83d3f5bfad2c27de9cfb83797b080755c5e03595de"
+    }
+  ]
+}

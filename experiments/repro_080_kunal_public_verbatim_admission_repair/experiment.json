@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "experiment_id": "repro_080_kunal_public_verbatim_admission_repair",
+  "parent": "exp_064_x138_verbatim_repro",
+  "state": "MANUAL_REVIEW_REQUIRED",
+  "hypothesis": "The frozen public Kunal Desale notebook, which preserves the verified x138 inference pipeline and enables a bounded held-out post-process sweep, produces a valid and materially distinct submission under our Kaggle account.",
+  "change": {
+    "component": "public_notebook_verbatim_reproduction",
+    "exact": "Execute the same SHA256-frozen public notebook byte-for-byte. Relative to the verified x138 source, deterministic admission evidence proves only four validator settings, seven exactly enumerated post-process candidates, and one empty code cell differ. No model or inference source changes."
+  },
+  "signature": "6b10efdb7b70cafecb0d9ce82a2eb58d7ed8dd302b4b148cdd790b6d86cfa6e1",
+  "config": "configs/repro_080_kunal_public_verbatim_admission_repair.yaml",
+  "snapshot_config": "experiments/repro_080_kunal_public_verbatim_admission_repair/snapshot/config.yaml",
+  "snapshot_source": "experiments/repro_080_kunal_public_verbatim_admission_repair/snapshot/source/biohub-cell-tracking.ipynb",
+  "snapshot_manifest": "experiments/repro_080_kunal_public_verbatim_admission_repair/snapshot/manifest.json",
+  "git_commit": "b3cffe55c516ecb63b0694ec5c7dce47fef4f47f",
+  "validation_protocol": "public_source_byte_verbatim_output_integrity_v2",
+  "budget": {
+    "expected_gpu_hours": 3.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "CHANGES_REQUESTED",
+    "verdict": "REVISE",
+    "path": "experiments/repro_080_kunal_public_verbatim_admission_repair/review_delta_round1.md",
+    "completed_at": "2026-09-29T02:13:37+00:00",
+    "mode": "tool_free_delta_only",
+    "prior_review": "experiments/repro_080_kunal_public_verbatim_admission_repair/review.md",
+    "delta": "experiments/repro_080_kunal_public_verbatim_admission_repair/admission_delta_round1.md"
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-29T02:05:25+00:00",
+  "updated_at": "2026-09-29T02:13:37+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-29T02:07:20+00:00",
+      "note": "Codex verdict: REVISE"
+    }
+  ]
+}

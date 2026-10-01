@@ -1,0 +1,35 @@
+{
+  "candidate_count": 15,
+  "candidate_set_complete": true,
+  "fallback_or_deadline_degradation": false,
+  "final_run_stats_use_selected_label": true,
+  "held_out_stems": [
+    "44b6_12dfb391",
+    "44b6_267148e4",
+    "44b6_2a2eff9f",
+    "44b6_341df25f",
+    "6bba_062c8d37",
+    "6bba_07e24132",
+    "6bba_085bf656",
+    "6bba_09961292"
+  ],
+  "no_train_test_stem_overlap": true,
+  "overrides": {
+    "DEEPCENTER_SAFE_DIV_THRESHOLD": 0.2
+  },
+  "prefix_counts": {
+    "44b6": 4,
+    "6bba": 4
+  },
+  "selected": "dcsafediv020",
+  "selection_rule_recomputed": true,
+  "source_sha256": "5c370da1bf31d28215e023c4e4208c0bb658943c6ea4840d0af996aac5305b30",
+  "status": "PASS",
+  "test_datasets": [
+    "44b6_0113de3b",
+    "44b6_0b24845f",
+    "6bba_05b6850b",
+    "6bba_05db0fb1"
+  ],
+  "validator_enabled_effective": true
+}

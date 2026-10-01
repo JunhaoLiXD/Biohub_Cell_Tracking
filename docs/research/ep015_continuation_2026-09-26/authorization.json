@@ -1,9 +1,0 @@
-{
-  "at_utc": "2026-09-27T02:00:32+00:00",
-  "user_instruction": "Then do as you recommended.",
-  "scope": "One ep015 candidate run and one LB probe after strategy consensus, admission PASS and output integrity; local CPU division scoring-potential diagnostic; no automatic final re-selection, second probe, exp067 training or public push.",
-  "gpu_remaining_user_reported": 30.0,
-  "daily_submission_policy": "Use conservative three/day from current user-supplied AGENTS; also obey remote cap. No burst authorized.",
-  "completion_policy": "After launch wait for user completion notice; no status polling. One check/collection then audit before authorized submission.",
-  "model_allowance": "Exact remaining allowance unavailable; disclosed; one bounded Claude proposal and one fresh formal Codex review, no automatic timeout/quota retry."
-}

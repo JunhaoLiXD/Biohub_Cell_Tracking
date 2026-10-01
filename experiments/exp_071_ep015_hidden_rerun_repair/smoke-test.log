@@ -1,7 +1,0 @@
-[2026-09-27T15:28:58+00:00] smoke command: ["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe", "scripts/smoke_exp071.py"]
-exit_code=0
-STDOUT
-PASS: exp071 contains only the declared execution-contract and metadata deltas.
-
-STDERR
-

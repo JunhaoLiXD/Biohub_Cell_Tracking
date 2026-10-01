@@ -1,0 +1,21 @@
+{
+  "created_at": "2026-09-28T14:42:15+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/diag_073_fork_protected_cache_repair/snapshot/config.yaml",
+      "sha256": "42cc471ee1efd8a460e4976da62bdb3bacfea6314d7c5bbe84e2e5edaf3a94bd"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/diag_073_fork_protected_cache_repair/snapshot/source/biohub-diag073-fork-protected-cache-repair.ipynb",
+      "sha256": "77ad3756b4e6e600bf45a36bc12c9f20329058ad20d12478fa5df2cfd39c4b3f"
+    },
+    {
+      "role": "extra_file",
+      "path": "experiments/diag_073_fork_protected_cache_repair/snapshot/extra_files/adjudicate_diag072.py",
+      "sha256": "c467eaaaf0fc07b75b643e450bfbf1f6fc8d163167bd5096a6ced2a3c9ce4597"
+    }
+  ],
+  "revision": "Single Tier B delta for admission finding F1; round-1 source and manifest preserved in admission_round1/."
+}

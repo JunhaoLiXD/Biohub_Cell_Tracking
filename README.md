@@ -1,67 +1,87 @@
 # Biohub Cell Tracking During Development
 
-An end-to-end Kaggle solution for detecting and tracking cells through 3D time-lapse microscopy of developing zebrafish embryos.
+An experiment-driven solution for the Kaggle **Biohub — Cell Tracking During
+Development** competition. The repository preserves both successful and failed
+approaches so the evolution of the tracking pipeline can be inspected rather
+than presenting only the final model.
 
-## Current approach
+## Final result
 
-For the authoritative project state, active-run restrictions, and the Claude
-Code/Codex consensus workflow, read [the current project handoff](docs/research/PROJECT_HANDOFF.md).
+The retained solution reached **Public LB 0.953**. Two independently executed
+final candidates reached the same score:
 
-The working research parent is the reproduced public `analyticaobscura/biohub-lb-941`
-configuration: dual pretrained TemporalUNet3D detections, transformer association,
-ILP tracking, motion/gap repair, and epoch-2 DeepCenter division gates.
-`repro_041_public_0941_motion_ema` is the exactly reproduced train16 reference at
-**0.9387332376874039** with fixed motion EMA alpha 0.4 and user-reported Public LB
-0.942. A separate verified public reference, submission `56105868`, scored Public
-LB **0.944**. The active run is `exp_055_original_score_joint_bootstrap_smoke_fix`,
-which is pending the user's completion notice and has no leaderboard submission or
-promotion authorization. See [the current project handoff](docs/research/PROJECT_HANDOFF.md).
+- `exp_064_x138_verbatim_repro` — submission `56535761`
+- `exp_066_probe_cx03` — submission `56567455`
 
-## Historical self-contained approach
+Later public-notebook reproductions with runtime post-processing selection did
+not transfer to the hidden rerun (`repro_074`: 0.901, `repro_081`: 0.904), so
+the 0.953 result remained the final selection.
 
-The pipeline follows a tracking-by-detection design:
+## How to read the repository
 
-1. A full-resolution anisotropic 3D U-Net predicts centroid heatmaps.
-2. Local maxima are converted into cell detections in physical `(z, y, x)` coordinates.
-3. Two-pass motion-aware Hungarian assignment links detections between frames.
-4. Gap closing, isolated-node pruning, and short-track filtering repair fragmented tracks.
-5. The final graph is serialized to the competition's `submission.csv` format.
+The notebooks are the primary record of the work:
 
-The detector is trained with sparse annotations and cosine learning-rate decay. Distances are measured in microns using the competition voxel scale `(1.625, 0.40625, 0.40625)`. Geometric post-hoc division edges are disabled because they reduced the leaderboard score in controlled tests.
+- [`src/early_versions`](src/early_versions) contains the original `v0`–`v7`
+  progression: baseline tracking, U-Net training, fusion, division handling,
+  isotropic training, Trackastra, and ILP experiments.
+- [`src/MILESTONES.md`](src/MILESTONES.md) indexes the cleaned milestone
+  notebooks from the controlled validation phase.
+- [`experiments`](experiments) contains immutable notebook snapshots for the
+  full experiment sequence, including rejected and diagnostic branches.
+- [`configs`](configs) records the declared parent, exact change, validation
+  protocol, and decision rule for controlled experiments.
+- [`docs/experiments.md`](docs/experiments.md) and [`EXPERIMENTS.md`](EXPERIMENTS.md)
+  provide compact experiment summaries.
+- [`docs/research`](docs/research) preserves scientific proposals, failure
+  analyses, and decision records behind later branches.
 
-## Current research status
-
-The original self-contained pipeline reached Public LB **0.844**. The current controlled research line reproduced a public learned detector/linker configuration at **0.933** and established a deterministic 16-video internal validation protocol. A motion-EMA change improved that internal score from 0.925252 to 0.927316 in two byte-identical runs, but its Public LB remained 0.933.
-
-An exact copy of `analyticaobscura/biohub-lb-941` reproduced **0.941** under our account (submission `56044403`, COMPLETE). Source, actual epoch-2 DeepCenter loading and submission graph passed audits. The user selected this full configuration as the new working research parent. `val_039_public_0941_train16` established its fixed train16 baseline while preserving inference. On that frozen protocol, isolated motion EMA improved train16 from 0.935978 to 0.938733; both specimens improved and division FP fell by one. The result still needs exact reproduction and has not been submitted to the leaderboard. The parent train4 proxy is not comparable with train16. Formal promotion remains separate.
-
-See [selected experiments](docs/experiments.md) for the compact evidence behind the retained configuration.
-
-## Repository
+Within an experiment directory, the most useful files are usually:
 
 ```text
-src/
-  submit.ipynb                 offline Kaggle inference and submission notebook
-  biohub_v01_*.ipynb           frozen train16 validation baseline
-  biohub_v02_*.ipynb           DeepCenter causal calibration milestone
-  biohub_v03_*.ipynb           candidate-oracle diagnostic milestone
-  biohub_v04_*.ipynb           reproducible motion-EMA milestone
-  util_inspect_data.ipynb      dataset and tracking-graph inspection
-  util_download_wheels.ipynb   offline dependency-bundle builder
+snapshot/source/*.ipynb   exact notebook prepared for execution
+snapshot/config.yaml      frozen experiment configuration
+snapshot/manifest.json    provenance and file hashes
+experiment.json           state, result, and decision history
+STATUS.md                 concise human-readable outcome
+metrics.json / result.json
+review.md                 final independent review, when applicable
 ```
 
-Large datasets, model checkpoints, generated outputs, run logs, and third-party reference material are intentionally excluded from Git.
+Transient launch logs, agent prompts, local environments, model weights,
+downloaded Kaggle artifacts, and credentials are intentionally excluded.
 
-## Running on Kaggle
+## Method outline
 
-1. Open `src/submit.ipynb` as a Kaggle notebook.
-2. Attach the competition data, the offline dependency bundle, and the matching detector checkpoint dataset.
-3. Select the detector configuration that matches the attached checkpoint.
-4. Disable internet access and enable a GPU.
-5. Run all cells and confirm that `/kaggle/working/submission.csv` is produced.
+The project developed through several stages:
 
-The notebook validates its inputs and prints per-movie node and edge counts. A movie with zero detections indicates a checkpoint or configuration mismatch and should not be submitted.
+1. 3D detector baselines and sparse-label training.
+2. Learned detection with transformer-based association and ILP decoding.
+3. Frozen 16-video validation and causal DeepCenter diagnostics.
+4. Motion-EMA, TTA, division-gate, and graph-repair experiments.
+5. Reproduction and controlled modification of strong public solutions.
+6. Final selection using leaderboard evidence and hidden-rerun robustness.
 
-## Competition
+The final family uses dual pretrained 3D detection, learned association, ILP
+tracking, motion/gap repair, and guarded division handling. Distances are
+computed in physical coordinates using the competition voxel scale
+`(1.625, 0.40625, 0.40625)`.
 
-[Biohub — Cell Tracking During Development](https://www.kaggle.com/competitions/biohub-cell-tracking-during-development)
+## Running a notebook
+
+The notebooks were designed for Kaggle's offline environment. In general:
+
+1. Import the selected notebook into Kaggle.
+2. Attach the competition dataset and the model/support datasets named in its
+   frozen config or notebook metadata.
+3. Disable internet, enable the required accelerator, and run all cells.
+4. Confirm that `submission.csv` is produced and that the notebook's integrity
+   checks pass.
+
+Large datasets, checkpoints, generated predictions, third-party dependency
+bundles, and downloaded run artifacts are not stored in Git.
+
+## Repository note
+
+Some notebooks are exact, attributed reproductions of public competition
+notebooks. Their surrounding manifests and experiment records distinguish
+upstream code from project-authored modifications.

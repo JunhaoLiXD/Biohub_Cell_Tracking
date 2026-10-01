@@ -1,0 +1,54 @@
+schema_version: 1
+experiment_id: repro_079_kunal_public_verbatim
+workflow:
+  risk_tier: B
+parent: exp_064_x138_verbatim_repro
+hypothesis: The current public Kunal Desale notebook, which starts from a stated public 0.953 base and selects the dcsafediv020 post-process configuration on its held-out validator, produces a valid and materially distinct submission when executed byte-for-byte under our Kaggle account.
+change:
+  component: public_notebook_verbatim_reproduction
+  exact: Execute the downloaded public notebook byte-for-byte with no source, parameter, data-source, model-source, validation, or post-processing edits. Only Kaggle ownership and title metadata change.
+source_notebook: .private/current/repro079_kunal_public/biohub-cell-tracking.ipynb
+validation:
+  protocol: public_source_byte_verbatim_output_integrity_v1
+  primary_metric: valid_submission_artifact
+  evidence: Source was pulled through the authenticated Kaggle API from kunaldesale2408/biohub-cell-tracking on 2026-09-29 and frozen by raw-file SHA256. The author's latest public run completed and emitted submission.csv; its run_stats report about 7763 seconds elapsed.
+admission:
+  require_codex_review: true
+  reviewer_provider: codex
+local:
+  smoke_test:
+  - '{python}'
+  - scripts/smoke_repro079.py
+  - '{source_notebook}'
+budget:
+  tier: 1
+  expected_gpu_hours: 3.0
+  note: The public run reports approximately 2.16 hours elapsed; reserve 3.0 hours. One launch only and no automatic retry.
+success:
+  minimum_improvement: 0.0
+  regression_threshold: 0.0
+evaluation:
+  mode: gate
+  gate_field: output_integrity_passed
+kaggle:
+  owner: lingxd
+  slug: biohub-repro079-kunal-verbatim
+  title: biohub-repro079-kunal-verbatim
+  accelerator: NvidiaTeslaT4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  inject_experiment_id: false
+  competition_sources:
+  - biohub-cell-tracking-during-development
+  dataset_sources:
+  - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+  - pilkwang/biohub-temporal-unet3d-seed314159-v1
+  - pilkwang/biohub-tracking-support-pack-50ep-v1
+  - anvithpothula/biohub-v1284-head-s075
+  required_dataset_sources: 4
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+leaderboard:
+  authorized: false
+  max_submissions: 0
+stop_rule: One kernel launch only. Stop on any runtime error, missing or malformed submission.csv, source mismatch, output-contract failure, or budget overrun. No automatic retry and no leaderboard submission in this stage.

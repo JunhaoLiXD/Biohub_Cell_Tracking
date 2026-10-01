@@ -1,0 +1,15 @@
+{
+  "created_at": "2026-09-28T15:43:10+00:00",
+  "files": [
+    {
+      "role": "config",
+      "path": "experiments/repro_074_amanatar_claimed_0965_verbatim/snapshot/config.yaml",
+      "sha256": "2e516c8a7d82971d8e9527591e7b5a816d355e4b66ea2801101a5ea9d1bab75e"
+    },
+    {
+      "role": "source_notebook",
+      "path": "experiments/repro_074_amanatar_claimed_0965_verbatim/snapshot/source/repro074_amanatar_claimed_0965_verbatim.ipynb",
+      "sha256": "e6c3f729835b28ca61ec7634526fb9e798df43e43e40f5e1a0a794dcd8521c2e"
+    }
+  ]
+}

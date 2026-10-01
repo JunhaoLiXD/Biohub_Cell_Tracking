@@ -1,6 +1,20 @@
-# diag_072 Stage 0 status
+# diag_072 Stage 0 status — terminal failure
 
-Date: 2026-09-28
+Date: 2026-09-28T14:00Z
+
+## Terminal result
+
+Kaggle version 1 ended in `ERROR`. The exact eight held-out stems were selected,
+but the mounted exp065 cache failed the frozen key/stem contract. The notebook
+stopped at the pre-registered fail-closed assertion `diag072: frozen cache
+invalid; inference fallback prohibited`. No primary receipt was produced, so the
+immutable adjudicator was not run. No leaderboard submission was made; the
+downloaded `submission.csv` is the base TEST output written before the failure
+and is not a fork-protected candidate.
+
+Approximate runtime from the final Kaggle log timestamp is 1170.133 seconds
+(0.325037 GPU hours). The reservation has been released. Do not relaunch without
+a new experiment package, fresh review, budget reservation, and user approval.
 
 ## Completed
 

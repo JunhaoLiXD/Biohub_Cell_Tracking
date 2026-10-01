@@ -1,0 +1,24 @@
+{
+  "experiment_id": "diag_073_fork_protected_cache_repair",
+  "failed_predecessor": "diag_072_fork_protected_ep015_stage0",
+  "parent": "experiments/exp_065_metric_aligned_pruning/kaggle_kernel/biohub-exp065-pruning-sweep.ipynb",
+  "parent_sha256": "6baeb36bd9d66a3f556c75741192f6e30320e065a1c51f7c213e101aeb1043be",
+  "notebook_sha256": "77ad3756b4e6e600bf45a36bc12c9f20329058ad20d12478fa5df2cfd39c4b3f",
+  "adjudicator_sha256": "c467eaaaf0fc07b75b643e450bfbf1f6fc8d163167bd5096a6ced2a3c9ce4597",
+  "cache_tree_sha256": {
+    "44b6_12dfb391": "3d889d4cc317a8442d53d3b9dd6a615c6c961517a59f78369c4b60804ac5c369",
+    "44b6_267148e4": "7ab1de1f855211f70b44f9530b0b9c902428309f8112b044b988198fdb6b058d",
+    "44b6_2a2eff9f": "c90a46cafce0c8042c0f2993e4ae15ef396f1f16b3ab6d1e6ae57f86eec761f9",
+    "44b6_341df25f": "4dd881da8763dab6b2a788a58896f78d681a9fa09f2090380a0e9b7a6dc40cc1",
+    "6bba_062c8d37": "02f8466df77d1e39eca01d01492347839a07b231bbe3d66a2e079979d5c37dad",
+    "6bba_07e24132": "b3a5b8040d19d875ecf7f84c4d615de51b4eb353c5ac3c7e90f5ff0021388d61",
+    "6bba_085bf656": "dd26d1a3da6cf4932b1b7d99530bf60e76d339b99a4e951c163167367effd157",
+    "6bba_09961292": "4addb2ddd58448da91d6d3149bc117f79008bf5774dc3a75dbafd33a632e424a"
+  },
+  "primary": "fork_protected_ep015",
+  "gpu_cap_hours": 1.0,
+  "lb_submissions": 0,
+  "changed_notebook_cells_vs_diag072": [
+    7
+  ]
+}

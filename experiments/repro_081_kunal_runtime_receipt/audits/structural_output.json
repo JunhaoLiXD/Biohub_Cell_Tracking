@@ -1,0 +1,52 @@
+{
+  "contract": {
+    "columns": [
+      "id",
+      "dataset",
+      "row_type",
+      "node_id",
+      "t",
+      "z",
+      "y",
+      "x",
+      "source_id",
+      "target_id"
+    ],
+    "coordinate_bounds_zyx_exclusive": [
+      64,
+      256,
+      256
+    ],
+    "expected_datasets": [
+      "44b6_0113de3b",
+      "44b6_0b24845f",
+      "6bba_05b6850b",
+      "6bba_05db0fb1"
+    ],
+    "requires": [
+      "contiguous unique row ids",
+      "unique nodes per dataset",
+      "valid edge endpoints",
+      "adjacent-frame temporal edges",
+      "indegree at most one",
+      "outdegree at most two",
+      "nonempty node output",
+      "SHA256 artifact identity"
+    ]
+  },
+  "datasets": {
+    "44b6_0113de3b": 50717,
+    "44b6_0b24845f": 37877,
+    "6bba_05b6850b": 12245,
+    "6bba_05db0fb1": 137469
+  },
+  "edge_rows": 117076,
+  "errors": [],
+  "node_rows": 121232,
+  "output_integrity_passed": true,
+  "path": "experiments\\repro_081_kunal_runtime_receipt\\artifacts\\submission.csv",
+  "rows": 238308,
+  "scope": "Project-side structural audit; not an official Kaggle scorer replica.",
+  "sha256": "e424b8c4feadc8d5520d71985ed8f20722e49bab17cd469f543e04681fc8a978",
+  "status": "PASS"
+}

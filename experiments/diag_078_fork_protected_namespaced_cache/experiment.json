@@ -1,0 +1,80 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_078_fork_protected_namespaced_cache",
+  "parent": "diag_076_fork_protected_remote_sources_repair",
+  "state": "REMOTE_FAILED",
+  "hypothesis": "The unchanged fork-protected diagnostic will execute when the authenticated exp065 validator cache is read from Kaggle's current namespaced kernel-source mount.",
+  "change": {
+    "component": "kaggle_kernel_source_mount_path",
+    "exact": "Replace only the legacy flat exp065 cache root with /kaggle/input/kernels/lingxd/biohub-exp065-pruning-sweep and duplicate the same eight-tree SHA256 validation in cell 0 so a bad mount fails before TEST inference. Scientific policy and adjudicator are unchanged."
+  },
+  "signature": "8901699c8cc9d556c4220b4e4a38aca67cf6e31a083c04bbca55d64b688e3f84",
+  "config": "configs/diag_078_fork_protected_namespaced_cache.yaml",
+  "snapshot_config": "experiments/diag_078_fork_protected_namespaced_cache/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_078_fork_protected_namespaced_cache/snapshot/source/biohub-diag078-namespaced-cache-mount.ipynb",
+  "snapshot_manifest": "experiments/diag_078_fork_protected_namespaced_cache/snapshot/manifest.json",
+  "git_commit": "b3cffe55c516ecb63b0694ec5c7dce47fef4f47f",
+  "validation_protocol": "diag072_primary_only_v1_unchanged",
+  "budget": {
+    "expected_gpu_hours": 1.0,
+    "reserved": false,
+    "consumed_gpu_hours": 1.0
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "WAIVED_BY_USER_FOR_ONE_NAMESPACED_CACHE_REPAIR_RUN",
+    "verdict": "NO_PASS",
+    "reason": "User instruction 2026-09-28: fix the namespaced cache mount and rerun. The fresh reviewer failed before reading any file and explicitly reported an infrastructure-only BLOCK. No PASS is claimed. Authorization covers one diag078 kernel push only, with no automatic retry, confirmatory work, leaderboard submission, or promotion.",
+    "failed_review": {
+      "required": true,
+      "provider": "codex",
+      "status": "CHANGES_REQUESTED",
+      "verdict": "BLOCK",
+      "path": "experiments/diag_078_fork_protected_namespaced_cache/review.md",
+      "completed_at": "2026-09-29T01:34:31+00:00"
+    },
+    "at_utc": "2026-09-29T01:35:31+00:00"
+  },
+  "smoke_test": {
+    "status": "PASSED",
+    "type": "namespaced_cache_preflight_and_unchanged_science",
+    "receipt": "experiments/diag_078_fork_protected_namespaced_cache/authorized-repair-smoke.json",
+    "at_utc": "2026-09-29T01:35:31+00:00"
+  },
+  "created_at": "2026-09-29T01:33:47+00:00",
+  "updated_at": "2026-09-29T02:28:32+00:00",
+  "state_history": [
+    {
+      "from": "PROPOSED",
+      "to": "MANUAL_REVIEW_REQUIRED",
+      "at": "2026-09-29T01:34:31+00:00",
+      "note": "Codex verdict: BLOCK"
+    },
+    {
+      "from": "MANUAL_REVIEW_REQUIRED",
+      "to": "READY",
+      "at": "2026-09-29T01:35:31+00:00",
+      "note": "User-authorized namespaced-cache repair; formal Codex PASS absent"
+    },
+    {
+      "from": "READY",
+      "to": "SUBMITTED",
+      "at": "2026-09-29T01:35:33+00:00",
+      "note": "One user-authorized cache-path repair; no LB submission"
+    },
+    {
+      "from": "SUBMITTED",
+      "to": "REMOTE_FAILED",
+      "at": "2026-09-29T02:28:32+00:00",
+      "note": "Kaggle reported an error state"
+    }
+  ],
+  "remote": {
+    "kernel_id": "lingxd/biohub-diag078-fork-protected-cache-path",
+    "submitted_at": "2026-09-29T01:35:33+00:00",
+    "status": "ERROR",
+    "last_checked_at": "2026-09-29T02:28:32+00:00",
+    "launch_mode": "user_authorized_namespaced_cache_repair_no_pass"
+  }
+}

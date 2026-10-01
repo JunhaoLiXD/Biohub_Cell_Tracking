@@ -1,0 +1,16 @@
+{
+  "datasets": {
+    "44b6_0113de3b": 51143,
+    "44b6_0b24845f": 38931,
+    "6bba_05b6850b": 12207,
+    "6bba_05db0fb1": 138030
+  },
+  "edge_rows": 116627,
+  "errors": [],
+  "node_rows": 123684,
+  "path": "experiments\\repro_074_amanatar_claimed_0965_verbatim\\artifacts\\submission.csv",
+  "rows": 240311,
+  "scope": "Project-side structural audit; not an official Kaggle scorer replica.",
+  "sha256": "cfd8690d9f9c33582976f9fbae25b63114d3db93e55c8e9751766c8831d727c2",
+  "status": "PASS"
+}

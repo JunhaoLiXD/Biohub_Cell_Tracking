@@ -1,0 +1,19 @@
+{
+  "at_utc": "2026-09-28T15:47:47+00:00",
+  "source_sha256": "e6c3f729835b28ca61ec7634526fb9e798df43e43e40f5e1a0a794dcd8521c2e",
+  "review_waived": true,
+  "waiver_reason": "User instruction 2026-09-28: skip the independent review and push the frozen public notebook directly. Three review attempts failed during environment setup before reading the files. No review PASS exists and none is claimed. This waiver covers one kernel push only, with no automatic retry and no leaderboard submission.",
+  "checks": [
+    {
+      "name": "verbatim_notebook_contract",
+      "command": [
+        "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+        "E:\\Project\\Biohub_CellTracking\\scripts\\smoke_repro074.py",
+        "E:\\Project\\Biohub_CellTracking\\experiments\\repro_074_amanatar_claimed_0965_verbatim\\snapshot\\source\\repro074_amanatar_claimed_0965_verbatim.ipynb"
+      ],
+      "returncode": 0,
+      "stdout": "PASS: exact Aman Atar public notebook bytes, syntax, and submission output contract\n",
+      "stderr": ""
+    }
+  ]
+}

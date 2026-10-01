@@ -1,0 +1,19 @@
+{
+  "at_utc": "2026-09-28T15:58:57+00:00",
+  "source_sha256": "77ad3756b4e6e600bf45a36bc12c9f20329058ad20d12478fa5df2cfd39c4b3f",
+  "review_waived": true,
+  "waiver_reason": "User instruction 2026-09-28: accept Codex's judgment that the admission gate may be waived and run diag073 once. Round 1's sole substantive destination-reuse finding was fixed and its positive and negative controls pass. The delta review then failed during environment setup three times before reading any file, so no substantive second finding exists. No PASS is claimed. This waiver covers one diagnostic kernel push only.",
+  "checks": [
+    {
+      "name": "diag073_immutable_snapshot_smoke",
+      "command": [
+        "E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\python.exe",
+        "E:\\Project\\Biohub_CellTracking\\scripts\\smoke_diag072.py",
+        "E:\\Project\\Biohub_CellTracking\\experiments\\diag_073_fork_protected_cache_repair\\snapshot\\source\\biohub-diag073-fork-protected-cache-repair.ipynb"
+      ],
+      "returncode": 0,
+      "stdout": "PASS: diag073 cache manifest/copy repair plus fork protection and primary-only gates\n",
+      "stderr": ""
+    }
+  ]
+}

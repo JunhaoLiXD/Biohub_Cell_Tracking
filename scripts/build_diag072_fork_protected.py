@@ -7,9 +7,20 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PARENT = ROOT / "experiments/exp_065_metric_aligned_pruning/kaggle_kernel/biohub-exp065-pruning-sweep.ipynb"
-OUT = ROOT / "experiments/diag_072_fork_protected_ep015_stage0/kaggle_kernel"
-KERNEL = "lingxd/biohub-diag072-fork-protected-stage0"
+OUT = ROOT / "experiments/diag_073_fork_protected_cache_repair/kaggle_kernel"
+KERNEL = "lingxd/biohub-diag073-fork-protected-cache-repair"
 CACHE = "/kaggle/input/biohub-exp065-pruning-sweep/tracking_repo/predictions/unknown/unet_transformer_val/split_0"
+CACHE_SOURCE = ROOT / "experiments/diag_072_fork_protected_ep015_stage0/recovered_exp065_output/tracking_repo/predictions/unknown/unet_transformer_val/split_0"
+CACHE_TREE_SHA256 = {
+    "44b6_12dfb391": "3d889d4cc317a8442d53d3b9dd6a615c6c961517a59f78369c4b60804ac5c369",
+    "44b6_267148e4": "7ab1de1f855211f70b44f9530b0b9c902428309f8112b044b988198fdb6b058d",
+    "44b6_2a2eff9f": "c90a46cafce0c8042c0f2993e4ae15ef396f1f16b3ab6d1e6ae57f86eec761f9",
+    "44b6_341df25f": "4dd881da8763dab6b2a788a58896f78d681a9fa09f2090380a0e9b7a6dc40cc1",
+    "6bba_062c8d37": "02f8466df77d1e39eca01d01492347839a07b231bbe3d66a2e079979d5c37dad",
+    "6bba_07e24132": "b3a5b8040d19d875ecf7f84c4d615de51b4eb353c5ac3c7e90f5ff0021388d61",
+    "6bba_085bf656": "dd26d1a3da6cf4932b1b7d99530bf60e76d339b99a4e951c163167367effd157",
+    "6bba_09961292": "4addb2ddd58448da91d6d3149bc117f79008bf5774dc3a75dbafd33a632e424a",
+}
 
 
 def replace_once(text: str, old: str, new: str, label: str) -> str:
@@ -19,7 +30,26 @@ def replace_once(text: str, old: str, new: str, label: str) -> str:
     return text.replace(old, new, 1)
 
 
+def tree_sha256(root: Path) -> str:
+    digest = hashlib.sha256()
+    for path in sorted(p for p in root.rglob("*") if p.is_file()):
+        relative = path.relative_to(root).as_posix().encode("utf-8")
+        data = path.read_bytes()
+        digest.update(len(relative).to_bytes(4, "big"))
+        digest.update(relative)
+        digest.update(len(data).to_bytes(8, "big"))
+        digest.update(data)
+    return digest.hexdigest()
+
+
 def main() -> None:
+    observed_cache = {
+        path.stem: tree_sha256(path) for path in sorted(CACHE_SOURCE.glob("*.geff"))
+    }
+    if observed_cache != CACHE_TREE_SHA256:
+        raise RuntimeError(
+            f"recovered exp065 cache differs from the frozen manifest: {observed_cache}"
+        )
     nb = json.loads(PARENT.read_text(encoding="utf-8"))
     parent_sha = hashlib.sha256(PARENT.read_bytes()).hexdigest()
 
@@ -109,6 +139,70 @@ _d72_watchdog.start()
     validator_index = next(i for i, c in enumerate(nb["cells"])
                            if "_v7_val_pred_cache_hit = False" in "".join(c.get("source", "")))
     validator_source = "".join(nb["cells"][validator_index]["source"])
+    old_cache_gate = '''    _v7_expected_key = os.environ.get("BIOHUB_VAL_PRED_CACHE_KEY", "").strip() or f"{METHOD}|det={DET_THRESHOLD}"
+    _v7_cache_key_path = Path(_V7_CACHE_DIR) / "cache_key.txt"
+    _v7_cached_ok = _v7_cache_key_path.exists() and _v7_cache_key_path.read_text().strip() == _v7_expected_key
+    if _v7_cached_ok:
+        _v7_missing_cached = [s for s in val_stems if not (Path(_V7_CACHE_DIR) / f"{s}.geff").exists()]
+        _v7_cached_ok = not _v7_missing_cached
+        if _v7_missing_cached:
+            print(f"V7: validator cache missing predictions for {_v7_missing_cached[:4]} -- will re-run inference.")'''
+    cache_hashes_literal = repr(CACHE_TREE_SHA256)
+    new_cache_gate = f'''    # diag072: exp065 preserved the eight GEFF trees but did not emit the parent
+    # consumer's optional cache_key.txt. Bind the exact immutable trees instead.
+    import hashlib as _d72_hashlib
+    _D72_CACHE_TREE_SHA256 = {cache_hashes_literal}
+
+    def _d72_tree_sha256(root: Path) -> str:
+        _h = _d72_hashlib.sha256()
+        _files = sorted(p for p in root.rglob("*") if p.is_file())
+        for _p in _files:
+            _rel = _p.relative_to(root).as_posix().encode("utf-8")
+            _data = _p.read_bytes()
+            _h.update(len(_rel).to_bytes(4, "big"))
+            _h.update(_rel)
+            _h.update(len(_data).to_bytes(8, "big"))
+            _h.update(_data)
+        return _h.hexdigest()
+
+    def _d72_copy_verified_tree(source: Path, target: Path, expected_sha256: str) -> None:
+        if target.exists():
+            raise RuntimeError(f"diag073: refusing pre-existing cache destination: {{target}}")
+        _v7_shutil.copytree(source, target)
+        _copied_sha256 = _d72_tree_sha256(target)
+        if _copied_sha256 != expected_sha256:
+            raise RuntimeError(
+                f"diag073: copied cache tree digest mismatch for {{target.name}}: "
+                f"observed={{_copied_sha256}} expected={{expected_sha256}}"
+            )
+
+    _v7_missing_cached = [s for s in val_stems if not (Path(_V7_CACHE_DIR) / f"{{s}}.geff").is_dir()]
+    _v7_cache_hashes = {{s: _d72_tree_sha256(Path(_V7_CACHE_DIR) / f"{{s}}.geff")
+                        for s in val_stems if s not in _v7_missing_cached}}
+    _v7_hash_mismatches = {{s: (_v7_cache_hashes.get(s), _D72_CACHE_TREE_SHA256.get(s))
+                            for s in val_stems
+                            if _v7_cache_hashes.get(s) != _D72_CACHE_TREE_SHA256.get(s)}}
+    _v7_cached_ok = not _v7_missing_cached and not _v7_hash_mismatches
+    if _v7_missing_cached:
+        print(f"diag072: validator cache missing GEFF trees for {{_v7_missing_cached}}")
+    if _v7_hash_mismatches:
+        print(f"diag072: validator cache hash mismatch {{_v7_hash_mismatches}}")'''
+    validator_source = replace_once(
+        validator_source, old_cache_gate, new_cache_gate, "immutable cache manifest gate"
+    )
+    validator_source = replace_once(
+        validator_source,
+        '_v7_shutil.copy2(Path(_V7_CACHE_DIR) / f"{_v7_s}.geff", _v7_target)',
+        '_d72_copy_verified_tree(Path(_V7_CACHE_DIR) / f"{_v7_s}.geff", _v7_target,\n'
+        '                                  _D72_CACHE_TREE_SHA256[_v7_s])',
+        "GEFF directory copy",
+    )
+    validator_source = replace_once(
+        validator_source,
+        'f"(key {_v7_expected_key!r}) -- val inference skipped.")',
+        'f"(immutable eight-tree manifest verified) -- val inference skipped.")',
+        "cache success message",
+    )
     frozen = '''_D72_EXPECTED_STEMS = {"44b6_12dfb391", "44b6_267148e4", "44b6_2a2eff9f", "44b6_341df25f", "6bba_062c8d37", "6bba_07e24132", "6bba_085bf656", "6bba_09961292"}
 assert set(val_stems) == _D72_EXPECTED_STEMS, (val_stems, _D72_EXPECTED_STEMS)
 assert sum(s.startswith("44b6_") for s in val_stems) == 4
@@ -206,7 +300,7 @@ print("diag072: primary raw receipt written; no confirmatory arm and no selectio
         compile("".join(cell.get("source", "")), f"<cell{i}>", "exec")
 
     OUT.mkdir(parents=True, exist_ok=True)
-    notebook = OUT / "biohub-diag072-fork-protected-stage0.ipynb"
+    notebook = OUT / "biohub-diag073-fork-protected-cache-repair.ipynb"
     notebook.write_text(json.dumps(nb, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
     metadata = {
         "id": KERNEL,
@@ -231,13 +325,17 @@ print("diag072: primary raw receipt written; no confirmatory arm and no selectio
     }
     (OUT / "kernel-metadata.json").write_text(json.dumps(metadata, indent=2) + "\n", encoding="utf-8")
     manifest = {
+        "experiment_id": "diag_073_fork_protected_cache_repair",
+        "failed_predecessor": "diag_072_fork_protected_ep015_stage0",
         "parent": str(PARENT.relative_to(ROOT)).replace("\\", "/"),
         "parent_sha256": parent_sha,
         "notebook_sha256": hashlib.sha256(notebook.read_bytes()).hexdigest(),
         "adjudicator_sha256": hashlib.sha256((ROOT / "scripts/adjudicate_diag072.py").read_bytes()).hexdigest(),
+        "cache_tree_sha256": CACHE_TREE_SHA256,
         "primary": "fork_protected_ep015",
         "gpu_cap_hours": 1.0,
         "lb_submissions": 0,
+        "changed_notebook_cells_vs_diag072": [7],
     }
     (OUT.parent / "build_manifest.json").write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8")
     print(json.dumps(manifest, indent=2))

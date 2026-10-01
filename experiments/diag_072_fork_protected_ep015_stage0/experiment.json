@@ -2,7 +2,7 @@
   "id": "diag_072_fork_protected_ep015_stage0",
   "experiment_id": "diag_072_fork_protected_ep015_stage0",
   "tier": "C",
-  "state": "RUNNING",
+  "state": "REMOTE_FAILED",
   "consensus_status": "CONSENSUS",
   "authorization_reopened": "On 2026-09-28 the user explicitly instructed Codex to push this fork-protected diagnostic to Kaggle after being told admission was blocked. This reopens admission and authorizes one bounded diagnostic launch, but no LB submission. New evidence is the recovered immutable exp065 raw prediction cache and all eight exact GT graphs; this tests fork protection rather than retrying the closed flat edge-floor policy.",
   "snapshot_config": "experiments/diag_072_fork_protected_ep015_stage0/snapshot/config.yaml",
@@ -15,7 +15,9 @@
   "validation": "Eight frozen held-out TRAIN stems from exp065 using its raw prediction cache and official scorer. Raw receipt only during the run; deterministic post-collection gate seals PASS/FAIL before any confirmatory work.",
   "budget": {
     "gpu_cap_hours": 1.0,
-    "leaderboard_submissions": 0
+    "leaderboard_submissions": 0,
+    "reserved": false,
+    "consumed_gpu_hours": 0.325037
   },
   "stop_rule": "Stop without another run or submission on runtime failure, cache miss, parity failure, any pre-registered scientific gate failure, or elapsed GPU time above 1.0 h.",
   "rollback": "No baseline or production artifact is modified. Retain exp064 and delete nothing.",
@@ -49,9 +51,23 @@
     "kernel_version": 1,
     "url": "https://www.kaggle.com/code/lingxd/biohub-diag072-fork-protected-stage0",
     "pushed_at": "2026-09-28T04:23:03.4328233Z",
-    "leaderboard_submission_authorized": false
+    "leaderboard_submission_authorized": false,
+    "status": "ERROR",
+    "last_checked_at": "2026-09-28T13:58:30+00:00"
   },
-  "updated_at": "2026-09-28T04:23:03.4328233Z",
+  "terminal_result": {
+    "verdict": "FAIL",
+    "failure_class": "CACHE_CONTRACT_MISS",
+    "detail": "The exact eight held-out stems were selected, but the mounted exp065 cache failed the frozen key/stem contract. The fail-closed assertion prohibited fallback inference.",
+    "primary_receipt_present": false,
+    "adjudicator_run": false,
+    "leaderboard_submission_authorized": false,
+    "leaderboard_submission_made": false,
+    "log": "experiments/diag_072_fork_protected_ep015_stage0/artifacts/biohub-diag072-fork-protected-stage0.log",
+    "runtime_seconds_approx": 1170.133,
+    "gpu_hours_approx": 0.325037
+  },
+  "updated_at": "2026-09-28T14:00:21.9908109Z",
   "state_history": [
     {
       "from": "PROPOSED",
@@ -70,6 +86,12 @@
       "to": "RUNNING",
       "at": "2026-09-28T04:23:03.4328233Z",
       "note": "Kaggle kernel version 1 pushed after smoke PASS, consensus, independent Codex admission PASS, immutable hash verification, and 1.0 GPU-hour reservation. No leaderboard submission authorized."
+    },
+    {
+      "from": "RUNNING",
+      "to": "REMOTE_FAILED",
+      "at": "2026-09-28T13:58:30+00:00",
+      "note": "Kaggle reported an error state"
     }
   ]
 }

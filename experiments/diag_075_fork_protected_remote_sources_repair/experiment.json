@@ -1,0 +1,33 @@
+{
+  "schema_version": 1,
+  "experiment_id": "diag_075_fork_protected_remote_sources_repair",
+  "parent": "diag_073_fork_protected_cache_repair",
+  "state": "PROPOSED",
+  "hypothesis": "The unchanged fork-protected diagnostic will reach its cache and scientific gates when every required Kaggle input and the pinned runtime image are declared in the tracked config used to generate remote metadata.",
+  "change": {
+    "component": "kaggle_remote_metadata_transport",
+    "exact": "Pin the four model datasets, competition source, exp065 kernel-output source, and original Docker image in tracked config. The notebook, adjudicator, cache hashes, held-out stems, threshold, scientific policy, and decision gates are byte-identical to diag073."
+  },
+  "signature": "6718925c9a6e2ed520075b657cb03c38dde8808640724561bfecdbe71d999cf2",
+  "config": "configs/diag_075_fork_protected_remote_sources_repair.yaml",
+  "snapshot_config": "experiments/diag_075_fork_protected_remote_sources_repair/snapshot/config.yaml",
+  "snapshot_source": "experiments/diag_075_fork_protected_remote_sources_repair/snapshot/source/biohub-diag073-fork-protected-cache-repair.ipynb",
+  "snapshot_manifest": "experiments/diag_075_fork_protected_remote_sources_repair/snapshot/manifest.json",
+  "git_commit": "b3cffe55c516ecb63b0694ec5c7dce47fef4f47f",
+  "validation_protocol": "diag072_primary_only_v1_unchanged",
+  "budget": {
+    "expected_gpu_hours": 1.0,
+    "reserved": false
+  },
+  "review": {
+    "required": true,
+    "provider": "codex",
+    "status": "PENDING"
+  },
+  "smoke_test": {
+    "status": "PENDING"
+  },
+  "created_at": "2026-09-28T16:19:21+00:00",
+  "updated_at": "2026-09-28T16:19:21+00:00",
+  "state_history": []
+}

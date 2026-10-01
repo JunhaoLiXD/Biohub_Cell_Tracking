@@ -1,0 +1,60 @@
+schema_version: 1
+experiment_id: diag_082_fork_protected_path_annotation_fix
+tier: B
+workflow:
+  risk_tier: B
+parent: diag_078_fork_protected_namespaced_cache
+source_notebook: .private/current/biohub-diag078-namespaced-cache-mount.ipynb
+hypothesis: The unchanged fork-protected diagnostic reaches and validates the namespaced exp065 cache after correcting the preflight helper's unresolved Path type annotation.
+change:
+  component: preflight_type_annotation_binding
+  exact: >-
+    Change only the duplicated cell-0 helper annotation from root: Path to
+    root: _D77Path, matching the existing aliased import. Strengthen smoke to
+    assert the AST binding. Cache path, eight hashes, scientific policy,
+    held-out stems, scorer, threshold, adjudicator, and runtime cap are unchanged.
+validation:
+  protocol: diag072_primary_only_v1_unchanged
+  primary_metric: diag072_primary_raw_receipt
+  evidence: diag078 failed in cell 0 after about ten seconds with NameError before cache access; traceback points exactly to the unresolved annotation. This successor fixes only that fail-fast transport defect.
+admission:
+  require_codex_review: true
+  reviewer_provider: codex
+local:
+  smoke_test:
+  - '{python}'
+  - scripts/smoke_diag077.py
+  - '{source_notebook}'
+budget:
+  tier: 1
+  expected_gpu_hours: 1.0
+success:
+  minimum_improvement: 0.0015
+  regression_threshold: 0.0
+leaderboard:
+  authorized: false
+  max_submissions: 0
+kaggle:
+  owner: lingxd
+  slug: biohub-diag082-path-annotation-fix
+  title: biohub-diag082-path-annotation-fix
+  accelerator: NvidiaTeslaT4
+  enable_gpu: true
+  enable_internet: false
+  is_private: true
+  dataset_sources:
+  - pilkwang/biohub-deepcenter-unet3d-center-prior-v1
+  - pilkwang/biohub-temporal-unet3d-seed314159-v1
+  - pilkwang/biohub-tracking-support-pack-50ep-v1
+  - anvithpothula/biohub-v1284-head-s075
+  competition_sources:
+  - biohub-cell-tracking-during-development
+  kernel_sources:
+  - lingxd/biohub-exp065-pruning-sweep
+  required_dataset_sources: 4
+  docker_image: gcr.io/kaggle-private-byod/python@sha256:37c64f7dd9c54116ecd1bcc88817c5469b88387388fade02bfa8bf3fc647d461
+  extra_files:
+  - scripts/adjudicate_diag072.py
+  - scripts/build_diag077_namespaced_cache_mount.py
+  - scripts/smoke_diag077.py
+stop_rule: Stop before TEST inference on mount/hash mismatch, or later on cache copy, parity, runtime, scientific gate, or one-hour budget failure. No fallback inference, automatic retry, confirmatory computation, or LB submission.

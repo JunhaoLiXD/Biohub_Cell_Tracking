@@ -1,7 +1,0 @@
-[2026-09-27T04:28:42+00:00] command=["E:\\Project\\Biohub_CellTracking\\.venv\\Scripts\\kaggle.EXE", "kernels", "status", "lingxd/biohub-exp068-ep015"]
-exit_code=0
-STDOUT
-lingxd/biohub-exp068-ep015 has status "KernelWorkerStatus.COMPLETE"
-
-STDERR
-
